@@ -11,9 +11,18 @@ namespace GameStore.DAL.EF
 {
     public class EFContext : DbContext, IContext
     {
+        public EFContext(String connectionString)
+            : base(connectionString)
+        {
+            Database.SetInitializer(new EFContextInitializer());
+        }
+
         public IDbSet<Comment> Comments { get; set; }
+
         public IDbSet<Game> Games { get; set; }
+
         public IDbSet<Genre> Genres { get; set; }
+
         public IDbSet<PlatformType> PlatformTypes { get; set; }
 
         public new IDbSet<T> Set<T>() where T : class
@@ -24,11 +33,6 @@ namespace GameStore.DAL.EF
         public void SetModified<T>(T item) where T : class
         {
             Entry(item).State = EntityState.Modified;
-        }
-
-        public EFContext(String connectionString) : base(connectionString)
-        {
-            Database.SetInitializer(new EFContextInitializer());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -48,19 +52,19 @@ namespace GameStore.DAL.EF
         {
             this.context = context;
 
-            //unique indexes
+            // unique indexes
             CreateIndex("Key", typeof(Game));
             CreateIndex("Name", typeof(Genre));
             CreateIndex("Name", typeof(PlatformType));
 
-            //Data
+            // Data
             context.Genres.Add(new Genre
             {
                 Name = "Strategy",
                 ChildGenres = new[]
                 {
-                    new Genre {Name = "RTS"},
-                    new Genre {Name = "TBS"}
+                    new Genre { Name = "RTS" },
+                    new Genre { Name = "TBS" }
                 }
             });
             context.Genres.Add(new Genre
@@ -68,10 +72,10 @@ namespace GameStore.DAL.EF
                 Name = "Races",
                 ChildGenres = new[]
                 {
-                    new Genre {Name="Rally"},
-                    new Genre {Name="Arcade"},
-                    new Genre {Name="Formula"},
-                    new Genre {Name="Off-road"}
+                    new Genre { Name = "Rally" },
+                    new Genre { Name = "Arcade" },
+                    new Genre { Name = "Formula" },
+                    new Genre { Name = "Off-road" }
                 }
             });
             context.Genres.Add(new Genre { Name = "RPG" });
@@ -79,8 +83,7 @@ namespace GameStore.DAL.EF
             context.Genres.Add(new Genre { Name = "Action" });
             context.Genres.Add(new Genre { Name = "Adventure" });
             context.Genres.Add(new Genre { Name = "Puzzle&Skill" });
-            var moba = context.Genres.Add(new Genre {Name = "MOBA"});
-
+            var moba = context.Genres.Add(new Genre { Name = "MOBA" });
 
             context.PlatformTypes.Add(new PlatformType { Name = "Mobile" });
             context.PlatformTypes.Add(new PlatformType { Name = "Browser" });
@@ -91,9 +94,9 @@ namespace GameStore.DAL.EF
             {
                 Name = "Dota 2",
                 Description = "Just try it",
-                Genres = new[] {moba},
+                Genres = new[] { moba },
                 Key = "dota-2",
-                PlatformTypes = new[] {desktop}
+                PlatformTypes = new[] { desktop }
             });
 
             context.Comments.Add(new Comment
@@ -103,10 +106,9 @@ namespace GameStore.DAL.EF
                 Body = "Trully amazing one",
                 ChildComments = new[]
                 {
-                    new Comment() {Name = "SecondAuthor", Game = dota, Body = "Can't disagree"}
+                    new Comment() { Name = "SecondAuthor", Game = dota, Body = "Can't disagree" }
                 }
             });
-
 
             context.SaveChanges();
         }

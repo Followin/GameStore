@@ -12,11 +12,17 @@ namespace GameStore.DAL.Abstract
     public interface IContext : IDisposable
     {
         IDbSet<Comment> Comments { get; }
+
         IDbSet<Game> Games { get; }
-        IDbSet<Genre> Genres { get;}
+
+        IDbSet<Genre> Genres { get; }
+
         IDbSet<PlatformType> PlatformTypes { get; }
+
         IDbSet<T> Set<T>() where T : class;
+
         void SetModified<T>(T item) where T : class;
+
         Int32 SaveChanges();
     }
 }

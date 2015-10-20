@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GameStore.DAL.Abstract;
-using GameStore.DAL.EF;
-using GameStore.Domain.Entities;
 using GameStore.Domain.Abstract;
-using GameStore.Domain.Abstract.Entities;
+using GameStore.Domain.Entities;
 
 namespace GameStore.DAL.Repositories
 {
@@ -23,6 +17,7 @@ namespace GameStore.DAL.Repositories
         {
             this.db = db;
         }
+
         public IRepository<Comment, int> Comments
         {
             get
@@ -46,7 +41,6 @@ namespace GameStore.DAL.Repositories
                 return genres ?? (genres = new GenericRepository<Genre>(db));
             }
         }
-
 
         public IRepository<PlatformType, int> PlatformTypes
         {

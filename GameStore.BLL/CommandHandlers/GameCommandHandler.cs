@@ -16,7 +16,6 @@ namespace GameStore.BLL.CommandHandlers
         ICommandHandler<DeleteGameCommand>,
         ICommandHandler<EditGameCommand>
     {
-
         private IGameStoreUnitOfWork db;
         private ILogger logger;
 
@@ -25,6 +24,7 @@ namespace GameStore.BLL.CommandHandlers
             this.db = db;
             this.logger = logger;
         }
+
         public void Execute(CreateGameCommand command)
         {
             command.Name.Argument("Name")
@@ -39,8 +39,10 @@ namespace GameStore.BLL.CommandHandlers
             command.GenreIds.Argument("GenreIds")
                             .NotNull()
                             .NotEmpty();
-            if(!command.GenreIds.All(x => x > 0))
+            if (!command.GenreIds.All(x => x > 0))
+            {
                 throw new ArgumentOutOfRangeException("Ids", "GenreIds must have only greater than zero numbers");
+            }
 
             command.PlatformTypeIds.Argument("PlatformTypeIds")
                                    .NotNull()
@@ -49,9 +51,9 @@ namespace GameStore.BLL.CommandHandlers
                                        "PlatformTypeIds must have only greater than zero numbers");
 
             if (db.Games.GetSingle(_ => _.Key == command.Key) != null)
+            {
                 throw new ArgumentException("There is game with such key in db. Key must be unique.", "Key");
-
-
+            }
 
             var game = Mapper.Map<Game>(command);
 
@@ -59,8 +61,11 @@ namespace GameStore.BLL.CommandHandlers
             {
                 var genre = db.Genres.Get(g);
                 if (genre == null)
+                {
                     throw new ArgumentException(String.Format("Genre not found. Id: {0}", g),
                         "GenreIds");
+                }
+
                 return genre;
             }).ToList();
 
@@ -68,11 +73,13 @@ namespace GameStore.BLL.CommandHandlers
             {
                 var platformType = db.PlatformTypes.Get(p);
                 if (platformType == null)
+                {
                     throw new ArgumentException(String.Format("PlatformType not found. Id: {0}", p),
                         "PlatformTypeIds");
+                }
+
                 return platformType;
             }).ToList();
-
 
             db.Games.Add(game);
             db.Save();
@@ -88,14 +95,14 @@ namespace GameStore.BLL.CommandHandlers
 
             var game = db.Games.GetSingle(g => g.Key == command.Key);
 
-            if(game == null)
+            if (game == null)
+            {
                 throw new ArgumentOutOfRangeException("Key", "Game not found");
-
+            }
 
             game.EntryState = EntryState.Deleted;
             db.Games.Update(game);
             db.Save();
-
         }
 
         public void Execute(EditGameCommand command)
@@ -118,7 +125,9 @@ namespace GameStore.BLL.CommandHandlers
                             .NotNull()
                             .NotEmpty();
             if (!command.GenreIds.All(x => x > 0))
+            {
                 throw new ArgumentOutOfRangeException("Ids", "GenreIds must have only greater than zero numbers");
+            }
                             
             command.PlatformTypeIds.Argument("PlatformTypeIds")
                                    .NotNull()
@@ -127,18 +136,26 @@ namespace GameStore.BLL.CommandHandlers
                                        "PlatformTypeIds must have only greater than zero numbers");
 
             var game = db.Games.Get(command.Id);
-            if(game == null)
+            if (game == null)
+            {
                 throw new ArgumentOutOfRangeException("Id", "Game not found");
+            }
+
             if (command.Key != game.Key && db.Games.GetSingle(_ => _.Key == command.Key) != null)
+            {
                 throw new ArgumentException("Game with such key already exists", "Key");
+            }
 
             Mapper.Map(command, game);
             game.Genres = command.GenreIds.Select(g =>
             {
                 var genre = db.Genres.Get(g);
                 if (genre == null)
+                {
                     throw new ArgumentException(String.Format("Genre not found. Id: {0}", g),
                         "GenreIds");
+                }
+
                 return genre;
             }).ToList();
 
@@ -146,8 +163,11 @@ namespace GameStore.BLL.CommandHandlers
             {
                 var platformType = db.PlatformTypes.Get(p);
                 if (platformType == null)
+                {
                     throw new ArgumentException(String.Format("PlatformType not found. Id: {0}", p),
                         "PlatformTypeIds");
+                }
+
                 return platformType;
             }).ToList();
 

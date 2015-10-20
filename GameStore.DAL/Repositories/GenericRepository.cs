@@ -20,7 +20,6 @@ namespace GameStore.DAL.Repositories
             set = db.Set<T>();
         }
 
-
         public T GetSingle(Expression<Func<T, bool>> predicate)
         {
             return set.FirstOrDefault(predicate);
@@ -35,7 +34,9 @@ namespace GameStore.DAL.Repositories
         {
             var item = set.Find(id);
             if (item != null)
+            {
                 set.Remove(item);
+            }
         }
 
         public IEnumerable<T> Get()
@@ -56,7 +57,6 @@ namespace GameStore.DAL.Repositories
         public void Update(T item)
         {
             db.SetModified(item);
-            
         }
     }
 }

@@ -11,12 +11,17 @@ namespace GameStore.Domain.Abstract
     public interface IRepository<TEntity, in TKey> where TEntity : Entity<TKey>
     {
         TEntity Get(TKey id);
+
         IEnumerable<TEntity> Get();
+
         IEnumerable<TEntity> Get(Expression<Func<TEntity, Boolean>> predicate);
+
         TEntity GetSingle(Expression<Func<TEntity, Boolean>> predicate);
+
         void Add(TEntity item);
+
         void Delete(TKey id);
+
         void Update(TEntity item);
-        
     }
 }

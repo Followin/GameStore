@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using GameStore.BLL.CommandHandlers;
 using GameStore.BLL.Commands;
 using GameStore.BLL.Queries;
@@ -600,54 +601,54 @@ namespace GameStore.Tests.BLLTests
         #region Delete_Tests
 
         [TestMethod]
-        public void Delete_Game_Id_Argument_Is_Zero()
+        public void Delete_Game_Key_Argument_Is_Null()
         {
             //Arrange
-            var deleteGameCommand = new DeleteGameCommand {Id = 0};
+            var deleteGameCommand = new DeleteGameCommand {Key = null};
 
             //Act
-            var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+            var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
                 commandHandler.Execute(deleteGameCommand));
 
             //Assert
-            gameRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Never());
-            Assert.AreEqual("Id", result.ParamName);
+            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            Assert.AreEqual("Key", result.ParamName);
         }
 
         [TestMethod]
-        public void Delete_Game_Id_Argument_Lower_Than_Zero()
+        public void Delete_Game_Key_Argument_Is_Empty()
         {
             //Arrange
-            var deleteGameCommand = new DeleteGameCommand {Id = -1};
+            var deleteGameCommand = new DeleteGameCommand {Key=""};
 
             //Act
-            var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+            var result = ExceptionAssert.Throws<ArgumentException>(() =>
                 commandHandler.Execute(deleteGameCommand));
 
             //Assert
-            gameRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Never());
-            Assert.AreEqual("Id", result.ParamName);
+            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            Assert.AreEqual("Key", result.ParamName);
         }
 
         [TestMethod]
-        public void Delete_Game_Id_Argument_Doesnt_Match_Exising_Game()
+        public void Delete_Game_Key_Argument_Doesnt_Match_Exising_Game()
         {
             //Arrange
-            var deleteGameCommand = new DeleteGameCommand() {Id = 5};
+            var deleteGameCommand = new DeleteGameCommand() {Key = "not-existing-game"};
 
             //Act
-            var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+            var result = ExceptionAssert.Throws<ArgumentException>(() =>
                 commandHandler.Execute(deleteGameCommand));
 
             //Assert
-            Assert.AreEqual("Id", result.ParamName);
+            Assert.AreEqual("Key", result.ParamName);
         }
 
         [TestMethod]
         public void Delete_Game_With_Right_Data()
         {
             //Arrange
-            var deleteGameCommand = new DeleteGameCommand {Id = 1};
+            var deleteGameCommand = new DeleteGameCommand {Key = "dota-2"};
 
             //Act
             commandHandler.Execute(deleteGameCommand);

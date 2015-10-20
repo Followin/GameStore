@@ -82,13 +82,14 @@ namespace GameStore.BLL.CommandHandlers
         {
             command.Argument("command")
                    .NotNull();
-            command.Id.Argument("Id")
-                      .GreaterThan(0);
+            command.Key.Argument("Key")
+                   .NotNull()
+                   .NotWhiteSpace();
 
-            var game = db.Games.Get(command.Id);
+            var game = db.Games.GetSingle(g => g.Key == command.Key);
 
             if(game == null)
-                throw new ArgumentOutOfRangeException("Id", "Game not found");
+                throw new ArgumentOutOfRangeException("Key", "Game not found");
 
 
             game.EntryState = EntryState.Deleted;

@@ -127,7 +127,7 @@ namespace GameStore.Tests.PLTests
         [TestMethod]
         public void Delete_Redirect_After()
         {
-            var result = (RedirectToRouteResult) gamesController.Remove(5);
+            var result = (RedirectToRouteResult) gamesController.Remove("game-key");
 
             //Assert
             Assert.AreEqual("Index", result.RouteValues["action"]);

@@ -43,10 +43,11 @@ namespace GameStore.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        
         [HttpPost]
-        public ActionResult Remove(Int32 id)
+        public ActionResult Remove(String key)
         {
-            CommandDispatcher.Dispatch(new DeleteGameCommand { Id = id});
+            CommandDispatcher.Dispatch(new DeleteGameCommand { Key = key });
             return RedirectToAction("Index");
         }
 

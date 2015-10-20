@@ -9,6 +9,7 @@ namespace GameStore.Web.Models
     public class GenreViewModel
     {
         public Int32 Id { get; set; }
+
         public String Name { get; set; }
     }
 }

@@ -11,15 +11,17 @@ namespace GameStore.Web.Controllers
 {
     public abstract class BaseController : Controller
     {
-        protected ICommandDispatcher CommandDispatcher;
-        protected IQueryDispatcher QueryDispatcher;
-        protected ILogger Logger;
-
         protected BaseController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, ILogger logger)
         {
             CommandDispatcher = commandDispatcher;
             QueryDispatcher = queryDispatcher;
             Logger = logger;
         }
+
+        protected ICommandDispatcher CommandDispatcher { get; private set; }
+
+        protected IQueryDispatcher QueryDispatcher { get; private set; }
+
+        protected ILogger Logger { get; private set; }
     }
 }

@@ -15,12 +15,11 @@ namespace GameStore.BLL.Utils
         {
             this.connectionString = connectionString;
         }
+
         public override void Load()
         {
-            
             Bind<IContext>().To<EFContext>().WithConstructorArgument("connectionString", connectionString);
             Bind<IGameStoreUnitOfWork>().To<GameStoreUnitOfWork>();
-
         }
     }
 }

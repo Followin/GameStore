@@ -32,7 +32,9 @@ namespace GameStore.BLL.QueryHandlers
                  .NotWhiteSpace();
             var game = db.Games.GetSingle(g => g.Key == query.Key);
             if (game == null)
+            {
                 throw new ArgumentException("Game with such key wasn't found", "Key");
+            }
 
             var comments = db.Comments.Get(_ => _.GameId == game.Id && _.ParentComment == null);
             var commentsList = Mapper.Map<IEnumerable<Comment>, IEnumerable<CommentDTO>>(comments);

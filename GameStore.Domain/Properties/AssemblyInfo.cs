@@ -6,13 +6,13 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("GameStore.Domain")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyDescription(String.Empty)]
+[assembly: AssemblyConfiguration(String.Empty)]
 [assembly: AssemblyCompany("EPAM Systems")]
 [assembly: AssemblyProduct("GameStore.Domain")]
 [assembly: AssemblyCopyright("Copyright © EPAM Systems 2015")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+[assembly: AssemblyTrademark(String.Empty)]
+[assembly: AssemblyCulture(String.Empty)]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 

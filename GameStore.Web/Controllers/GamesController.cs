@@ -15,6 +15,10 @@ namespace GameStore.Web.Controllers
 {
     public class GamesController : BaseController
     {
+        public GamesController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, ILogger logger)
+            : base(commandDispatcher, queryDispatcher, logger)
+        {
+        }
 
         public ActionResult Index()
         {
@@ -30,6 +34,7 @@ namespace GameStore.Web.Controllers
             {
                 CommandDispatcher.Dispatch(Mapper.Map<CreateGameCommand>(model));
             }
+
             return RedirectToAction("Index");
         }
 
@@ -40,19 +45,15 @@ namespace GameStore.Web.Controllers
             {
                 CommandDispatcher.Dispatch(Mapper.Map<EditGameCommand>(model));
             }
+
             return RedirectToAction("Index");
         }
-
         
         [HttpPost]
         public ActionResult Remove(String key)
         {
             CommandDispatcher.Dispatch(new DeleteGameCommand { Key = key });
             return RedirectToAction("Index");
-        }
-
-        public GamesController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, ILogger logger) : base(commandDispatcher, queryDispatcher, logger)
-        {
         }
     }
 }

@@ -9,7 +9,7 @@ namespace GameStore.BLL.CQRS
 {
     public class QueryDispatcher : IQueryDispatcher
     {
-        IKernel kernel;
+        private IKernel kernel;
 
         public QueryDispatcher(IKernel kernel)
         {

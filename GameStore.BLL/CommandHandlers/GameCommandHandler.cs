@@ -47,7 +47,8 @@ namespace GameStore.BLL.CommandHandlers
             command.PlatformTypeIds.Argument("PlatformTypeIds")
                                    .NotNull()
                                    .NotEmpty()
-                                   .AllMatch(x => x > 0,
+                                   .AllMatch(
+                                        x => x > 0,
                                        "PlatformTypeIds must have only greater than zero numbers");
 
             if (db.Games.GetSingle(_ => _.Key == command.Key) != null)
@@ -62,8 +63,9 @@ namespace GameStore.BLL.CommandHandlers
                 var genre = db.Genres.Get(g);
                 if (genre == null)
                 {
-                    throw new ArgumentException(String.Format("Genre not found. Id: {0}", g),
-                        "GenreIds");
+                    throw new ArgumentException(
+                        String.Format("Genre not found. Id: {0}", g),
+                                      "GenreIds");
                 }
 
                 return genre;
@@ -74,8 +76,9 @@ namespace GameStore.BLL.CommandHandlers
                 var platformType = db.PlatformTypes.Get(p);
                 if (platformType == null)
                 {
-                    throw new ArgumentException(String.Format("PlatformType not found. Id: {0}", p),
-                        "PlatformTypeIds");
+                    throw new ArgumentException(
+                        String.Format("PlatformType not found. Id: {0}", p),
+                                      "PlatformTypeIds");
                 }
 
                 return platformType;
@@ -132,8 +135,9 @@ namespace GameStore.BLL.CommandHandlers
             command.PlatformTypeIds.Argument("PlatformTypeIds")
                                    .NotNull()
                                    .NotEmpty()
-                                   .AllMatch(x => x > 0,
-                                       "PlatformTypeIds must have only greater than zero numbers");
+                                   .AllMatch(
+                                        x => x > 0,
+                                        "PlatformTypeIds must have only greater than zero numbers");
 
             var game = db.Games.Get(command.Id);
             if (game == null)
@@ -152,8 +156,9 @@ namespace GameStore.BLL.CommandHandlers
                 var genre = db.Genres.Get(g);
                 if (genre == null)
                 {
-                    throw new ArgumentException(String.Format("Genre not found. Id: {0}", g),
-                        "GenreIds");
+                    throw new ArgumentException(
+                        String.Format("Genre not found. Id: {0}", g),
+                                      "GenreIds");
                 }
 
                 return genre;
@@ -164,17 +169,16 @@ namespace GameStore.BLL.CommandHandlers
                 var platformType = db.PlatformTypes.Get(p);
                 if (platformType == null)
                 {
-                    throw new ArgumentException(String.Format("PlatformType not found. Id: {0}", p),
-                        "PlatformTypeIds");
+                    throw new ArgumentException(
+                        String.Format("PlatformType not found. Id: {0}", p),
+                                      "PlatformTypeIds");
                 }
 
                 return platformType;
             }).ToList();
 
-
             db.Games.Update(game);
             db.Save();
-
         }
     }
 }

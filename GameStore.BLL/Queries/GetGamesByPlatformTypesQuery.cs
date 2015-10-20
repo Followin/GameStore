@@ -11,6 +11,7 @@ namespace GameStore.BLL.Queries
     public class GetGamesByPlatformTypesQuery : IQuery
     {
         public Int32[] Ids { get; set; }
+
         public String[] Names { get; set; }
     }
 }

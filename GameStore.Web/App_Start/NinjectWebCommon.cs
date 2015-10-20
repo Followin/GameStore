@@ -8,19 +8,17 @@ namespace GameStore.Web.App_Start
 {
     using System;
     using System.Web;
+    using BLL.CQRS;
     using BLL.Utils;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
     using Ninject;
+    using Ninject.Extensions.Conventions;
     using Ninject.Modules;
     using Ninject.Web.Common;
-    using Ninject.Extensions.Conventions;
-    using BLL.CQRS;
-    using GameStore.BLL.Commands;
-
+    
     public static class NinjectWebCommon 
     {
-        private static readonly Bootstrapper bootstrapper = new Bootstrapper();
+        private static readonly Bootstrapper Bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
@@ -29,7 +27,7 @@ namespace GameStore.Web.App_Start
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
-            bootstrapper.Initialize(CreateKernel);
+            Bootstrapper.Initialize(CreateKernel);
         }
         
         /// <summary>
@@ -37,7 +35,7 @@ namespace GameStore.Web.App_Start
         /// </summary>
         public static void Stop()
         {
-            bootstrapper.ShutDown();
+            Bootstrapper.ShutDown();
         }
         
         /// <summary>

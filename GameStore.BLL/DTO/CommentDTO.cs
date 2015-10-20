@@ -9,7 +9,9 @@ namespace GameStore.BLL.DTO
     public class CommentDTO : EntityDTO<Int32>
     {
         public String Name { get; set; }
+
         public String Body { get; set; }
+
         public IEnumerable<CommentDTO> ChildComments { get; set; } 
     }
 }

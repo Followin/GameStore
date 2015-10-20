@@ -17,7 +17,8 @@ using Moq;
 namespace GameStore.Tests.DALTests
 {
     public class TestClass : Entity<Int32>
-    { }
+    {
+    }
 
     [TestClass]
     public class RepositoryTests 
@@ -29,8 +30,7 @@ namespace GameStore.Tests.DALTests
             
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
-        {
-            
+        { 
         }
 
         [TestInitialize]
@@ -39,128 +39,119 @@ namespace GameStore.Tests.DALTests
             dbContext = new Mock<IContext>();
             testClassSetMock = new Mock<IDbSet<TestClass>>();
             testClassSetMock.Setup(x => x.Find(It.IsAny<Int32>())).Returns(
-                (Object[] i) => new TestClass { Id = (Int32)i[0]});
+                (Object[] i) => new TestClass { Id = (Int32)i[0] });
             dbContext.Setup(x => x.Set<TestClass>()).Returns(testClassSetMock.Object);
             testGenericRepository = new GenericRepository<TestClass>(dbContext.Object);
             unitOfWork = new GameStoreUnitOfWork(dbContext.Object);
         }
 
-        
-
         [TestMethod]
         public void Add_Calls_Add_Method_On_Context()
         {
-            //Arrange
+            // Arrange
 
-            //Act
+            // Act
             testGenericRepository.Add(new TestClass());
             
-            //Assert
+            // Assert
             testClassSetMock.Verify(x => x.Add(It.IsAny<TestClass>()), Times.Once);
-
         }
 
         [TestMethod]
         public void Update_Calls_Entry_Method_On_Context()
         {
-            //Arrange
+            // Arrange
 
-            //Act
+            // Act
             testGenericRepository.Update(new TestClass());
 
-            //Assert
+            // Assert
             dbContext.Verify(x => x.SetModified(It.IsAny<TestClass>()), Times.Once);
         }
 
         [TestMethod]
         public void Delete_Calls_Remove_Method_On_Context()
         {
-            //Arrange
+            // Arrange
 
-
-            //Act
+            // Act
             testGenericRepository.Delete(1);
 
-            //Assert
+            // Assert
             testClassSetMock.Verify(x => x.Remove(It.Is<TestClass>(t => t.Id == 1)), Times.Once);
         }
 
         [TestMethod]
         public void Get_With_Id_Parameter_Calls_Find()
         {
-            //Act
+            // Act
             testGenericRepository.Get(1);
 
-            //Assert
+            // Assert
             testClassSetMock.Verify(x => x.Find(It.Is<Int32>(_ => _ == 1)), Times.Once);
         }
-
 
         [TestMethod]
         public void GetSingle_Returns_Item_Matching_Predicate()
         {
-            //Arrange
-            var items = new List<TestClass> {new TestClass {Id = 1}, new TestClass {Id = 2}}.AsQueryable();
+            // Arrange
+            var items = new List<TestClass> { new TestClass { Id = 1 }, new TestClass { Id = 2 } }.AsQueryable();
             testClassSetMock.Setup(x => x.ElementType).Returns(items.ElementType);
             testClassSetMock.Setup(x => x.Expression).Returns(items.Expression);
             testClassSetMock.Setup(x => x.Provider).Returns(items.Provider);
             testClassSetMock.Setup(x => x.GetEnumerator()).Returns(items.GetEnumerator);
 
-            //Act
+            // Act
             var result = testGenericRepository.GetSingle(t => t.Id == 2);
 
-            //Assert
+            // Assert
             Assert.AreEqual(2, result.Id);
         }
 
         [TestMethod]
         public void Get_With_Predicate_Parameter_Returns_Items_Matching_Predicate()
         {
-            var items = new List<TestClass> { new TestClass { Id = 1 }, new TestClass { Id = 1 }, new TestClass { Id = 2} }.AsQueryable();
+            var items = new List<TestClass> { new TestClass { Id = 1 }, new TestClass { Id = 1 }, new TestClass { Id = 2 } }.AsQueryable();
             testClassSetMock.Setup(x => x.ElementType).Returns(items.ElementType);
             testClassSetMock.Setup(x => x.Expression).Returns(items.Expression);
             testClassSetMock.Setup(x => x.Provider).Returns(items.Provider);
             testClassSetMock.Setup(x => x.GetEnumerator()).Returns(items.GetEnumerator);
 
-            //Act
+            // Act
             var result = testGenericRepository.Get(t => t.Id == 1);
 
-            //Assert
+            // Assert
             Assert.AreEqual(2, result.Count());
         }
 
         [TestMethod]
         public void Get_With_No_Parameters_Returns_Whole_Object()
         {
-            //Act
+            // Act
             var result = testGenericRepository.Get();
 
-            //Assert
+            // Assert
             Assert.AreEqual(testClassSetMock.Object, result);
         }
-
 
         [TestMethod]
         public void Save_Method_Calls_Save_Changes_Method_On_Context()
         {
-            //Act
+            // Act
             unitOfWork.Save();
 
-            //Assert
+            // Assert
             dbContext.Verify(x => x.SaveChanges(), Times.Once);
         }
 
         [TestMethod]
         public void Dispose_Method_Calls_Dispose_Method_On_Context()
         {
-            //Act
+            // Act
             unitOfWork.Dispose();
 
-            //Assert
+            // Assert
             dbContext.Verify(x => x.Dispose(), Times.Once);
         }
-        
-        
-
     }
 }

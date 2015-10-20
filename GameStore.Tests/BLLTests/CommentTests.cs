@@ -14,7 +14,6 @@ using NLog;
 
 namespace GameStore.Tests.BLLTests
 {
-
     [TestClass]
     public class CommentTests
     {
@@ -25,7 +24,6 @@ namespace GameStore.Tests.BLLTests
         private CreateCommentCommand createCommentCommand;
         private CommentCommandHandler commandHandler;
         private CommentQueryHandler queryHandler;
-
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
@@ -43,7 +41,7 @@ namespace GameStore.Tests.BLLTests
                 Description = "Just try it",
                 Key = "dota-2"
             };
-            var games = new[] {dota};
+            var games = new[] { dota };
             var innerComment = new Comment
             {
                 Id = 2,
@@ -57,7 +55,7 @@ namespace GameStore.Tests.BLLTests
                 Body = "Outer comment",
                 Game = dota,
                 GameId = dota.Id,
-                ChildComments = new[] {innerComment}
+                ChildComments = new[] { innerComment }
             };
 
             createCommentCommand = new CreateCommentCommand
@@ -69,7 +67,7 @@ namespace GameStore.Tests.BLLTests
 
             innerComment.ParentComment = comment;
             innerComment.ParentCommentId = comment.Id;
-            comments = new[] {comment, innerComment};
+            comments = new[] { comment, innerComment };
 
             gameRepositoryMock = new Mock<IRepository<Game, int>>();
             gameRepositoryMock.Setup(x => x.GetSingle(It.IsAny<Expression<Func<Game, Boolean>>>())).Returns(
@@ -90,22 +88,19 @@ namespace GameStore.Tests.BLLTests
 
             queryHandler = new CommentQueryHandler(unitOfWorkMock.Object, logger);
             commandHandler = new CommentCommandHandler(unitOfWorkMock.Object, logger);
-
-
         }
-
 
         [TestMethod]
         public void Create_Comment_Name_Argument_Is_Null()
         {
-            //Arrange
+            // Arrange
             createCommentCommand.Name = null;
 
-            //Act
+            // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
                 commandHandler.Execute(createCommentCommand));
 
-            //Assert
+            // Assert
             unitOfWorkMock.Verify(x => x.Comments, Times.Never);
             Assert.AreEqual("Name", result.ParamName);
         }
@@ -113,14 +108,14 @@ namespace GameStore.Tests.BLLTests
         [TestMethod]
         public void Create_Comment_Name_Argument_Is_Empty()
         {
-            //Arrange
-            createCommentCommand.Name = "";
+            // Arrange
+            createCommentCommand.Name = String.Empty;
 
-            //Act
+            // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
                 commandHandler.Execute(createCommentCommand));
 
-            //Assert
+            // Assert
             unitOfWorkMock.Verify(x => x.Comments, Times.Never);
             Assert.AreEqual("Name", result.ParamName);
         }
@@ -128,14 +123,14 @@ namespace GameStore.Tests.BLLTests
         [TestMethod]
         public void Create_Comment_Body_Argument_Is_Null()
         {
-            //Arrange
+            // Arrange
             createCommentCommand.Body = null;
 
-            //Act
+            // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
                 commandHandler.Execute(createCommentCommand));
 
-            //Assert
+            // Assert
             unitOfWorkMock.Verify(x => x.Comments, Times.Never);
             Assert.AreEqual("Body", result.ParamName);
         }
@@ -143,14 +138,14 @@ namespace GameStore.Tests.BLLTests
         [TestMethod]
         public void Create_Comment_Body_Argument_Is_Empty()
         {
-            //Arrange
-            createCommentCommand.Body = "";
+            // Arrange
+            createCommentCommand.Body = String.Empty;
 
-            //Act
+            // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
                 commandHandler.Execute(createCommentCommand));
 
-            //Assert
+            // Assert
             unitOfWorkMock.Verify(x => x.Comments, Times.Never);
             Assert.AreEqual("Body", result.ParamName);
         }
@@ -158,15 +153,15 @@ namespace GameStore.Tests.BLLTests
         [TestMethod]
         public void Create_Comment_GameId_And_ParentCommendId_Are_Null()
         {
-            //Arrange
+            // Arrange
             createCommentCommand.GameId = null;
             createCommentCommand.ParentCommentId = null;
 
-            //Act
+            // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
                 commandHandler.Execute(createCommentCommand));
 
-            //Assert
+            // Assert
             unitOfWorkMock.Verify(x => x.Comments, Times.Never);
             Assert.AreEqual("GameId, ParentCommentId", result.ParamName);
         }
@@ -174,14 +169,14 @@ namespace GameStore.Tests.BLLTests
         [TestMethod]
         public void Create_Comment_GameId_Argument_Is_Zero()
         {
-            //Arrange
+            // Arrange
             createCommentCommand.GameId = 0;
             
-            //Act
+            // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
                 commandHandler.Execute(createCommentCommand));
 
-            //Assert
+            // Assert
             unitOfWorkMock.Verify(x => x.Comments, Times.Never);
             unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("GameId", result.ParamName);
@@ -190,14 +185,14 @@ namespace GameStore.Tests.BLLTests
         [TestMethod]
         public void Create_Comment_GameId_Argument_Is_Negative()
         {
-            //Arrange
+            // Arrange
             createCommentCommand.GameId = -1;
 
-            //Act
+            // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
                 commandHandler.Execute(createCommentCommand));
 
-            //Assert
+            // Assert
             unitOfWorkMock.Verify(x => x.Comments, Times.Never);
             unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("GameId", result.ParamName);
@@ -206,15 +201,15 @@ namespace GameStore.Tests.BLLTests
         [TestMethod]
         public void Create_Comment_ParentCommendId_Argument_Is_Zero()
         {
-            //Arrange
+            // Arrange
             createCommentCommand.GameId = null;
             createCommentCommand.ParentCommentId = 0;
 
-            //Act
+            // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
                 commandHandler.Execute(createCommentCommand));
 
-            //Assert
+            // Assert
             unitOfWorkMock.Verify(x => x.Comments, Times.Never);
             unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("ParentCommentId", result.ParamName);
@@ -223,15 +218,15 @@ namespace GameStore.Tests.BLLTests
         [TestMethod]
         public void Create_Comment_ParentCommentId_Argument_Is_Negative()
         {
-            //Arrange
+            // Arrange
             createCommentCommand.GameId = null;
             createCommentCommand.ParentCommentId = -1;
 
-            //Act
+            // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
                 commandHandler.Execute(createCommentCommand));
 
-            //Assert
+            // Assert
             unitOfWorkMock.Verify(x => x.Comments, Times.Never);
             unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("ParentCommentId", result.ParamName);
@@ -240,14 +235,14 @@ namespace GameStore.Tests.BLLTests
         [TestMethod]
         public void Create_Comment_GameId_Doesnt_Match_Existing_Game()
         {
-            //Arrange
+            // Arrange
             createCommentCommand.GameId = 5;
 
-            //Act
+            // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
                 commandHandler.Execute(createCommentCommand));
 
-            //Assert
+            // Assert
             gameRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Once);
             Assert.AreEqual("GameId", result.ParamName);
         }
@@ -255,15 +250,15 @@ namespace GameStore.Tests.BLLTests
         [TestMethod]
         public void Create_Comment_ParentCommentId_Doesnt_Match_Existing_Comment()
         {
-            //Arrange
+            // Arrange
             createCommentCommand.GameId = null;
             createCommentCommand.ParentCommentId = 5;
 
-            //Act
+            // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
                 commandHandler.Execute(createCommentCommand));
 
-            //Assert
+            // Assert
             commentRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Once);
             Assert.AreEqual("ParentCommentId", result.ParamName);
         }
@@ -271,11 +266,11 @@ namespace GameStore.Tests.BLLTests
         [TestMethod]
         public void Create_Comment_Using_GameId()
         {
-            //Arrange
-            //Act
+            // Arrange
+            // Act
             commandHandler.Execute(createCommentCommand);
             
-            //Assert
+            // Assert
             commentRepositoryMock.Verify(x => x.Add(It.IsAny<Comment>()), Times.Once);
             unitOfWorkMock.Verify(x => x.Save(), Times.Once);
         }
@@ -283,14 +278,14 @@ namespace GameStore.Tests.BLLTests
         [TestMethod]
         public void Create_Comment_Using_ParentCommentId()
         {
-            //Arrange
+            // Arrange
             createCommentCommand.GameId = null;
             createCommentCommand.ParentCommentId = 1;
 
-            //Act
+            // Act
             commandHandler.Execute(createCommentCommand);
 
-            //Assert
+            // Assert
             commentRepositoryMock.Verify(x => x.Add(It.IsAny<Comment>()), Times.Once);
             unitOfWorkMock.Verify(x => x.Save(), Times.Once);
         }
@@ -298,31 +293,30 @@ namespace GameStore.Tests.BLLTests
         [TestMethod]
         public void GetCommentsByGameKey_Key_Argument_Is_Null()
         {
-            //Arrange
-            var getCommentsByGameKey = new GetCommentsByGameKeyQuery {Key = null};
+            // Arrange
+            var getCommentsByGameKey = new GetCommentsByGameKeyQuery { Key = null };
 
-            //Act
+            // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
                 queryHandler.Retrieve(getCommentsByGameKey));
 
-            //Assert
+            // Assert
             unitOfWorkMock.Verify(x => x.Comments, Times.Never);
             unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Key", result.ParamName);
-
         }
 
         [TestMethod]
         public void GetCommentsByGameKey_Key_Argument_Is_Empty()
         {
-            //Arrange
-            var getCommentsByGameKey = new GetCommentsByGameKeyQuery { Key = "" };
+            // Arrange
+            var getCommentsByGameKey = new GetCommentsByGameKeyQuery { Key = String.Empty };
 
-            //Act
+            // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
                 queryHandler.Retrieve(getCommentsByGameKey));
 
-            //Assert
+            // Assert
             unitOfWorkMock.Verify(x => x.Comments, Times.Never);
             unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Key", result.ParamName);
@@ -331,14 +325,14 @@ namespace GameStore.Tests.BLLTests
         [TestMethod]
         public void GetCommentsByGameKey_Key_Argument_Doesnt_Match_Existing_Game()
         {
-            //Arrange
+            // Arrange
             var getCommentsByGameKey = new GetCommentsByGameKeyQuery { Key = "notExisingGame" };
 
-            //Act
+            // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
                 queryHandler.Retrieve(getCommentsByGameKey));
 
-            //Assert
+            // Assert
             gameRepositoryMock.Verify(x => x.GetSingle(It.IsAny<Expression<Func<Game, bool>>>()), Times.Once);
             Assert.AreEqual("Key", result.ParamName);
         }
@@ -346,16 +340,14 @@ namespace GameStore.Tests.BLLTests
         [TestMethod]
         public void GetCommentsByGameKey_Right_Data()
         {
-            //Arrange
-            var getCommentsByGameKey = new GetCommentsByGameKeyQuery {Key = "dota-2"};
+            // Arrange
+            var getCommentsByGameKey = new GetCommentsByGameKeyQuery { Key = "dota-2" };
 
-            //Act
+            // Act
             var result = queryHandler.Retrieve(getCommentsByGameKey);
 
-            //Assert
+            // Assert
             Assert.AreEqual(1, result.Count());
         }
-
-        
     }
 }

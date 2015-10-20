@@ -8,6 +8,5 @@ namespace GameStore.BLL.CQRS
 {
     public interface IQueryResult
     {
-
     }
 }

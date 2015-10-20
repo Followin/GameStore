@@ -12,11 +12,12 @@ namespace GameStore.Web.Filters
     {
         private Logger logger;
         
-
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             logger = LogManager.GetLogger(filterContext.Controller.GetType().FullName);
-            var eventInfo = new LogEventInfo(LogLevel.Info, logger.Name, 
+            var eventInfo = new LogEventInfo(
+                LogLevel.Info,
+                logger.Name, 
                 filterContext.Controller.GetType().Name + "." + filterContext.ActionDescriptor.ActionName);
             logger.Log(eventInfo);
         }

@@ -15,10 +15,11 @@ namespace GameStore.Tests.Utils
             {
                 return ex;
             }
+
             Assert.Fail("Exception of type {0} should be thrown.", typeof(T));
 
-            //  The compiler doesn't know that Assert.Fail
-            //  will always throw an exception
+            // The compiler doesn't know that Assert.Fail
+            // will always throw an exception
             return null;
         }
     }

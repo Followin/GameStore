@@ -53,13 +53,15 @@ namespace GameStore.Web.Models
     public class DisplayGameViewModel
     {
         public Int32 Id { get; set; }
+
         public String Name { get; set; }
+
         public String Key { get; set; }
+
         public String Description { get; set; }
+
         public IEnumerable<GenreViewModel> Genres { get; set; }
+
         public IEnumerable<PlatformTypeViewModel> PlatformTypes { get; set; }
     }
-
-
-    
 }

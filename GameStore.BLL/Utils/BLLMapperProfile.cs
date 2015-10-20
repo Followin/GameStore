@@ -18,7 +18,7 @@ namespace GameStore.BLL.Utils
             Mapper.CreateMap<Game, GameQueryResult>();
             Mapper.CreateMap<Game, GameDTO>();
 
-            //Commands -> Entities
+            // Commands -> Entities
             Mapper.CreateMap<CreateGameCommand, Game>()
                   .ForMember(g => g.Genres, _ => _.Ignore())
                   .ForMember(g => g.PlatformTypes, _ => _.Ignore());
@@ -31,16 +31,11 @@ namespace GameStore.BLL.Utils
                   .ForMember(x => x.GameId, _ => _.Ignore())
                   .ForMember(x => x.ParentCommentId, _ => _.Ignore());
             
-
-            
-
-
-            //Entities -> DTOs
+            // Entities -> DTOs
             Mapper.CreateMap<Comment, CommentDTO>();
             Mapper.CreateMap<Genre, GenreDTO>();
             Mapper.CreateMap<PlatformType, PlatformTypeDTO>();
             Mapper.CreateMap<Game, GameDTO>();
         }
-
     }
 }

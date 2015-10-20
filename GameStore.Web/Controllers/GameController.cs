@@ -11,10 +11,12 @@ using NLog;
 
 namespace GameStore.Web.Controllers
 {
-    
     public class GameController : BaseController
     {
-
+        public GameController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, ILogger logger)
+            : base(commandDispatcher, queryDispatcher, logger)
+        {
+        }
 
         public ActionResult Details(String gamekey)
         {
@@ -34,8 +36,8 @@ namespace GameStore.Web.Controllers
             {
                 var command = Mapper.Map<CreateCommentViewModel, CreateCommentCommand>(model);
                 CommandDispatcher.Dispatch(command);
-                
             }
+
             return RedirectToAction("Index", "Games");
         }
 
@@ -46,8 +48,8 @@ namespace GameStore.Web.Controllers
             {
                 var command = Mapper.Map<CreateCommentViewModel, CreateCommentCommand>(model);
                 CommandDispatcher.Dispatch(command);
-
             }
+
             return RedirectToAction("Index", "Games");
         }
 
@@ -65,12 +67,6 @@ namespace GameStore.Web.Controllers
         public ActionResult Download(String gamekey)
         {
             return new FileContentResult(new byte[0], "application/pdf");
-        }
-
-
-        public GameController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, ILogger logger) 
-            : base(commandDispatcher, queryDispatcher, logger)
-        {
         }
     }
 }

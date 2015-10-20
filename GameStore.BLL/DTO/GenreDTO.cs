@@ -10,6 +10,7 @@ namespace GameStore.BLL.DTO
     public class GenreDTO : EntityDTO<Int32>
     {
         public String Name { get; set; }
+
         public ICollection<Genre> ChildGenres { get; set; } 
     }
 }

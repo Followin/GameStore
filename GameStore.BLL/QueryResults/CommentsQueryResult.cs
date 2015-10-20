@@ -13,6 +13,7 @@ namespace GameStore.BLL.QueryResults
         {
             this.comments = comments;
         }
+
         public IEnumerator<CommentDTO> GetEnumerator()
         {
             return comments.GetEnumerator();

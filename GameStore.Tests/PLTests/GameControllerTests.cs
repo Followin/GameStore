@@ -37,52 +37,54 @@ namespace GameStore.Tests.PLTests
             queryDispatcherMock = new Mock<IQueryDispatcher>();
             commandDispatcherMock = new Mock<ICommandDispatcher>();
             var loggerMock = new Mock<ILogger>();
-            gameController = new GameController(commandDispatcherMock.Object,
-                queryDispatcherMock.Object, loggerMock.Object);
-            gamesController = new GamesController(commandDispatcherMock.Object,
-                queryDispatcherMock.Object, loggerMock.Object);
+            gameController = new GameController(
+                commandDispatcherMock.Object,
+                queryDispatcherMock.Object,
+                loggerMock.Object);
+            gamesController = new GamesController(
+                commandDispatcherMock.Object,
+                queryDispatcherMock.Object,
+                loggerMock.Object);
         }
 
         [TestMethod]
         public void Details_Returns_Model()
         {
-            //Arrange
+            // Arrange
             queryDispatcherMock.Setup(x => x.Dispatch<GetGameByKeyQuery, GameQueryResult>(It.IsAny<GetGameByKeyQuery>()))
-                           .Returns(new GameQueryResult {Id = 1, Name = "SomeName"});
+                           .Returns(new GameQueryResult { Id = 1, Name = "SomeName" });
 
-            //Act
+            // Act
             var result = gameController.Details("someKey") as JsonResult;
 
-            //Assert
+            // Assert
             Assert.AreEqual("SomeName", ((DisplayGameViewModel)result.Data).Name);
         }
-
 
         [TestMethod]
         public void CreateComment_Redirects_After()
         {
-            //Arrange
+            // Arrange
             
-            //Act
+            // Act
             var result =
-                gameController.CreateComment(new CreateCommentViewModel {Body = "body", GameId = 1, Name = "name"}) as RedirectToRouteResult;
+                gameController.CreateComment(new CreateCommentViewModel { Body = "body", GameId = 1, Name = "name" }) as RedirectToRouteResult;
 
-            //Assert
+            // Assert
             Assert.AreEqual("Index", result.RouteValues["action"]);
             Assert.AreEqual("Games", result.RouteValues["controller"]);
-
         }
 
         [TestMethod]
         public void CreateComment_With_2_Args_Redirects_After()
         {
-            //Arrange
+            // Arrange
 
-            //Act
+            // Act
             var result =
                 gameController.CreateComment("somekey", new CreateCommentViewModel { Body = "body", GameId = 1, Name = "name" }) as RedirectToRouteResult;
 
-            //Assert
+            // Assert
             Assert.AreEqual("Index", result.RouteValues["action"]);
             Assert.AreEqual("Games", result.RouteValues["controller"]);
         }
@@ -90,20 +92,19 @@ namespace GameStore.Tests.PLTests
         [TestMethod]
         public void CreateGame_Redirects_After()
         {
-            //Arrange
+            // Arrange
 
-            //Act
-            
+            // Act
             var result = (RedirectToRouteResult)gamesController.Create(new CreateGameViewModel
             {
                 Description = "New game description",
-                GenreIds = new[] {1, 2},
+                GenreIds = new[] { 1, 2 },
                 Key = "new-game",
                 Name = "New game",
-                PlatformTypeIds = new[] {1, 3}
+                PlatformTypeIds = new[] { 1, 3 }
             });
 
-            //Assert
+            // Assert
             Assert.AreEqual("Index", result.RouteValues["action"]);
         }
 
@@ -120,20 +121,17 @@ namespace GameStore.Tests.PLTests
                 PlatformTypeIds = new[] { 1, 3 }
             });
 
-            //Assert
+            // Assert
             Assert.AreEqual("Index", result.RouteValues["action"]);
         }
 
         [TestMethod]
         public void Delete_Redirect_After()
         {
-            var result = (RedirectToRouteResult) gamesController.Remove("game-key");
+            var result = (RedirectToRouteResult)gamesController.Remove("game-key");
 
-            //Assert
+            // Assert
             Assert.AreEqual("Index", result.RouteValues["action"]);
         }
-
-
-
     }
 }

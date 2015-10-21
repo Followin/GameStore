@@ -12,5 +12,11 @@ namespace GameStore.Domain.Abstract
         IRepository<Comment, Int32> Comments { get; }
 
         IRepository<PlatformType, Int32> PlatformTypes { get; }
+
+        IRepository<Publisher, Int32> Publishers { get; }
+
+        IRepository<OrderDetails, Int32> OrderDetails { get; }
+
+        IRepository<Order, Int32> Orders { get; } 
     }
 }

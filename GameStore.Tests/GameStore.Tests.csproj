@@ -114,7 +114,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\AutoMapperConfiguration.cs" />
     <Compile Include="Utils\ExceptionAssert.cs" />
-    <Compile Include="Utils\ExpressionEqualityComparer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameStore.BLL\GameStore.BLL.csproj">

@@ -25,6 +25,12 @@ namespace GameStore.DAL.EF
 
         public IDbSet<PlatformType> PlatformTypes { get; set; }
 
+        public IDbSet<Publisher> Publishers { get; set; }
+
+        public IDbSet<OrderDetails> OrderDetails { get; set; }
+
+        public IDbSet<Order> Orders { get; set; } 
+
         public new IDbSet<T> Set<T>() where T : class
         {
             return base.Set<T>();
@@ -41,130 +47,21 @@ namespace GameStore.DAL.EF
             modelBuilder.Configurations.Add(new CommentConfiguration());
             modelBuilder.Configurations.Add(new GenreConfiguration());
             modelBuilder.Configurations.Add(new PlatformTypeConfiguration());
+            modelBuilder.Configurations.Add(new PublisherConfiguration());
+            modelBuilder.Configurations.Add(new OrderDetailsConfiguration());
+            modelBuilder.Configurations.Add(new OrderConfiguration());
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 
-    public class EFContextInitializer : DropCreateDatabaseAlways<EFContext>
-    {
-        private EFContext context;
-
-        protected override void Seed(EFContext context)
-        {
-            this.context = context;
-
-            // unique indexes
-            CreateIndex("Key", typeof(Game));
-            CreateIndex("Name", typeof(Genre));
-            CreateIndex("Name", typeof(PlatformType));
-
-            // Data
-            context.Genres.Add(new Genre
-            {
-                Name = "Strategy",
-                ChildGenres = new[]
-                {
-                    new Genre { Name = "RTS" },
-                    new Genre { Name = "TBS" }
-                }
-            });
-            context.Genres.Add(new Genre
-            {
-                Name = "Races",
-                ChildGenres = new[]
-                {
-                    new Genre { Name = "Rally" },
-                    new Genre { Name = "Arcade" },
-                    new Genre { Name = "Formula" },
-                    new Genre { Name = "Off-road" }
-                }
-            });
-            context.Genres.Add(new Genre { Name = "RPG" });
-            context.Genres.Add(new Genre { Name = "Sports" });
-            context.Genres.Add(new Genre { Name = "Action" });
-            context.Genres.Add(new Genre { Name = "Adventure" });
-            context.Genres.Add(new Genre { Name = "Puzzle&Skill" });
-            var moba = context.Genres.Add(new Genre { Name = "MOBA" });
-
-            context.PlatformTypes.Add(new PlatformType { Name = "Mobile" });
-            context.PlatformTypes.Add(new PlatformType { Name = "Browser" });
-            var desktop = context.PlatformTypes.Add(new PlatformType { Name = "Desktop" });
-            context.PlatformTypes.Add(new PlatformType { Name = "Console" });
-
-            var dota = context.Games.Add(new Game
-            {
-                Name = "Dota 2",
-                Description = "Just try it",
-                Genres = new[] { moba },
-                Key = "dota-2",
-                PlatformTypes = new[] { desktop }
-            });
-
-            context.Comments.Add(new Comment
-            {
-                Game = dota,
-                Name = "FirstAuthor",
-                Body = "Trully amazing one",
-                ChildComments = new[]
-                {
-                    new Comment() { Name = "SecondAuthor", Game = dota, Body = "Can't disagree" }
-                }
-            });
-
-            context.SaveChanges();
-        }
-
-        private void CreateIndex(string field, Type table)
-        {
-            var command = String.Format("CREATE UNIQUE INDEX IX_{0} ON [{1}s]([{0}])", field, table.Name);
-            context.Database.ExecuteSqlCommand(command);
-        }
-    }
+    
 
     public class EFContextFactory : IDbContextFactory<EFContext>
     {
         public EFContext Create()
         {
             return new EFContext("DefaultConnection");
-        }
-    }
-
-    public class GameConfiguration : EntityTypeConfiguration<Game>
-    {
-        public GameConfiguration()
-        {
-            Property(x => x.Key).IsRequired()
-                                .HasMaxLength(50);
-            Property(x => x.Name).IsRequired()
-                                 .HasMaxLength(50);
-            Property(x => x.Description).IsRequired();
-        }
-    }
-
-    public class CommentConfiguration : EntityTypeConfiguration<Comment>
-    {
-        public CommentConfiguration()
-        {
-            Property(x => x.Name).IsRequired()
-                                 .HasMaxLength(30);
-            Property(x => x.Body).IsRequired();
-        }
-    }
-
-    public class GenreConfiguration : EntityTypeConfiguration<Genre>
-    {
-        public GenreConfiguration()
-        {
-            Property(x => x.Name).IsRequired()
-                                 .HasMaxLength(50);
-        }
-    }
-
-    public class PlatformTypeConfiguration : EntityTypeConfiguration<PlatformType>
-    {
-        public PlatformTypeConfiguration()
-        {
-            Property(x => x.Name).IsRequired()
-                                 .HasMaxLength(20);
         }
     }
 }

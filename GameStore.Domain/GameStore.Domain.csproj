@@ -51,7 +51,10 @@
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\Genre.cs" />
+    <Compile Include="Entities\Order.cs" />
+    <Compile Include="Entities\OrderDetails.cs" />
     <Compile Include="Entities\PlatformType.cs" />
+    <Compile Include="Entities\Publisher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -12,6 +12,16 @@ namespace GameStore.Domain.Entities
 
         public String Description { get; set; }
 
+        public Double Price { get; set; }
+
+        public Int16 UnitsInStock { get; set; }
+
+        public Boolean Discounted { get; set; }
+
+        public Int32 PublisherId { get; set; }
+
+        public virtual Publisher Publisher { get; set; }
+
         public virtual ICollection<Genre> Genres { get; set; }
 
         public virtual ICollection<PlatformType> PlatformTypes { get; set; } 

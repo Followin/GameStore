@@ -23,5 +23,10 @@
         public T Id { get; set; }
 
         public EntryState EntryState { get; set; }
+
+        protected Entity()
+        {
+            EntryState = EntryState.Active;
+        }
     }
 }

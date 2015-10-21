@@ -19,6 +19,12 @@ namespace GameStore.DAL.Abstract
 
         IDbSet<PlatformType> PlatformTypes { get; }
 
+        IDbSet<Publisher> Publishers { get; }
+
+        IDbSet<OrderDetails> OrderDetails { get; }
+
+        IDbSet<Order> Orders { get; }
+
         IDbSet<T> Set<T>() where T : class;
 
         void SetModified<T>(T item) where T : class;

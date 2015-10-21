@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using GameStore.Domain.Abstract;
+
+namespace GameStore.Domain.Entities
+{
+    public class Order : Entity<Int32>
+    {
+        public DateTime Time { get; set; }
+
+        public virtual ICollection<OrderDetails> OrderDetails { get; set; } 
+    }
+}

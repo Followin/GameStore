@@ -29,5 +29,10 @@ namespace GameStore.BLL.DTO
         public T Id { get; set; }
 
         public EntryState EntryState { get; set; }
+
+        protected EntityDTO()
+        {
+            EntryState = EntryState.Active;
+        }
     }
 }

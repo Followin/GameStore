@@ -48,6 +48,8 @@
   <ItemGroup>
     <Compile Include="Abstract\IContext.cs" />
     <Compile Include="EF\EFContext.cs" />
+    <Compile Include="EF\EFContextConfigurations.cs" />
+    <Compile Include="EF\EFContextInitializer.cs" />
     <Compile Include="Migrations\201510191410026_new.cs" />
     <Compile Include="Migrations\201510191410026_new.Designer.cs">
       <DependentUpon>201510191410026_new.cs</DependentUpon>
@@ -64,6 +66,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201510191410026_new.resx">
       <DependentUpon>201510191410026_new.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

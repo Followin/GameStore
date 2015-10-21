@@ -22,6 +22,7 @@ namespace GameStore.Tests.BLLTests
         private Mock<IRepository<Game, Int32>> gameRepositoryMock;
         private Mock<IRepository<Genre, Int32>> genreRepositoryMock;
         private Mock<IRepository<PlatformType, Int32>> platformTypeRepositoryMock;
+        private Mock<IRepository<Publisher, Int32>> publisherRepositoryMock;
         private Mock<IGameStoreUnitOfWork> unitOfWorkMock;
         private CreateGameCommand newGameRightCommand;
         private EditGameCommand editGameRightCommand;
@@ -82,13 +83,37 @@ namespace GameStore.Tests.BLLTests
             platformTypeRepositoryMock.Setup(x => x.Get(It.IsAny<Expression<Func<PlatformType, Boolean>>>())).Returns(
                 (Expression<Func<PlatformType, Boolean>> predicate) => platformTypes.Where(predicate.Compile()));
 
+            var valve = new Publisher
+            {
+                Id = 1,
+                CompanyName = "Valve",
+                Description = "Greed Gaben's company",
+                HomePage = "http://www.valvesoftware.com/",
+            };
+            var cdProject = new Publisher
+            {
+                Id = 2,
+                CompanyName = "CD Project",
+                Description = "Poland private game developing company",
+                HomePage = "https://www.cdprojekt.com/"
+            };
+            var publishers = new[] { valve, cdProject };
+            publisherRepositoryMock = new Mock<IRepository<Publisher, int>>();
+            publisherRepositoryMock.Setup(x => x.Get()).Returns(publishers);
+            publisherRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
+                (Int32 i) => publishers.FirstOrDefault(p => p.Id == i));
+
             newGameRightCommand = new CreateGameCommand
             {
                 Name = "GTA 5",
                 Description = "5 part",
                 Key = "gta-5",
                 GenreIds = new[] { 1 },
-                PlatformTypeIds = new[] { 1 }
+                PlatformTypeIds = new[] { 1 },
+                Price = 150,
+                UnitsInStock = 20,
+                Discounted = true,
+                PublisherId = 1
             };
 
             editGameRightCommand = new EditGameCommand
@@ -98,7 +123,11 @@ namespace GameStore.Tests.BLLTests
                 Description = "New description",
                 Key = "new-key",
                 GenreIds = new[] { 2 },
-                PlatformTypeIds = new[] { 2 }
+                PlatformTypeIds = new[] { 2 },
+                Price = 100,
+                UnitsInStock = 15,
+                Discounted = false,
+                PublisherId = 2
             };
 
             dota = new Game
@@ -108,7 +137,11 @@ namespace GameStore.Tests.BLLTests
                 Description = "Just try it",
                 Key = "dota-2",
                 Genres = new[] { rts },
-                PlatformTypes = new[] { desktop, web }
+                PlatformTypes = new[] { desktop, web },
+                Publisher = valve,
+                Discontinued = false,
+                UnitsInStock = 50,
+                Price = 100
             };
 
             witcher = new Game
@@ -118,7 +151,11 @@ namespace GameStore.Tests.BLLTests
                 Description = "3d part of trilogy",
                 Key = "witcher-3",
                 Genres = new[] { strategy },
-                PlatformTypes = new[] { desktop }
+                PlatformTypes = new[] { desktop },
+                Publisher = cdProject,
+                Discontinued = false,
+                UnitsInStock = 50,
+                Price = 100
             };
             games = new[] { dota, witcher };
             gameRepositoryMock = new Mock<IRepository<Game, int>>();
@@ -134,6 +171,7 @@ namespace GameStore.Tests.BLLTests
             unitOfWorkMock.Setup(x => x.Games).Returns(gameRepositoryMock.Object);
             unitOfWorkMock.Setup(x => x.Genres).Returns(genreRepositoryMock.Object);
             unitOfWorkMock.Setup(x => x.PlatformTypes).Returns(platformTypeRepositoryMock.Object);
+            unitOfWorkMock.Setup(x => x.Publishers).Returns(publisherRepositoryMock.Object);
 
             var logger = new Mock<ILogger>();
             commandHandler = new GameCommandHandler(unitOfWorkMock.Object, logger.Object);
@@ -148,7 +186,7 @@ namespace GameStore.Tests.BLLTests
             newGameRightCommand.Name = null;
 
             // Act
-            var result = ExceptionAssert.Throws<ArgumentNullException>(() => 
+            var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
                 commandHandler.Execute(newGameRightCommand));
 
             // Assert
@@ -176,7 +214,7 @@ namespace GameStore.Tests.BLLTests
             newGameRightCommand.Key = null;
 
             // Act
-            var result = ExceptionAssert.Throws<ArgumentNullException>(() => 
+            var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
                 commandHandler.Execute(newGameRightCommand));
 
             // Assert
@@ -204,7 +242,7 @@ namespace GameStore.Tests.BLLTests
             newGameRightCommand.Description = null;
 
             // Act
-            var result = ExceptionAssert.Throws<ArgumentNullException>(() => 
+            var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
                 commandHandler.Execute(newGameRightCommand));
 
             // Assert
@@ -326,6 +364,98 @@ namespace GameStore.Tests.BLLTests
         }
 
         [TestMethod]
+        public void Create_Game_With_No_Price_Argument()
+        {
+            // Arrange
+            newGameRightCommand.Price = 0;
+
+            // Act
+            var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+                commandHandler.Execute(newGameRightCommand));
+
+            // Assert
+            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            Assert.AreEqual("Price", result.ParamName);
+        }
+
+        [TestMethod]
+        public void Create_Game_Price_Argument_Is_Negative()
+        {
+            // Arrange
+            newGameRightCommand.Price = -1;
+            
+            // Act
+            var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+                commandHandler.Execute(newGameRightCommand));
+
+            // Assert
+            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            Assert.AreEqual("Price", result.ParamName);
+        }
+
+        [TestMethod]
+        public void Create_Game_UnitsInStock_Argument_Is_Negative()
+        {
+            // Arrange
+            newGameRightCommand.UnitsInStock = -1;
+
+            // Act
+            var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+                commandHandler.Execute(newGameRightCommand));
+
+            //Assert
+            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            Assert.AreEqual("UnitsInStock", result.ParamName);
+        }
+
+        [TestMethod]
+        public void Create_Game_PublisherId_Argument_Is_Zero()
+        {
+            // Arrange
+            newGameRightCommand.PublisherId = 0;
+
+            // Act
+            var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+                commandHandler.Execute(newGameRightCommand));
+
+            // Assert
+            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            unitOfWorkMock.Verify(x => x.Publishers, Times.Never);
+            Assert.AreEqual("PublisherId", result.ParamName);
+        }
+
+        [TestMethod]
+        public void Create_Game_PublisherId_Argument_Is_Negative()
+        {
+            // Arrange
+            newGameRightCommand.PublisherId = -1;
+
+            // Act
+            var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+                commandHandler.Execute(newGameRightCommand));
+
+            // Assert
+            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            unitOfWorkMock.Verify(x => x.Publishers, Times.Never);
+            Assert.AreEqual("PublisherId", result.ParamName);
+        }
+
+        [TestMethod]
+        public void Create_Game_PublisherId_Argument_Doesnt_Match_Existing_Publisher()
+        {
+            // Arrange
+            newGameRightCommand.PublisherId = 100;
+
+            //Act
+            var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+                commandHandler.Execute(newGameRightCommand));
+
+            //Assert
+            gameRepositoryMock.Verify(x => x.Add(It.IsAny<Game>()), Times.Never);
+            Assert.AreEqual("PublisherId", result.ParamName);
+        }
+
+        [TestMethod]
         public void Create_Game_With_Right_Data()
         {
             // Arrange
@@ -363,7 +493,7 @@ namespace GameStore.Tests.BLLTests
             editGameRightCommand.Id = -1;
 
             // Act
-            var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() => 
+            var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
                 commandHandler.Execute(editGameRightCommand));
 
             // Assert
@@ -565,6 +695,98 @@ namespace GameStore.Tests.BLLTests
 
             // Assert
             Assert.AreEqual("PlatformTypeIds", result.ParamName);
+        }
+
+        [TestMethod]
+        public void Edit_Game_With_No_Price_Argument()
+        {
+            // Arrange
+            editGameRightCommand.Price = 0;
+
+            // Act
+            var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+                commandHandler.Execute(editGameRightCommand));
+
+            // Assert
+            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            Assert.AreEqual("Price", result.ParamName);
+        }
+
+        [TestMethod]
+        public void Edit_Game_Price_Argument_Is_Negative()
+        {
+            // Arrange
+            editGameRightCommand.Price = -1;
+
+            // Act
+            var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+                commandHandler.Execute(editGameRightCommand));
+
+            // Assert
+            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            Assert.AreEqual("Price", result.ParamName);
+        }
+
+        [TestMethod]
+        public void Edit_Game_UnitsInStock_Argument_Is_Negative()
+        {
+            // Arrange
+            editGameRightCommand.UnitsInStock = -1;
+
+            // Act
+            var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+                commandHandler.Execute(editGameRightCommand));
+
+            //Assert
+            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            Assert.AreEqual("UnitsInStock", result.ParamName);
+        }
+
+        [TestMethod]
+        public void Edit_Game_PublisherId_Argument_Is_Zero()
+        {
+            // Arrange
+            editGameRightCommand.PublisherId = 0;
+
+            // Act
+            var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+                commandHandler.Execute(editGameRightCommand));
+
+            // Assert
+            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            unitOfWorkMock.Verify(x => x.Publishers, Times.Never);
+            Assert.AreEqual("PublisherId", result.ParamName);
+        }
+
+        [TestMethod]
+        public void Edit_Game_PublisherId_Argument_Is_Negative()
+        {
+            // Arrange
+            editGameRightCommand.PublisherId = -1;
+
+            // Act
+            var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+                commandHandler.Execute(editGameRightCommand));
+
+            // Assert
+            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            unitOfWorkMock.Verify(x => x.Publishers, Times.Never);
+            Assert.AreEqual("PublisherId", result.ParamName);
+        }
+
+        [TestMethod]
+        public void Edit_Game_PublisherId_Argument_Doesnt_Match_Existing_Publisher()
+        {
+            // Arrange
+            editGameRightCommand.PublisherId = 100;
+
+            //Act
+            var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+                commandHandler.Execute(editGameRightCommand));
+
+            //Assert
+            gameRepositoryMock.Verify(x => x.Update(It.IsAny<Game>()), Times.Never);
+            Assert.AreEqual("PublisherId", result.ParamName);
         }
 
         [TestMethod]

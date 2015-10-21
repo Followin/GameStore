@@ -56,7 +56,7 @@ namespace GameStore.DAL.EF
 
             var valve = context.Publishers.Add(new Publisher
             {
-                ComanyName = "Valve",
+                CompanyName = "Valve",
                 Description = "Greed Gaben's company",
                 HomePage = "http://www.valvesoftware.com/",
             });
@@ -69,7 +69,7 @@ namespace GameStore.DAL.EF
                 Key = "dota-2",
                 PlatformTypes = new[] { desktop },
                 Publisher = valve,
-                Discounted = false,
+                Discontinued = false,
                 Price = 100,
                 UnitsInStock = 1000
             });

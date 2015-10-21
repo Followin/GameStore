@@ -3,18 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GameStore.Domain.Abstract;
 
-namespace GameStore.Domain.Entities
+namespace GameStore.BLL.DTO
 {
-    public class Publisher : Entity<Int32>
+    public class PublisherDTO : EntityDTO<Int32>
     {
         public String CompanyName { get; set; }
 
         public String Description { get; set; }
 
         public String HomePage { get; set; }
-
-        public ICollection<Game> Games { get; set; } 
     }
 }

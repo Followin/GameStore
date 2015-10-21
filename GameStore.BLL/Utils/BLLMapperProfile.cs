@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using GameStore.BLL.Commands;
 using GameStore.BLL.DTO;
 using GameStore.BLL.QueryResults;
@@ -17,6 +12,7 @@ namespace GameStore.BLL.Utils
         {
             Mapper.CreateMap<Game, GameQueryResult>();
             Mapper.CreateMap<Game, GameDTO>();
+            Mapper.CreateMap<Publisher, PublisherQueryResult>();
 
             // Commands -> Entities
             Mapper.CreateMap<CreateGameCommand, Game>()
@@ -30,11 +26,17 @@ namespace GameStore.BLL.Utils
             Mapper.CreateMap<CreateCommentCommand, Comment>()
                   .ForMember(x => x.GameId, _ => _.Ignore())
                   .ForMember(x => x.ParentCommentId, _ => _.Ignore());
+
+            Mapper.CreateMap<CreatePublisherCommand, Publisher>()
+                  .ForMember(x => x.Games, _ => _.Ignore());
+
+            Mapper.CreateMap<CreateOrderDetailsCommand, OrderDetails>();
             
             // Entities -> DTOs
             Mapper.CreateMap<Comment, CommentDTO>();
             Mapper.CreateMap<Genre, GenreDTO>();
             Mapper.CreateMap<PlatformType, PlatformTypeDTO>();
+            Mapper.CreateMap<Publisher, PublisherDTO>();
             Mapper.CreateMap<Game, GameDTO>();
         }
     }

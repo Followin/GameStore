@@ -15,6 +15,14 @@ namespace GameStore.BLL.Commands
 
         public String Description { get; set; }
 
+        public Double Price { get; set; }
+
+        public Int16 UnitsInStock { get; set; }
+
+        public Boolean Discounted { get; set; }
+
+        public Int32 PublisherId { get; set; }
+
         public Int32[] GenreIds { get; set; }
 
         public Int32[] PlatformTypeIds { get; set; }

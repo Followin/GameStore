@@ -18,11 +18,12 @@ namespace GameStore.DAL.EF
             Property(x => x.Name).IsRequired()
                                  .HasMaxLength(50);
             Property(x => x.Description).IsRequired();
-            Property(x => x.Discounted).IsRequired()
+            Property(x => x.Discontinued).IsRequired()
                                        .HasColumnType("BIT");
             Property(x => x.UnitsInStock).IsRequired()
                                          .HasColumnType("SMALLINT");
-            Property(x => x.Price).IsRequired();
+            Property(x => x.Price).IsRequired()
+                                  .HasColumnType("MONEY");
         }
     }
 
@@ -58,7 +59,7 @@ namespace GameStore.DAL.EF
     {
         public PublisherConfiguration()
         {
-            Property(x => x.ComanyName).IsRequired()
+            Property(x => x.CompanyName).IsRequired()
                                        .HasMaxLength(40);
             Property(x => x.HomePage).IsRequired()
                                      .HasColumnType("NTEXT");
@@ -76,6 +77,8 @@ namespace GameStore.DAL.EF
             Property(x => x.Quantity).IsRequired()
                                      .HasColumnType("SMALLINT");
             Property(x => x.Discount).HasColumnType("REAL");
+            Property(x => x.Price).IsRequired()
+                                  .HasColumnType("MONEY");
         }
     }
 

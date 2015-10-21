@@ -15,12 +15,14 @@ using EntryState = GameStore.Domain.Abstract.EntryState;
 
 namespace GameStore.BLL.QueryHandlers
 {
-    public class GameQueryHandler : 
+    public class GameQueryHandler :
+    #region handlers
         IQueryHandler<GetAllGamesQuery, GamesQueryResult>,
         IQueryHandler<GetGameByIdQuery, GameQueryResult>,
         IQueryHandler<GetGamesByGenreQuery, GamesQueryResult>,
         IQueryHandler<GetGamesByPlatformTypesQuery, GamesQueryResult>,
         IQueryHandler<GetGameByKeyQuery, GameQueryResult>
+    #endregion
     {
         private IGameStoreUnitOfWork db;
         private ILogger logger;

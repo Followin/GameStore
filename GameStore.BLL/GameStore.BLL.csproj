@@ -66,8 +66,12 @@
   <ItemGroup>
     <Compile Include="CommandHandlers\CommentCommandHandler.cs" />
     <Compile Include="CommandHandlers\GameCommandHandler.cs" />
+    <Compile Include="CommandHandlers\OrderCommandHandler.cs" />
+    <Compile Include="CommandHandlers\PublisherCommandHandler.cs" />
     <Compile Include="Commands\CreateCommentCommand.cs" />
     <Compile Include="Commands\CreateGameCommand.cs" />
+    <Compile Include="Commands\CreateOrderDetailsCommand.cs" />
+    <Compile Include="Commands\CreatePublisherCommand.cs" />
     <Compile Include="Commands\DeleteGameCommand.cs" />
     <Compile Include="Commands\EditGameCommand.cs" />
     <Compile Include="CQRS\CommandDispatcher.cs" />
@@ -84,6 +88,7 @@
     <Compile Include="DTO\GameDTO.cs" />
     <Compile Include="DTO\GenreDTO.cs" />
     <Compile Include="DTO\PlatformTypeDTO.cs" />
+    <Compile Include="DTO\PublisherDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetCommentsByGameKeyQuery.cs" />
     <Compile Include="Queries\GetAllGamesQuery.cs" />
@@ -91,13 +96,21 @@
     <Compile Include="Queries\GetGameByKeyQuery.cs" />
     <Compile Include="Queries\GetGamesByGenreQuery.cs" />
     <Compile Include="Queries\GetGamesByPlatformTypesQuery.cs" />
+    <Compile Include="Queries\GetPublisherByCompanyNameQuery.cs" />
     <Compile Include="QueryHandlers\CommentQueryHandler.cs" />
     <Compile Include="QueryHandlers\GameQueryHandler.cs" />
+    <Compile Include="QueryHandlers\PublisherQueryHandler.cs" />
     <Compile Include="QueryResults\GamesQueryResult.cs" />
     <Compile Include="QueryResults\CommentsQueryResult.cs" />
     <Compile Include="QueryResults\GameQueryResult.cs" />
+    <Compile Include="QueryResults\PublisherQueryResult.cs" />
     <Compile Include="Utils\BLLMapperProfile.cs" />
     <Compile Include="Utils\BLLNinjectModule.cs" />
+    <Compile Include="Utils\ExpressionExtensions.cs" />
+    <Compile Include="Utils\ValidationExtensions\DecimalValidationExtensions.cs" />
+    <Compile Include="Utils\ValidationExtensions\DoubleValidationExtensions.cs" />
+    <Compile Include="Utils\ValidationExtensions\FloatValidationExtensions.cs" />
+    <Compile Include="Utils\ValidationExtensions\Int16ValidationExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

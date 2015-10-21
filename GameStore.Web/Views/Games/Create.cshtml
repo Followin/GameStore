@@ -1,0 +1,14 @@
+﻿@model GameStore.Web.Models.CreateGameViewModel
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="paper-block">
+    <h2>Create</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.EditorForModel()
+    }
+</div>
+

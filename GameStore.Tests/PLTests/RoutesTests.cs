@@ -49,9 +49,11 @@ namespace GameStore.Tests
         {
             RouteAssert.HasRoute(
                 routes,
-                "/ControllerName/new",
-                new { controller = "ControllerName", action = "Create" });
+                "/Games/new",
+                new { controller = "Games", action = "Create" });
         }
+
+        
 
         [TestMethod]
         public void Edit()

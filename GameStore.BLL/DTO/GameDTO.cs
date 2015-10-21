@@ -15,7 +15,7 @@ namespace GameStore.BLL.DTO
 
         public Int16 UnitsInStock { get; set; }
 
-        public Boolean Discounted { get; set; }
+        public Boolean Discontinued { get; set; }
 
         public PublisherDTO Publisher { get; set; }
 

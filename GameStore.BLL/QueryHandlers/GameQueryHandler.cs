@@ -140,8 +140,8 @@ namespace GameStore.BLL.QueryHandlers
             query.Key.Argument("Key")
                      .NotNull()
                      .NotWhiteSpace();
-           
-            return Mapper.Map<GameQueryResult>(db.Games.GetSingle(_ => _.EntryState == EntryState.Active && _.Key == query.Key));
+           var gameQueryResult = Mapper.Map<Game, GameQueryResult>(db.Games.GetSingle(_ => _.EntryState == EntryState.Active && _.Key == query.Key));
+           return gameQueryResult;
         }
     }
 }

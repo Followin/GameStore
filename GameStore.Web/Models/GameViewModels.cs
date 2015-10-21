@@ -20,10 +20,23 @@ namespace GameStore.Web.Models
         public String Description { get; set; }
 
         [Required]
+        public Double Price { get; set; }
+
+        [Required]
+        public Int16 UnitsInStock { get; set; }
+
+        public Boolean Discontinued { get; set; }
+
+        [Required]
+        public Int32 PublisherId { get; set; }
+
+        [Required]
         public Int32[] GenreIds { get; set; }
 
         [Required]
         public Int32[] PlatformTypeIds { get; set; }
+
+        
     }
 
     public class EditGameViewModel

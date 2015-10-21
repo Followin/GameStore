@@ -26,6 +26,12 @@ namespace GameStore.Web.Controllers
             var gamesVM = Mapper.Map<IEnumerable<DisplayGameViewModel>>(gamesQuery);
             return Json(gamesVM, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
         
         [HttpPost]
         public ActionResult Create(CreateGameViewModel model)

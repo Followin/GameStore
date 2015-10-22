@@ -6,7 +6,9 @@
 
 <div class="paper-block">
     <h2>Comments</h2>
-    @Html.CreateTree(Model.Comments)
+    <div class="hideable">
+        @Html.CreateTree(Model.Comments)
+    </div>
     @using (Html.BeginForm("NewComment", "Game"))
     {
         @Html.HiddenFor(x => x.CreateModel.ParentCommentId)
@@ -27,5 +29,6 @@
 </div>
 
 @section scripts{
-    @Scripts.Render("~/scripts/comments")
+    @Scripts.Render("~/Scripts/comments")
+    @Scripts.Render("~/Scripts/forms")
 }

@@ -32,12 +32,12 @@
 </div>
 
 <div class="form-group">
-    @Html.LabelFor(model => model.CreateModel.Discontinued)
     @Html.EditorFor(model => model.CreateModel.Discontinued)
+    @Html.LabelFor(model => model.CreateModel.Discontinued)
     @Html.ValidationMessageFor(model => model.CreateModel.Discontinued)
 </div>
 
-<div class="form-group checkbox-group genres-selector">
+<div class="form-group checkbox-group genres-selector hideable">
     @Html.LabelFor(model => model.CreateModel.GenreIds)
     @Html.CreateTree(Model.Genres, "CreateModel.GenreIds")
 </div>

@@ -197,6 +197,25 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\forms.css">
+      <DependentUpon>forms.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\forms.min.css">
+      <DependentUpon>forms.css</DependentUpon>
+    </Content>
+    <Content Include="Content\hideable.css">
+      <DependentUpon>hideable.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\hideable.min.css">
+      <DependentUpon>hideable.css</DependentUpon>
+    </Content>
+    <Content Include="Content\site.css">
+      <DependentUpon>site.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\site.min.css">
+      <DependentUpon>site.css</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="Scripts\comments.js">
       <DependentUpon>comments.coffee</DependentUpon>
@@ -204,8 +223,25 @@
     <Content Include="Scripts\comments.min.js">
       <DependentUpon>comments.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery-2.1.4.js" />
-    <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\forms.js">
+      <DependentUpon>forms.coffee</DependentUpon>
+    </Content>
+    <Content Include="Scripts\forms.min.js">
+      <DependentUpon>forms.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\hideable.js">
+      <DependentUpon>hideable.coffee</DependentUpon>
+    </Content>
+    <Content Include="Scripts\hideable.min.js">
+      <DependentUpon>hideable.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-1.8.2.js" />
+    <Content Include="Scripts\jquery-1.8.2.min.js" />
+    <Content Include="Scripts\jquery.autogrow-textarea.js" />
+    <Content Include="Scripts\jquery.easing.min.js" />
+    <Content Include="Scripts\jquery.ripple-effect.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -235,6 +271,36 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\site.scss" />
+    <Content Include="Content\site.css.map">
+      <DependentUpon>site.css</DependentUpon>
+    </Content>
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\fonts\orbitron-black.otf" />
+    <Content Include="Content\fonts\orbitron-bold.otf" />
+    <Content Include="Content\fonts\orbitron-light.otf" />
+    <Content Include="Content\fonts\orbitron-medium.otf" />
+    <Content Include="Content\fonts\Roboto-Bold.ttf" />
+    <Content Include="Content\fonts\Roboto-BoldItalic.ttf" />
+    <Content Include="Content\fonts\Roboto-Italic.ttf" />
+    <Content Include="Content\fonts\Roboto-Light.ttf" />
+    <Content Include="Content\fonts\Roboto-LightItalic.ttf" />
+    <Content Include="Content\fonts\Roboto-Medium.ttf" />
+    <Content Include="Content\fonts\Roboto-MediumItalic.ttf" />
+    <Content Include="Content\fonts\Roboto-Regular.ttf" />
+    <Content Include="Content\_fonts.scss" />
+    <Content Include="Content\forms.scss" />
+    <Content Include="Content\forms.css.map">
+      <DependentUpon>forms.css</DependentUpon>
+    </Content>
+    <Content Include="Content\hideable.scss" />
+    <Content Include="Content\hideable.css.map">
+      <DependentUpon>hideable.css</DependentUpon>
+    </Content>
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -257,6 +323,21 @@
     </Content>
     <Content Include="Scripts\comments.min.js.map">
       <DependentUpon>comments.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\layout.coffee" />
+    <Content Include="Scripts\forms.coffee" />
+    <Content Include="Scripts\forms.js.map">
+      <DependentUpon>forms.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\forms.min.js.map">
+      <DependentUpon>forms.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\hideable.coffee" />
+    <Content Include="Scripts\hideable.js.map">
+      <DependentUpon>hideable.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\hideable.min.js.map">
+      <DependentUpon>hideable.min.js</DependentUpon>
     </Content>
   </ItemGroup>
   <PropertyGroup>

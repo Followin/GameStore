@@ -1,0 +1,18 @@
+﻿@import "_fonts.scss";
+@import "hideable.css";
+
+body {
+    font-family: Roboto;
+    font-size: 17px;
+    background: rgba(0,0,0,.05);
+}
+
+.paper-block {
+    margin: 20px auto;
+    padding: 10px 15px;
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.16);
+    width: 90%;
+    overflow: auto;
+}

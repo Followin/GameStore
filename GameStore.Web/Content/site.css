@@ -1,0 +1,47 @@
+﻿@import url(hideable.css);
+@font-face {
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 700;
+  src: url(../fonts/orbitron-bold.otf) format("opentype");
+  unicode-range: U0-0FF, U131, U152-153, U2C 6, U2DA, U2DC, U2000-206F, U2074, U20AC, U2212, U2215, UE0FF, UEFFD, UF000;
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/Roboto-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: 400;
+  src: url(../fonts/Roboto-Italic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  src: url(../fonts/Roboto-Bold.ttf) format("truetype");
+}
+
+body {
+  font-family: Roboto;
+  font-size: 17px;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.paper-block {
+  margin: 20px auto;
+  padding: 10px 15px;
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16);
+  width: 90%;
+  overflow: auto;
+}
+
+/*# sourceMappingURL=site.css.map */

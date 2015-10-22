@@ -25,7 +25,7 @@ namespace GameStore.BLL.QueryHandlers
 
         public PublisherQueryHandler(IGameStoreUnitOfWork db, ILogger logger)
         {
-            this._db = db;
+           this._db = db;
             this._logger = logger;
         }
 

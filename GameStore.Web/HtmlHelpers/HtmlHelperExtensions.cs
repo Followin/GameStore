@@ -51,13 +51,21 @@ namespace GameStore.Web.HtmlHelpers
                 commentDiv.AddCssClass("game-comment");
                 
                 var header = new TagBuilder("h3");
+                header.AddCssClass("author-name");
                 header.SetInnerText(comment.Name);
 
                 var body = new TagBuilder("p");
                 body.SetInnerText(comment.Body);
 
+                var a = new TagBuilder("a");
+                a.Attributes["href"] = "#";
+                a.SetInnerText("Answer");
+                a.AddCssClass("answer-to-comment");
+                a.Attributes["data-id"] = comment.Id.ToString();
+
                 commentDiv.InnerHtml += header;
                 commentDiv.InnerHtml += body;
+                commentDiv.InnerHtml += a;
                 liTag.InnerHtml += commentDiv;
 
                 if (comment.ChildComments != null && comment.ChildComments.Any())

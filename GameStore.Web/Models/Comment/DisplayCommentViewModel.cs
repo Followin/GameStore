@@ -5,6 +5,8 @@ namespace GameStore.Web.Models.Comment
 {
     public class DisplayCommentViewModel
     {
+        public Int32 Id { get; set; }
+
         public String Name { get; set; }
 
         public String Body { get; set; }

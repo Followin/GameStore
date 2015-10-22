@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <meta name="description" content="The description of my page" />
+    @Scripts.Render("~/Scripts/jquery")
 </head>
 <body>
     <header>
@@ -19,5 +20,6 @@
     <div id="body-wrapper">
         @RenderBody()
     </div>
+    @RenderSection("scripts")
 </body>
 </html>

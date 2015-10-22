@@ -22,7 +22,10 @@
             @Html.EditorFor(x => x.CreateModel.Body)
             @Html.ValidationMessageFor(x => x.CreateModel.Body)
         </div>
-
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Submit"/>
     }
 </div>
+
+@section scripts{
+    @Scripts.Render("~/scripts/comments")
+}

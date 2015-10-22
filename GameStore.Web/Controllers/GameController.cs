@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Web.Mvc;
 using AutoMapper;
 using GameStore.BLL.Commands;
@@ -11,6 +13,7 @@ using GameStore.BLL.QueryResults;
 using GameStore.Web.Models;
 using GameStore.Web.Models.Comment;
 using GameStore.Web.Models.Game;
+using GameStore.Web.Models.Order;
 using NLog;
 
 namespace GameStore.Web.Controllers
@@ -79,6 +82,33 @@ namespace GameStore.Web.Controllers
         public ActionResult Download(String gamekey)
         {
             return new FileContentResult(new byte[0], "application/pdf");
+        }
+
+        public ActionResult Buy(String gamekey, OrderViewModel currentOrder)
+        {
+            var game = QueryDispatcher.Dispatch<GetGameByKeyQuery, GameQueryResult>(
+                new GetGameByKeyQuery { Key = gamekey });
+            if (game == null)
+            {
+                return HttpNotFound();
+            }
+
+            var existingOrderDetail = currentOrder.OrderDetails.FirstOrDefault(x => x.GameId == game.Id);
+            if (existingOrderDetail == null)
+            {
+                currentOrder.OrderDetails.Add(new OrderDetailsViewModel
+                {
+                    Discount = 0F,
+                    GameId = game.Id,
+                    GameName = game.Name,
+                    Price = game.Price,
+                    Quantity = 1
+                });
+                return RedirectToAction("Index", "Games");
+            }
+            existingOrderDetail.Quantity++;
+            return RedirectToAction("Index", "Games");
+
         }
     }
 }

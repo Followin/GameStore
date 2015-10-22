@@ -14,6 +14,7 @@
     <header>
         <div class="logo">GameStore</div>
         <div class="games-count">@Html.Action("GetGamesCount", "Games")</div>
+        <div class="busket-link"><a href="@Url.Action("Index", "Busket")">Busket</a></div>
     </header>
     <div id="body-wrapper">
         @RenderBody()

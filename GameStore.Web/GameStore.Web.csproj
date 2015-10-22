@@ -154,6 +154,7 @@
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BusketController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\PublisherController.cs" />
@@ -164,6 +165,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HtmlHelpers\HtmlHelperExtensions.cs" />
+    <Compile Include="ModelBinders\CurrentOrderModelBinder.cs" />
     <Compile Include="Models\Comment\CommentViewModel.cs" />
     <Compile Include="Models\Comment\CreateCommentViewModel.cs" />
     <Compile Include="Models\Comment\DisplayCommentViewModel.cs" />
@@ -171,6 +173,8 @@
     <Compile Include="Models\Game\DisplayGameViewModel.cs" />
     <Compile Include="Models\Game\EditGameViewModel.cs" />
     <Compile Include="Models\GenreViewModel.cs" />
+    <Compile Include="Models\Order\OrderDetailsViewModel.cs" />
+    <Compile Include="Models\Order\OrderViewModel.cs" />
     <Compile Include="Models\PlatformTypeViewModel.cs" />
     <Compile Include="Models\Publisher\CreatePublisherViewModel.cs" />
     <Compile Include="Models\Publisher\PublisherViewModel.cs" />
@@ -224,6 +228,7 @@
     <Content Include="Views\Game\Details.cshtml" />
     <Content Include="Views\Publisher\Details.cshtml" />
     <Content Include="Views\Publisher\Create.cshtml" />
+    <Content Include="Views\Busket\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

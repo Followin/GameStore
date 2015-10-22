@@ -11,7 +11,7 @@ namespace GameStore.BLL.DTO
 
         public String Description { get; set; }
 
-        public Double Price { get; set; }
+        public Decimal Price { get; set; }
 
         public Int16 UnitsInStock { get; set; }
 

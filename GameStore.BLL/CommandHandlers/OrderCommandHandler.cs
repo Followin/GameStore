@@ -14,21 +14,21 @@ namespace GameStore.BLL.CommandHandlers
     public class OrderCommandHandler : 
         ICommandHandler<CreateOrderDetailsCommand>
     {
-        private IGameStoreUnitOfWork db;
-        private ILogger logger;
+        private IGameStoreUnitOfWork _db;
+        private ILogger _logger;
 
         public OrderCommandHandler(IGameStoreUnitOfWork db, ILogger logger)
         {
-            this.db = db;
-            this.logger = logger;
+            this._db = db;
+            this._logger = logger;
         }
 
         public void Execute(CreateOrderDetailsCommand command)
         {
             Validate(command);
             var orderDetails = Mapper.Map<CreateOrderDetailsCommand, OrderDetails>(command);
-            db.OrderDetails.Add(orderDetails);
-            db.Save();
+            _db.OrderDetails.Add(orderDetails);
+            _db.Save();
         }
 
         #region validation
@@ -45,16 +45,15 @@ namespace GameStore.BLL.CommandHandlers
                          .GreaterThan(-1);
             command.Quantity.Argument("Quantity")
                             .GreaterThan(0);
-            if (db.Games.Get(command.GameId) == null)
+            if (_db.Games.Get(command.GameId) == null)
             {
                 throw new ArgumentOutOfRangeException("GameId", "Game not found");
             }
 
-            if (db.Orders.Get(command.OrderId) == null)
+            if (_db.Orders.Get(command.OrderId) == null)
             {
                 throw new ArgumentOutOfRangeException("OrderId", "Order not found");
             }
-
         }
         #endregion
     }

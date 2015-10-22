@@ -26,13 +26,13 @@ namespace GameStore.BLL.DTO
 
     public abstract class EntityDTO<T>
     {
-        public T Id { get; set; }
-
-        public EntryState EntryState { get; set; }
-
         protected EntityDTO()
         {
             EntryState = EntryState.Active;
         }
+
+        public T Id { get; set; }
+
+        public EntryState EntryState { get; set; }
     }
 }

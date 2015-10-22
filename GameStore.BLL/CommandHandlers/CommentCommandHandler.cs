@@ -13,13 +13,13 @@ namespace GameStore.BLL.CommandHandlers
     public class CommentCommandHandler :
         ICommandHandler<CreateCommentCommand>
     {
-        private IGameStoreUnitOfWork db;
-        private ILogger logger;
+        private IGameStoreUnitOfWork _db;
+        private ILogger _logger;
 
         public CommentCommandHandler(IGameStoreUnitOfWork db, ILogger logger)
         {
-            this.db = db;
-            this.logger = logger;
+            this._db = db;
+            this._logger = logger;
         }
 
         public void Execute(CreateCommentCommand command)
@@ -48,7 +48,7 @@ namespace GameStore.BLL.CommandHandlers
                         "GameId", "GameId argument must be greater than 0");
                 }
 
-                var game = db.Games.Get(command.GameId.Value);
+                var game = _db.Games.Get(command.GameId.Value);
                 if (game == null)
                 {
                     throw new ArgumentOutOfRangeException("GameId", "Game not found");
@@ -64,7 +64,7 @@ namespace GameStore.BLL.CommandHandlers
                         "ParentCommentId", "ParentCommentId argument must be greater than 0");
                 }
 
-                var comment = db.Comments.Get(command.ParentCommentId.Value);
+                var comment = _db.Comments.Get(command.ParentCommentId.Value);
                 if (comment == null)
                 {
                     throw new ArgumentOutOfRangeException("ParentCommentId", "Comment not found");
@@ -73,8 +73,8 @@ namespace GameStore.BLL.CommandHandlers
                 newComment.ParentCommentId = comment.Id;
             }
 
-            db.Comments.Add(newComment);
-            db.Save();
+            _db.Comments.Add(newComment);
+            _db.Save();
         }
     }
 }

@@ -233,7 +233,5 @@ namespace GameStore.Tests.BLLTests
             _unitOfWorkMock.Verify(x => x.Save(), Times.Once);
         }
         #endregion
-
-
     }
 }

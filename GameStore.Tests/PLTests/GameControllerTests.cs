@@ -23,10 +23,10 @@ namespace GameStore.Tests.PLTests
     [TestClass]
     public class GameControllerTests
     {
-        private GameController gameController;
-        private GamesController gamesController;
-        private Mock<IQueryDispatcher> queryDispatcherMock;
-        private Mock<ICommandDispatcher> commandDispatcherMock;
+        private GameController _gameController;
+        private GamesController _gamesController;
+        private Mock<IQueryDispatcher> _queryDispatcherMock;
+        private Mock<ICommandDispatcher> _commandDispatcherMock;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
@@ -37,16 +37,16 @@ namespace GameStore.Tests.PLTests
         [TestInitialize]
         public void TestInitialize()
         {
-            queryDispatcherMock = new Mock<IQueryDispatcher>();
-            commandDispatcherMock = new Mock<ICommandDispatcher>();
+            _queryDispatcherMock = new Mock<IQueryDispatcher>();
+            _commandDispatcherMock = new Mock<ICommandDispatcher>();
             var loggerMock = new Mock<ILogger>();
-            gameController = new GameController(
-                commandDispatcherMock.Object,
-                queryDispatcherMock.Object,
+            _gameController = new GameController(
+                _commandDispatcherMock.Object,
+                _queryDispatcherMock.Object,
                 loggerMock.Object);
-            gamesController = new GamesController(
-                commandDispatcherMock.Object,
-                queryDispatcherMock.Object,
+            _gamesController = new GamesController(
+                _commandDispatcherMock.Object,
+                _queryDispatcherMock.Object,
                 loggerMock.Object);
         }
 
@@ -54,19 +54,15 @@ namespace GameStore.Tests.PLTests
         public void Details_Returns_Model()
         {
             // Arrange
-            queryDispatcherMock.Setup(x => x.Dispatch<GetGameByKeyQuery, GameQueryResult>(It.IsAny<GetGameByKeyQuery>()))
+            _queryDispatcherMock.Setup(x => x.Dispatch<GetGameByKeyQuery, GameQueryResult>(It.IsAny<GetGameByKeyQuery>()))
                            .Returns(new GameQueryResult { Id = 1, Name = "SomeName" });
 
             // Act
-            var result = gameController.Details("someKey") as JsonResult;
+            var result = _gameController.Details("someKey") as JsonResult;
 
             // Assert
             Assert.AreEqual("SomeName", ((DisplayGameViewModel)result.Data).Name);
         }
-
-
-
-        
 
         [TestMethod]
         public void CreateGame_Redirects_After()
@@ -74,7 +70,7 @@ namespace GameStore.Tests.PLTests
             // Arrange
 
             // Act
-            var result = (RedirectToRouteResult)gamesController.Create(new CreateGameViewModel
+            var result = (RedirectToRouteResult)_gamesController.Create(new CreateGameViewModel
             {
                 CreateModel = new CreateGameModel
                 {
@@ -93,7 +89,7 @@ namespace GameStore.Tests.PLTests
         [TestMethod]
         public void EditGame_Redirect_After()
         {
-            var result = (RedirectToRouteResult)gamesController.Edit(new EditGameViewModel
+            var result = (RedirectToRouteResult)_gamesController.Edit(new EditGameViewModel
             {
                 Id = 1,
                 Description = "New game description",
@@ -110,7 +106,7 @@ namespace GameStore.Tests.PLTests
         [TestMethod]
         public void Delete_Redirect_After()
         {
-            var result = (RedirectToRouteResult)gamesController.Remove("game-key");
+            var result = (RedirectToRouteResult)_gamesController.Remove("game-key");
 
             // Assert
             Assert.AreEqual("Index", result.RouteValues["action"]);

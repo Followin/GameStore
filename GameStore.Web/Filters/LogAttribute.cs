@@ -10,16 +10,16 @@ namespace GameStore.Web.Filters
 {
     public class LogAttribute : ActionFilterAttribute
     {
-        private Logger logger;
+        private Logger _logger;
         
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            logger = LogManager.GetLogger(filterContext.Controller.GetType().FullName);
+            _logger = LogManager.GetLogger(filterContext.Controller.GetType().FullName);
             var eventInfo = new LogEventInfo(
                 LogLevel.Info,
-                logger.Name, 
+                _logger.Name, 
                 filterContext.Controller.GetType().Name + "." + filterContext.ActionDescriptor.ActionName);
-            logger.Log(eventInfo);
+            _logger.Log(eventInfo);
         }
     }
 }

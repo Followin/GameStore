@@ -22,7 +22,7 @@ namespace GameStore.Web.Controllers
         public ActionResult Details(String companyName)
         {
             var query = QueryDispatcher.Dispatch<GetPublisherByCompanyNameQuery, PublisherQueryResult>(
-                new GetPublisherByCompanyNameQuery {CompanyName = companyName});
+                new GetPublisherByCompanyNameQuery { CompanyName = companyName });
             var model = Mapper.Map<PublisherQueryResult, DisplayPublisherViewModel>(query);
 
             return View(model);

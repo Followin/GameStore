@@ -17,6 +17,7 @@ namespace GameStore.BLL.QueryResults
         {
             _platformTypes = platformTypes;
         }
+
         public IEnumerator<PlatformTypeDTO> GetEnumerator()
         {
             return _platformTypes.GetEnumerator();

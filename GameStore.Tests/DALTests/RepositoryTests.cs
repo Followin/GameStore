@@ -23,10 +23,10 @@ namespace GameStore.Tests.DALTests
     [TestClass]
     public class RepositoryTests 
     {
-        private Mock<IContext> dbContext;
-        private Mock<IDbSet<TestClass>> testClassSetMock;
-        private GenericRepository<TestClass> testGenericRepository;
-        private GameStoreUnitOfWork unitOfWork;
+        private Mock<IContext> _dbContext;
+        private Mock<IDbSet<TestClass>> _testClassSetMock;
+        private GenericRepository<TestClass> _testGenericRepository;
+        private GameStoreUnitOfWork _unitOfWork;
             
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
@@ -36,13 +36,13 @@ namespace GameStore.Tests.DALTests
         [TestInitialize]
         public void TestInitialize()
         {
-            dbContext = new Mock<IContext>();
-            testClassSetMock = new Mock<IDbSet<TestClass>>();
-            testClassSetMock.Setup(x => x.Find(It.IsAny<Int32>())).Returns(
+            _dbContext = new Mock<IContext>();
+            _testClassSetMock = new Mock<IDbSet<TestClass>>();
+            _testClassSetMock.Setup(x => x.Find(It.IsAny<Int32>())).Returns(
                 (Object[] i) => new TestClass { Id = (Int32)i[0] });
-            dbContext.Setup(x => x.Set<TestClass>()).Returns(testClassSetMock.Object);
-            testGenericRepository = new GenericRepository<TestClass>(dbContext.Object);
-            unitOfWork = new GameStoreUnitOfWork(dbContext.Object);
+            _dbContext.Setup(x => x.Set<TestClass>()).Returns(_testClassSetMock.Object);
+            _testGenericRepository = new GenericRepository<TestClass>(_dbContext.Object);
+            _unitOfWork = new GameStoreUnitOfWork(_dbContext.Object);
         }
 
         [TestMethod]
@@ -51,10 +51,10 @@ namespace GameStore.Tests.DALTests
             // Arrange
 
             // Act
-            testGenericRepository.Add(new TestClass());
+            _testGenericRepository.Add(new TestClass());
             
             // Assert
-            testClassSetMock.Verify(x => x.Add(It.IsAny<TestClass>()), Times.Once);
+            _testClassSetMock.Verify(x => x.Add(It.IsAny<TestClass>()), Times.Once);
         }
 
         [TestMethod]
@@ -63,10 +63,10 @@ namespace GameStore.Tests.DALTests
             // Arrange
 
             // Act
-            testGenericRepository.Update(new TestClass());
+            _testGenericRepository.Update(new TestClass());
 
             // Assert
-            dbContext.Verify(x => x.SetModified(It.IsAny<TestClass>()), Times.Once);
+            _dbContext.Verify(x => x.SetModified(It.IsAny<TestClass>()), Times.Once);
         }
 
         [TestMethod]
@@ -75,20 +75,20 @@ namespace GameStore.Tests.DALTests
             // Arrange
 
             // Act
-            testGenericRepository.Delete(1);
+            _testGenericRepository.Delete(1);
 
             // Assert
-            testClassSetMock.Verify(x => x.Remove(It.Is<TestClass>(t => t.Id == 1)), Times.Once);
+            _testClassSetMock.Verify(x => x.Remove(It.Is<TestClass>(t => t.Id == 1)), Times.Once);
         }
 
         [TestMethod]
         public void Get_With_Id_Parameter_Calls_Find()
         {
             // Act
-            testGenericRepository.Get(1);
+            _testGenericRepository.Get(1);
 
             // Assert
-            testClassSetMock.Verify(x => x.Find(It.Is<Int32>(_ => _ == 1)), Times.Once);
+            _testClassSetMock.Verify(x => x.Find(It.Is<Int32>(i => i == 1)), Times.Once);
         }
 
         [TestMethod]
@@ -96,13 +96,13 @@ namespace GameStore.Tests.DALTests
         {
             // Arrange
             var items = new List<TestClass> { new TestClass { Id = 1 }, new TestClass { Id = 2 } }.AsQueryable();
-            testClassSetMock.Setup(x => x.ElementType).Returns(items.ElementType);
-            testClassSetMock.Setup(x => x.Expression).Returns(items.Expression);
-            testClassSetMock.Setup(x => x.Provider).Returns(items.Provider);
-            testClassSetMock.Setup(x => x.GetEnumerator()).Returns(items.GetEnumerator);
+            _testClassSetMock.Setup(x => x.ElementType).Returns(items.ElementType);
+            _testClassSetMock.Setup(x => x.Expression).Returns(items.Expression);
+            _testClassSetMock.Setup(x => x.Provider).Returns(items.Provider);
+            _testClassSetMock.Setup(x => x.GetEnumerator()).Returns(items.GetEnumerator);
 
             // Act
-            var result = testGenericRepository.GetSingle(t => t.Id == 2);
+            var result = _testGenericRepository.GetSingle(t => t.Id == 2);
 
             // Assert
             Assert.AreEqual(2, result.Id);
@@ -112,13 +112,13 @@ namespace GameStore.Tests.DALTests
         public void Get_With_Predicate_Parameter_Returns_Items_Matching_Predicate()
         {
             var items = new List<TestClass> { new TestClass { Id = 1 }, new TestClass { Id = 1 }, new TestClass { Id = 2 } }.AsQueryable();
-            testClassSetMock.Setup(x => x.ElementType).Returns(items.ElementType);
-            testClassSetMock.Setup(x => x.Expression).Returns(items.Expression);
-            testClassSetMock.Setup(x => x.Provider).Returns(items.Provider);
-            testClassSetMock.Setup(x => x.GetEnumerator()).Returns(items.GetEnumerator);
+            _testClassSetMock.Setup(x => x.ElementType).Returns(items.ElementType);
+            _testClassSetMock.Setup(x => x.Expression).Returns(items.Expression);
+            _testClassSetMock.Setup(x => x.Provider).Returns(items.Provider);
+            _testClassSetMock.Setup(x => x.GetEnumerator()).Returns(items.GetEnumerator);
 
             // Act
-            var result = testGenericRepository.Get(t => t.Id == 1);
+            var result = _testGenericRepository.Get(t => t.Id == 1);
 
             // Assert
             Assert.AreEqual(2, result.Count());
@@ -128,30 +128,30 @@ namespace GameStore.Tests.DALTests
         public void Get_With_No_Parameters_Returns_Whole_Object()
         {
             // Act
-            var result = testGenericRepository.Get();
+            var result = _testGenericRepository.Get();
 
             // Assert
-            Assert.AreEqual(testClassSetMock.Object, result);
+            Assert.AreEqual(_testClassSetMock.Object, result);
         }
 
         [TestMethod]
         public void Save_Method_Calls_Save_Changes_Method_On_Context()
         {
             // Act
-            unitOfWork.Save();
+            _unitOfWork.Save();
 
             // Assert
-            dbContext.Verify(x => x.SaveChanges(), Times.Once);
+            _dbContext.Verify(x => x.SaveChanges(), Times.Once);
         }
 
         [TestMethod]
         public void Dispose_Method_Calls_Dispose_Method_On_Context()
         {
             // Act
-            unitOfWork.Dispose();
+            _unitOfWork.Dispose();
 
             // Assert
-            dbContext.Verify(x => x.Dispose(), Times.Once);
+            _dbContext.Verify(x => x.Dispose(), Times.Once);
         }
     }
 }

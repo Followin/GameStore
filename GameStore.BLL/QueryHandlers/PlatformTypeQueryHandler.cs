@@ -16,7 +16,6 @@ namespace GameStore.BLL.QueryHandlers
     #region interfaces
         IQueryHandler<GetAllPlatformTypesQuery, PlatformTypesQueryResult>
     #endregion
-
     {
         private IGameStoreUnitOfWork _db;
         private ILogger _logger;

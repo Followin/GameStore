@@ -36,6 +36,7 @@ namespace GameStore.Web.HtmlHelpers
 
                 ulTag.InnerHtml += liTag;
             }
+
             return new MvcHtmlString(ulTag.ToString());
         }
 

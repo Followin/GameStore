@@ -7,16 +7,16 @@ namespace GameStore.BLL.QueryResults
 {
     public class GamesQueryResult : IEnumerable<GameDTO>, IQueryResult
     {
-        private IEnumerable<GameDTO> games;
+        private IEnumerable<GameDTO> _games;
 
         public GamesQueryResult(IEnumerable<GameDTO> games)
         {
-            this.games = games;
+            this._games = games;
         }
 
         public IEnumerator<GameDTO> GetEnumerator()
         {
-            return games.GetEnumerator();
+            return _games.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

@@ -21,20 +21,19 @@ namespace GameStore.BLL.QueryHandlers
     #region interfaces
         IQueryHandler<GetAllGenresQuery, GenresQueryResult>
     #endregion
-
     {
         private IGameStoreUnitOfWork _db;
-        private ILogger logger;
+        private ILogger _logger;
 
         public GenreQueryHandler(IGameStoreUnitOfWork db, ILogger logger)
         {
             _db = db;
-            this.logger = logger;
+            this._logger = logger;
         }
 
         public GenresQueryResult Retrieve(GetAllGenresQuery query)
         {
-            logger.Debug("GetAllGenresQuery enter");
+            _logger.Debug("GetAllGenresQuery enter");
             return new GenresQueryResult(
                 Mapper.Map<IEnumerable<Genre>, IEnumerable<GenreDTO>>(
                 _db.Genres.Get(x => x.EntryState == EntryState.Active && x.ParentGenre == null)));

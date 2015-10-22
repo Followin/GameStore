@@ -17,13 +17,13 @@ namespace GameStore.BLL.CommandHandlers
         ICommandHandler<DeleteGameCommand>,
         ICommandHandler<EditGameCommand>
     {
-        private IGameStoreUnitOfWork db;
-        private ILogger logger;
+        private IGameStoreUnitOfWork _db;
+        private ILogger _logger;
 
         public GameCommandHandler(IGameStoreUnitOfWork db, ILogger logger)
         {
-            this.db = db;
-            this.logger = logger;
+            this._db = db;
+            this._logger = logger;
         }
 
         public void Execute(CreateGameCommand command)
@@ -34,7 +34,7 @@ namespace GameStore.BLL.CommandHandlers
 
             game.Genres = command.GenreIds.Select(g =>
             {
-                var genre = db.Genres.Get(g);
+                var genre = _db.Genres.Get(g);
                 if (genre == null)
                 {
                     throw new ArgumentException(
@@ -47,7 +47,7 @@ namespace GameStore.BLL.CommandHandlers
 
             game.PlatformTypes = command.PlatformTypeIds.Select(p =>
             {
-                var platformType = db.PlatformTypes.Get(p);
+                var platformType = _db.PlatformTypes.Get(p);
                 if (platformType == null)
                 {
                     throw new ArgumentException(
@@ -58,8 +58,8 @@ namespace GameStore.BLL.CommandHandlers
                 return platformType;
             }).ToList();
 
-            db.Games.Add(game);
-            db.Save();
+            _db.Games.Add(game);
+            _db.Save();
         }
 
         public void Execute(DeleteGameCommand command)
@@ -70,7 +70,7 @@ namespace GameStore.BLL.CommandHandlers
                    .NotNull()
                    .NotWhiteSpace();
 
-            var game = db.Games.GetSingle(g => g.Key == command.Key);
+            var game = _db.Games.GetSingle(g => g.Key == command.Key);
 
             if (game == null)
             {
@@ -78,8 +78,8 @@ namespace GameStore.BLL.CommandHandlers
             }
 
             game.EntryState = EntryState.Deleted;
-            db.Games.Update(game);
-            db.Save();
+            _db.Games.Update(game);
+            _db.Save();
         }
 
         public void Execute(EditGameCommand command)
@@ -89,7 +89,7 @@ namespace GameStore.BLL.CommandHandlers
             Mapper.Map(command, game);
             game.Genres = command.GenreIds.Select(g =>
             {
-                var genre = db.Genres.Get(g);
+                var genre = _db.Genres.Get(g);
                 if (genre == null)
                 {
                     throw new ArgumentException(
@@ -102,7 +102,7 @@ namespace GameStore.BLL.CommandHandlers
 
             game.PlatformTypes = command.PlatformTypeIds.Select(p =>
             {
-                var platformType = db.PlatformTypes.Get(p);
+                var platformType = _db.PlatformTypes.Get(p);
                 if (platformType == null)
                 {
                     throw new ArgumentException(
@@ -113,8 +113,8 @@ namespace GameStore.BLL.CommandHandlers
                 return platformType;
             }).ToList();
 
-            db.Games.Update(game);
-            db.Save();
+            _db.Games.Update(game);
+            _db.Save();
         }
 
 #region Validators
@@ -150,12 +150,12 @@ namespace GameStore.BLL.CommandHandlers
                                         x => x > 0,
                                        "PlatformTypeIds must have only greater than zero numbers");
 
-            if (db.Games.GetSingle(_ => _.Key == command.Key) != null)
+            if (_db.Games.GetSingle(g => g.Key == command.Key) != null)
             {
                 throw new ArgumentException("There is game with such key in db. Key must be unique.", "Key");
             }
 
-            if (db.Publishers.Get(command.PublisherId) == null)
+            if (_db.Publishers.Get(command.PublisherId) == null)
             {
                 throw new ArgumentOutOfRangeException("PublisherId", "Publisher not found");
             }
@@ -198,18 +198,18 @@ namespace GameStore.BLL.CommandHandlers
                                         x => x > 0,
                                         "PlatformTypeIds must have only greater than zero numbers");
 
-            var game = db.Games.Get(command.Id);
+            var game = _db.Games.Get(command.Id);
             if (game == null)
             {
                 throw new ArgumentOutOfRangeException("Id", "Game not found");
             }
 
-            if (command.Key != game.Key && db.Games.GetSingle(_ => _.Key == command.Key) != null)
+            if (command.Key != game.Key && _db.Games.GetSingle(g => g.Key == command.Key) != null)
             {
                 throw new ArgumentException("Game with such key already exists", "Key");
             }
 
-            if (db.Publishers.Get(command.PublisherId) == null)
+            if (_db.Publishers.Get(command.PublisherId) == null)
             {
                 throw new ArgumentOutOfRangeException("PublisherId", "Publisher not found");
             }

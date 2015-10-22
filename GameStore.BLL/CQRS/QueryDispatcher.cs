@@ -9,18 +9,18 @@ namespace GameStore.BLL.CQRS
 {
     public class QueryDispatcher : IQueryDispatcher
     {
-        private IKernel kernel;
+        private IKernel _kernel;
 
         public QueryDispatcher(IKernel kernel)
         {
-            this.kernel = kernel;
+            this._kernel = kernel;
         }
 
         public TResult Dispatch<TParameter, TResult>(TParameter query)
             where TParameter : IQuery
             where TResult : IQueryResult
         {
-            var handler = kernel.Get<IQueryHandler<TParameter, TResult>>();
+            var handler = _kernel.Get<IQueryHandler<TParameter, TResult>>();
             return handler.Retrieve(query);
         }
     }

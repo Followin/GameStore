@@ -53,8 +53,6 @@ namespace GameStore.Tests
                 new { controller = "Games", action = "Create" });
         }
 
-        
-
         [TestMethod]
         public void Edit()
         {

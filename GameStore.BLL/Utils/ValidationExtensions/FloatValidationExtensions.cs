@@ -7,8 +7,11 @@ namespace GameStore.BLL.Utils.ValidationExtensions
     {
         public static IValidation<float> GreaterThan(this IValidation<float> item, float limit)
         {
-            if(item.Value <= limit)
+            if (item.Value <= limit)
+            {
                 throw new ArgumentOutOfRangeException(item.ArgName, String.Format("{0} must be greater than {1}", item.ArgName, limit));
+            }
+
             return item;
         }
     }

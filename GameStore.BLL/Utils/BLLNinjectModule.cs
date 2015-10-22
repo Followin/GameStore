@@ -9,16 +9,16 @@ namespace GameStore.BLL.Utils
 {
     public class BLLNinjectModule : NinjectModule
     {
-        private String connectionString;
+        private String _connectionString;
 
         public BLLNinjectModule(String connectionString)
         {
-            this.connectionString = connectionString;
+            this._connectionString = connectionString;
         }
 
         public override void Load()
         {
-            Bind<IContext>().To<EFContext>().WithConstructorArgument("connectionString", connectionString);
+            Bind<IContext>().To<EFContext>().WithConstructorArgument("connectionString", _connectionString);
             Bind<IGameStoreUnitOfWork>().To<GameStoreUnitOfWork>();
         }
     }

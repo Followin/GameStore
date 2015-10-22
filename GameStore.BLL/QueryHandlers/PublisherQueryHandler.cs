@@ -20,13 +20,13 @@ namespace GameStore.BLL.QueryHandlers
         IQueryHandler<GetAllPublishersQuery, PublishersQueryResult>
     #endregion
     {
-        private IGameStoreUnitOfWork db;
-        private ILogger logger;
+        private IGameStoreUnitOfWork _db;
+        private ILogger _logger;
 
         public PublisherQueryHandler(IGameStoreUnitOfWork db, ILogger logger)
         {
-            this.db = db;
-            this.logger = logger;
+            this._db = db;
+            this._logger = logger;
         }
 
         public PublisherQueryResult Retrieve(GetPublisherByCompanyNameQuery query)
@@ -34,15 +34,15 @@ namespace GameStore.BLL.QueryHandlers
             Validate(query);
             return
                 Mapper.Map<Publisher, PublisherQueryResult>(
-                    db.Publishers.GetSingle(x => x.CompanyName == query.CompanyName));
+                    _db.Publishers.GetSingle(x => x.CompanyName == query.CompanyName));
         }
 
         public PublishersQueryResult Retrieve(GetAllPublishersQuery query)
         {
-            logger.Debug("GetAllPublishers enter");
+            _logger.Debug("GetAllPublishers enter");
             return new PublishersQueryResult(
                           Mapper.Map<IEnumerable<Publisher>, IEnumerable<PublisherDTO>>(
-                              db.Publishers.Get(p => p.EntryState == EntryState.Active)));
+                              _db.Publishers.Get(p => p.EntryState == EntryState.Active)));
         }
 
 #region validators
@@ -53,7 +53,5 @@ namespace GameStore.BLL.QueryHandlers
                              .NotWhiteSpace();
         }
 #endregion
-
-        
     }
 }

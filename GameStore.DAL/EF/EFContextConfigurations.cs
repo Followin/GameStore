@@ -8,7 +8,6 @@ using GameStore.Domain.Entities;
 
 namespace GameStore.DAL.EF
 {
-
     public class GameConfiguration : EntityTypeConfiguration<Game>
     {
         public GameConfiguration()
@@ -65,7 +64,6 @@ namespace GameStore.DAL.EF
                                      .HasColumnType("NTEXT");
             Property(x => x.Description).IsRequired()
                                         .HasColumnType("NTEXt");
-
         }
     }
 
@@ -90,6 +88,3 @@ namespace GameStore.DAL.EF
         }
     }
 }
-
-
-

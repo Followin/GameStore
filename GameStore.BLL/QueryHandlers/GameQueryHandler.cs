@@ -26,25 +26,25 @@ namespace GameStore.BLL.QueryHandlers
         IQueryHandler<GetGamesCountQuery, GamesCountQueryResult>
     #endregion
     {
-        private IGameStoreUnitOfWork db;
-        private ILogger logger;
+        private IGameStoreUnitOfWork _db;
+        private ILogger _logger;
 
         public GameQueryHandler(IGameStoreUnitOfWork db, ILogger logger)
         {
-            this.db = db;
-            this.logger = logger;
+            this._db = db;
+            this._logger = logger;
         }
 
         public GamesQueryResult Retrieve(GetAllGamesQuery query)
         {
-            return new GamesQueryResult(Mapper.Map<List<GameDTO>>(db.Games.Get(_ => _.EntryState == EntryState.Active)));
+            return new GamesQueryResult(Mapper.Map<List<GameDTO>>(_db.Games.Get(g => g.EntryState == EntryState.Active)));
         }
 
         public GameQueryResult Retrieve(GetGameByIdQuery query)
         {
             query.Id.Argument("Id")
                     .GreaterThan(0);
-            return Mapper.Map<Game, GameQueryResult>(db.Games.Get(query.Id));
+            return Mapper.Map<Game, GameQueryResult>(_db.Games.Get(query.Id));
         }
 
         public GamesQueryResult Retrieve(GetGamesByGenreQuery query)
@@ -62,7 +62,7 @@ namespace GameStore.BLL.QueryHandlers
             {
                 query.Id.Argument("Id")
                     .GreaterThan(0);
-                genre = db.Genres.Get(query.Id);
+                genre = _db.Genres.Get(query.Id);
                 if (genre == null)
                 {
                     throw new ArgumentOutOfRangeException("Id", "Genre not found");
@@ -70,7 +70,7 @@ namespace GameStore.BLL.QueryHandlers
             }
             else
             {
-                genre = db.Genres.GetSingle(g => g.Name == query.Name);
+                genre = _db.Genres.GetSingle(g => g.Name == query.Name);
                 if (genre == null)
                 {
                     throw new ArgumentException("Genre not found", "Name");
@@ -80,7 +80,7 @@ namespace GameStore.BLL.QueryHandlers
             var genres = genre.ChildGenres.ToList();
             genres.Add(genre);
 
-            var games = db.Games.Get(g => g.EntryState == EntryState.Active && g.Genres.Intersect(genres).Any());
+            var games = _db.Games.Get(g => g.EntryState == EntryState.Active && g.Genres.Intersect(genres).Any());
             return new GamesQueryResult(Mapper.Map<IEnumerable<Game>, IEnumerable<GameDTO>>(games));
         }
 
@@ -103,7 +103,7 @@ namespace GameStore.BLL.QueryHandlers
 
                 types = query.Ids.Select(id =>
                 {
-                    var type = db.PlatformTypes.Get(id);
+                    var type = _db.PlatformTypes.Get(id);
                     if (type == null)
                     {
                         throw new ArgumentOutOfRangeException(
@@ -122,7 +122,7 @@ namespace GameStore.BLL.QueryHandlers
                               "Argument Names can't contain strings of white spaces");
                 types = query.Names.Select(name =>
                 {
-                    var type = db.PlatformTypes.GetSingle(pt => pt.Name == name);
+                    var type = _db.PlatformTypes.GetSingle(pt => pt.Name == name);
                     if (type == null)
                     {
                         throw new ArgumentOutOfRangeException(
@@ -133,7 +133,7 @@ namespace GameStore.BLL.QueryHandlers
                 });
             }
 
-            var games = db.Games.Get(g => g.EntryState == EntryState.Active && types.Intersect(g.PlatformTypes).Any());
+            var games = _db.Games.Get(g => g.EntryState == EntryState.Active && types.Intersect(g.PlatformTypes).Any());
             return new GamesQueryResult(Mapper.Map<IEnumerable<Game>, IEnumerable<GameDTO>>(games));
         }
 
@@ -142,13 +142,13 @@ namespace GameStore.BLL.QueryHandlers
             query.Key.Argument("Key")
                      .NotNull()
                      .NotWhiteSpace();
-           var gameQueryResult = Mapper.Map<Game, GameQueryResult>(db.Games.GetSingle(_ => _.EntryState == EntryState.Active && _.Key == query.Key));
+           var gameQueryResult = Mapper.Map<Game, GameQueryResult>(_db.Games.GetSingle(g => g.EntryState == EntryState.Active && _.Key == query.Key));
            return gameQueryResult;
         }
 
         public GamesCountQueryResult Retrieve(GetGamesCountQuery query)
         {
-            return new GamesCountQueryResult(db.Games.Get(x => x.EntryState == EntryState.Active).Count());
+            return new GamesCountQueryResult(_db.Games.Get(x => x.EntryState == EntryState.Active).Count());
         }
     }
 }

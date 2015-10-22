@@ -10,11 +10,11 @@ namespace GameStore.DAL.EF
 {
     public class EFContextInitializer : DropCreateDatabaseAlways<EFContext>
     {
-        private EFContext context;
+        private EFContext _context;
 
         protected override void Seed(EFContext context)
         {
-            this.context = context;
+            this._context = context;
 
             // unique indexes
             CreateIndex("Key", typeof(Game));
@@ -91,7 +91,7 @@ namespace GameStore.DAL.EF
         private void CreateIndex(string field, Type table)
         {
             var command = String.Format("CREATE UNIQUE INDEX IX_{0} ON [{1}s]([{0}])", field, table.Name);
-            context.Database.ExecuteSqlCommand(command);
+            _context.Database.ExecuteSqlCommand(command);
         }
     }
 }

@@ -11,10 +11,12 @@ namespace GameStore.BLL.Utils.ValidationExtensions
     {
         public static IValidation<Double> GreaterThan(this IValidation<Double> item, Double limit)
         {
-            if(item.Value <= limit)
+            if (item.Value <= limit)
+            {    
                 throw new ArgumentOutOfRangeException(
                     item.ArgName,
                     String.Format("Argument {0} must be greater than {1}", item.ArgName, limit));
+            }
 
             return item;
         }

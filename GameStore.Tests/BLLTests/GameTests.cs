@@ -18,18 +18,18 @@ namespace GameStore.Tests.BLLTests
     [TestClass]
     public class GameHandlerTests
     {
-        private GameCommandHandler commandHandler;
-        private GameQueryHandler queryHandler;
-        private Mock<IRepository<Game, Int32>> gameRepositoryMock;
-        private Mock<IRepository<Genre, Int32>> genreRepositoryMock;
-        private Mock<IRepository<PlatformType, Int32>> platformTypeRepositoryMock;
-        private Mock<IRepository<Publisher, Int32>> publisherRepositoryMock;
-        private Mock<IGameStoreUnitOfWork> unitOfWorkMock;
-        private CreateGameCommand newGameRightCommand;
-        private EditGameCommand editGameRightCommand;
-        private Game dota;
-        private Game witcher;
-        private Game[] games;
+        private GameCommandHandler _commandHandler;
+        private GameQueryHandler _queryHandler;
+        private Mock<IRepository<Game, Int32>> _gameRepositoryMock;
+        private Mock<IRepository<Genre, Int32>> _genreRepositoryMock;
+        private Mock<IRepository<PlatformType, Int32>> _platformTypeRepositoryMock;
+        private Mock<IRepository<Publisher, Int32>> _publisherRepositoryMock;
+        private Mock<IGameStoreUnitOfWork> _unitOfWorkMock;
+        private CreateGameCommand _newGameRightCommand;
+        private EditGameCommand _editGameRightCommand;
+        private Game _dota;
+        private Game _witcher;
+        private Game[] _games;
 
         [ClassInitialize]
         public static void Initializer(TestContext testContext)
@@ -57,11 +57,11 @@ namespace GameStore.Tests.BLLTests
             rts.ParentGenre = strategy;
             rts.ParentGenreId = 2;
             var genres = new[] { rts, strategy };
-            genreRepositoryMock = new Mock<IRepository<Genre, int>>();
-            genreRepositoryMock.Setup(x => x.Get()).Returns(genres);
-            genreRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
+            _genreRepositoryMock = new Mock<IRepository<Genre, int>>();
+            _genreRepositoryMock.Setup(x => x.Get()).Returns(genres);
+            _genreRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
                 (Int32 i) => genres.FirstOrDefault(g => g.Id == i));
-            genreRepositoryMock.Setup(x => x.GetSingle(It.IsAny<Expression<Func<Genre, Boolean>>>())).Returns(
+            _genreRepositoryMock.Setup(x => x.GetSingle(It.IsAny<Expression<Func<Genre, Boolean>>>())).Returns(
                 (Expression<Func<Genre, Boolean>> predicate) => genres.FirstOrDefault(predicate.Compile()));
             
             var desktop = new PlatformType
@@ -75,13 +75,13 @@ namespace GameStore.Tests.BLLTests
                 Name = "Web"
             };
             var platformTypes = new[] { desktop, web };
-            platformTypeRepositoryMock = new Mock<IRepository<PlatformType, int>>();
-            platformTypeRepositoryMock.Setup(x => x.Get()).Returns(platformTypes);
-            platformTypeRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
+            _platformTypeRepositoryMock = new Mock<IRepository<PlatformType, int>>();
+            _platformTypeRepositoryMock.Setup(x => x.Get()).Returns(platformTypes);
+            _platformTypeRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
                 (Int32 i) => platformTypes.FirstOrDefault(g => g.Id == i));
-            platformTypeRepositoryMock.Setup(x => x.GetSingle(It.IsAny<Expression<Func<PlatformType, Boolean>>>())).Returns(
+            _platformTypeRepositoryMock.Setup(x => x.GetSingle(It.IsAny<Expression<Func<PlatformType, Boolean>>>())).Returns(
                 (Expression<Func<PlatformType, Boolean>> predicate) => platformTypes.FirstOrDefault(predicate.Compile()));
-            platformTypeRepositoryMock.Setup(x => x.Get(It.IsAny<Expression<Func<PlatformType, Boolean>>>())).Returns(
+            _platformTypeRepositoryMock.Setup(x => x.Get(It.IsAny<Expression<Func<PlatformType, Boolean>>>())).Returns(
                 (Expression<Func<PlatformType, Boolean>> predicate) => platformTypes.Where(predicate.Compile()));
 
             var valve = new Publisher
@@ -99,12 +99,12 @@ namespace GameStore.Tests.BLLTests
                 HomePage = "https://www.cdprojekt.com/"
             };
             var publishers = new[] { valve, cdProject };
-            publisherRepositoryMock = new Mock<IRepository<Publisher, int>>();
-            publisherRepositoryMock.Setup(x => x.Get()).Returns(publishers);
-            publisherRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
+            _publisherRepositoryMock = new Mock<IRepository<Publisher, int>>();
+            _publisherRepositoryMock.Setup(x => x.Get()).Returns(publishers);
+            _publisherRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
                 (Int32 i) => publishers.FirstOrDefault(p => p.Id == i));
 
-            newGameRightCommand = new CreateGameCommand
+            _newGameRightCommand = new CreateGameCommand
             {
                 Name = "GTA 5",
                 Description = "5 part",
@@ -117,7 +117,7 @@ namespace GameStore.Tests.BLLTests
                 PublisherId = 1
             };
 
-            editGameRightCommand = new EditGameCommand
+            _editGameRightCommand = new EditGameCommand
             {
                 Id = 1,
                 Name = "New name",
@@ -131,7 +131,7 @@ namespace GameStore.Tests.BLLTests
                 PublisherId = 2
             };
 
-            dota = new Game
+            _dota = new Game
             {
                 Id = 1,
                 Name = "Dota 2",
@@ -145,7 +145,7 @@ namespace GameStore.Tests.BLLTests
                 Price = 100
             };
 
-            witcher = new Game
+            _witcher = new Game
             {
                 Id = 2,
                 Name = "Witcher 3",
@@ -158,25 +158,25 @@ namespace GameStore.Tests.BLLTests
                 UnitsInStock = 50,
                 Price = 100
             };
-            games = new[] { dota, witcher };
-            gameRepositoryMock = new Mock<IRepository<Game, int>>();
-            gameRepositoryMock.Setup(x => x.Get()).Returns(games);
-            gameRepositoryMock.Setup(x => x.Get(It.Is<Int32>(i => i == 1))).Returns(dota);
-            gameRepositoryMock.Setup(x => x.Get(It.Is<Int32>(i => i == 2))).Returns(witcher);
-            gameRepositoryMock.Setup(x => x.Get(It.IsAny<Expression<Func<Game, Boolean>>>())).Returns(
-                (Expression<Func<Game, Boolean>> predicate) => games.Where(predicate.Compile()));
-            gameRepositoryMock.Setup(x => x.GetSingle(It.IsAny<Expression<Func<Game, Boolean>>>())).Returns(
-                (Expression<Func<Game, Boolean>> predicate) => games.FirstOrDefault(predicate.Compile()));
+            _games = new[] { _dota, _witcher };
+            _gameRepositoryMock = new Mock<IRepository<Game, int>>();
+            _gameRepositoryMock.Setup(x => x.Get()).Returns(_games);
+            _gameRepositoryMock.Setup(x => x.Get(It.Is<Int32>(i => i == 1))).Returns(_dota);
+            _gameRepositoryMock.Setup(x => x.Get(It.Is<Int32>(i => i == 2))).Returns(_witcher);
+            _gameRepositoryMock.Setup(x => x.Get(It.IsAny<Expression<Func<Game, Boolean>>>())).Returns(
+                (Expression<Func<Game, Boolean>> predicate) => _games.Where(predicate.Compile()));
+            _gameRepositoryMock.Setup(x => x.GetSingle(It.IsAny<Expression<Func<Game, Boolean>>>())).Returns(
+                (Expression<Func<Game, Boolean>> predicate) => _games.FirstOrDefault(predicate.Compile()));
 
-            unitOfWorkMock = new Mock<IGameStoreUnitOfWork>();
-            unitOfWorkMock.Setup(x => x.Games).Returns(gameRepositoryMock.Object);
-            unitOfWorkMock.Setup(x => x.Genres).Returns(genreRepositoryMock.Object);
-            unitOfWorkMock.Setup(x => x.PlatformTypes).Returns(platformTypeRepositoryMock.Object);
-            unitOfWorkMock.Setup(x => x.Publishers).Returns(publisherRepositoryMock.Object);
+            _unitOfWorkMock = new Mock<IGameStoreUnitOfWork>();
+            _unitOfWorkMock.Setup(x => x.Games).Returns(_gameRepositoryMock.Object);
+            _unitOfWorkMock.Setup(x => x.Genres).Returns(_genreRepositoryMock.Object);
+            _unitOfWorkMock.Setup(x => x.PlatformTypes).Returns(_platformTypeRepositoryMock.Object);
+            _unitOfWorkMock.Setup(x => x.Publishers).Returns(_publisherRepositoryMock.Object);
 
             var logger = new Mock<ILogger>();
-            commandHandler = new GameCommandHandler(unitOfWorkMock.Object, logger.Object);
-            queryHandler = new GameQueryHandler(unitOfWorkMock.Object, logger.Object);
+            _commandHandler = new GameCommandHandler(_unitOfWorkMock.Object, logger.Object);
+            _queryHandler = new GameQueryHandler(_unitOfWorkMock.Object, logger.Object);
         }
 
         #region Create_Tests
@@ -184,11 +184,11 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_Name_Argument_Is_Null()
         {
             // Arrange
-            newGameRightCommand.Name = null;
+            _newGameRightCommand.Name = null;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                commandHandler.Execute(newGameRightCommand));
+                _commandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("Name", result.ParamName);
@@ -198,11 +198,11 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_Name_Argument_Is_Empty()
         {
             // Arrange
-            newGameRightCommand.Name = String.Empty;
+            _newGameRightCommand.Name = String.Empty;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                commandHandler.Execute(newGameRightCommand));
+                _commandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("Name", result.ParamName);
@@ -212,11 +212,11 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_Key_Argument_Is_Null()
         {
             // Arrange
-            newGameRightCommand.Key = null;
+            _newGameRightCommand.Key = null;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                commandHandler.Execute(newGameRightCommand));
+                _commandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("Key", result.ParamName);
@@ -226,11 +226,11 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_Key_Argument_Is_Empty()
         {
             // Arrange
-            newGameRightCommand.Key = String.Empty;
+            _newGameRightCommand.Key = String.Empty;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                commandHandler.Execute(newGameRightCommand));
+                _commandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("Key", result.ParamName);
@@ -240,11 +240,11 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_Description_Argument_Is_Null()
         {
             // Arrange
-            newGameRightCommand.Description = null;
+            _newGameRightCommand.Description = null;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                commandHandler.Execute(newGameRightCommand));
+                _commandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("Description", result.ParamName);
@@ -254,11 +254,11 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_Description_Argument_Is_Empty()
         {
             // Arrange
-            newGameRightCommand.Description = String.Empty;
+            _newGameRightCommand.Description = String.Empty;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                commandHandler.Execute(newGameRightCommand));
+                _commandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("Description", result.ParamName);
@@ -268,11 +268,11 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_GenresIds_Argument_Is_Null()
         {
             // Arrange
-            newGameRightCommand.GenreIds = null;
+            _newGameRightCommand.GenreIds = null;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                commandHandler.Execute(newGameRightCommand));
+                _commandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("GenreIds", result.ParamName);
@@ -282,11 +282,11 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_GenreIds_Argument_Is_Empty()
         {
             // Arrange
-            newGameRightCommand.GenreIds = Enumerable.Empty<Int32>().ToArray();
+            _newGameRightCommand.GenreIds = Enumerable.Empty<Int32>().ToArray();
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                commandHandler.Execute(newGameRightCommand));
+                _commandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("GenreIds", result.ParamName);
@@ -296,11 +296,11 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_PlatformTypeIds_Argument_Is_Null()
         {
             // Arrange
-            newGameRightCommand.PlatformTypeIds = null;
+            _newGameRightCommand.PlatformTypeIds = null;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                commandHandler.Execute(newGameRightCommand));
+                _commandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("PlatformTypeIds", result.ParamName);
@@ -310,11 +310,11 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_PlatformTypeIds_Argument_Is_Empty()
         {
             // Arrange
-            newGameRightCommand.PlatformTypeIds = Enumerable.Empty<Int32>().ToArray();
+            _newGameRightCommand.PlatformTypeIds = Enumerable.Empty<Int32>().ToArray();
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                commandHandler.Execute(newGameRightCommand));
+                _commandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("PlatformTypeIds", result.ParamName);
@@ -324,13 +324,13 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_With_Existing_Key()
         {
             // Arrange
-            newGameRightCommand.Key = "dota-2";
-            gameRepositoryMock.Setup(x => x.GetSingle(It.IsAny<Expression<Func<Game, Boolean>>>()))
-                .Returns((Expression<Func<Game, Boolean>> predicate) => predicate.Compile()(dota) ? dota : null);
+            _newGameRightCommand.Key = "dota-2";
+            _gameRepositoryMock.Setup(x => x.GetSingle(It.IsAny<Expression<Func<Game, Boolean>>>()))
+                .Returns((Expression<Func<Game, Boolean>> predicate) => predicate.Compile()(_dota) ? _dota : null);
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                commandHandler.Execute(newGameRightCommand));
+                _commandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("Key", result.ParamName);
@@ -340,11 +340,11 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_With_Non_Exising_Genre()
         {
             // Arrange
-            newGameRightCommand.GenreIds = new[] { 1, 5 };
+            _newGameRightCommand.GenreIds = new[] { 1, 5 };
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                commandHandler.Execute(newGameRightCommand));
+                _commandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("GenreIds", result.ParamName);
@@ -354,11 +354,11 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_With_Non_Exising_PlatformType()
         {
             // Arrange
-            newGameRightCommand.PlatformTypeIds = new[] { 1, 5 };
+            _newGameRightCommand.PlatformTypeIds = new[] { 1, 5 };
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                commandHandler.Execute(newGameRightCommand));
+                _commandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("PlatformTypeIds", result.ParamName);
@@ -368,14 +368,14 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_With_No_Price_Argument()
         {
             // Arrange
-            newGameRightCommand.Price = 0;
+            _newGameRightCommand.Price = 0;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                commandHandler.Execute(newGameRightCommand));
+                _commandHandler.Execute(_newGameRightCommand));
 
             // Assert
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Price", result.ParamName);
         }
 
@@ -383,14 +383,14 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_Price_Argument_Is_Negative()
         {
             // Arrange
-            newGameRightCommand.Price = -1;
+            _newGameRightCommand.Price = -1;
             
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                commandHandler.Execute(newGameRightCommand));
+                _commandHandler.Execute(_newGameRightCommand));
 
             // Assert
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Price", result.ParamName);
         }
 
@@ -398,14 +398,14 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_UnitsInStock_Argument_Is_Negative()
         {
             // Arrange
-            newGameRightCommand.UnitsInStock = -1;
+            _newGameRightCommand.UnitsInStock = -1;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                commandHandler.Execute(newGameRightCommand));
+                _commandHandler.Execute(_newGameRightCommand));
 
-            //Assert
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            // Assert
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("UnitsInStock", result.ParamName);
         }
 
@@ -413,15 +413,15 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_PublisherId_Argument_Is_Zero()
         {
             // Arrange
-            newGameRightCommand.PublisherId = 0;
+            _newGameRightCommand.PublisherId = 0;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                commandHandler.Execute(newGameRightCommand));
+                _commandHandler.Execute(_newGameRightCommand));
 
             // Assert
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
-            unitOfWorkMock.Verify(x => x.Publishers, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Publishers, Times.Never);
             Assert.AreEqual("PublisherId", result.ParamName);
         }
 
@@ -429,15 +429,15 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_PublisherId_Argument_Is_Negative()
         {
             // Arrange
-            newGameRightCommand.PublisherId = -1;
+            _newGameRightCommand.PublisherId = -1;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                commandHandler.Execute(newGameRightCommand));
+                _commandHandler.Execute(_newGameRightCommand));
 
             // Assert
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
-            unitOfWorkMock.Verify(x => x.Publishers, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Publishers, Times.Never);
             Assert.AreEqual("PublisherId", result.ParamName);
         }
 
@@ -445,14 +445,14 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_PublisherId_Argument_Doesnt_Match_Existing_Publisher()
         {
             // Arrange
-            newGameRightCommand.PublisherId = 100;
+            _newGameRightCommand.PublisherId = 100;
 
-            //Act
+            // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                commandHandler.Execute(newGameRightCommand));
+                _commandHandler.Execute(_newGameRightCommand));
 
-            //Assert
-            gameRepositoryMock.Verify(x => x.Add(It.IsAny<Game>()), Times.Never);
+            // Assert
+            _gameRepositoryMock.Verify(x => x.Add(It.IsAny<Game>()), Times.Never);
             Assert.AreEqual("PublisherId", result.ParamName);
         }
 
@@ -461,11 +461,11 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             // Act
-            commandHandler.Execute(newGameRightCommand);
+            _commandHandler.Execute(_newGameRightCommand);
 
             // Assert
-            gameRepositoryMock.Verify(x => x.Add(It.IsAny<Game>()), Times.Once);
-            unitOfWorkMock.Verify(x => x.Save(), Times.Once);
+            _gameRepositoryMock.Verify(x => x.Add(It.IsAny<Game>()), Times.Once);
+            _unitOfWorkMock.Verify(x => x.Save(), Times.Once);
         }
 
         #endregion
@@ -476,14 +476,14 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_Id_Argument_Is_Zero()
         {
             // Arrange
-            editGameRightCommand.Id = 0;
+            _editGameRightCommand.Id = 0;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
-            gameRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Never());
+            _gameRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Never());
             Assert.AreEqual("Id", result.ParamName);
         }
 
@@ -491,14 +491,14 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_Id_Argument_Lower_Than_Zero()
         {
             // Arrange
-            editGameRightCommand.Id = -1;
+            _editGameRightCommand.Id = -1;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
-            gameRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Never());
+            _gameRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Never());
             Assert.AreEqual("Id", result.ParamName);
         }
 
@@ -506,11 +506,11 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_Id_Argument_Doesnt_Match_Exising_Game()
         {
             // Arrange
-            editGameRightCommand.Id = 5;
+            _editGameRightCommand.Id = 5;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("Id", result.ParamName);
@@ -520,11 +520,11 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_Name_Argument_Is_Null()
         {
             // Arrange
-            editGameRightCommand.Name = null;
+            _editGameRightCommand.Name = null;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("Name", result.ParamName);
@@ -534,11 +534,11 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_Name_Argument_Is_Empty()
         {
             // Arrange
-            editGameRightCommand.Name = String.Empty;
+            _editGameRightCommand.Name = String.Empty;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("Name", result.ParamName);
@@ -548,11 +548,11 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_Key_Argument_Is_Null()
         {
             // Arrange
-            editGameRightCommand.Key = null;
+            _editGameRightCommand.Key = null;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("Key", result.ParamName);
@@ -562,11 +562,11 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_Key_Argument_Is_Empty()
         {
             // Arrange
-            editGameRightCommand.Key = String.Empty;
+            _editGameRightCommand.Key = String.Empty;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("Key", result.ParamName);
@@ -576,11 +576,11 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_Description_Argument_Is_Null()
         {
             // Arrange
-            editGameRightCommand.Description = null;
+            _editGameRightCommand.Description = null;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("Description", result.ParamName);
@@ -590,11 +590,11 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_Description_Argument_Is_Empty()
         {
             // Arrange
-            editGameRightCommand.Description = String.Empty;
+            _editGameRightCommand.Description = String.Empty;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("Description", result.ParamName);
@@ -604,11 +604,11 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_GenresIds_Argument_Is_Null()
         {
             // Arrange
-            editGameRightCommand.GenreIds = null;
+            _editGameRightCommand.GenreIds = null;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("GenreIds", result.ParamName);
@@ -618,11 +618,11 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_GenreIds_Argument_Is_Empty()
         {
             // Arrange
-            editGameRightCommand.GenreIds = Enumerable.Empty<Int32>().ToArray();
+            _editGameRightCommand.GenreIds = Enumerable.Empty<Int32>().ToArray();
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("GenreIds", result.ParamName);
@@ -632,11 +632,11 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_PlatformTypeIds_Argument_Is_Null()
         {
             // Arrange
-            editGameRightCommand.PlatformTypeIds = null;
+            _editGameRightCommand.PlatformTypeIds = null;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("PlatformTypeIds", result.ParamName);
@@ -646,11 +646,11 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_PlatformTypeIds_Argument_Is_Empty()
         {
             // Arrange
-            editGameRightCommand.PlatformTypeIds = Enumerable.Empty<Int32>().ToArray();
+            _editGameRightCommand.PlatformTypeIds = Enumerable.Empty<Int32>().ToArray();
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("PlatformTypeIds", result.ParamName);
@@ -660,11 +660,11 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_With_Existing_Key()
         {
             // Arrange
-            editGameRightCommand.Key = "witcher-3";
+            _editGameRightCommand.Key = "witcher-3";
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("Key", result.ParamName);
@@ -674,11 +674,11 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_With_Non_Exising_Genre()
         {
             // Arrange
-            editGameRightCommand.GenreIds = new[] { 1, 5 };
+            _editGameRightCommand.GenreIds = new[] { 1, 5 };
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("GenreIds", result.ParamName);
@@ -688,11 +688,11 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_With_Non_Exising_PlatformType()
         {
             // Arrange
-            editGameRightCommand.PlatformTypeIds = new[] { 1, 5 };
+            _editGameRightCommand.PlatformTypeIds = new[] { 1, 5 };
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("PlatformTypeIds", result.ParamName);
@@ -702,14 +702,14 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_With_No_Price_Argument()
         {
             // Arrange
-            editGameRightCommand.Price = 0;
+            _editGameRightCommand.Price = 0;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Price", result.ParamName);
         }
 
@@ -717,14 +717,14 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_Price_Argument_Is_Negative()
         {
             // Arrange
-            editGameRightCommand.Price = -1;
+            _editGameRightCommand.Price = -1;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Price", result.ParamName);
         }
 
@@ -732,14 +732,14 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_UnitsInStock_Argument_Is_Negative()
         {
             // Arrange
-            editGameRightCommand.UnitsInStock = -1;
+            _editGameRightCommand.UnitsInStock = -1;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
-            //Assert
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            // Assert
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("UnitsInStock", result.ParamName);
         }
 
@@ -747,15 +747,15 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_PublisherId_Argument_Is_Zero()
         {
             // Arrange
-            editGameRightCommand.PublisherId = 0;
+            _editGameRightCommand.PublisherId = 0;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
-            unitOfWorkMock.Verify(x => x.Publishers, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Publishers, Times.Never);
             Assert.AreEqual("PublisherId", result.ParamName);
         }
 
@@ -763,15 +763,15 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_PublisherId_Argument_Is_Negative()
         {
             // Arrange
-            editGameRightCommand.PublisherId = -1;
+            _editGameRightCommand.PublisherId = -1;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
-            unitOfWorkMock.Verify(x => x.Publishers, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Publishers, Times.Never);
             Assert.AreEqual("PublisherId", result.ParamName);
         }
 
@@ -779,14 +779,14 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_PublisherId_Argument_Doesnt_Match_Existing_Publisher()
         {
             // Arrange
-            editGameRightCommand.PublisherId = 100;
+            _editGameRightCommand.PublisherId = 100;
 
-            //Act
+            // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                commandHandler.Execute(editGameRightCommand));
+                _commandHandler.Execute(_editGameRightCommand));
 
-            //Assert
-            gameRepositoryMock.Verify(x => x.Update(It.IsAny<Game>()), Times.Never);
+            // Assert
+            _gameRepositoryMock.Verify(x => x.Update(It.IsAny<Game>()), Times.Never);
             Assert.AreEqual("PublisherId", result.ParamName);
         }
 
@@ -795,11 +795,11 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             // Act
-            commandHandler.Execute(editGameRightCommand);
+            _commandHandler.Execute(_editGameRightCommand);
 
             // Assert
-            gameRepositoryMock.Verify(x => x.Update(It.IsAny<Game>()), Times.Once);
-            unitOfWorkMock.Verify(x => x.Save(), Times.Once);
+            _gameRepositoryMock.Verify(x => x.Update(It.IsAny<Game>()), Times.Once);
+            _unitOfWorkMock.Verify(x => x.Save(), Times.Once);
         }
 
         #endregion
@@ -814,10 +814,10 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                commandHandler.Execute(deleteGameCommand));
+                _commandHandler.Execute(deleteGameCommand));
 
             // Assert
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Key", result.ParamName);
         }
 
@@ -829,10 +829,10 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                commandHandler.Execute(deleteGameCommand));
+                _commandHandler.Execute(deleteGameCommand));
 
             // Assert
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Key", result.ParamName);
         }
 
@@ -844,7 +844,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                commandHandler.Execute(deleteGameCommand));
+                _commandHandler.Execute(deleteGameCommand));
 
             // Assert
             Assert.AreEqual("Key", result.ParamName);
@@ -857,10 +857,10 @@ namespace GameStore.Tests.BLLTests
             var deleteGameCommand = new DeleteGameCommand { Key = "dota-2" };
 
             // Act
-            commandHandler.Execute(deleteGameCommand);
+            _commandHandler.Execute(deleteGameCommand);
 
             // Assert
-            unitOfWorkMock.Verify(x => x.Save(), Times.Once);
+            _unitOfWorkMock.Verify(x => x.Save(), Times.Once);
         }
         #endregion
 
@@ -873,7 +873,7 @@ namespace GameStore.Tests.BLLTests
             var getAllGamesQuery = new GetAllGamesQuery();
 
             // Act
-            var result = queryHandler.Retrieve(getAllGamesQuery);
+            var result = _queryHandler.Retrieve(getAllGamesQuery);
 
             // Assert
             Assert.AreEqual(2, result.Count());
@@ -887,10 +887,10 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                queryHandler.Retrieve(getGameById));
+                _queryHandler.Retrieve(getGameById));
 
             // Assert
-            gameRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Never);
+            _gameRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Never);
             Assert.AreEqual("Id", result.ParamName);
         }
 
@@ -902,10 +902,10 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                queryHandler.Retrieve(getGameById));
+                _queryHandler.Retrieve(getGameById));
 
             // Assert
-            gameRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Never);
+            _gameRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Never);
             Assert.AreEqual("Id", result.ParamName);
         }
 
@@ -916,10 +916,10 @@ namespace GameStore.Tests.BLLTests
             var getGameById = new GetGameByIdQuery { Id = 1 };
 
             // Act
-            var result = queryHandler.Retrieve(getGameById);
+            var result = _queryHandler.Retrieve(getGameById);
 
             // Assert
-            gameRepositoryMock.Verify(x => x.Get(It.Is<Int32>(i => i == 1)), Times.Once());
+            _gameRepositoryMock.Verify(x => x.Get(It.Is<Int32>(i => i == 1)), Times.Once());
             Assert.AreEqual("Dota 2", result.Name);
         }
 
@@ -931,11 +931,11 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                queryHandler.Retrieve(getGamesByGenre));
+                _queryHandler.Retrieve(getGamesByGenre));
 
             // Assert
-            unitOfWorkMock.Verify(x => x.Genres, Times.Never);
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Genres, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Id", result.ParamName);
         }
 
@@ -947,11 +947,11 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                queryHandler.Retrieve(getGamesByGenre));
+                _queryHandler.Retrieve(getGamesByGenre));
 
             // Assert
-            unitOfWorkMock.Verify(x => x.Genres, Times.Never);
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Genres, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Name", result.ParamName);
         }
 
@@ -963,11 +963,11 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                queryHandler.Retrieve(getGamesByGenre));
+                _queryHandler.Retrieve(getGamesByGenre));
 
             // Assert
-            unitOfWorkMock.Verify(x => x.Genres, Times.Never);
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Genres, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Id, Name", result.ParamName);
         }
 
@@ -979,11 +979,11 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                queryHandler.Retrieve(getGamesByGenre));
+                _queryHandler.Retrieve(getGamesByGenre));
 
             // Assert
-            genreRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Once);
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            _genreRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Once);
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Id", result.ParamName);
         }
 
@@ -995,11 +995,11 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                queryHandler.Retrieve(getGamesByGenre));
+                _queryHandler.Retrieve(getGamesByGenre));
 
             // Assert
-            genreRepositoryMock.Verify(x => x.GetSingle(It.IsAny<Expression<Func<Genre, Boolean>>>()), Times.Once);
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            _genreRepositoryMock.Verify(x => x.GetSingle(It.IsAny<Expression<Func<Genre, Boolean>>>()), Times.Once);
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Name", result.ParamName);
         }
 
@@ -1010,7 +1010,7 @@ namespace GameStore.Tests.BLLTests
             var getGamesByGenre = new GetGamesByGenreQuery { Id = 2 };
 
             // Act
-            var result = queryHandler.Retrieve(getGamesByGenre);
+            var result = _queryHandler.Retrieve(getGamesByGenre);
 
             // Assert
             Assert.AreEqual(2, result.Count());
@@ -1023,7 +1023,7 @@ namespace GameStore.Tests.BLLTests
             var getGamesByGenre = new GetGamesByGenreQuery() { Name = "RTS" };
 
             // Act
-            var result = queryHandler.Retrieve(getGamesByGenre);
+            var result = _queryHandler.Retrieve(getGamesByGenre);
 
             // Assert
             Assert.AreEqual(1, result.Count());
@@ -1037,11 +1037,11 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                queryHandler.Retrieve(getGamesByPlatformTypes));
+                _queryHandler.Retrieve(getGamesByPlatformTypes));
 
             // Assert
-            unitOfWorkMock.Verify(x => x.Genres, Times.Never);
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Genres, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Ids", result.ParamName);
         }
 
@@ -1053,11 +1053,11 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                queryHandler.Retrieve(getGamesByPlatformTypes));
+                _queryHandler.Retrieve(getGamesByPlatformTypes));
 
             // Assert
-            unitOfWorkMock.Verify(x => x.Genres, Times.Never);
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Genres, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Ids", result.ParamName);
         }
 
@@ -1069,11 +1069,11 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                queryHandler.Retrieve(getGamesByPlatformTypes));
+                _queryHandler.Retrieve(getGamesByPlatformTypes));
 
             // Assert
-            unitOfWorkMock.Verify(x => x.Genres, Times.Never);
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Genres, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Names", result.ParamName);
         }
 
@@ -1085,11 +1085,11 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                queryHandler.Retrieve(getGamesByPlatformTypes));
+                _queryHandler.Retrieve(getGamesByPlatformTypes));
 
             // Assert
-            unitOfWorkMock.Verify(x => x.Genres, Times.Never);
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Genres, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Ids, Names", result.ParamName);
         }
 
@@ -1100,7 +1100,7 @@ namespace GameStore.Tests.BLLTests
             var getGamesByPlatformTypes = new GetGamesByPlatformTypesQuery { Ids = new[] { 1 } };
 
             // Act
-            var result = queryHandler.Retrieve(getGamesByPlatformTypes);
+            var result = _queryHandler.Retrieve(getGamesByPlatformTypes);
 
             // Assert
             Assert.AreEqual(2, result.Count());
@@ -1113,7 +1113,7 @@ namespace GameStore.Tests.BLLTests
             var getGamesByPlatformTypes = new GetGamesByPlatformTypesQuery { Names = new[] { "Web" } };
 
             // Act
-            var result = queryHandler.Retrieve(getGamesByPlatformTypes);
+            var result = _queryHandler.Retrieve(getGamesByPlatformTypes);
 
             // Assert
             Assert.AreEqual(1, result.Count());
@@ -1127,10 +1127,10 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                queryHandler.Retrieve(getGameByKey));
+                _queryHandler.Retrieve(getGameByKey));
 
             // Assert
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Key", result.ParamName);
         }
 
@@ -1142,10 +1142,10 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                queryHandler.Retrieve(getGameByKey));
+                _queryHandler.Retrieve(getGameByKey));
 
             // Assert
-            unitOfWorkMock.Verify(x => x.Games, Times.Never);
+            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Key", result.ParamName);
         }
 
@@ -1156,10 +1156,10 @@ namespace GameStore.Tests.BLLTests
             var getGameByKey = new GetGameByKeyQuery { Key = "dota-2" };
 
             // Act
-            var result = queryHandler.Retrieve(getGameByKey);
+            var result = _queryHandler.Retrieve(getGameByKey);
 
             // Assert
-            gameRepositoryMock.Verify(x => x.GetSingle(It.IsAny<Expression<Func<Game, Boolean>>>()), Times.Once);
+            _gameRepositoryMock.Verify(x => x.GetSingle(It.IsAny<Expression<Func<Game, Boolean>>>()), Times.Once);
             Assert.AreEqual("Dota 2", result.Name);
         }
         #endregion

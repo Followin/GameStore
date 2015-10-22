@@ -11,7 +11,6 @@ namespace GameStore.BLL.Utils
     {
         public static string GetPropertyName<TModel, TValue>(this Expression<Func<TModel, TValue>> propertySelector, char delimiter = '.', char endTrim = ')')
         {
-
             var asString = propertySelector.ToString(); // gives you: "o => o.Whatever"
             var lastDelim = asString.LastIndexOf(delimiter); // make sure there is a beginning property indicator; the "." in "o.Whatever" -- this may not be necessary?
 
@@ -19,6 +18,5 @@ namespace GameStore.BLL.Utils
                 ? asString
                 : asString.Substring(lastDelim + 1).TrimEnd(endTrim);
         }
-
     }
 }

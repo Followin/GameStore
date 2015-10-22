@@ -37,6 +37,7 @@ namespace GameStore.Web.Models.Game
         [Required]
         public Int32[] PlatformTypeIds { get; set; }
     }
+
     public class CreateGameViewModel
     {
         [Required]
@@ -47,6 +48,5 @@ namespace GameStore.Web.Models.Game
         public IEnumerable<PlatformTypeViewModel> PlatformTypes { get; set; }
 
         public SelectList Publishers { get; set; } 
-        
     }
 }

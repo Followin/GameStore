@@ -50,6 +50,7 @@ namespace GameStore.Web.Controllers
                 CommandDispatcher.Dispatch(Mapper.Map<CreateGameModel, CreateGameCommand>(model.CreateModel));
                 return RedirectToAction("Index");
             }
+
             FillCreateGameViewModel(model);
             return View(model);
         }
@@ -102,7 +103,6 @@ namespace GameStore.Web.Controllers
             model.Genres = genres;
             model.PlatformTypes = platformTypes;
             model.Publishers = publishersSelectList;
-
         }
     }
 }

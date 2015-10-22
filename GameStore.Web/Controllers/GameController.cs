@@ -48,6 +48,7 @@ namespace GameStore.Web.Controllers
                         });
                     model.CreateModel.GameId = query.Id;
                 }
+
                 var command = Mapper.Map<CreateCommentViewModel, CreateCommentCommand>(model.CreateModel);
                 CommandDispatcher.Dispatch(command);
                 return RedirectToRoute(new { action = "Comments", controller = "Game", gamekey = gamekey });
@@ -63,7 +64,6 @@ namespace GameStore.Web.Controllers
             return View("Comments", model);
         }
 
-
         public ActionResult Comments(String gamekey)
         {
             var query = QueryDispatcher.Dispatch<GetCommentsByGameKeyQuery, CommentsQueryResult>(
@@ -75,7 +75,6 @@ namespace GameStore.Web.Controllers
             var model = new CommentViewModel { Comments = comments };
             return View(model);
         }
-
 
         public ActionResult Download(String gamekey)
         {

@@ -13,13 +13,13 @@ namespace GameStore.BLL.CommandHandlers
     public class PublisherCommandHandler : 
         ICommandHandler<CreatePublisherCommand>
     {
-        private IGameStoreUnitOfWork db;
-        private ILogger logger;
+        private IGameStoreUnitOfWork _db;
+        private ILogger _logger;
 
         public PublisherCommandHandler(IGameStoreUnitOfWork db, ILogger logger)
         {
-            this.db = db;
-            this.logger = logger;
+            this._db = db;
+            this._logger = logger;
         }
 
         public void Execute(CreatePublisherCommand command)
@@ -28,8 +28,8 @@ namespace GameStore.BLL.CommandHandlers
 
             var publisher = Mapper.Map<CreatePublisherCommand, Publisher>(command);
 
-            db.Publishers.Add(publisher);
-            db.Save();
+            _db.Publishers.Add(publisher);
+            _db.Save();
         }
 
 #region validation
@@ -45,8 +45,10 @@ namespace GameStore.BLL.CommandHandlers
             command.HomePage.Argument("HomePage")
                             .NotNull()
                             .NotWhiteSpace();
-            if (db.Publishers.GetSingle(p => p.CompanyName == command.CompanyName) != null)
+            if (_db.Publishers.GetSingle(p => p.CompanyName == command.CompanyName) != null)
+            {
                 throw new ArgumentException("Publisher with such CompanyName already exist", "CompanyName");
+            }
         }
 #endregion
     }

@@ -55,8 +55,6 @@ namespace GameStore.DAL.EF
         }
     }
 
-    
-
     public class EFContextFactory : IDbContextFactory<EFContext>
     {
         public EFContext Create()

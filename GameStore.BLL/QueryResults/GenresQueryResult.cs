@@ -13,6 +13,7 @@ namespace GameStore.BLL.QueryResults
         {
             _genres = genres;
         }
+
         public IEnumerator<GenreDTO> GetEnumerator()
         {
             return _genres.GetEnumerator();

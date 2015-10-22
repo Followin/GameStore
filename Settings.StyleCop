@@ -76,9 +76,19 @@
       <AnalyzerSettings />
     </Analyzer>
     <Analyzer AnalyzerId="StyleCop.CSharp.NamingRules">
+      <Rules>
+        <Rule Name="FieldNamesMustNotBeginWithUnderscore">
+          <RuleSettings>
+            <BooleanProperty Name="Enabled">False</BooleanProperty>
+          </RuleSettings>
+        </Rule>
+      </Rules>
       <AnalyzerSettings>
         <CollectionProperty Name="Hungarian">
+          <Value>cd</Value>
           <Value>db</Value>
+          <Value>li</Value>
+          <Value>ul</Value>
         </CollectionProperty>
       </AnalyzerSettings>
     </Analyzer>

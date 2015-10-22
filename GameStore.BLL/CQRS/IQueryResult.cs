@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace GameStore.BLL.CQRS
 {
+    /// <summary>
+    /// Encapsulates query result
+    /// </summary>
     public interface IQueryResult
     {
     }

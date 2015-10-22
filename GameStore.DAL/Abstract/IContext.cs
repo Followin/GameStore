@@ -25,8 +25,18 @@ namespace GameStore.DAL.Abstract
 
         IDbSet<Order> Orders { get; }
 
+        /// <summary>
+        /// Get's set of items if exists
+        /// </summary>
+        /// <typeparam name="T">Set type</typeparam>
+        /// <returns></returns>
         IDbSet<T> Set<T>() where T : class;
 
+        /// <summary>
+        /// Sets EntryState bit into modified position
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
         void SetModified<T>(T item) where T : class;
 
         Int32 SaveChanges();

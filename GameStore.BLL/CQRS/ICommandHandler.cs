@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace GameStore.BLL.CQRS
 {
+    /// <summary>
+    /// Handles and executes commands
+    /// </summary>
+    /// <typeparam name="TParameter">Command type</typeparam>
     public interface ICommandHandler<in TParameter> where TParameter : ICommand
     {
+        /// <summary>
+        /// Execute command
+        /// </summary>
+        /// <param name="command">command</param>
         void Execute(TParameter command);
     }
 }

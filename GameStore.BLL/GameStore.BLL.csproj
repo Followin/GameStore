@@ -116,6 +116,7 @@
     <Compile Include="QueryResults\PublishersQueryResult.cs" />
     <Compile Include="Utils\BLLMapperProfile.cs" />
     <Compile Include="Utils\BLLNinjectModule.cs" />
+    <Compile Include="Utils\EntityNotFoundException.cs" />
     <Compile Include="Utils\ExpressionExtensions.cs" />
     <Compile Include="Utils\ValidationExtensions\DecimalValidationExtensions.cs" />
     <Compile Include="Utils\ValidationExtensions\DoubleValidationExtensions.cs" />

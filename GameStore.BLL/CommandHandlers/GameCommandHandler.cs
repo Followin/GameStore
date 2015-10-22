@@ -5,6 +5,7 @@ using ArgumentValidation.Extensions;
 using AutoMapper;
 using GameStore.BLL.Commands;
 using GameStore.BLL.CQRS;
+using GameStore.BLL.Utils;
 using GameStore.BLL.Utils.ValidationExtensions;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
@@ -37,7 +38,7 @@ namespace GameStore.BLL.CommandHandlers
                 var genre = _db.Genres.Get(g);
                 if (genre == null)
                 {
-                    throw new ArgumentException(
+                    throw new EntityNotFoundException(
                         String.Format("Genre not found. Id: {0}", g),
                                       "GenreIds");
                 }
@@ -50,7 +51,7 @@ namespace GameStore.BLL.CommandHandlers
                 var platformType = _db.PlatformTypes.Get(p);
                 if (platformType == null)
                 {
-                    throw new ArgumentException(
+                    throw new EntityNotFoundException(
                         String.Format("PlatformType not found. Id: {0}", p),
                                       "PlatformTypeIds");
                 }
@@ -92,7 +93,7 @@ namespace GameStore.BLL.CommandHandlers
                 var genre = _db.Genres.Get(g);
                 if (genre == null)
                 {
-                    throw new ArgumentException(
+                    throw new EntityNotFoundException(
                         String.Format("Genre not found. Id: {0}", g),
                                       "GenreIds");
                 }
@@ -105,7 +106,7 @@ namespace GameStore.BLL.CommandHandlers
                 var platformType = _db.PlatformTypes.Get(p);
                 if (platformType == null)
                 {
-                    throw new ArgumentException(
+                    throw new EntityNotFoundException(
                         String.Format("PlatformType not found. Id: {0}", p),
                                       "PlatformTypeIds");
                 }

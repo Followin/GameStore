@@ -9,6 +9,7 @@ using GameStore.BLL.DTO;
 using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryResults;
+using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
 using NLog;
@@ -73,7 +74,7 @@ namespace GameStore.BLL.QueryHandlers
                 genre = _db.Genres.GetSingle(g => g.Name == query.Name);
                 if (genre == null)
                 {
-                    throw new ArgumentException("Genre not found", "Name");
+                    throw new EntityNotFoundException("Genre not found", "Name");
                 }
             }
 
@@ -142,7 +143,7 @@ namespace GameStore.BLL.QueryHandlers
             query.Key.Argument("Key")
                      .NotNull()
                      .NotWhiteSpace();
-           var gameQueryResult = Mapper.Map<Game, GameQueryResult>(_db.Games.GetSingle(g => g.EntryState == EntryState.Active && _.Key == query.Key));
+           var gameQueryResult = Mapper.Map<Game, GameQueryResult>(_db.Games.GetSingle(g => g.EntryState == EntryState.Active && g.Key == query.Key));
            return gameQueryResult;
         }
 

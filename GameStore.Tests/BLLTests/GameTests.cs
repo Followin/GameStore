@@ -6,6 +6,7 @@ using GameStore.BLL.Commands;
 using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryHandlers;
+using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
 using GameStore.Tests.Utils;
@@ -343,7 +344,7 @@ namespace GameStore.Tests.BLLTests
             _newGameRightCommand.GenreIds = new[] { 1, 5 };
 
             // Act
-            var result = ExceptionAssert.Throws<ArgumentException>(() =>
+            var result = ExceptionAssert.Throws<EntityNotFoundException>(() =>
                 _commandHandler.Execute(_newGameRightCommand));
 
             // Assert
@@ -357,7 +358,7 @@ namespace GameStore.Tests.BLLTests
             _newGameRightCommand.PlatformTypeIds = new[] { 1, 5 };
 
             // Act
-            var result = ExceptionAssert.Throws<ArgumentException>(() =>
+            var result = ExceptionAssert.Throws<EntityNotFoundException>(() =>
                 _commandHandler.Execute(_newGameRightCommand));
 
             // Assert
@@ -677,7 +678,7 @@ namespace GameStore.Tests.BLLTests
             _editGameRightCommand.GenreIds = new[] { 1, 5 };
 
             // Act
-            var result = ExceptionAssert.Throws<ArgumentException>(() =>
+            var result = ExceptionAssert.Throws<EntityNotFoundException>(() =>
                 _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
@@ -691,7 +692,7 @@ namespace GameStore.Tests.BLLTests
             _editGameRightCommand.PlatformTypeIds = new[] { 1, 5 };
 
             // Act
-            var result = ExceptionAssert.Throws<ArgumentException>(() =>
+            var result = ExceptionAssert.Throws<EntityNotFoundException>(() =>
                 _commandHandler.Execute(_editGameRightCommand));
 
             // Assert
@@ -994,7 +995,7 @@ namespace GameStore.Tests.BLLTests
             var getGamesByGenre = new GetGamesByGenreQuery { Name = "notExisingGenre" };
 
             // Act
-            var result = ExceptionAssert.Throws<ArgumentException>(() =>
+            var result = ExceptionAssert.Throws<EntityNotFoundException>(() =>
                 _queryHandler.Retrieve(getGamesByGenre));
 
             // Assert

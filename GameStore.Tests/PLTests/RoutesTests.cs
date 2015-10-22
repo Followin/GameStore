@@ -32,7 +32,7 @@ namespace GameStore.Tests
             RouteAssert.HasRoute(
                 routes,
                 "/game/somegamekey/newcomment",
-                new { controller = "Game", action = "CreateComment", gamekey = "somegamekey" });
+                new { controller = "Game", action = "NewComment", gamekey = "somegamekey" });
         }
 
         [TestMethod]

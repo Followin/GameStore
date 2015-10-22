@@ -6,6 +6,7 @@ using GameStore.BLL.Commands;
 using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Comment;
 using GameStore.BLL.QueryHandlers;
+using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
 using GameStore.Tests.Utils;
@@ -330,7 +331,7 @@ namespace GameStore.Tests.BLLTests
             var getCommentsByGameKey = new GetCommentsByGameKeyQuery { Key = "notExisingGame" };
 
             // Act
-            var result = ExceptionAssert.Throws<ArgumentException>(() =>
+            var result = ExceptionAssert.Throws<EntityNotFoundException>(() =>
                 _queryHandler.Retrieve(getCommentsByGameKey));
 
             // Assert

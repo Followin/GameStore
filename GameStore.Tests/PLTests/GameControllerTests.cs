@@ -50,19 +50,7 @@ namespace GameStore.Tests.PLTests
                 loggerMock.Object);
         }
 
-        [TestMethod]
-        public void Details_Returns_Model()
-        {
-            // Arrange
-            _queryDispatcherMock.Setup(x => x.Dispatch<GetGameByKeyQuery, GameQueryResult>(It.IsAny<GetGameByKeyQuery>()))
-                           .Returns(new GameQueryResult { Id = 1, Name = "SomeName" });
-
-            // Act
-            var result = _gameController.Details("someKey") as JsonResult;
-
-            // Assert
-            Assert.AreEqual("SomeName", ((DisplayGameViewModel)result.Data).Name);
-        }
+        
 
         [TestMethod]
         public void CreateGame_Redirects_After()

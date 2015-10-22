@@ -8,6 +8,7 @@ using GameStore.BLL.DTO;
 using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Comment;
 using GameStore.BLL.QueryResults;
+using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
 using NLog;
@@ -34,7 +35,7 @@ namespace GameStore.BLL.QueryHandlers
             var game = _db.Games.GetSingle(g => g.Key == query.Key);
             if (game == null)
             {
-                throw new ArgumentException("Game with such key wasn't found", "Key");
+                throw new EntityNotFoundException("Game with such key wasn't found", "Key");
             }
 
             var comments = _db.Comments.Get(c => c.GameId == game.Id && c.ParentComment == null);

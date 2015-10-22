@@ -4,7 +4,6 @@ using System.Linq.Expressions;
 using GameStore.BLL.CommandHandlers;
 using GameStore.BLL.Commands;
 using GameStore.BLL.Queries;
-using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryHandlers;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;

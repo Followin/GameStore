@@ -7,6 +7,7 @@ using AutoMapper;
 using GameStore.BLL.Commands;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Queries;
+using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryResults;
 using GameStore.Web.Models;
 using NLog;

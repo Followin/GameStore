@@ -16,13 +16,13 @@ namespace GameStore.BLL.QueryHandlers
     public class CommentQueryHandler :
         IQueryHandler<GetCommentsByGameKeyQuery, CommentsQueryResult>
     {
-        private IGameStoreUnitOfWork db;
-        private ILogger logger;
+        private IGameStoreUnitOfWork _db;
+        private ILogger _logger;
 
         public CommentQueryHandler(IGameStoreUnitOfWork db, ILogger logger)
         {
-            this.db = db;
-            this.logger = logger;
+            this._db = db;
+            this._logger = logger;
         }
 
         public CommentsQueryResult Retrieve(GetCommentsByGameKeyQuery query)
@@ -30,13 +30,13 @@ namespace GameStore.BLL.QueryHandlers
             query.Key.Argument("Key")
                  .NotNull()
                  .NotWhiteSpace();
-            var game = db.Games.GetSingle(g => g.Key == query.Key);
+            var game = _db.Games.GetSingle(g => g.Key == query.Key);
             if (game == null)
             {
                 throw new ArgumentException("Game with such key wasn't found", "Key");
             }
 
-            var comments = db.Comments.Get(_ => _.GameId == game.Id && _.ParentComment == null);
+            var comments = _db.Comments.Get(g => g.GameId == game.Id && g.ParentComment == null);
             var commentsList = Mapper.Map<IEnumerable<Comment>, IEnumerable<CommentDTO>>(comments);
 
             return new CommentsQueryResult(commentsList);

@@ -5,10 +5,10 @@ using AutoMapper;
 using GameStore.BLL.Commands;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Queries;
-using GameStore.BLL.Queries.Comment;
-using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryResults;
 using GameStore.Web.Models;
+using GameStore.Web.Models.Comment;
+using GameStore.Web.Models.Game;
 using NLog;
 
 namespace GameStore.Web.Controllers

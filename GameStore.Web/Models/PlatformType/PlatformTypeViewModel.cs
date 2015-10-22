@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GameStore.Web.Models
+namespace GameStore.Web.Models.PlatformType
 {
     public class PlatformTypeViewModel
     {

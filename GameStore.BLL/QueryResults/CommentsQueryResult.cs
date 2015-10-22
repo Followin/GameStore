@@ -7,16 +7,16 @@ namespace GameStore.BLL.QueryResults
 {
     public class CommentsQueryResult : IEnumerable<CommentDTO>, IQueryResult
     {
-        private IEnumerable<CommentDTO> comments;
+        private IEnumerable<CommentDTO> _comments;
 
         public CommentsQueryResult(IEnumerable<CommentDTO> comments)
         {
-            this.comments = comments;
+            this._comments = comments;
         }
 
         public IEnumerator<CommentDTO> GetEnumerator()
         {
-            return comments.GetEnumerator();
+            return _comments.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

@@ -7,22 +7,22 @@ namespace GameStore.DAL.Repositories
 {
     public class GameStoreUnitOfWork : IGameStoreUnitOfWork
     {
-        private IContext db;
-        private IRepository<Comment, Int32> comments;
-        private IRepository<Game, Int32> games;
-        private IRepository<Genre, Int32> genres;
-        private IRepository<PlatformType, Int32> platformTypes;
+        private IContext _db;
+        private IRepository<Comment, Int32> _comments;
+        private IRepository<Game, Int32> _games;
+        private IRepository<Genre, Int32> _genres;
+        private IRepository<PlatformType, Int32> _platformTypes;
 
         public GameStoreUnitOfWork(IContext db)
         {
-            this.db = db;
+            this._db = db;
         }
 
         public IRepository<Comment, int> Comments
         {
             get
             {
-                return comments ?? (comments = new GenericRepository<Comment>(db));
+                return _comments ?? (_comments = new GenericRepository<Comment>(_db));
             }
         }
 
@@ -30,7 +30,7 @@ namespace GameStore.DAL.Repositories
         {
             get
             {
-                return games ?? (games = new GenericRepository<Game>(db));
+                return _games ?? (_games = new GenericRepository<Game>(_db));
             }
         }
 
@@ -38,7 +38,7 @@ namespace GameStore.DAL.Repositories
         {
             get
             {
-                return genres ?? (genres = new GenericRepository<Genre>(db));
+                return _genres ?? (_genres = new GenericRepository<Genre>(_db));
             }
         }
 
@@ -46,18 +46,18 @@ namespace GameStore.DAL.Repositories
         {
             get
             {
-                return platformTypes ?? (platformTypes = new GenericRepository<PlatformType>(db));
+                return _platformTypes ?? (_platformTypes = new GenericRepository<PlatformType>(_db));
             }
         }
 
         public void Dispose()
         {
-            db.Dispose();
+            _db.Dispose();
         }
 
         public void Save()
         {
-            db.SaveChanges();
+            _db.SaveChanges();
         }
     }
 }

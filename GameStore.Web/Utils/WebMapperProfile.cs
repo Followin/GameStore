@@ -6,6 +6,10 @@ using AutoMapper;
 using GameStore.BLL.Commands;
 using GameStore.BLL.DTO;
 using GameStore.Web.Models;
+using GameStore.Web.Models.Comment;
+using GameStore.Web.Models.Game;
+using GameStore.Web.Models.Genre;
+using GameStore.Web.Models.PlatformType;
 
 namespace GameStore.Web.Utils
 {

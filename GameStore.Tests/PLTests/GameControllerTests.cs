@@ -11,6 +11,8 @@ using GameStore.BLL.QueryResults;
 using GameStore.Tests.Utils;
 using GameStore.Web.Controllers;
 using GameStore.Web.Models;
+using GameStore.Web.Models.Comment;
+using GameStore.Web.Models.Game;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using NLog;
@@ -20,10 +22,10 @@ namespace GameStore.Tests.PLTests
     [TestClass]
     public class GameControllerTests
     {
-        private GameController gameController;
-        private GamesController gamesController;
-        private Mock<IQueryDispatcher> queryDispatcherMock;
-        private Mock<ICommandDispatcher> commandDispatcherMock;
+        private GameController _gameController;
+        private GamesController _gamesController;
+        private Mock<IQueryDispatcher> _queryDispatcherMock;
+        private Mock<ICommandDispatcher> _commandDispatcherMock;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
@@ -34,16 +36,16 @@ namespace GameStore.Tests.PLTests
         [TestInitialize]
         public void TestInitialize()
         {
-            queryDispatcherMock = new Mock<IQueryDispatcher>();
-            commandDispatcherMock = new Mock<ICommandDispatcher>();
+            _queryDispatcherMock = new Mock<IQueryDispatcher>();
+            _commandDispatcherMock = new Mock<ICommandDispatcher>();
             var loggerMock = new Mock<ILogger>();
-            gameController = new GameController(
-                commandDispatcherMock.Object,
-                queryDispatcherMock.Object,
+            _gameController = new GameController(
+                _commandDispatcherMock.Object,
+                _queryDispatcherMock.Object,
                 loggerMock.Object);
-            gamesController = new GamesController(
-                commandDispatcherMock.Object,
-                queryDispatcherMock.Object,
+            _gamesController = new GamesController(
+                _commandDispatcherMock.Object,
+                _queryDispatcherMock.Object,
                 loggerMock.Object);
         }
 
@@ -51,11 +53,11 @@ namespace GameStore.Tests.PLTests
         public void Details_Returns_Model()
         {
             // Arrange
-            queryDispatcherMock.Setup(x => x.Dispatch<GetGameByKeyQuery, GameQueryResult>(It.IsAny<GetGameByKeyQuery>()))
+            _queryDispatcherMock.Setup(x => x.Dispatch<GetGameByKeyQuery, GameQueryResult>(It.IsAny<GetGameByKeyQuery>()))
                            .Returns(new GameQueryResult { Id = 1, Name = "SomeName" });
 
             // Act
-            var result = gameController.Details("someKey") as JsonResult;
+            var result = _gameController.Details("someKey") as JsonResult;
 
             // Assert
             Assert.AreEqual("SomeName", ((DisplayGameViewModel)result.Data).Name);
@@ -68,7 +70,7 @@ namespace GameStore.Tests.PLTests
             
             // Act
             var result =
-                gameController.CreateComment(new CreateCommentViewModel { Body = "body", GameId = 1, Name = "name" }) as RedirectToRouteResult;
+                _gameController.CreateComment(new CreateCommentViewModel { Body = "body", GameId = 1, Name = "name" }) as RedirectToRouteResult;
 
             // Assert
             Assert.AreEqual("Index", result.RouteValues["action"]);
@@ -82,7 +84,7 @@ namespace GameStore.Tests.PLTests
 
             // Act
             var result =
-                gameController.CreateComment("somekey", new CreateCommentViewModel { Body = "body", GameId = 1, Name = "name" }) as RedirectToRouteResult;
+                _gameController.CreateComment("somekey", new CreateCommentViewModel { Body = "body", GameId = 1, Name = "name" }) as RedirectToRouteResult;
 
             // Assert
             Assert.AreEqual("Index", result.RouteValues["action"]);
@@ -95,7 +97,7 @@ namespace GameStore.Tests.PLTests
             // Arrange
 
             // Act
-            var result = (RedirectToRouteResult)gamesController.Create(new CreateGameViewModel
+            var result = (RedirectToRouteResult)_gamesController.Create(new CreateGameViewModel
             {
                 Description = "New game description",
                 GenreIds = new[] { 1, 2 },
@@ -111,7 +113,7 @@ namespace GameStore.Tests.PLTests
         [TestMethod]
         public void EditGame_Redirect_After()
         {
-            var result = (RedirectToRouteResult)gamesController.Edit(new EditGameViewModel
+            var result = (RedirectToRouteResult)_gamesController.Edit(new EditGameViewModel
             {
                 Id = 1,
                 Description = "New game description",
@@ -128,7 +130,7 @@ namespace GameStore.Tests.PLTests
         [TestMethod]
         public void Delete_Redirect_After()
         {
-            var result = (RedirectToRouteResult)gamesController.Remove("game-key");
+            var result = (RedirectToRouteResult)_gamesController.Remove("game-key");
 
             // Assert
             Assert.AreEqual("Index", result.RouteValues["action"]);

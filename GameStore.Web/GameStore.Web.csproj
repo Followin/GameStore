@@ -242,6 +242,12 @@
     <Content Include="Scripts\jquery.ripple-effect.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\layout.js">
+      <DependentUpon>layout.coffee</DependentUpon>
+    </Content>
+    <Content Include="Scripts\layout.min.js">
+      <DependentUpon>layout.js</DependentUpon>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -338,6 +344,12 @@
     </Content>
     <Content Include="Scripts\hideable.min.js.map">
       <DependentUpon>hideable.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\layout.js.map">
+      <DependentUpon>layout.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\layout.min.js.map">
+      <DependentUpon>layout.min.js</DependentUpon>
     </Content>
   </ItemGroup>
   <PropertyGroup>

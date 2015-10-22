@@ -11,6 +11,7 @@ namespace GameStore.Web
                 "~/Scripts/jquery.ripple-effect.js"));
 
             bundles.Add(new ScriptBundle("~/Scripts/layout").Include(
+                "~/Scripts/layout.js",
                 "~/Scripts/hideable.js"));
 
             bundles.Add(new ScriptBundle("~/Scripts/forms").Include(

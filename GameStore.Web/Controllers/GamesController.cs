@@ -73,13 +73,13 @@ namespace GameStore.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        [ChildActionOnly]
+        
         [OutputCache(Duration = 60)]
         public ActionResult GetGamesCount()
         {
             var query = new GetGamesCountQuery();
             var queryResult = QueryDispatcher.Dispatch<GetGamesCountQuery, GamesCountQueryResult>(query);
-            return PartialView("_gamesCount", queryResult.Count);
+            return Json(queryResult.Count, JsonRequestBehavior.AllowGet);
         }
 
         private void FillCreateGameViewModel(CreateGameViewModel model)

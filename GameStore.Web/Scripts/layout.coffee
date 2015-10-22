@@ -1,10 +1,4 @@
 ﻿# CoffeeScript
-$('label[for="side-menu-open-button"]').click( ->
-    if $('input#side-menu-open-button').is(':checked') 
-        $('.sidebar').removeClass('full')
-    else 
-        $('.sidebar').addClass('full')
-)
 
 window.onscroll = ->
     scrolled = window.pageYOffset || document.documentElement.scrollTop
@@ -24,11 +18,6 @@ viewportHeight = document.documentElement.clientHeight || window.innerHeight || 
 $('body').height(Math.max(viewportHeight, objHeight, bodyHeight))
 
 
-$('.accordeon > li').click( ->
-    $('.accordeon ul').slideUp()
-    if !$(this).find('ul').is(':visible')
-        $(this).find('ul').slideDown()
-)
 
 
 messageTimeout = (message) ->
@@ -66,3 +55,16 @@ $('#close-messages-button').click( ->
 $('body').on('click', '.clickable-row', ->
     window.document.location = $(this).data('href')
 )
+
+updateGamesCount = ->
+    $.ajax(
+        type: "GET",
+        url: $('#games-count').data('href')
+        success: (data, statusText) ->
+            $('#games-count').html('')
+            $('#games-count').html(data))
+    setTimeout((-> updateGamesCount()), 60000)
+    
+updateGamesCount()           
+     
+

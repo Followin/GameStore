@@ -5,8 +5,12 @@ using AutoMapper;
 using GameStore.BLL.Commands;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Queries;
+using GameStore.BLL.Queries.Comment;
+using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryResults;
 using GameStore.Web.Models;
+using GameStore.Web.Models.Comment;
+using GameStore.Web.Models.Game;
 using NLog;
 
 namespace GameStore.Web.Controllers
@@ -26,32 +30,39 @@ namespace GameStore.Web.Controllers
                     Key = gamekey
                 });
             var game = Mapper.Map<DisplayGameViewModel>(query);
-            return Json(game, JsonRequestBehavior.AllowGet);
+            return View(game);
         }
 
         [HttpPost]
-        public ActionResult CreateComment(String gamekey, CreateCommentViewModel model)
+        [ActionName("NewComment")]
+        public ActionResult CreateComment(String gamekey, CommentViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var command = Mapper.Map<CreateCommentViewModel, CreateCommentCommand>(model);
+                if (model.CreateModel.ParentCommentId == null)
+                {
+                    var query = QueryDispatcher.Dispatch<GetGameByKeyQuery, GameQueryResult>(
+                        new GetGameByKeyQuery
+                        {
+                            Key = gamekey
+                        });
+                    model.CreateModel.GameId = query.Id;
+                }
+                var command = Mapper.Map<CreateCommentViewModel, CreateCommentCommand>(model.CreateModel);
                 CommandDispatcher.Dispatch(command);
+                return RedirectToRoute(new { action = "Comments", controller = "Game", gamekey = gamekey });
             }
 
-            return RedirectToAction("Index", "Games");
+            var commentsQuery = QueryDispatcher.Dispatch<GetCommentsByGameKeyQuery, CommentsQueryResult>(
+                new GetCommentsByGameKeyQuery
+                {
+                    Key = gamekey
+                });
+            var comments = Mapper.Map<IEnumerable<DisplayCommentViewModel>>(commentsQuery);
+            model.Comments = comments;
+            return View("Comments", model);
         }
 
-        [HttpPost]
-        public ActionResult CreateComment(CreateCommentViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var command = Mapper.Map<CreateCommentViewModel, CreateCommentCommand>(model);
-                CommandDispatcher.Dispatch(command);
-            }
-
-            return RedirectToAction("Index", "Games");
-        }
 
         public ActionResult Comments(String gamekey)
         {
@@ -61,8 +72,10 @@ namespace GameStore.Web.Controllers
                     Key = gamekey
                 });
             var comments = Mapper.Map<IEnumerable<DisplayCommentViewModel>>(query);
-            return Json(comments, JsonRequestBehavior.AllowGet);
+            var model = new CommentViewModel { Comments = comments };
+            return View(model);
         }
+
 
         public ActionResult Download(String gamekey)
         {

@@ -1,0 +1,21 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <header>
+        <div class="logo">GameStore</div>
+        <div class="games-count">@Html.Action("GetGamesCount", "Games")</div>
+    </header>
+    <div id="body-wrapper">
+        @RenderBody()
+    </div>
+</body>
+</html>

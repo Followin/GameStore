@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Queries;
+using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryResults;
 using GameStore.Tests.Utils;
 using GameStore.Web.Controllers;
 using GameStore.Web.Models;
+using GameStore.Web.Models.Comment;
+using GameStore.Web.Models.Game;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using NLog;
@@ -61,33 +64,9 @@ namespace GameStore.Tests.PLTests
             Assert.AreEqual("SomeName", ((DisplayGameViewModel)result.Data).Name);
         }
 
-        [TestMethod]
-        public void CreateComment_Redirects_After()
-        {
-            // Arrange
-            
-            // Act
-            var result =
-                gameController.CreateComment(new CreateCommentViewModel { Body = "body", GameId = 1, Name = "name" }) as RedirectToRouteResult;
 
-            // Assert
-            Assert.AreEqual("Index", result.RouteValues["action"]);
-            Assert.AreEqual("Games", result.RouteValues["controller"]);
-        }
 
-        [TestMethod]
-        public void CreateComment_With_2_Args_Redirects_After()
-        {
-            // Arrange
-
-            // Act
-            var result =
-                gameController.CreateComment("somekey", new CreateCommentViewModel { Body = "body", GameId = 1, Name = "name" }) as RedirectToRouteResult;
-
-            // Assert
-            Assert.AreEqual("Index", result.RouteValues["action"]);
-            Assert.AreEqual("Games", result.RouteValues["controller"]);
-        }
+        
 
         [TestMethod]
         public void CreateGame_Redirects_After()
@@ -97,11 +76,14 @@ namespace GameStore.Tests.PLTests
             // Act
             var result = (RedirectToRouteResult)gamesController.Create(new CreateGameViewModel
             {
-                Description = "New game description",
-                GenreIds = new[] { 1, 2 },
-                Key = "new-game",
-                Name = "New game",
-                PlatformTypeIds = new[] { 1, 3 }
+                CreateModel = new CreateGameModel
+                {
+                    Description = "New game description",
+                    GenreIds = new[] { 1, 2 },
+                    Key = "new-game",
+                    Name = "New game",
+                    PlatformTypeIds = new[] { 1, 3 }
+                }
             });
 
             // Assert

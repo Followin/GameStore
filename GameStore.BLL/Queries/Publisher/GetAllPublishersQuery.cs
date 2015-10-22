@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GameStore.BLL.CQRS;
-using GameStore.BLL.QueryResults;
 
-namespace GameStore.BLL.Queries
+namespace GameStore.BLL.Queries.Publisher
 {
-    public class GetGameByKeyQuery : IQuery
+    public class GetAllPublishersQuery : IQuery
     {
-        public String Key { get; set; }
     }
 }

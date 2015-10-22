@@ -13,7 +13,6 @@ namespace GameStore.Web
             filters.Add(new LogTimeAttribute());
 #endif
             filters.Add(new LogAttribute());
-            filters.Add(new OutputCacheAttribute { Duration = 60 });
             filters.Add(new ExceptionLogger());
         }
     }

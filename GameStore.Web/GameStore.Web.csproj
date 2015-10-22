@@ -156,16 +156,24 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\GamesController.cs" />
+    <Compile Include="Controllers\PublisherController.cs" />
     <Compile Include="Filters\ExceptionLogger.cs" />
     <Compile Include="Filters\LogAttribute.cs" />
     <Compile Include="Filters\LogTimeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CommentViewModels.cs" />
-    <Compile Include="Models\GameViewModels.cs" />
+    <Compile Include="HtmlHelpers\HtmlHelperExtensions.cs" />
+    <Compile Include="Models\Comment\CommentViewModel.cs" />
+    <Compile Include="Models\Comment\CreateCommentViewModel.cs" />
+    <Compile Include="Models\Comment\DisplayCommentViewModel.cs" />
+    <Compile Include="Models\Game\CreateGameViewModel.cs" />
+    <Compile Include="Models\Game\DisplayGameViewModel.cs" />
+    <Compile Include="Models\Game\EditGameViewModel.cs" />
     <Compile Include="Models\GenreViewModel.cs" />
     <Compile Include="Models\PlatformTypeViewModel.cs" />
+    <Compile Include="Models\Publisher\CreatePublisherViewModel.cs" />
+    <Compile Include="Models\Publisher\PublisherViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\WebMapperProfile.cs" />
   </ItemGroup>
@@ -187,7 +195,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Shared\DisplayTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -207,6 +214,16 @@
     </None>
     <Content Include="Views\Shared\EditorTemplates\CreateGameViewModel.cshtml" />
     <Content Include="Views\Games\Create.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_gamesCount.cshtml" />
+    <Content Include="Views\_viewstart.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\GenreViewModelList.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\PlatformTypeViewModelList.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\CommentViewModelList.cshtml" />
+    <Content Include="Views\Game\Comments.cshtml" />
+    <Content Include="Views\Game\Details.cshtml" />
+    <Content Include="Views\Publisher\Details.cshtml" />
+    <Content Include="Views\Publisher\Create.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

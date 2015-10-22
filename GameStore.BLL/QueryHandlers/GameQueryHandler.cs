@@ -7,6 +7,7 @@ using AutoMapper;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Queries;
+using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryResults;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
@@ -21,7 +22,8 @@ namespace GameStore.BLL.QueryHandlers
         IQueryHandler<GetGameByIdQuery, GameQueryResult>,
         IQueryHandler<GetGamesByGenreQuery, GamesQueryResult>,
         IQueryHandler<GetGamesByPlatformTypesQuery, GamesQueryResult>,
-        IQueryHandler<GetGameByKeyQuery, GameQueryResult>
+        IQueryHandler<GetGameByKeyQuery, GameQueryResult>,
+        IQueryHandler<GetGamesCountQuery, GamesCountQueryResult>
     #endregion
     {
         private IGameStoreUnitOfWork db;
@@ -142,6 +144,11 @@ namespace GameStore.BLL.QueryHandlers
                      .NotWhiteSpace();
            var gameQueryResult = Mapper.Map<Game, GameQueryResult>(db.Games.GetSingle(_ => _.EntryState == EntryState.Active && _.Key == query.Key));
            return gameQueryResult;
+        }
+
+        public GamesCountQueryResult Retrieve(GetGamesCountQuery query)
+        {
+            return new GamesCountQueryResult(db.Games.Get(x => x.EntryState == EntryState.Active).Count());
         }
     }
 }

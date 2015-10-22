@@ -6,6 +6,7 @@ using AutoMapper;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Queries;
+using GameStore.BLL.Queries.Comment;
 using GameStore.BLL.QueryResults;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;

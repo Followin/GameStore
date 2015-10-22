@@ -1,11 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using GameStore.BLL.Commands;
+using System.Web.Mvc;
+using Newtonsoft.Json;
 
-namespace GameStore.Web.Models
+namespace GameStore.Web.Models.Game
 {
-    public class CreateGameViewModel
+    public class CreateGameModel
     {
         [Required]
         [MinLength(3)]
@@ -35,46 +36,17 @@ namespace GameStore.Web.Models
 
         [Required]
         public Int32[] PlatformTypeIds { get; set; }
-
-        
     }
-
-    public class EditGameViewModel
+    public class CreateGameViewModel
     {
         [Required]
-        public Int32 Id { get; set; }
-
-        [Required]
-        [MinLength(3)]
-        public String Name { get; set; }
-
-        [Required]
-        [MinLength(3)]
-        public String Key { get; set; }
-
-        [Required]
-        [MinLength(10)]
-        public String Description { get; set; }
-
-        [Required]
-        public Int32[] GenreIds { get; set; }
-
-        [Required]
-        public Int32[] PlatformTypeIds { get; set; }
-    }
-
-    public class DisplayGameViewModel
-    {
-        public Int32 Id { get; set; }
-
-        public String Name { get; set; }
-
-        public String Key { get; set; }
-
-        public String Description { get; set; }
+        public CreateGameModel CreateModel { get; set; }
 
         public IEnumerable<GenreViewModel> Genres { get; set; }
 
         public IEnumerable<PlatformTypeViewModel> PlatformTypes { get; set; }
+
+        public SelectList Publishers { get; set; } 
+        
     }
 }

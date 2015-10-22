@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Services.Protocols;
 
 namespace GameStore.Web
 {
@@ -10,17 +11,6 @@ namespace GameStore.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "CreateComment",
-                url: "game/{gamekey}/newcomment",
-                defaults: new { controller = "Game", action = "CreateComment" });
-
-            routes.MapRoute(
-                name: "Game",
-                url: "{controller}/{gamekey}/{action}",
-                defaults: new { action = "Details" },
-                constraints: new { controller = "Game" });
-
-            routes.MapRoute(
                 name: "Create",
                 url: "{controller}/new",
                 defaults: new { action = "Create" });
@@ -29,6 +19,18 @@ namespace GameStore.Web
                 name: "Edit",
                 url: "{controller}/update",
                 defaults: new { action = "Edit" });
+
+            routes.MapRoute(
+                name: "Game",
+                url: "{controller}/{gamekey}/{action}",
+                defaults: new { action = "Details" },
+                constraints: new { controller = "Game" });
+
+            routes.MapRoute(
+                name: "Publisher",
+                url: "{controller}/{companyname}/{action}",
+                defaults: new { action = "Details" },
+                constraints: new { controller = "Publisher" });
 
             routes.MapRoute(
                 name: "Default",

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,9 +7,15 @@ using System.Web.Mvc;
 using AutoMapper;
 using GameStore.BLL.Commands;
 using GameStore.BLL.CQRS;
+using GameStore.BLL.DTO;
 using GameStore.BLL.Queries;
+using GameStore.BLL.Queries.Game;
+using GameStore.BLL.Queries.Genre;
+using GameStore.BLL.Queries.PlatformType;
+using GameStore.BLL.Queries.Publisher;
 using GameStore.BLL.QueryResults;
 using GameStore.Web.Models;
+using GameStore.Web.Models.Game;
 using NLog;
 
 namespace GameStore.Web.Controllers
@@ -30,7 +37,9 @@ namespace GameStore.Web.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            var model = new CreateGameViewModel();
+            FillCreateGameViewModel(model);
+            return View(model);
         }
         
         [HttpPost]
@@ -38,10 +47,11 @@ namespace GameStore.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                CommandDispatcher.Dispatch(Mapper.Map<CreateGameCommand>(model));
+                CommandDispatcher.Dispatch(Mapper.Map<CreateGameModel, CreateGameCommand>(model.CreateModel));
+                return RedirectToAction("Index");
             }
-
-            return RedirectToAction("Index");
+            FillCreateGameViewModel(model);
+            return View(model);
         }
 
         [HttpPost]
@@ -60,6 +70,39 @@ namespace GameStore.Web.Controllers
         {
             CommandDispatcher.Dispatch(new DeleteGameCommand { Key = key });
             return RedirectToAction("Index");
+        }
+
+        [ChildActionOnly]
+        [OutputCache(Duration = 60)]
+        public ActionResult GetGamesCount()
+        {
+            var query = new GetGamesCountQuery();
+            var queryResult = QueryDispatcher.Dispatch<GetGamesCountQuery, GamesCountQueryResult>(query);
+            return PartialView("_gamesCount", queryResult.Count);
+        }
+
+        private void FillCreateGameViewModel(CreateGameViewModel model)
+        {
+            var genres = Mapper.Map<GenresQueryResult, IEnumerable<GenreViewModel>>(
+                QueryDispatcher.Dispatch<GetAllGenresQuery, GenresQueryResult>(new GetAllGenresQuery()));
+            var platformTypes = Mapper.Map<PlatformTypesQueryResult, IEnumerable<PlatformTypeViewModel>>(
+                QueryDispatcher.Dispatch<GetAllPlatformTypesQuery, PlatformTypesQueryResult>(
+                    new GetAllPlatformTypesQuery()));
+            var publishers =
+                QueryDispatcher.Dispatch<GetAllPublishersQuery, PublishersQueryResult>(
+                    new GetAllPublishersQuery());
+            var publishersSelectList = new SelectList(publishers.Select(x =>
+                new SelectListItem
+                {
+                    Text = x.CompanyName,
+                    Value = x.Id.ToString()
+                }));
+            publishersSelectList = new SelectList(publishers, "Id", "CompanyName");
+
+            model.Genres = genres;
+            model.PlatformTypes = platformTypes;
+            model.Publishers = publishersSelectList;
+
         }
     }
 }

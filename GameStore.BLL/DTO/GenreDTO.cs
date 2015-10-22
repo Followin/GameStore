@@ -11,6 +11,6 @@ namespace GameStore.BLL.DTO
     {
         public String Name { get; set; }
 
-        public ICollection<Genre> ChildGenres { get; set; } 
+        public ICollection<GenreDTO> ChildGenres { get; set; } 
     }
 }

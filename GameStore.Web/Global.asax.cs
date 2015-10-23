@@ -30,6 +30,7 @@ namespace GameStore.Web
                 cfg.AddProfile(new BLLProfile());
                 cfg.AddProfile(new WebMapperProfile());
             });
+            //Mapper.AssertConfigurationIsValid();
         }
     }
 }

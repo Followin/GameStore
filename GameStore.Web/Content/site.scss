@@ -1,5 +1,6 @@
 ﻿@import "_colors.scss";
 @import "_fonts.scss";
+@import "_mixins.scss";
 @import "hideable.css";
 
 
@@ -67,7 +68,7 @@ header {
     position: fixed;
     left: .5%;
     top: 33%;
-    background: #6fff21;
+    background: hsl(220, 80%, 50%);
     color: #fff;
     font-size: 30px;
     line-height: 15px;
@@ -78,6 +79,8 @@ header {
     border-radius: 100%;
     box-shadow: 2px 2px 10px 1.5px rgba(0,0,0,.4);
     transition: top .3s ease-in;
+    @include user-select(none);
+    cursor: default;
 }
 
 

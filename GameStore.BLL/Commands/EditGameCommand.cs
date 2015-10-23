@@ -19,7 +19,7 @@ namespace GameStore.BLL.Commands
 
         public Int16 UnitsInStock { get; set; }
 
-        public Boolean Discounted { get; set; }
+        public Boolean Discontinued { get; set; }
 
         public Int32 PublisherId { get; set; }
 

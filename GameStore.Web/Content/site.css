@@ -90,7 +90,7 @@ header.mini + #games-count {
   position: fixed;
   left: .5%;
   top: 33%;
-  background: #6fff21;
+  background: #195de6;
   color: #fff;
   font-size: 30px;
   line-height: 15px;
@@ -101,6 +101,13 @@ header.mini + #games-count {
   border-radius: 100%;
   box-shadow: 2px 2px 10px 1.5px rgba(0, 0, 0, 0.4);
   transition: top 0.3s ease-in;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
 }
 
 #body-wrapper {

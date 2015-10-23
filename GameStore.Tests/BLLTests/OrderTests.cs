@@ -4,6 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 using GameStore.BLL.CommandHandlers;
 using GameStore.BLL.Commands;
 using GameStore.Domain.Abstract;
+using GameStore.Domain.Abstract.Repositories;
 using GameStore.Domain.Entities;
 using GameStore.Tests.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,9 +16,9 @@ namespace GameStore.Tests.BLLTests
     [TestClass]
     public class OrderTests
     {
-        private Mock<IRepository<Order, Int32>> _orderRepositoryMock;
-        private Mock<IRepository<OrderDetails, Int32>> _orderDetailsRepositoryMock;
-        private Mock<IRepository<Game, Int32>> _gameRepositoryMock;
+        private Mock<IOrderRepository> _orderRepositoryMock;
+        private Mock<IOrderDetailsRepository> _orderDetailsRepositoryMock;
+        private Mock<IGameRepository> _gameRepositoryMock;
         private Mock<IGameStoreUnitOfWork> _unitOfWorkMock;
         private OrderCommandHandler _commandHandler;
         private CreateOrderDetailsCommand _rightCreateOrderCommandSample;
@@ -41,15 +42,15 @@ namespace GameStore.Tests.BLLTests
                 UnitsInStock = 50,
                 Price = 100
             };
-            _gameRepositoryMock = new Mock<IRepository<Game, int>>();
+            _gameRepositoryMock = new Mock<IGameRepository>();
             _gameRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
                 (Int32 i) => i == 1 ? dota : null);
 
-            _orderRepositoryMock = new Mock<IRepository<Order, int>>();
+            _orderRepositoryMock = new Mock<IOrderRepository>();
             _orderRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
                 (Int32 i) => i == 1 ? new Order() : null);
 
-            _orderDetailsRepositoryMock = new Mock<IRepository<OrderDetails, int>>();
+            _orderDetailsRepositoryMock = new Mock<IOrderDetailsRepository>();
 
             _unitOfWorkMock = new Mock<IGameStoreUnitOfWork>();
             _unitOfWorkMock.Setup(x => x.OrderDetails).Returns(_orderDetailsRepositoryMock.Object);

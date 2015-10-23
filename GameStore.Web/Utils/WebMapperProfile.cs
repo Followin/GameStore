@@ -29,6 +29,7 @@ namespace GameStore.Web.Utils
             Mapper.CreateMap<CommentDTO, DisplayCommentViewModel>();
 
             Mapper.CreateMap<PublisherQueryResult, DisplayPublisherViewModel>();
+            Mapper.CreateMap<GameQueryResult, DisplayGameViewModel>();
         }
     }
 }

@@ -8,6 +8,7 @@ using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryHandlers;
 using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
+using GameStore.Domain.Abstract.Repositories;
 using GameStore.Domain.Entities;
 using GameStore.Tests.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -21,10 +22,10 @@ namespace GameStore.Tests.BLLTests
     {
         private GameCommandHandler _commandHandler;
         private GameQueryHandler _queryHandler;
-        private Mock<IRepository<Game, Int32>> _gameRepositoryMock;
-        private Mock<IRepository<Genre, Int32>> _genreRepositoryMock;
-        private Mock<IRepository<PlatformType, Int32>> _platformTypeRepositoryMock;
-        private Mock<IRepository<Publisher, Int32>> _publisherRepositoryMock;
+        private Mock<IGameRepository> _gameRepositoryMock;
+        private Mock<IGenreRepository> _genreRepositoryMock;
+        private Mock<IPlatformTypeRepository> _platformTypeRepositoryMock;
+        private Mock<IPublisherRepository> _publisherRepositoryMock;
         private Mock<IGameStoreUnitOfWork> _unitOfWorkMock;
         private CreateGameCommand _newGameRightCommand;
         private EditGameCommand _editGameRightCommand;
@@ -58,7 +59,7 @@ namespace GameStore.Tests.BLLTests
             rts.ParentGenre = strategy;
             rts.ParentGenreId = 2;
             var genres = new[] { rts, strategy };
-            _genreRepositoryMock = new Mock<IRepository<Genre, int>>();
+            _genreRepositoryMock = new Mock<IGenreRepository>();
             _genreRepositoryMock.Setup(x => x.Get()).Returns(genres);
             _genreRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
                 (Int32 i) => genres.FirstOrDefault(g => g.Id == i));
@@ -76,7 +77,7 @@ namespace GameStore.Tests.BLLTests
                 Name = "Web"
             };
             var platformTypes = new[] { desktop, web };
-            _platformTypeRepositoryMock = new Mock<IRepository<PlatformType, int>>();
+            _platformTypeRepositoryMock = new Mock<IPlatformTypeRepository>();
             _platformTypeRepositoryMock.Setup(x => x.Get()).Returns(platformTypes);
             _platformTypeRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
                 (Int32 i) => platformTypes.FirstOrDefault(g => g.Id == i));
@@ -100,7 +101,7 @@ namespace GameStore.Tests.BLLTests
                 HomePage = "https://www.cdprojekt.com/"
             };
             var publishers = new[] { valve, cdProject };
-            _publisherRepositoryMock = new Mock<IRepository<Publisher, int>>();
+            _publisherRepositoryMock = new Mock<IPublisherRepository>();
             _publisherRepositoryMock.Setup(x => x.Get()).Returns(publishers);
             _publisherRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
                 (Int32 i) => publishers.FirstOrDefault(p => p.Id == i));
@@ -114,7 +115,7 @@ namespace GameStore.Tests.BLLTests
                 PlatformTypeIds = new[] { 1 },
                 Price = 150,
                 UnitsInStock = 20,
-                Discounted = true,
+                Discontinued = true,
                 PublisherId = 1
             };
 
@@ -128,7 +129,7 @@ namespace GameStore.Tests.BLLTests
                 PlatformTypeIds = new[] { 2 },
                 Price = 100,
                 UnitsInStock = 15,
-                Discounted = false,
+                Discontinued = false,
                 PublisherId = 2
             };
 
@@ -160,7 +161,7 @@ namespace GameStore.Tests.BLLTests
                 Price = 100
             };
             _games = new[] { _dota, _witcher };
-            _gameRepositoryMock = new Mock<IRepository<Game, int>>();
+            _gameRepositoryMock = new Mock<IGameRepository>();
             _gameRepositoryMock.Setup(x => x.Get()).Returns(_games);
             _gameRepositoryMock.Setup(x => x.Get(It.Is<Int32>(i => i == 1))).Returns(_dota);
             _gameRepositoryMock.Setup(x => x.Get(It.Is<Int32>(i => i == 2))).Returns(_witcher);

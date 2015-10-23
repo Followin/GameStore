@@ -68,7 +68,7 @@ header {
     position: fixed;
     left: .5%;
     top: 33%;
-    background: hsl(220, 80%, 50%);
+    background: hsl(260, 80%, 50%);
     color: #fff;
     font-size: 30px;
     line-height: 15px;
@@ -127,6 +127,8 @@ h2 {
     .control-link {
         float: left;
         border: 1px solid rgba(0,0,0,0.16);
+        background: #fff;
+        @include transition(all, .1s linear);
 
         &:first-of-type {
             border-radius: 5px 0 0 5px;
@@ -135,6 +137,11 @@ h2 {
         &:last-of-type {
             border-radius: 0 5px 5px 0;
         }
+
+        &:hover {
+                @include transform(scale(1.1));
+                box-shadow: 3px 3px 6px 3px rgba(0,0,0,.3);
+            }
         
         a {
             text-align: center;
@@ -143,11 +150,6 @@ h2 {
             display: block;
             width: 100px;
             height: 40px;
-            transition: box-shadow .1s linear;
-            
-            &:hover {
-                box-shadow: 3px 3px 6px 3px rgba(0,0,0,.3);
-            }
         }
     }
 }

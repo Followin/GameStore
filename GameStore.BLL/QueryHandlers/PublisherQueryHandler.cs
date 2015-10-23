@@ -7,6 +7,7 @@ using GameStore.BLL.DTO;
 using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Publisher;
 using GameStore.BLL.QueryResults;
+using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
 using NLog;
@@ -48,7 +49,7 @@ namespace GameStore.BLL.QueryHandlers
 #region validators
         private void Validate(GetPublisherByCompanyNameQuery query)
         {
-            query.CompanyName.Argument("CompanyName")
+            query.CompanyName.Argument(NameGetter.GetName(() => query.CompanyName))
                              .NotNull()
                              .NotWhiteSpace();
         }

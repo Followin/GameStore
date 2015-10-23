@@ -8,6 +8,7 @@ using GameStore.BLL.Queries.Comment;
 using GameStore.BLL.QueryHandlers;
 using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
+using GameStore.Domain.Abstract.Repositories;
 using GameStore.Domain.Entities;
 using GameStore.Tests.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,8 +20,8 @@ namespace GameStore.Tests.BLLTests
     [TestClass]
     public class CommentTests
     {
-        private Mock<IRepository<Game, Int32>> _gameRepositoryMock;
-        private Mock<IRepository<Comment, Int32>> _commentRepositoryMock;
+        private Mock<IGameRepository> _gameRepositoryMock;
+        private Mock<ICommentRepository> _commentRepositoryMock;
         private Mock<IGameStoreUnitOfWork> _unitOfWorkMock;
         private Comment[] _comments;
         private CreateCommentCommand _createCommentCommand;
@@ -71,12 +72,12 @@ namespace GameStore.Tests.BLLTests
             innerComment.ParentCommentId = comment.Id;
             _comments = new[] { comment, innerComment };
 
-            _gameRepositoryMock = new Mock<IRepository<Game, int>>();
+            _gameRepositoryMock = new Mock<IGameRepository>();
             _gameRepositoryMock.Setup(x => x.GetSingle(It.IsAny<Expression<Func<Game, Boolean>>>())).Returns(
                 (Expression<Func<Game, Boolean>> predicate) => games.FirstOrDefault(predicate.Compile()));
             _gameRepositoryMock.Setup(x => x.Get(It.Is<Int32>(i => i == 1))).Returns(dota);
 
-            _commentRepositoryMock = new Mock<IRepository<Comment, int>>();
+            _commentRepositoryMock = new Mock<ICommentRepository>();
             _commentRepositoryMock.Setup(x => x.Get(It.IsAny<Expression<Func<Comment, Boolean>>>())).Returns(
                 (Expression<Func<Comment, Boolean>> predicate) => _comments.Where(predicate.Compile()));
             _commentRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(

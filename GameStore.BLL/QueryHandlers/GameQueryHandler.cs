@@ -18,7 +18,7 @@ using EntryState = GameStore.Domain.Abstract.EntryState;
 namespace GameStore.BLL.QueryHandlers
 {
     public class GameQueryHandler :
-    #region handlers
+    #region interfaces
         IQueryHandler<GetAllGamesQuery, GamesQueryResult>,
         IQueryHandler<GetGameByIdQuery, GameQueryResult>,
         IQueryHandler<GetGamesByGenreQuery, GamesQueryResult>,
@@ -43,7 +43,7 @@ namespace GameStore.BLL.QueryHandlers
 
         public GameQueryResult Retrieve(GetGameByIdQuery query)
         {
-            query.Id.Argument("Id")
+            query.Id.Argument(NameGetter.GetName(() => query.Id))
                     .GreaterThan(0);
             return Mapper.Map<Game, GameQueryResult>(_db.Games.Get(query.Id));
         }
@@ -52,10 +52,12 @@ namespace GameStore.BLL.QueryHandlers
         {
             if (query.Id == 0 && query.Name == null)
             {
-                throw new ArgumentException("Either Id or Name arguments must be specified", "Id, Name");
+                throw new ArgumentException(
+                    "Either Id or Name arguments must be specified",
+                    NameGetter.GetName(() => query.Id) + ", " + NameGetter.GetName(() => query.Name));
             }
 
-            query.Name.Argument("Name")
+            query.Name.Argument(NameGetter.GetName(() => query.Name))
                       .NotWhiteSpace();
 
             Genre genre;
@@ -66,7 +68,9 @@ namespace GameStore.BLL.QueryHandlers
                 genre = _db.Genres.Get(query.Id);
                 if (genre == null)
                 {
-                    throw new ArgumentOutOfRangeException("Id", "Genre not found");
+                    throw new ArgumentOutOfRangeException(
+                        NameGetter.GetName(() => query.Id), 
+                        "Genre not found");
                 }
             }
             else
@@ -74,7 +78,9 @@ namespace GameStore.BLL.QueryHandlers
                 genre = _db.Genres.GetSingle(g => g.Name == query.Name);
                 if (genre == null)
                 {
-                    throw new EntityNotFoundException("Genre not found", "Name");
+                    throw new EntityNotFoundException(
+                        "Genre not found",
+                        NameGetter.GetName(() => query.Name));
                 }
             }
 
@@ -89,7 +95,9 @@ namespace GameStore.BLL.QueryHandlers
         {
             if (query.Ids == null && query.Names == null)
             {
-                throw new ArgumentNullException("Ids, Names", "Either Ids or Names arguments must be specified");
+                throw new ArgumentNullException(
+                    NameGetter.GetName(() => query.Ids) + ", " + NameGetter.GetName(() => query.Names),
+                    "Either Ids or Names arguments must be specified");
             }
 
             IEnumerable<PlatformType> types;
@@ -99,7 +107,9 @@ namespace GameStore.BLL.QueryHandlers
                          .NotEmpty();
                 if (!query.Ids.All(x => x > 0))
                 {
-                    throw new ArgumentOutOfRangeException("Ids", "Ids must have only greater than zero numbers");
+                    throw new ArgumentOutOfRangeException(
+                        NameGetter.GetName(() => query.Ids),
+                        "Ids must have only greater than zero numbers");
                 }
 
                 types = query.Ids.Select(id =>
@@ -108,7 +118,8 @@ namespace GameStore.BLL.QueryHandlers
                     if (type == null)
                     {
                         throw new ArgumentOutOfRangeException(
-                            "Ids", String.Format("Genre not found. Id: {0}", id));
+                            NameGetter.GetName(() => query.Ids),
+                            String.Format("Genre not found. Id: {0}", id));
                     }
 
                     return type;
@@ -116,7 +127,7 @@ namespace GameStore.BLL.QueryHandlers
             }
             else
             {
-                query.Names.Argument("Names")
+                query.Names.Argument(NameGetter.GetName(() => query.Names))
                          .NotEmpty()
                          .AllMatch(
                               x => !String.IsNullOrWhiteSpace(x),
@@ -127,7 +138,8 @@ namespace GameStore.BLL.QueryHandlers
                     if (type == null)
                     {
                         throw new ArgumentOutOfRangeException(
-                            "Names", String.Format("Genre not found. Name: {0}", name));
+                            NameGetter.GetName(() => query.Names),
+                            String.Format("Genre not found. Name: {0}", name));
                     }
 
                     return type;
@@ -140,7 +152,7 @@ namespace GameStore.BLL.QueryHandlers
 
         public GameQueryResult Retrieve(GetGameByKeyQuery query)
         {
-            query.Key.Argument("Key")
+            query.Key.Argument(NameGetter.GetName(() => query.Key))
                      .NotNull()
                      .NotWhiteSpace();
            var gameQueryResult = Mapper.Map<Game, GameQueryResult>(_db.Games.GetSingle(g => g.EntryState == EntryState.Active && g.Key == query.Key));

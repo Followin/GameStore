@@ -4,6 +4,7 @@ using ArgumentValidation.Extensions;
 using AutoMapper;
 using GameStore.BLL.Commands;
 using GameStore.BLL.CQRS;
+using GameStore.BLL.Utils;
 using GameStore.BLL.Utils.ValidationExtensions;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
@@ -12,7 +13,9 @@ using NLog;
 namespace GameStore.BLL.CommandHandlers
 {
     public class OrderCommandHandler : 
+    #region interfaces
         ICommandHandler<CreateOrderDetailsCommand>
+    #endregion
     {
         private IGameStoreUnitOfWork _db;
         private ILogger _logger;
@@ -35,24 +38,28 @@ namespace GameStore.BLL.CommandHandlers
 
         private void Validate(CreateOrderDetailsCommand command)
         {
-            command.Discount.Argument("Discount")
+            command.Discount.Argument(NameGetter.GetName(() => command.Discount))
                             .GreaterThan(-1);
-            command.GameId.Argument("GameId")
+            command.GameId.Argument(NameGetter.GetName(() => command.GameId))
                           .GreaterThan(0);
-            command.OrderId.Argument("OrderId")
+            command.OrderId.Argument(NameGetter.GetName(() => command.OrderId))
                            .GreaterThan(0);
-            command.Price.Argument("Price")
+            command.Price.Argument(NameGetter.GetName(() => command.Price))
                          .GreaterThan(-1);
-            command.Quantity.Argument("Quantity")
+            command.Quantity.Argument(NameGetter.GetName(() => command.Quantity))
                             .GreaterThan(0);
             if (_db.Games.Get(command.GameId) == null)
             {
-                throw new ArgumentOutOfRangeException("GameId", "Game not found");
+                throw new ArgumentOutOfRangeException(
+                    NameGetter.GetName(() => command.GameId),
+                    "Game not found");
             }
 
             if (_db.Orders.Get(command.OrderId) == null)
             {
-                throw new ArgumentOutOfRangeException("OrderId", "Order not found");
+                throw new ArgumentOutOfRangeException(
+                    NameGetter.GetName(() => command.OrderId),
+                    "Order not found");
             }
         }
         #endregion

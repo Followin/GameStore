@@ -90,7 +90,7 @@ header.mini + #games-count {
   position: fixed;
   left: .5%;
   top: 33%;
-  background: #195de6;
+  background: #5e19e6;
   color: #fff;
   font-size: 30px;
   line-height: 15px;
@@ -151,6 +151,11 @@ h2 {
 .control-links .control-link {
   float: left;
   border: 1px solid rgba(0, 0, 0, 0.16);
+  background: #fff;
+  -moz-transition: all, 0.1s linear;
+  -o-transition: all, 0.1s linear;
+  -webkit-transition: all, 0.1s linear;
+  transition: all, 0.1s linear;
 }
 
 .control-links .control-link:first-of-type {
@@ -161,6 +166,15 @@ h2 {
   border-radius: 0 5px 5px 0;
 }
 
+.control-links .control-link:hover {
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+  box-shadow: 3px 3px 6px 3px rgba(0, 0, 0, 0.3);
+}
+
 .control-links .control-link a {
   text-align: center;
   line-height: 40px;
@@ -168,11 +182,6 @@ h2 {
   display: block;
   width: 100px;
   height: 40px;
-  transition: box-shadow 0.1s linear;
-}
-
-.control-links .control-link a:hover {
-  box-shadow: 3px 3px 6px 3px rgba(0, 0, 0, 0.3);
 }
 
 /*# sourceMappingURL=site.css.map */

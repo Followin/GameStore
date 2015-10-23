@@ -4,6 +4,7 @@ using ArgumentValidation.Extensions;
 using AutoMapper;
 using GameStore.BLL.Commands;
 using GameStore.BLL.CQRS;
+using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
 using NLog;
@@ -11,7 +12,9 @@ using NLog;
 namespace GameStore.BLL.CommandHandlers
 {
     public class PublisherCommandHandler : 
+    #region interfaces
         ICommandHandler<CreatePublisherCommand>
+    #endregion
     {
         private IGameStoreUnitOfWork _db;
         private ILogger _logger;
@@ -36,18 +39,20 @@ namespace GameStore.BLL.CommandHandlers
 
         private void Validate(CreatePublisherCommand command)
         {
-            command.CompanyName.Argument("CompanyName")
+            command.CompanyName.Argument(NameGetter.GetName(() => command.CompanyName))
                                .NotNull()
                                .NotWhiteSpace();
-            command.Description.Argument("Description")
+            command.Description.Argument(NameGetter.GetName(() => command.Description))
                                .NotNull()
                                .NotWhiteSpace();
-            command.HomePage.Argument("HomePage")
+            command.HomePage.Argument(NameGetter.GetName(() => command.HomePage))
                             .NotNull()
                             .NotWhiteSpace();
             if (_db.Publishers.GetSingle(p => p.CompanyName == command.CompanyName) != null)
             {
-                throw new ArgumentException("Publisher with such CompanyName already exist", "CompanyName");
+                throw new ArgumentException(
+                    "Publisher with such CompanyName already exist",
+                    NameGetter.GetName(() => command.CompanyName));
             }
         }
 #endregion

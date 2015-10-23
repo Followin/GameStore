@@ -4,6 +4,7 @@ using ArgumentValidation.Extensions;
 using AutoMapper;
 using GameStore.BLL.Commands;
 using GameStore.BLL.CQRS;
+using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
 using NLog;
@@ -11,7 +12,9 @@ using NLog;
 namespace GameStore.BLL.CommandHandlers
 {
     public class CommentCommandHandler :
+    #region interfaces
         ICommandHandler<CreateCommentCommand>
+    #endregion
     {
         private IGameStoreUnitOfWork _db;
         private ILogger _logger;
@@ -24,12 +27,14 @@ namespace GameStore.BLL.CommandHandlers
 
         public void Execute(CreateCommentCommand command)
         {
-            command.Argument("command")
+            command.Argument(NameGetter.GetName(() => command))
                    .NotNull();
             if (command.GameId == null && command.ParentCommentId == null)
             {
                 throw new ArgumentNullException(
-                    "GameId, ParentCommentId", "Either GameId or ParentCommentId must be specified");
+                    NameGetter.GetName(() => command.GameId) + 
+                    ", " + NameGetter.GetName(() => command.ParentCommentId),
+                    "Either GameId or ParentCommentId must be specified");
             }
 
             command.Name.Argument("Name")
@@ -45,13 +50,17 @@ namespace GameStore.BLL.CommandHandlers
                 if (command.GameId <= 0)
                 {
                     throw new ArgumentOutOfRangeException(
-                        "GameId", "GameId argument must be greater than 0");
+                        NameGetter.GetName(() => command.GameId),
+                        "GameId argument must be greater than 0");
                 }
 
                 var game = _db.Games.Get(command.GameId.Value);
                 if (game == null)
                 {
-                    throw new ArgumentOutOfRangeException("GameId", "Game not found");
+                    throw new ArgumentOutOfRangeException(
+                        NameGetter.GetName(
+                        () => command.GameId),
+                        "Game not found");
                 }
 
                 newComment.GameId = game.Id;
@@ -61,13 +70,16 @@ namespace GameStore.BLL.CommandHandlers
                 if (command.ParentCommentId <= 0)
                 {
                     throw new ArgumentOutOfRangeException(
-                        "ParentCommentId", "ParentCommentId argument must be greater than 0");
+                        NameGetter.GetName(() => command.ParentCommentId),
+                        "ParentCommentId argument must be greater than 0");
                 }
 
                 var comment = _db.Comments.Get(command.ParentCommentId.Value);
                 if (comment == null)
                 {
-                    throw new ArgumentOutOfRangeException("ParentCommentId", "Comment not found");
+                    throw new ArgumentOutOfRangeException(
+                        NameGetter.GetName(() => command.ParentCommentId),
+                        "Comment not found");
                 }
 
                 newComment.ParentCommentId = comment.Id;
@@ -76,5 +88,7 @@ namespace GameStore.BLL.CommandHandlers
             _db.Comments.Add(newComment);
             _db.Save();
         }
+
+
     }
 }

@@ -14,9 +14,11 @@ using NLog;
 namespace GameStore.BLL.CommandHandlers
 {
     public class GameCommandHandler :
-        ICommandHandler<CreateGameCommand>,
+    #region interfaces
+ ICommandHandler<CreateGameCommand>,
         ICommandHandler<DeleteGameCommand>,
         ICommandHandler<EditGameCommand>
+    #endregion
     {
         private IGameStoreUnitOfWork _db;
         private ILogger _logger;
@@ -40,7 +42,7 @@ namespace GameStore.BLL.CommandHandlers
                 {
                     throw new EntityNotFoundException(
                         String.Format("Genre not found. Id: {0}", g),
-                                      "GenreIds");
+                        NameGetter.GetName(() => command.GenreIds));
                 }
 
                 return genre;
@@ -53,7 +55,7 @@ namespace GameStore.BLL.CommandHandlers
                 {
                     throw new EntityNotFoundException(
                         String.Format("PlatformType not found. Id: {0}", p),
-                                      "PlatformTypeIds");
+                        NameGetter.GetName(() => command.PlatformTypeIds));
                 }
 
                 return platformType;
@@ -65,9 +67,9 @@ namespace GameStore.BLL.CommandHandlers
 
         public void Execute(DeleteGameCommand command)
         {
-            command.Argument("command")
+            command.Argument(NameGetter.GetName(() => command))
                    .NotNull();
-            command.Key.Argument("Key")
+            command.Key.Argument(NameGetter.GetName(() => command.Key))
                    .NotNull()
                    .NotWhiteSpace();
 
@@ -75,7 +77,9 @@ namespace GameStore.BLL.CommandHandlers
 
             if (game == null)
             {
-                throw new ArgumentOutOfRangeException("Key", "Game not found");
+                throw new ArgumentOutOfRangeException(
+                    NameGetter.GetName(() => command.Key),
+                    "Game not found");
             }
 
             game.EntryState = EntryState.Deleted;
@@ -95,7 +99,7 @@ namespace GameStore.BLL.CommandHandlers
                 {
                     throw new EntityNotFoundException(
                         String.Format("Genre not found. Id: {0}", g),
-                                      "GenreIds");
+                        NameGetter.GetName(() => command.GenreIds));
                 }
 
                 return genre;
@@ -108,7 +112,7 @@ namespace GameStore.BLL.CommandHandlers
                 {
                     throw new EntityNotFoundException(
                         String.Format("PlatformType not found. Id: {0}", p),
-                                      "PlatformTypeIds");
+                        NameGetter.GetName(() => command.PlatformTypeIds));
                 }
 
                 return platformType;
@@ -117,34 +121,35 @@ namespace GameStore.BLL.CommandHandlers
             _db.Games.Update(game);
             _db.Save();
         }
-
-#region Validators
+        
+        #region Validators
         private void Validate(CreateGameCommand command)
         {
-            command.Name.Argument("Name")
+            command.Name.Argument(NameGetter.GetName(() => command.Name))
                         .NotNull()
                         .NotWhiteSpace();
-            command.Key.Argument("Key")
+            
+            command.Key.Argument(NameGetter.GetName(() => command.Key))
                        .NotNull()
                        .NotWhiteSpace();
-            command.Description.Argument("Description")
+            command.Description.Argument(NameGetter.GetName(() => command.Description))
                                .NotNull()
                                .NotWhiteSpace();
-            command.Price.Argument("Price")
+            command.Price.Argument(NameGetter.GetName(() => command.Price))
                          .GreaterThan(0);
-            command.UnitsInStock.Argument("UnitsInStock")
+            command.UnitsInStock.Argument(NameGetter.GetName(() => command.UnitsInStock))
                                 .GreaterThan(-1);
-            command.PublisherId.Argument("PublisherId")
+            command.PublisherId.Argument(NameGetter.GetName(() => command.PublisherId))
                                .GreaterThan(0);
-            command.GenreIds.Argument("GenreIds")
+            command.GenreIds.Argument(NameGetter.GetName(() => command.GenreIds))
                             .NotNull()
                             .NotEmpty();
             if (!command.GenreIds.All(x => x > 0))
             {
-                throw new ArgumentOutOfRangeException("Ids", "GenreIds must have only greater than zero numbers");
+                throw new ArgumentOutOfRangeException(NameGetter.GetName(() => command.GenreIds), "GenreIds must have only greater than zero numbers");
             }
 
-            command.PlatformTypeIds.Argument("PlatformTypeIds")
+            command.PlatformTypeIds.Argument(NameGetter.GetName(() => command.PlatformTypeIds))
                                    .NotNull()
                                    .NotEmpty()
                                    .AllMatch(
@@ -153,43 +158,47 @@ namespace GameStore.BLL.CommandHandlers
 
             if (_db.Games.GetSingle(g => g.Key == command.Key) != null)
             {
-                throw new ArgumentException("There is game with such key in db. Key must be unique.", "Key");
+                throw new ArgumentException(
+                    "There is game with such key in db. Key must be unique.",
+                    NameGetter.GetName(() => command.Key));
             }
 
             if (_db.Publishers.Get(command.PublisherId) == null)
             {
-                throw new ArgumentOutOfRangeException("PublisherId", "Publisher not found");
+                throw new ArgumentOutOfRangeException(
+                    NameGetter.GetName(() => command.PublisherId),
+                    "Publisher not found");
             }
         }
 
         private Game Validate(EditGameCommand command)
         {
-            command.Argument("command")
+            command.Argument(NameGetter.GetName(() => command))
                    .NotNull();
-            command.Id.Argument("Id")
+            command.Id.Argument(NameGetter.GetName(() => command.Id))
                       .GreaterThan(0);
-            command.Name.Argument("Name")
+            command.Name.Argument(NameGetter.GetName(() => command.Name))
                         .NotNull()
                         .NotWhiteSpace()
                         .ShorterThan(51);
-            command.Key.Argument("Key")
+            command.Key.Argument(NameGetter.GetName(() => command.Key))
                        .NotNull()
                        .NotWhiteSpace();
-            command.Description.Argument("Description")
+            command.Description.Argument(NameGetter.GetName(() => command.Description))
                                .NotNull()
                                .NotWhiteSpace();
-            command.Price.Argument("Price")
+            command.Price.Argument(NameGetter.GetName(() => command.Price))
                          .GreaterThan(0);
-            command.UnitsInStock.Argument("UnitsInStock")
+            command.UnitsInStock.Argument(NameGetter.GetName(() => command.UnitsInStock))
                                 .GreaterThan(-1);
-            command.PublisherId.Argument("PublisherId")
+            command.PublisherId.Argument(NameGetter.GetName(() => command.PublisherId))
                                .GreaterThan(0);
-            command.GenreIds.Argument("GenreIds")
+            command.GenreIds.Argument(NameGetter.GetName(() => command.GenreIds))
                             .NotNull()
                             .NotEmpty();
             if (!command.GenreIds.All(x => x > 0))
             {
-                throw new ArgumentOutOfRangeException("Ids", "GenreIds must have only greater than zero numbers");
+                throw new ArgumentOutOfRangeException(NameGetter.GetName(() => command.GenreIds), "GenreIds must have only greater than zero numbers");
             }
 
             command.PlatformTypeIds.Argument("PlatformTypeIds")
@@ -202,21 +211,25 @@ namespace GameStore.BLL.CommandHandlers
             var game = _db.Games.Get(command.Id);
             if (game == null)
             {
-                throw new ArgumentOutOfRangeException("Id", "Game not found");
+                throw new ArgumentOutOfRangeException(NameGetter.GetName(() => command.Id), "Game not found");
             }
 
             if (command.Key != game.Key && _db.Games.GetSingle(g => g.Key == command.Key) != null)
             {
-                throw new ArgumentException("Game with such key already exists", "Key");
+                throw new ArgumentException(
+                    "Game with such key already exists",
+                    NameGetter.GetName(() => command.Key));
             }
 
             if (_db.Publishers.Get(command.PublisherId) == null)
             {
-                throw new ArgumentOutOfRangeException("PublisherId", "Publisher not found");
+                throw new ArgumentOutOfRangeException(
+                    NameGetter.GetName(() => command.PublisherId),
+                    "Publisher not found");
             }
 
             return game;
         }
-#endregion
+        #endregion
     }
 }

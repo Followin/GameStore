@@ -16,7 +16,9 @@ using NLog;
 namespace GameStore.BLL.QueryHandlers
 {
     public class CommentQueryHandler :
+    #region interfaces  
         IQueryHandler<GetCommentsByGameKeyQuery, CommentsQueryResult>
+    #endregion
     {
         private IGameStoreUnitOfWork _db;
         private ILogger _logger;
@@ -29,13 +31,15 @@ namespace GameStore.BLL.QueryHandlers
 
         public CommentsQueryResult Retrieve(GetCommentsByGameKeyQuery query)
         {
-            query.Key.Argument("Key")
+            query.Key.Argument(NameGetter.GetName(() => query.Key))
                  .NotNull()
                  .NotWhiteSpace();
             var game = _db.Games.GetSingle(g => g.Key == query.Key);
             if (game == null)
             {
-                throw new EntityNotFoundException("Game with such key wasn't found", "Key");
+                throw new EntityNotFoundException(
+                    "Game with such key wasn't found",
+                    NameGetter.GetName(() => query.Key));
             }
 
             var comments = _db.Comments.Get(c => c.GameId == game.Id && c.ParentComment == null);

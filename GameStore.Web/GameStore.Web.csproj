@@ -210,6 +210,8 @@
     <Content Include="Content\hideable.min.css">
       <DependentUpon>hideable.css</DependentUpon>
     </Content>
+    <Content Include="Content\normalize.css" />
+    <Content Include="Content\reset.css" />
     <Content Include="Content\site.css">
       <DependentUpon>site.scss</DependentUpon>
     </Content>
@@ -315,6 +317,7 @@
     <Content Include="Content\hideable.css.map">
       <DependentUpon>hideable.css</DependentUpon>
     </Content>
+    <Content Include="Content\_colors.scss" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

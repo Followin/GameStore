@@ -5,9 +5,9 @@
     var scrolled;
     scrolled = window.pageYOffset || document.documentElement.scrollTop;
     if (scrolled > 5) {
-      return $('.header-wrapper').addClass('clipped');
+      return $('header').addClass('mini');
     } else {
-      return $('.header-wrapper').removeClass('clipped');
+      return $('header').removeClass('mini');
     }
   };
 

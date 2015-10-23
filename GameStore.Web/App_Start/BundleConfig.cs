@@ -24,6 +24,8 @@ namespace GameStore.Web
                 "~/Scripts/comments.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                "~/Content/reset.css",
+                "~/Content/normalize.css",
                 "~/Content/site.css",
                 "~/Content/forms.css"));
         }

@@ -3,8 +3,8 @@
 window.onscroll = ->
     scrolled = window.pageYOffset || document.documentElement.scrollTop
     if scrolled > 5
-        $('.header-wrapper').addClass('clipped')
-    else $('.header-wrapper').removeClass('clipped')
+        $('header').addClass('mini')
+    else $('header').removeClass('mini')
     
 objHeight = 0
 

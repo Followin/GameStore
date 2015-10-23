@@ -1,22 +1,23 @@
 ﻿using System;
+using GameStore.Domain.Abstract.Repositories;
 using GameStore.Domain.Entities;
 
 namespace GameStore.Domain.Abstract
 {
     public interface IGameStoreUnitOfWork : IUnitOfWork
     {
-        IRepository<Genre, Int32> Genres { get; }
+        IGenreRepository Genres { get; }
 
-        IRepository<Game, Int32> Games { get; }
+        IGameRepository Games { get; }
 
-        IRepository<Comment, Int32> Comments { get; }
+        ICommentRepository Comments { get; }
 
-        IRepository<PlatformType, Int32> PlatformTypes { get; }
+        IPlatformTypeRepository PlatformTypes { get; }
 
-        IRepository<Publisher, Int32> Publishers { get; }
+        IPublisherRepository Publishers { get; }
 
-        IRepository<OrderDetails, Int32> OrderDetails { get; }
+        IOrderDetailsRepository OrderDetails { get; }
 
-        IRepository<Order, Int32> Orders { get; } 
+        IOrderRepository Orders { get; } 
     }
 }

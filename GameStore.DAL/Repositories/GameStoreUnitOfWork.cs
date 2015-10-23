@@ -1,6 +1,7 @@
 ﻿using System;
 using GameStore.DAL.Abstract;
 using GameStore.Domain.Abstract;
+using GameStore.Domain.Abstract.Repositories;
 using GameStore.Domain.Entities;
 
 namespace GameStore.DAL.Repositories
@@ -8,52 +9,52 @@ namespace GameStore.DAL.Repositories
     public class GameStoreUnitOfWork : IGameStoreUnitOfWork
     {
         private IContext _db;
-        private IRepository<Comment, Int32> _comments;
-        private IRepository<Game, Int32> _games;
-        private IRepository<Genre, Int32> _genres;
-        private IRepository<PlatformType, Int32> _platformTypes;
-        private IRepository<Publisher, Int32> _publishers;
-        private IRepository<OrderDetails, Int32> _orderDetails;
-        private IRepository<Order, Int32> _orders; 
+        private ICommentRepository _comments;
+        private IGameRepository _games;
+        private IGenreRepository _genres;
+        private IPlatformTypeRepository _platformTypes;
+        private IPublisherRepository _publishers;
+        private IOrderDetailsRepository _orderDetails;
+        private IOrderRepository _orders; 
 
         public GameStoreUnitOfWork(IContext db)
         {
             this._db = db;
         }
 
-        public IRepository<Comment, int> Comments
+        public ICommentRepository Comments
         {
-            get { return _comments ?? (_comments = new GenericRepository<Comment>(_db)); }
+            get { return _comments ?? (_comments = new CommentRepository(_db)); }
         }
 
-        public IRepository<Game, int> Games
+        public IGameRepository Games
         {
-            get { return _games ?? (_games = new GenericRepository<Game>(_db)); }
+            get { return _games ?? (_games = new GameRepository(_db)); }
         }
 
-        public IRepository<Genre, int> Genres
+        public IGenreRepository Genres
         {
-            get { return _genres ?? (_genres = new GenericRepository<Genre>(_db)); }
+            get { return _genres ?? (_genres = new GenreRepository(_db)); }
         }
 
-        public IRepository<PlatformType, int> PlatformTypes
+        public IPlatformTypeRepository PlatformTypes
         {
-            get { return _platformTypes ?? (_platformTypes = new GenericRepository<PlatformType>(_db)); }
+            get { return _platformTypes ?? (_platformTypes = new PlatformTypeRepository(_db)); }
         }
 
-        public IRepository<Publisher, int> Publishers
+        public IPublisherRepository Publishers
         {
-            get { return _publishers ?? (_publishers = new GenericRepository<Publisher>(_db)); }
+            get { return _publishers ?? (_publishers = new PublisherRepository(_db)); }
         }
 
-        public IRepository<OrderDetails, int> OrderDetails
+        public IOrderDetailsRepository OrderDetails
         {
-            get { return _orderDetails ?? (_orderDetails = new GenericRepository<OrderDetails>(_db)); }
+            get { return _orderDetails ?? (_orderDetails = new OrderDetailsRepository(_db)); }
         }
 
-        public IRepository<Order, int> Orders
+        public IOrderRepository Orders
         {
-            get { return _orders ?? (_orders = new GenericRepository<Order>(_db)); }
+            get { return _orders ?? (_orders = new OrderRepository(_db)); }
         }
 
         public void Dispose()

@@ -11,6 +11,7 @@ namespace GameStore.Maps
         protected override void Configure()
         {
             Mapper.CreateMap<Game, GameQueryResult>();
+            Mapper.CreateMap<GameDTO, GameQueryResult>();
             Mapper.CreateMap<Game, GameDTO>();
             Mapper.CreateMap<Publisher, PublisherQueryResult>();
 

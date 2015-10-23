@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using GameStore.BLL.Utils;
+﻿using AutoMapper;
+using GameStore.Maps;
 using GameStore.Web.Utils;
 
 namespace GameStore.Tests.Utils
@@ -15,7 +10,7 @@ namespace GameStore.Tests.Utils
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.AddProfile(new BLLMapperProfile());
+                cfg.AddProfile(new BLLProfile());
                 cfg.AddProfile(new WebMapperProfile());
             });
         }

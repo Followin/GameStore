@@ -4,6 +4,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using AutoMapper;
 using GameStore.BLL.Utils;
+using GameStore.Maps;
 using GameStore.Web.ModelBinders;
 using GameStore.Web.Models.Order;
 using GameStore.Web.Utils;
@@ -26,7 +27,7 @@ namespace GameStore.Web
 
             Mapper.Initialize(cfg =>
             {
-                cfg.AddProfile(new BLLMapperProfile());
+                cfg.AddProfile(new BLLProfile());
                 cfg.AddProfile(new WebMapperProfile());
             });
         }

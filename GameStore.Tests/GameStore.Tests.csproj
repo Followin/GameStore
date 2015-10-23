@@ -130,6 +130,10 @@
       <Project>{ff51b1fd-d69f-41c5-9d49-e2253062a85d}</Project>
       <Name>GameStore.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GameStore.Maps\GameStore.Maps.csproj">
+      <Project>{4374019d-f8be-4991-bf62-38750025d7a5}</Project>
+      <Name>GameStore.Maps</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GameStore.Web\GameStore.Web.csproj">
       <Project>{90A5182D-051A-486E-AE55-724F9BC24818}</Project>
       <Name>GameStore.Web</Name>

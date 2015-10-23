@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using GameStore.IoC;
 using NLog;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(GameStore.Web.App_Start.NinjectWebCommon), "Start")]
@@ -44,7 +45,7 @@ namespace GameStore.Web.App_Start
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var modules = new INinjectModule[] { new BLLNinjectModule("DefaultConnection") };
+            var modules = new INinjectModule[] { new DALModule("DefaultConnection"), new BLLModule()  };
             var kernel = new StandardKernel(modules);
             
             try
@@ -68,15 +69,7 @@ namespace GameStore.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind(_ => _.FromAssembliesMatching("GameStore.BLL.dll")
-                              .SelectAllClasses().InheritedFrom(typeof(IQueryHandler<,>))
-                              .BindAllInterfaces());
-            kernel.Bind(_ => _.FromAssembliesMatching("GameStore.BLL.dll")
-                              .SelectAllClasses().InheritedFrom(typeof(ICommandHandler<>))
-                              .BindAllInterfaces());
-            kernel.Bind(_ => _.FromAssembliesMatching("GameStore.BLL.dll")
-                              .SelectAllClasses()
-                              .BindDefaultInterface());
+           
             kernel.Bind<ILogger>().ToMethod(context =>
             {
                 return LogManager.GetLogger(context.Request.ParentContext.Request.Service.FullName);

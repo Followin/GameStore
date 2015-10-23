@@ -4,9 +4,9 @@ using GameStore.BLL.DTO;
 using GameStore.BLL.QueryResults;
 using GameStore.Domain.Entities;
 
-namespace GameStore.BLL.Utils
+namespace GameStore.Maps
 {
-    public class BLLMapperProfile : Profile
+    public class BLLProfile : Profile
     {
         protected override void Configure()
         {
@@ -31,7 +31,7 @@ namespace GameStore.BLL.Utils
                   .ForMember(x => x.Games, _ => _.Ignore());
 
             Mapper.CreateMap<CreateOrderDetailsCommand, OrderDetails>();
-            
+
             // Entities -> DTOs
             Mapper.CreateMap<Comment, CommentDTO>();
             Mapper.CreateMap<Genre, GenreDTO>();

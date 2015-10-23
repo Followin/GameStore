@@ -1,17 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using GameStore.DAL.Abstract;
 using GameStore.DAL.EF;
 using GameStore.DAL.Repositories;
 using GameStore.Domain.Abstract;
 using Ninject.Modules;
 
-namespace GameStore.BLL.Utils
+namespace GameStore.IoC
 {
-    public class BLLNinjectModule : NinjectModule
+    public class DALModule : NinjectModule
     {
         private String _connectionString;
 
-        public BLLNinjectModule(String connectionString)
+        public DALModule(String connectionString)
         {
             this._connectionString = connectionString;
         }

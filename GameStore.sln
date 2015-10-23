@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.Domain", "GameStore.Domain\GameStore.Domain.csproj", "{FF51B1FD-D69F-41C5-9D49-E2253062A85D}"
 EndProject
@@ -12,6 +12,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.Web", "GameStore.Web\GameStore.Web.csproj", "{90A5182D-051A-486E-AE55-724F9BC24818}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.Tests", "GameStore.Tests\GameStore.Tests.csproj", "{0395532E-2859-4FFF-9571-00AB24D61A9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.IoC", "GameStore.IoC\GameStore.IoC.csproj", "{397FD2D0-6F18-49AA-8EA4-C9239813B2EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.Maps", "GameStore.Maps\GameStore.Maps.csproj", "{4374019D-F8BE-4991-BF62-38750025D7A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{0395532E-2859-4FFF-9571-00AB24D61A9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0395532E-2859-4FFF-9571-00AB24D61A9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0395532E-2859-4FFF-9571-00AB24D61A9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{397FD2D0-6F18-49AA-8EA4-C9239813B2EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{397FD2D0-6F18-49AA-8EA4-C9239813B2EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{397FD2D0-6F18-49AA-8EA4-C9239813B2EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{397FD2D0-6F18-49AA-8EA4-C9239813B2EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4374019D-F8BE-4991-BF62-38750025D7A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4374019D-F8BE-4991-BF62-38750025D7A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4374019D-F8BE-4991-BF62-38750025D7A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4374019D-F8BE-4991-BF62-38750025D7A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

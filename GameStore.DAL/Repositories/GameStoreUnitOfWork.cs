@@ -15,7 +15,19 @@ namespace GameStore.DAL.Repositories
         private IPlatformTypeRepository _platformTypes;
         private IPublisherRepository _publishers;
         private IOrderDetailsRepository _orderDetails;
-        private IOrderRepository _orders; 
+        private IOrderRepository _orders;
+
+        public GameStoreUnitOfWork(IContext db, ICommentRepository comments, IGameRepository games, IGenreRepository genres, IPlatformTypeRepository platformTypes, IPublisherRepository publishers, IOrderDetailsRepository orderDetails, IOrderRepository orders)
+        {
+            _db = db;
+            _comments = comments;
+            _games = games;
+            _genres = genres;
+            _platformTypes = platformTypes;
+            _publishers = publishers;
+            _orderDetails = orderDetails;
+            _orders = orders;
+        }
 
         public GameStoreUnitOfWork(IContext db)
         {

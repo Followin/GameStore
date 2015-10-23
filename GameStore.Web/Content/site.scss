@@ -14,6 +14,7 @@ header {
     position: absolute;
     z-index: 0;
     background: $header;
+    text-shadow: 5px 5px 2px rgba(0,0,0,.4);
     min-height: 35%;
     left: 0;
     right: 0;
@@ -35,11 +36,12 @@ header {
 
     .busket-link {
         position: absolute;
-        top: 20px;
-        right: 5%;
+        top: 15px;
+        right: 3%;
 
         a {
             color: #fff;
+            text-shadow: none;
         }
     }
 

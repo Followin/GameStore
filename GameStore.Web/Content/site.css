@@ -31,13 +31,14 @@
 body {
   font-family: Roboto;
   font-size: 17px;
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.07);
 }
 
 header {
   position: absolute;
   z-index: 0;
-  background: #5b3b7e;
+  background: linear-gradient(180deg, #7022c5, #9753e1);
+  text-shadow: 5px 5px 2px rgba(0, 0, 0, 0.4);
   min-height: 35%;
   left: 0;
   right: 0;
@@ -59,12 +60,13 @@ header .logo {
 
 header .busket-link {
   position: absolute;
-  top: 20px;
-  right: 5%;
+  top: 15px;
+  right: 3%;
 }
 
 header .busket-link a {
   color: #fff;
+  text-shadow: none;
 }
 
 header.mini {

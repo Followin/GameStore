@@ -25,8 +25,7 @@ namespace GameStore.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             System.Web.Mvc.ModelBinders.Binders.Add(typeof(OrderViewModel), new CurrentOrderModelBinder());
-            System.Web.Mvc.ModelBinders.Binders.Add(typeof(String), new SessionIdModelBinder());
-            //ValueProviderFactories.Factories.Add(new SessionIdValueProviderFactory());
+            ValueProviderFactories.Factories.Add(new SessionIdValueProviderFactory());
 
             Mapper.Initialize(cfg =>
             {

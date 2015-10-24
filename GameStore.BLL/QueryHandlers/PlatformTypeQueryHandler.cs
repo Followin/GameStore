@@ -5,6 +5,7 @@ using GameStore.BLL.DTO;
 using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.PlatformType;
 using GameStore.BLL.QueryResults;
+using GameStore.BLL.QueryResults.PlatformType;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
 using NLog;

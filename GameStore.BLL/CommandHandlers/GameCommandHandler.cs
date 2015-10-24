@@ -4,6 +4,7 @@ using ArgumentValidation;
 using ArgumentValidation.Extensions;
 using AutoMapper;
 using GameStore.BLL.Commands;
+using GameStore.BLL.Commands.Game;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Utils;
 using GameStore.BLL.Utils.ValidationExtensions;

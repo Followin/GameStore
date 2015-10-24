@@ -10,6 +10,7 @@ using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Game;
 using GameStore.BLL.Queries.Genre;
 using GameStore.BLL.QueryResults;
+using GameStore.BLL.QueryResults.Genre;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
 using NLog;

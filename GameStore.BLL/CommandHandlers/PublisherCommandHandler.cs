@@ -3,6 +3,7 @@ using ArgumentValidation;
 using ArgumentValidation.Extensions;
 using AutoMapper;
 using GameStore.BLL.Commands;
+using GameStore.BLL.Commands.Publisher;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;

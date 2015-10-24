@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GameStore.BLL.CQRS;
 
-namespace GameStore.BLL.Commands
+namespace GameStore.BLL.Commands.Game
 {
-    public class CreateGameCommand : ICommand
+    public class EditGameCommand : ICommand
     {
+        public Int32 Id { get; set; }
+
         public String Name { get; set; }
 
         public String Key { get; set; }

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.DTO;
 
-namespace GameStore.BLL.QueryResults
+namespace GameStore.BLL.QueryResults.Publisher
 {
     public class PublishersQueryResult : IQueryResult, IEnumerable<PublisherDTO>
     {

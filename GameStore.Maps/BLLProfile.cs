@@ -1,7 +1,13 @@
 ﻿using AutoMapper;
 using GameStore.BLL.Commands;
+using GameStore.BLL.Commands.Comment;
+using GameStore.BLL.Commands.Game;
+using GameStore.BLL.Commands.Order;
+using GameStore.BLL.Commands.Publisher;
 using GameStore.BLL.DTO;
 using GameStore.BLL.QueryResults;
+using GameStore.BLL.QueryResults.Game;
+using GameStore.BLL.QueryResults.Publisher;
 using GameStore.Domain.Entities;
 
 namespace GameStore.Maps

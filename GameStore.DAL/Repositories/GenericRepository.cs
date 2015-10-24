@@ -42,12 +42,12 @@ namespace GameStore.DAL.Repositories
 
         public IEnumerable<T> Get()
         {
-            return _set;
+            return _set.ToList();
         }
 
         public IEnumerable<T> Get(Expression<Func<T, bool>> predicate)
         {
-            return _set.Where(predicate);
+            return _set.Where(predicate).ToList();
         }
 
         public T Get(TKey id)

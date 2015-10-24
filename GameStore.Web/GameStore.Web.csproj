@@ -199,7 +199,8 @@
     </Compile>
     <Compile Include="HtmlHelpers\HtmlHelperExtensions.cs" />
     <Compile Include="ModelBinders\CurrentOrderModelBinder.cs" />
-    <Compile Include="ModelBinders\SessionIdModelBinder.cs" />
+    <Compile Include="ModelBinders\SessionIdValueProvider.cs" />
+    <Compile Include="ModelBinders\SessionIdValueProviderFactory.cs" />
     <Compile Include="Models\Comment\CommentViewModel.cs" />
     <Compile Include="Models\Comment\CreateCommentViewModel.cs" />
     <Compile Include="Models\Comment\DisplayCommentViewModel.cs" />

@@ -9,6 +9,7 @@ using GameStore.BLL.DTO;
 using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryResults;
+using GameStore.BLL.QueryResults.Game;
 using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
@@ -24,7 +25,7 @@ namespace GameStore.BLL.QueryHandlers
         IQueryHandler<GetGamesByGenreQuery, GamesQueryResult>,
         IQueryHandler<GetGamesByPlatformTypesQuery, GamesQueryResult>,
         IQueryHandler<GetGameByKeyQuery, GameQueryResult>,
-        IQueryHandler<GetGamesCountQuery, GamesCountQueryResult>
+        IQueryHandler<GetGamesCountQuery, CountQueryResult>
     #endregion
     {
         private IGameStoreUnitOfWork _db;
@@ -159,9 +160,9 @@ namespace GameStore.BLL.QueryHandlers
            return gameQueryResult;
         }
 
-        public GamesCountQueryResult Retrieve(GetGamesCountQuery query)
+        public CountQueryResult Retrieve(GetGamesCountQuery query)
         {
-            return new GamesCountQueryResult(_db.Games.Get(x => x.EntryState == EntryState.Active).Count());
+            return new CountQueryResult(_db.Games.Get(x => x.EntryState == EntryState.Active).Count());
         }
     }
 }

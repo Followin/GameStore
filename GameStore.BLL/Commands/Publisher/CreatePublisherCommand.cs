@@ -1,7 +1,7 @@
 ﻿using System;
 using GameStore.BLL.CQRS;
 
-namespace GameStore.BLL.Commands
+namespace GameStore.BLL.Commands.Publisher
 {
     public class CreatePublisherCommand : ICommand
     {

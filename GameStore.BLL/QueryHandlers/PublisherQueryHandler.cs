@@ -7,6 +7,7 @@ using GameStore.BLL.DTO;
 using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Publisher;
 using GameStore.BLL.QueryResults;
+using GameStore.BLL.QueryResults.Publisher;
 using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;

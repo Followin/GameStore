@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using GameStore.BLL.Commands;
+using GameStore.BLL.Commands.Game;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Queries;
@@ -14,6 +15,10 @@ using GameStore.BLL.Queries.Genre;
 using GameStore.BLL.Queries.PlatformType;
 using GameStore.BLL.Queries.Publisher;
 using GameStore.BLL.QueryResults;
+using GameStore.BLL.QueryResults.Game;
+using GameStore.BLL.QueryResults.Genre;
+using GameStore.BLL.QueryResults.PlatformType;
+using GameStore.BLL.QueryResults.Publisher;
 using GameStore.Web.Models;
 using GameStore.Web.Models.Game;
 using NLog;
@@ -78,7 +83,7 @@ namespace GameStore.Web.Controllers
         public ActionResult GetGamesCount()
         {
             var query = new GetGamesCountQuery();
-            var queryResult = QueryDispatcher.Dispatch<GetGamesCountQuery, GamesCountQueryResult>(query);
+            var queryResult = QueryDispatcher.Dispatch<GetGamesCountQuery, CountQueryResult>(query);
             return Json(queryResult.Count, JsonRequestBehavior.AllowGet);
         }
 

@@ -5,9 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using GameStore.BLL.Commands;
+using GameStore.BLL.Commands.Publisher;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Queries.Publisher;
 using GameStore.BLL.QueryResults;
+using GameStore.BLL.QueryResults.Publisher;
 using GameStore.Web.Models.Publisher;
 using NLog;
 

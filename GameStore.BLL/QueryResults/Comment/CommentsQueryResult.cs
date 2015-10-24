@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.DTO;
 
-namespace GameStore.BLL.QueryResults
+namespace GameStore.BLL.QueryResults.Comment
 {
     public class CommentsQueryResult : IEnumerable<CommentDTO>, IQueryResult
     {

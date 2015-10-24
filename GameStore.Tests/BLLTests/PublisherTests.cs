@@ -3,6 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using GameStore.BLL.CommandHandlers;
 using GameStore.BLL.Commands;
+using GameStore.BLL.Commands.Publisher;
 using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Publisher;
 using GameStore.BLL.QueryHandlers;

@@ -30,6 +30,8 @@ namespace GameStore.DAL.EF
 
         public IDbSet<OrderDetails> OrderDetails { get; set; }
 
+        public IDbSet<User> Users { get; set; }
+
         public IDbSet<Order> Orders { get; set; } 
 
         public new IDbSet<T> Set<T>() where T : class

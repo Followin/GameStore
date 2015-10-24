@@ -68,12 +68,14 @@
     <Compile Include="CommandHandlers\GameCommandHandler.cs" />
     <Compile Include="CommandHandlers\OrderCommandHandler.cs" />
     <Compile Include="CommandHandlers\PublisherCommandHandler.cs" />
+    <Compile Include="CommandHandlers\UserCommandHandler.cs" />
     <Compile Include="Commands\Comment\CreateCommentCommand.cs" />
     <Compile Include="Commands\Game\CreateGameCommand.cs" />
     <Compile Include="Commands\Game\DeleteGameCommand.cs" />
     <Compile Include="Commands\Game\EditGameCommand.cs" />
     <Compile Include="Commands\Order\CreateOrderDetailsCommand.cs" />
     <Compile Include="Commands\Publisher\CreatePublisherCommand.cs" />
+    <Compile Include="Commands\User\CreateUserCommand.cs" />
     <Compile Include="CQRS\CommandDispatcher.cs" />
     <Compile Include="CQRS\ICommand.cs" />
     <Compile Include="CQRS\ICommandDispatcher.cs" />

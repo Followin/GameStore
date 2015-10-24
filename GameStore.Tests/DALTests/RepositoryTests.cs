@@ -125,13 +125,20 @@ namespace GameStore.Tests.DALTests
         }
 
         [TestMethod]
-        public void Get_With_No_Parameters_Returns_Whole_Object()
+        public void Get_With_No_Parameters_Returns_All_Objects()
         {
+            // Arrange
+            var items = new List<TestClass> { new TestClass { Id = 1 }, new TestClass { Id = 1 }, new TestClass { Id = 2 } }.AsQueryable();
+            _testClassSetMock.Setup(x => x.ElementType).Returns(items.ElementType);
+            _testClassSetMock.Setup(x => x.Expression).Returns(items.Expression);
+            _testClassSetMock.Setup(x => x.Provider).Returns(items.Provider);
+            _testClassSetMock.Setup(x => x.GetEnumerator()).Returns(items.GetEnumerator);
+
             // Act
             var result = _testGenericRepository.Get();
 
             // Assert
-            Assert.AreEqual(_testClassSetMock.Object, result);
+            Assert.AreEqual(3, result.Count());
         }
 
         [TestMethod]

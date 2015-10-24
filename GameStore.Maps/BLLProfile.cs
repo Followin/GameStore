@@ -4,6 +4,7 @@ using GameStore.BLL.Commands.Comment;
 using GameStore.BLL.Commands.Game;
 using GameStore.BLL.Commands.Order;
 using GameStore.BLL.Commands.Publisher;
+using GameStore.BLL.Commands.User;
 using GameStore.BLL.DTO;
 using GameStore.BLL.QueryResults;
 using GameStore.BLL.QueryResults.Game;
@@ -36,6 +37,9 @@ namespace GameStore.Maps
 
             Mapper.CreateMap<CreatePublisherCommand, Publisher>()
                   .ForMember(x => x.Games, _ => _.Ignore());
+
+            Mapper.CreateMap<CreateUserCommand, User>()
+                  .ForMember(x => x.Orders, _ => _.Ignore());
 
             Mapper.CreateMap<CreateOrderDetailsCommand, OrderDetails>();
 

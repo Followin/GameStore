@@ -87,4 +87,13 @@ namespace GameStore.DAL.EF
             Property(x => x.Time).IsRequired();
         }
     }
+
+    public class UserConfiguration : EntityTypeConfiguration<User>
+    {
+        public UserConfiguration()
+        {
+            Property(x => x.SessionId).IsRequired()
+                                      .HasMaxLength(20);
+        }
+    }
 }

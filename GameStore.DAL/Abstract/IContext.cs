@@ -23,6 +23,8 @@ namespace GameStore.DAL.Abstract
 
         IDbSet<OrderDetails> OrderDetails { get; }
 
+        IDbSet<User> Users { get; }
+
         IDbSet<Order> Orders { get; }
 
         /// <summary>

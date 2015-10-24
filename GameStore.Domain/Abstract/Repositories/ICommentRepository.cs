@@ -5,6 +5,5 @@ namespace GameStore.Domain.Abstract.Repositories
 {
     public interface ICommentRepository : IRepository<Comment, Int32>
     {
-         
     }
 }

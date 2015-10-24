@@ -15,7 +15,7 @@ namespace GameStore.BLL.CommandHandlers
 {
     public class GameCommandHandler :
     #region interfaces
- ICommandHandler<CreateGameCommand>,
+        ICommandHandler<CreateGameCommand>,
         ICommandHandler<DeleteGameCommand>,
         ICommandHandler<EditGameCommand>
     #endregion

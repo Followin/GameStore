@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ArgumentValidation;
 using ArgumentValidation.Extensions;
 using AutoMapper;

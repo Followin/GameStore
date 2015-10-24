@@ -15,6 +15,7 @@ namespace GameStore.DAL.EF
             : base(connectionString)
         {
             Database.SetInitializer(new EFContextInitializer());
+            
         }
 
         public IDbSet<Comment> Comments { get; set; }

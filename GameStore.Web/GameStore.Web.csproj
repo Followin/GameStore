@@ -59,6 +59,26 @@
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Glimpse.Ado, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.Ado.1.7.3\lib\net45\Glimpse.Ado.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Glimpse.AspNet, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.AspNet.1.8.0\lib\net45\Glimpse.AspNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Glimpse.Core, Version=1.8.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.1.8.6\lib\net45\Glimpse.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Glimpse.EF5, Version=1.6.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.EF5.1.6.5\lib\net45\Glimpse.EF5.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Glimpse.Mvc4, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.Mvc4.1.5.3\lib\net40\Glimpse.Mvc4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -166,18 +186,20 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\BusketController.cs" />
+    <Compile Include="Controllers\BasketController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\PublisherController.cs" />
     <Compile Include="Filters\ExceptionLogger.cs" />
     <Compile Include="Filters\LogAttribute.cs" />
     <Compile Include="Filters\LogTimeAttribute.cs" />
+    <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HtmlHelpers\HtmlHelperExtensions.cs" />
     <Compile Include="ModelBinders\CurrentOrderModelBinder.cs" />
+    <Compile Include="ModelBinders\SessionIdModelBinder.cs" />
     <Compile Include="Models\Comment\CommentViewModel.cs" />
     <Compile Include="Models\Comment\CreateCommentViewModel.cs" />
     <Compile Include="Models\Comment\DisplayCommentViewModel.cs" />
@@ -334,7 +356,7 @@
     <Content Include="Views\Game\Details.cshtml" />
     <Content Include="Views\Publisher\Details.cshtml" />
     <Content Include="Views\Publisher\Create.cshtml" />
-    <Content Include="Views\Busket\Index.cshtml" />
+    <Content Include="Views\Basket\Index.cshtml" />
     <Content Include="Scripts\comments.coffee" />
     <Content Include="Scripts\comments.js.map">
       <DependentUpon>comments.js</DependentUpon>

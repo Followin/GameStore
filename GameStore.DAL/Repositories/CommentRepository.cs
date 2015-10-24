@@ -1,4 +1,6 @@
-﻿using GameStore.DAL.Abstract;
+﻿using System.Collections.Generic;
+using System.Linq;
+using GameStore.DAL.Abstract;
 using GameStore.Domain.Abstract.Repositories;
 using GameStore.Domain.Entities;
 
@@ -9,5 +11,6 @@ namespace GameStore.DAL.Repositories
         public CommentRepository(IContext context) : base(context)
         {
         }
+
     }
 }

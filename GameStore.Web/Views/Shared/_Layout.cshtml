@@ -24,7 +24,15 @@
             <a href="@Url.Action("Index", "Basket")">Basket</a>
         </div>
     </header>
-    <div id="games-count" data-href="@Url.Action("GetGamesCount", "Games")"></div>
+    <div id="games-count" data-href="@Url.Action("GetGamesCount", "Games")">
+        <div class="loader">
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+        </div>
+    </div>
     <div id="body-wrapper">
         @RenderBody()
     </div>

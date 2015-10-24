@@ -65,6 +65,7 @@
     <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\PlatformTypeRepository.cs" />
     <Compile Include="Repositories\PublisherRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

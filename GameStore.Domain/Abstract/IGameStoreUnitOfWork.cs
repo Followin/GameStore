@@ -18,6 +18,8 @@ namespace GameStore.Domain.Abstract
 
         IOrderDetailsRepository OrderDetails { get; }
 
-        IOrderRepository Orders { get; } 
+        IOrderRepository Orders { get; }
+
+        IUserRepository Users { get; }
     }
 }

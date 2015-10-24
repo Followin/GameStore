@@ -25,7 +25,7 @@ namespace GameStore.Tests.DALTests
     {
         private Mock<IContext> _dbContext;
         private Mock<IDbSet<TestClass>> _testClassSetMock;
-        private GenericRepository<TestClass> _testGenericRepository;
+        private GenericRepository<TestClass, Int32> _testGenericRepository;
         private GameStoreUnitOfWork _unitOfWork;
             
         [ClassInitialize]
@@ -41,7 +41,7 @@ namespace GameStore.Tests.DALTests
             _testClassSetMock.Setup(x => x.Find(It.IsAny<Int32>())).Returns(
                 (Object[] i) => new TestClass { Id = (Int32)i[0] });
             _dbContext.Setup(x => x.Set<TestClass>()).Returns(_testClassSetMock.Object);
-            _testGenericRepository = new GenericRepository<TestClass>(_dbContext.Object);
+            _testGenericRepository = new GenericRepository<TestClass, Int32>(_dbContext.Object);
             _unitOfWork = new GameStoreUnitOfWork(_dbContext.Object);
         }
 

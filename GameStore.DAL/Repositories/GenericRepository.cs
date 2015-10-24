@@ -9,8 +9,8 @@ using GameStore.Domain.Abstract;
 
 namespace GameStore.DAL.Repositories
 {
-    public class GenericRepository<T> : IRepository<T, Int32> 
-        where T : Entity<Int32>
+    public class GenericRepository<T, TKey> : IRepository<T, TKey> 
+        where T : Entity<TKey>
     {
         private IDbSet<T> _set;
         private IContext _db;
@@ -31,7 +31,7 @@ namespace GameStore.DAL.Repositories
             _set.Add(item);
         }
 
-        public void Delete(Int32 id)
+        public void Delete(TKey id)
         {
             var item = _set.Find(id);
             if (item != null)
@@ -50,7 +50,7 @@ namespace GameStore.DAL.Repositories
             return _set.Where(predicate);
         }
 
-        public T Get(Int32 id)
+        public T Get(TKey id)
         {
             return _set.Find(id);
         }

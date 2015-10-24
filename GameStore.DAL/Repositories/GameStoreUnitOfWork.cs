@@ -16,8 +16,9 @@ namespace GameStore.DAL.Repositories
         private IPublisherRepository _publishers;
         private IOrderDetailsRepository _orderDetails;
         private IOrderRepository _orders;
+        private IUserRepository _users;
 
-        public GameStoreUnitOfWork(IContext db, ICommentRepository comments, IGameRepository games, IGenreRepository genres, IPlatformTypeRepository platformTypes, IPublisherRepository publishers, IOrderDetailsRepository orderDetails, IOrderRepository orders)
+        public GameStoreUnitOfWork(IContext db, ICommentRepository comments, IGameRepository games, IGenreRepository genres, IPlatformTypeRepository platformTypes, IPublisherRepository publishers, IOrderDetailsRepository orderDetails, IOrderRepository orders, IUserRepository users)
         {
             _db = db;
             _comments = comments;
@@ -27,6 +28,7 @@ namespace GameStore.DAL.Repositories
             _publishers = publishers;
             _orderDetails = orderDetails;
             _orders = orders;
+            _users = users;
         }
 
         public GameStoreUnitOfWork(IContext db)
@@ -67,6 +69,11 @@ namespace GameStore.DAL.Repositories
         public IOrderRepository Orders
         {
             get { return _orders ?? (_orders = new OrderRepository(_db)); }
+        }
+
+        public IUserRepository Users
+        {
+            get { return _users ?? (_users = new UserRepository(_db)); }
         }
 
         public void Dispose()

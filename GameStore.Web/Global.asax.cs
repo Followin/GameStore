@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Mime;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -6,6 +7,7 @@ using System.Web.Routing;
 using AutoMapper;
 using GameStore.BLL.Utils;
 using GameStore.Maps;
+using GameStore.Web.Concrete;
 using GameStore.Web.ModelBinders;
 using GameStore.Web.Models.Order;
 using GameStore.Web.Utils;
@@ -32,7 +34,32 @@ namespace GameStore.Web
                 cfg.AddProfile(new BLLProfile());
                 cfg.AddProfile(new WebMapperProfile());
             });
+            InitializePayments();
+
+            
             //Mapper.AssertConfigurationIsValid();
+        }
+
+        private void InitializePayments()
+        {
+            PaymentList.PaymentMethods.Add(
+                "visa",
+                new VisaPayment(
+                    @"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png",
+                    "VISA",
+                    "Payment by VISA card"));
+            PaymentList.PaymentMethods.Add(
+                "ibox",
+                new IboxPayment(
+                    @"http://www.uic.in.ua/wp-content/uploads/2014/06/ibox.png",
+                    "IBOX",
+                    "Payment by IBOX terminal"));
+            PaymentList.PaymentMethods.Add(
+                "bank",
+                new BankPayment(
+                    @"http://goodlogo.com/images/logos/state_bank_of_india_logo_3898.png",
+                    "Bank",
+                    "Invoice payment using bank"));
         }
     }
 }

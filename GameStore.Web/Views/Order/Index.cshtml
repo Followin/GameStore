@@ -1,0 +1,46 @@
+﻿@model GameStore.Web.Models.Order.OrderCheckoutViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="paper-block">
+    <h2>Payment order</h2>
+    <div class="order-details">
+        <h3>Order details</h3>
+        @foreach (var orderDetail in Model.Order.OrderDetails)
+        {
+            <div class="order-detail">
+                <div>
+                    @orderDetail.GameName
+                </div>
+                <div>
+                    @Math.Round(orderDetail.Price, 2) $
+                </div>
+                <div>
+                    @orderDetail.Quantity
+                </div>
+            </div>
+            <hr/>
+        }
+    </div>
+    Total: @Math.Round(Model.Order.Price, 2) $
+
+    <table class="payment-methods">
+        <thead>
+        <tr>
+            <td></td><td>Name</td><td>Description</td>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var paymentMethod in Model.PaymentMethods)
+        {
+            <tr>
+                <td><img src="@paymentMethod.Value.ImageLink" width=100 height=40/></td>
+                <td>@paymentMethod.Value.Name</td>
+                <td>@paymentMethod.Value.Description</td>
+                <td><a href="@Url.Action("Checkout", "Order", new {paymentMethodKey=paymentMethod.Key})">Pay</a></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

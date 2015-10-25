@@ -183,12 +183,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IPayment.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="Concrete\BankPayment.cs" />
+    <Compile Include="Concrete\IboxPayment.cs" />
+    <Compile Include="Concrete\VisaPayment.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BasketController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\GamesController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PublisherController.cs" />
     <Compile Include="Filters\ExceptionLogger.cs" />
     <Compile Include="Filters\LogAttribute.cs" />
@@ -208,12 +213,21 @@
     <Compile Include="Models\Game\DisplayGameViewModel.cs" />
     <Compile Include="Models\Game\EditGameViewModel.cs" />
     <Compile Include="Models\GenreViewModel.cs" />
+    <Compile Include="Models\Order\IboxPaymentViewModel.cs" />
+    <Compile Include="Models\Order\OrderCheckoutViewModel.cs" />
     <Compile Include="Models\Order\OrderDetailsViewModel.cs" />
     <Compile Include="Models\Order\OrderViewModel.cs" />
+    <Compile Include="Models\Order\VisaPaymentViewModel.cs" />
     <Compile Include="Models\PlatformTypeViewModel.cs" />
     <Compile Include="Models\Publisher\CreatePublisherViewModel.cs" />
     <Compile Include="Models\Publisher\PublisherViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Payment.cs" />
     <Compile Include="Utils\WebMapperProfile.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -248,6 +262,9 @@
       <DependentUpon>site.css</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
+    <None Include="Resources\bank.png" />
+    <None Include="Resources\ibox.png" />
+    <None Include="Resources\visa.png" />
     <Content Include="Scripts\comments.js">
       <DependentUpon>comments.coffee</DependentUpon>
     </Content>
@@ -291,6 +308,7 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Order\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -396,6 +414,14 @@
     <Content Include="Scripts\layout.min.js.map">
       <DependentUpon>layout.min.js</DependentUpon>
     </Content>
+    <Content Include="Views\Shared\IboxPayment.cshtml" />
+    <Content Include="Views\Shared\VisaPayment.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

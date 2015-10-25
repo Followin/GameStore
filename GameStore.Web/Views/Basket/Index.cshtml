@@ -22,8 +22,10 @@
         </div>
         <hr />
     }
-
-    Total: @Math.Round(Model.Price, 2) $
+    <div class="total">
+        Total: @Math.Round(Model.Price, 2) $
+    </div>
+    <a href="@Url.Action("Index", "Order")" class="make-order-button">Make order</a>
 </div>
 
 

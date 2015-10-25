@@ -265,10 +265,11 @@ h2 {
   height: 40px;
 }
 
-.button, input[type="submit"], .game-comment .delete-comment-button, .game-comment .comment-buttons .comment-button {
+.button, input[type="submit"], .game-comment .delete-comment-button, .game-comment .comment-buttons .comment-button, .make-order-button, .payment-methods a {
   display: block;
   padding: 8px 24px;
   text-decoration: none;
+  text-align: center;
   font-weight: 400;
   text-transform: uppercase;
   color: #fff;
@@ -346,6 +347,47 @@ h2 {
   -webkit-box-shadow: inset 0 3px 3px 0 rgba(0, 0, 0, 0.5);
   -ms-box-shadow: inset 0 3px 3px 0 rgba(0, 0, 0, 0.5);
   box-shadow: inset 0 3px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+/*Order styles*/
+.order-details h3 {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.make-order-button {
+  background: #ff5e00;
+}
+
+.payment-methods {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.payment-methods a {
+  background: #ff5e00;
+}
+
+.payment-methods td {
+  padding: 5px 10px;
+}
+
+.payment-methods thead td {
+  font-weight: bold;
+  text-align: left;
+}
+
+.payment-methods tbody td {
+  vertical-align: middle;
+  text-align: left;
+}
+
+.payment-methods tbody tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+}
+
+.payment-methods tbody tr:last-of-type {
+  border-bottom: none;
 }
 
 /*# sourceMappingURL=site.css.map */

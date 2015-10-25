@@ -14,6 +14,7 @@ using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
 using NLog;
+using EntryState = GameStore.Domain.Abstract.EntryState;
 
 namespace GameStore.BLL.QueryHandlers
 {
@@ -44,7 +45,27 @@ namespace GameStore.BLL.QueryHandlers
                     NameGetter.GetName(() => query.Key));
             }
 
-            var comments = _db.Comments.Get(c => c.GameId == game.Id && c.ParentComment == null);
+            var comments = _db.Comments.Get(c => c.GameId == game.Id 
+                && c.ParentComment == null 
+                && c.EntryState == EntryState.Active);
+
+            Action<IEnumerable<Comment>> removeDeletedComments = null;
+            removeDeletedComments = commentList =>
+            {
+                foreach (var comment in commentList)
+                {
+                    if (comment.ChildComments == null) continue;
+                    var toDelete =
+                        comment.ChildComments.Where(childComment => childComment.EntryState == EntryState.Deleted);
+                    while (toDelete.Any())
+                    {
+                        comment.ChildComments.Remove(toDelete.First());
+                    }
+                    removeDeletedComments(comment.ChildComments);
+                }
+            };
+            removeDeletedComments(comments);
+
             var commentsList = Mapper.Map<IEnumerable<Comment>, IEnumerable<CommentDTO>>(comments);
 
             return new CommentsQueryResult(commentsList);

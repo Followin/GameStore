@@ -18,6 +18,7 @@
         return formGroup.removeClass('is-empty');
       }
     };
+    window.changeFormClass = changeFormClass;
     $form.find('.form-group:has("textarea")').addClass('text-area-group');
     $form.find('textarea').autogrow();
     $form.find('input[type="radio"]').closest('.form-group').addClass('radio-group');

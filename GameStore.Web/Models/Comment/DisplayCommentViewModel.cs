@@ -7,6 +7,8 @@ namespace GameStore.Web.Models.Comment
     {
         public Int32 Id { get; set; }
 
+        public String Quotes { get; set; }
+
         public String Name { get; set; }
 
         public String Body { get; set; }

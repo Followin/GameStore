@@ -10,6 +10,11 @@ body {
     font-family: Roboto;
     font-size: 17px;
     background: $background;
+    color: rgba(0,0,0,.8);
+}
+
+input, textarea {
+    color: rgba(0,0,0,.7);
 }
 
 header {
@@ -48,8 +53,8 @@ header {
 
     &.mini {
 
-        + #games-count{
-            top:85%;
+        + #games-count {
+            top: 85%;
         }
     }
 }
@@ -106,7 +111,7 @@ h2 {
     font-weight: bold;
 
     &::after {
-        content: ':'
+        content: ':';
     }
 }
 
@@ -117,7 +122,7 @@ h2 {
 .control-links {
     .control-link {
         float: left;
-        border: 1px solid rgba(0,0,0,0.16);
+        border: $border-color;
         background: #fff;
         @include transition(all, .1s linear);
 
@@ -130,10 +135,10 @@ h2 {
         }
 
         &:hover {
-                @include transform(scale(1.1));
-                box-shadow: 3px 3px 6px 3px rgba(0,0,0,.3);
-            }
-        
+            @include transform(scale(1.1));
+            box-shadow: 3px 3px 6px 3px rgba(0,0,0,.3);
+        }
+
         a {
             text-align: center;
             line-height: 40px;
@@ -143,4 +148,91 @@ h2 {
             height: 40px;
         }
     }
+}
+
+.button {
+    display: block;
+    padding: 8px 24px;
+    text-decoration: none;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #fff;
+    background: $header;
+    border: none;
+    cursor: pointer;
+    @include box-shadow(0 3px 1px 0 rgba(0,0,0,.2));
+}
+
+input[type="submit"] {
+    @extend .button;
+}
+
+/*Comments styles*/
+
+.comments-list {
+    margin-bottom: 40px;
+
+    li {
+        margin-bottom: 40px;
+    }
+
+    ul {
+        margin-top: 20px;
+    }
+}
+
+.game-comment {
+    
+    .delete-comment-button {
+        @extend .button;
+        background: red;
+        padding: 5px 8px;
+        border-radius: 100%;
+        float: right;
+    }
+
+    .author-name {
+        padding-left: 20px;
+    }
+
+    .comment-body {
+        padding: 10px;
+        min-height: 30px;
+        border: 1px solid $border-color;
+        @include border-radius(5px);
+    }
+
+    .comment-buttons {
+        float: right;
+
+        .comment-button {
+            @extend .button;
+            float: right;
+            margin-top: 2px;
+            margin-right: 10px;
+
+            @include transition(all .1s linear);
+
+            &.answer-to-comment.answerin-to {
+                background: hsl(100, 70%, 40%);
+            }
+
+            &.quote-comment.quotin {
+                background: hsl(100, 70%, 40%);
+            }
+        }
+    }
+}
+
+
+.quote-author-name {
+    display: inline-block;
+    font-style: italic;
+    padding-left: 10px;
+}
+
+.quote-body {
+    border: 1px solid $border-color;
+    padding: 5px 10px;
+    @include box-shadow(inset 0 3px 3px 0 rgba(0,0,0,.5));
 }

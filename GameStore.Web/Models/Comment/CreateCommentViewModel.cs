@@ -9,6 +9,8 @@ namespace GameStore.Web.Models.Comment
         [MinLength(3)]
         public String Name { get; set; }
 
+        public String Quotes { get; set; }
+
         [Required]
         [MinLength(5)]
         [DataType(DataType.MultilineText)]

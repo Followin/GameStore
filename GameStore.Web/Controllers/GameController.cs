@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using GameStore.BLL.Commands;
@@ -54,7 +55,6 @@ namespace GameStore.Web.Controllers
                         });
                     model.CreateModel.GameId = query.Id;
                 }
-
                 var command = Mapper.Map<CreateCommentViewModel, CreateCommentCommand>(model.CreateModel);
                 CommandDispatcher.Dispatch(command);
                 return RedirectToRoute(new { action = "Comments", controller = "Game", gamekey = gamekey });
@@ -68,6 +68,13 @@ namespace GameStore.Web.Controllers
             var comments = Mapper.Map<IEnumerable<DisplayCommentViewModel>>(commentsQuery);
             model.Comments = comments;
             return View("Comments", model);
+        }
+
+        public ActionResult DeleteComment(String gamekey, Int32 id)
+        {
+            var command = new DeleteCommentCommand { Id = id };
+            CommandDispatcher.Dispatch(command);
+            return RedirectToAction("Comments", "Game", new { gamekey });
         }
 
         public ActionResult Comments(String gamekey)

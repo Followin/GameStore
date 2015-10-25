@@ -7,6 +7,8 @@ namespace GameStore.BLL.Commands.Comment
     {
         public String Name { get; set; }
 
+        public String Quotes { get; set; }
+
         public String Body { get; set; }
 
         public Int32? GameId { get; set; }

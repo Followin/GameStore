@@ -54,18 +54,39 @@ namespace GameStore.Web.HtmlHelpers
                 header.AddCssClass("author-name");
                 header.SetInnerText(comment.Name);
 
-                var body = new TagBuilder("p");
+                
+
+                var body = new TagBuilder("div");
+                body.AddCssClass("comment-body");
                 body.SetInnerText(comment.Body);
+                body.InnerHtml = comment.Quotes + body.InnerHtml;
 
-                var a = new TagBuilder("a");
-                a.Attributes["href"] = "#";
-                a.SetInnerText("Answer");
-                a.AddCssClass("answer-to-comment");
-                a.Attributes["data-id"] = comment.Id.ToString();
+                var commentButtonsDiv = new TagBuilder("div");
+                commentButtonsDiv.AddCssClass("comment-buttons");
 
+                var answerLink = new TagBuilder("a");
+                answerLink.SetInnerText("Answer");
+                answerLink.AddCssClass("comment-button answer-to-comment");
+                answerLink.Attributes["data-id"] = comment.Id.ToString();
+
+                var quoteLink = new TagBuilder("a");
+                quoteLink.SetInnerText("Quote");
+                quoteLink.AddCssClass("comment-button quote-comment");
+                quoteLink.Attributes["data-id"] = comment.Id.ToString();
+
+                commentButtonsDiv.InnerHtml += answerLink;
+                commentButtonsDiv.InnerHtml += quoteLink;
+
+                var deleteButton = new TagBuilder("button");
+                deleteButton.AddCssClass("delete-comment-button");
+                deleteButton.Attributes["data-href"] = new UrlHelper(HttpContext.Current.Request.RequestContext)
+                    .Action("DeleteComment", "Game", new {id = comment.Id});
+                deleteButton.SetInnerText("x");
+
+                commentDiv.InnerHtml += deleteButton;
                 commentDiv.InnerHtml += header;
                 commentDiv.InnerHtml += body;
-                commentDiv.InnerHtml += a;
+                commentDiv.InnerHtml += commentButtonsDiv;
                 liTag.InnerHtml += commentDiv;
 
                 if (comment.ChildComments != null && comment.ChildComments.Any())

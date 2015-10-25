@@ -10,7 +10,7 @@ jQuery.fn.insertFormValidation = ->
         if el.is(':focus')  then formGroup.addClass('has-focus') else formGroup.removeClass('has-focus')
         if el.val() == '' then formGroup.addClass('is-empty') else formGroup.removeClass('is-empty')
         
-    
+    window.changeFormClass = changeFormClass
 
 
     $form.find('.form-group:has("textarea")').addClass('text-area-group')

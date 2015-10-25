@@ -10,6 +10,8 @@ namespace GameStore.BLL.DTO
     {
         public String Name { get; set; }
 
+        public String Quotes { get; set; }
+
         public String Body { get; set; }
 
         public IEnumerable<CommentDTO> ChildComments { get; set; } 

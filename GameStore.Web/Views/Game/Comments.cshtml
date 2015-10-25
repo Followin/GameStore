@@ -6,7 +6,7 @@
 
 <div class="paper-block">
     <h2>Comments</h2>
-    <div class="hideable">
+    <div class="comments-list hideable">
         @Html.CreateTree(Model.Comments)
     </div>
     @using (Html.BeginForm("NewComment", "Game"))
@@ -19,12 +19,14 @@
             @Html.ValidationMessageFor(x => x.CreateModel.Name)
         </div>
 
+        <div class="quotes"></div>
+
         <div class="form-group">
             @Html.LabelFor(x => x.CreateModel.Body)
             @Html.EditorFor(x => x.CreateModel.Body)
             @Html.ValidationMessageFor(x => x.CreateModel.Body)
         </div>
-        <input type="submit" value="Submit"/>
+        <input type="submit" value="Submit" />
     }
 </div>
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using ArgumentValidation;
 using ArgumentValidation.Extensions;
 using AutoMapper;
@@ -14,7 +15,8 @@ namespace GameStore.BLL.CommandHandlers
 {
     public class CommentCommandHandler :
     #region interfaces
-        ICommandHandler<CreateCommentCommand>
+        ICommandHandler<CreateCommentCommand>,
+        ICommandHandler<DeleteCommentCommand>
     #endregion
     {
         private IGameStoreUnitOfWork _db;
@@ -91,5 +93,33 @@ namespace GameStore.BLL.CommandHandlers
         }
 
 
+        public void Execute(DeleteCommentCommand command)
+        {
+            command.Id.Argument(NameGetter.GetName(() => command.Id))
+                      .GreaterThan(0);
+
+            var comment = _db.Comments.Get(command.Id);
+
+            if (comment == null)
+            {
+                throw new ArgumentOutOfRangeException(
+                    NameGetter.GetName(() => command.Id),
+                    "Comment not found");
+            }
+
+            if (comment.ChildComments.Any())
+            {
+                comment.Quotes = null;
+                comment.Body = "<Deleted>";
+            }
+            else
+            {
+                comment.EntryState = EntryState.Deleted;
+            }
+
+            _db.Comments.Update(comment);
+            _db.Save();
+
+        }
     }
 }

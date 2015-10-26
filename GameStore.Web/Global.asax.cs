@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Net.Mime;
+using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Script.Serialization;
+using System.Web.Security;
 using AutoMapper;
 using GameStore.BLL.Utils;
 using GameStore.Maps;
@@ -40,6 +43,7 @@ namespace GameStore.Web
             //Mapper.AssertConfigurationIsValid();
         }
 
+
         private void InitializePayments()
         {
             PaymentList.PaymentMethods.Add(
@@ -60,6 +64,28 @@ namespace GameStore.Web
                     @"http://goodlogo.com/images/logos/state_bank_of_india_logo_3898.png",
                     "Bank",
                     "Invoice payment using bank"));
+        }
+
+        protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
+        {
+            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+
+            if (authCookie != null)
+            {
+                var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+
+                var serializer = new JavaScriptSerializer();
+
+                var serializeModel = serializer.Deserialize<CustomPrincipalSerializeModel>(authTicket.UserData);
+
+                var user = new CustomPrincipal(authTicket.Name)
+                {
+                    Id = serializeModel.Id,
+                    SessionId = serializeModel.SessionId
+                };
+
+                HttpContext.Current.User = user;
+            }
         }
     }
 }

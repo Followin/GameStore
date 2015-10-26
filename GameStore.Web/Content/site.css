@@ -120,6 +120,81 @@ input, textarea {
   color: rgba(0, 0, 0, 0.7);
 }
 
+.button, header .basket-link a, input[type="submit"], .game-comment .delete-comment-button, .game-comment .comment-buttons .comment-button, .make-order-button, .payment-methods a {
+  display: block;
+  padding: 8px 24px;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #fff;
+  background: #481FBA;
+  border: none;
+  cursor: pointer;
+  -webkit-box-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.2);
+  -ms-box-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.custom-table {
+  width: 100%;
+}
+
+.custom-table td {
+  padding: 5px 10px;
+}
+
+.custom-table thead td {
+  font-weight: bold;
+  text-align: left;
+}
+
+.custom-table tbody td {
+  vertical-align: middle;
+  text-align: left;
+}
+
+.custom-table tbody tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+}
+
+.custom-table tbody tr:last-of-type {
+  border-bottom: none;
+}
+
+.headed-table {
+  background: #481FBA;
+  border: 4px solid #481FBA;
+  border-bottom: none;
+  border-radius: 10px;
+  border-bottom-left-radius: unset;
+  border-bottom-right-radius: unset;
+  width: 100%;
+  padding: 4px 2px;
+  border-collapse: separate;
+}
+
+.headed-table thead td {
+  color: #fff;
+}
+
+.headed-table tbody tr {
+  background: #fff;
+  cursor: default;
+}
+
+.headed-table tbody tr:nth-child(even) {
+  background: #e0e0e0;
+  -moz-transition: background 0.1s linear;
+  -o-transition: background 0.1s linear;
+  -webkit-transition: background 0.1s linear;
+  transition: background 0.1s linear;
+}
+
+.headed-table tbody tr:nth-child(even):hover {
+  background: #fff;
+}
+
 header {
   position: fixed;
   background: #481FBA;
@@ -127,7 +202,6 @@ header {
   -webkit-box-shadow: 0 3px 8px 4px rgba(0, 0, 0, 0.1);
   -ms-box-shadow: 0 3px 8px 4px rgba(0, 0, 0, 0.1);
   box-shadow: 0 3px 8px 4px rgba(0, 0, 0, 0.1);
-  height: 10%;
   min-height: 70px;
   left: 0;
   right: 0;
@@ -137,26 +211,34 @@ header {
   font-size: 30px;
 }
 
-header .logo {
-  position: absolute;
-  top: 5%;
-  left: 1%;
+header .logo a {
+  float: left;
+  margin-left: 2%;
+  line-height: 70px;
   font-size: 60px;
+  color: #fff;
+  text-decoration: none;
   -moz-transition: all 0.3s ease-in;
   -o-transition: all 0.3s ease-in;
   -webkit-transition: all 0.3s ease-in;
   transition: all 0.3s ease-in;
 }
 
+header .user, header .basket-link {
+  margin-right: 2%;
+  margin-top: 2%;
+  float: right;
+  text-shadow: none;
+}
+
 header .basket-link {
-  position: absolute;
-  top: 15px;
-  right: 3%;
+  margin-top: 1.5%;
 }
 
 header .basket-link a {
-  color: #fff;
-  text-shadow: none;
+  font-size: 0.8em;
+  background: #ff5e00;
+  margin: 0;
 }
 
 header.mini + #games-count {
@@ -167,7 +249,7 @@ header.mini + #games-count {
   position: fixed;
   z-index: 200;
   left: .5%;
-  top: 8%;
+  top: 6%;
   background: #03256C;
   color: #fff;
   font-size: 30px;
@@ -199,7 +281,7 @@ header.mini + #games-count {
   margin: 20px auto;
   padding: 10px 15px;
   background-color: #fff;
-  border-radius: 3px;
+  border-radius: 4px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16);
   width: 90%;
   overflow: auto;
@@ -263,22 +345,6 @@ h2 {
   display: block;
   width: 100px;
   height: 40px;
-}
-
-.button, input[type="submit"], .game-comment .delete-comment-button, .game-comment .comment-buttons .comment-button, .make-order-button, .payment-methods a {
-  display: block;
-  padding: 8px 24px;
-  text-decoration: none;
-  text-align: center;
-  font-weight: 400;
-  text-transform: uppercase;
-  color: #fff;
-  background: #481FBA;
-  border: none;
-  cursor: pointer;
-  -webkit-box-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.2);
-  -ms-box-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.2);
-  box-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.2);
 }
 
 /*Comments styles*/
@@ -361,33 +427,14 @@ h2 {
 
 .payment-methods {
   margin-top: 20px;
-  width: 100%;
 }
 
 .payment-methods a {
   background: #ff5e00;
 }
 
-.payment-methods td {
-  padding: 5px 10px;
-}
-
-.payment-methods thead td {
-  font-weight: bold;
-  text-align: left;
-}
-
-.payment-methods tbody td {
-  vertical-align: middle;
-  text-align: left;
-}
-
-.payment-methods tbody tr {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.16);
-}
-
-.payment-methods tbody tr:last-of-type {
-  border-bottom: none;
+.total {
+  margin-bottom: 30px;
 }
 
 /*# sourceMappingURL=site.css.map */

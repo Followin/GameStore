@@ -6,9 +6,9 @@ using GameStore.BLL.Commands.Order;
 using GameStore.BLL.Commands.Publisher;
 using GameStore.BLL.Commands.User;
 using GameStore.BLL.DTO;
-using GameStore.BLL.QueryResults;
 using GameStore.BLL.QueryResults.Game;
 using GameStore.BLL.QueryResults.Publisher;
+using GameStore.BLL.QueryResults.User;
 using GameStore.Domain.Entities;
 
 namespace GameStore.Maps
@@ -21,6 +21,7 @@ namespace GameStore.Maps
             Mapper.CreateMap<GameDTO, GameQueryResult>();
             Mapper.CreateMap<Game, GameDTO>();
             Mapper.CreateMap<Publisher, PublisherQueryResult>();
+            Mapper.CreateMap<User, UserQueryResult>();
 
             // Commands -> Entities
             Mapper.CreateMap<CreateGameCommand, Game>()

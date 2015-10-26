@@ -26,6 +26,7 @@ namespace GameStore.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/reset.css",
                 "~/Content/normalize.css",
+                "~/Content/font-awesome.css",
                 "~/Content/site.css",
                 "~/Content/forms.css"));
         }

@@ -12,6 +12,5 @@ namespace GameStore.Web.Abstract
         String Description { get; }
 
         ActionResult Checkout();
-
     }
 }

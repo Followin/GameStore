@@ -1,4 +1,5 @@
-﻿@{
+﻿@using GameStore.Web.Concrete
+@{
     Layout = null;
 }
 
@@ -17,11 +18,15 @@
 
     <header>
         <div class="logo">
-            Game<span class="s-letter">S</span>tore
+            <a href="/">
+                Game<span class="s-letter">S</span>tore
+            </a>
         </div>
-
         <div class="basket-link">
-            <a href="@Url.Action("Index", "Basket")">Basket</a>
+            <a href="@Url.Action("Index", "Basket")"><i class="fa fa-shopping-cart"></i> Basket</a>
+        </div>
+        <div class="user">
+            Hello, @((User as CustomPrincipal).Id)
         </div>
     </header>
     <div id="games-count" data-href="@Url.Action("GetGamesCount", "Games")">

@@ -33,6 +33,11 @@ namespace GameStore.Web
                 constraints: new { controller = "Publisher" });
 
             routes.MapRoute(
+                name: "Order",
+                url: "order/checkout/{paymentMethodKey}",
+                defaults: new { controller = "order", action = "checkout" });
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Games", action = "Index", id = UrlParameter.Optional });

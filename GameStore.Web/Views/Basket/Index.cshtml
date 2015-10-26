@@ -6,26 +6,36 @@
 
 <div class="paper-block basket">
     <h2>Basket content</h2>
+    <table class="custom-table headed-table order-detail">
+        <thead>
+            <tr>
+                <td>Game</td>
+                <td>Price</td>
+                <td>Count</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var orderDetail in Model.OrderDetails)
+            {
+                <tr>
+                    <td>
+                        @orderDetail.GameName
+                    </td>
+                    <td>
+                        @Math.Round(orderDetail.Price, 2) $
+                    </td>
+                    <td>
+                        @orderDetail.Quantity
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <hr />
 
-    @foreach (var orderDetail in Model.OrderDetails)
-    {
-        <div class="order-detail">
-            <div>
-                @orderDetail.GameName
-            </div>
-            <div>
-                @Math.Round(orderDetail.Price, 2) $
-            </div>
-            <div>
-                @orderDetail.Quantity
-            </div>
-        </div>
-        <hr />
-    }
     <div class="total">
         Total: @Math.Round(Model.Price, 2) $
     </div>
+
     <a href="@Url.Action("Index", "Order")" class="make-order-button">Make order</a>
 </div>
-
-

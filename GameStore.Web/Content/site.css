@@ -277,6 +277,14 @@ header.mini + #games-count {
   margin-top: 12%;
 }
 
+#body-wrapper.blured {
+  -webkit-filter: blur(4px);
+  -moz-filter: blur(4px);
+  -o-filter: blur(4px);
+  -ms-filter: blur(4px);
+  filter: blur(4px);
+}
+
 .paper-block {
   margin: 20px auto;
   padding: 10px 15px;

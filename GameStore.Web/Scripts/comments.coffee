@@ -52,7 +52,7 @@ $("input[type='submit']").on('click', (e) ->
     
     $.ajax(
         type: "POST"
-        url: "/game/dota-2/newcomment"
+        url: $('form').attr('action')
         contentType: "application/json"
         data: 
             JSON.stringify(
@@ -67,6 +67,22 @@ $("input[type='submit']").on('click', (e) ->
 )
 
 $('#body-wrapper').on('click', '.delete-comment-button', ->
-    location.href=$(this).data('href')
+    href = $(this).data('href')
+    modal = new Modal(
+        {
+            headerText: "Confirm"
+            message: "Are you sure, you wanna delete this comment?"
+        }
+        ,
+        {
+            success: ->
+                location.href = href
+                $('#body-wrapper').removeClass('blured')
+            cancel: ->
+                $('#body-wrapper').removeClass('blured')
+        }
+    )
+    $('#body-wrapper').addClass('blured')
+    modal.open()
 )
 

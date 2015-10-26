@@ -11,8 +11,10 @@ namespace GameStore.Web
                 "~/Scripts/jquery.ripple-effect.js"));
 
             bundles.Add(new ScriptBundle("~/Scripts/layout").Include(
+                "~/Scripts/modal.js",
                 "~/Scripts/layout.js",
-                "~/Scripts/hideable.js"));
+                "~/Scripts/hideable.js"
+                ));
 
             bundles.Add(new ScriptBundle("~/Scripts/forms").Include(
                 "~/Scripts/jquery.validate.js",
@@ -28,7 +30,8 @@ namespace GameStore.Web
                 "~/Content/normalize.css",
                 "~/Content/font-awesome.css",
                 "~/Content/site.css",
-                "~/Content/forms.css"));
+                "~/Content/forms.css",
+                "~/Content/modal.css"));
         }
     }
 }

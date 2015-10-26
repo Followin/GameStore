@@ -107,7 +107,7 @@ namespace GameStore.BLL.CommandHandlers
                     "Comment not found");
             }
 
-            if (comment.ChildComments.Any())
+            if (comment.ChildComments != null && comment.ChildComments.Any())
             {
                 comment.Quotes = null;
                 comment.Body = "<Deleted>";

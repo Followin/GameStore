@@ -29,6 +29,7 @@
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <NuGetPackageImportStamp>a0483c83</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -231,7 +232,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Utils\Payment.cs" />
+    <Compile Include="Utils\PaymentList.cs" />
     <Compile Include="Utils\WebMapperProfile.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -258,6 +259,12 @@
     <Content Include="Content\loader.min.css">
       <DependentUpon>loader.css</DependentUpon>
     </Content>
+    <Content Include="Content\modal.css">
+      <DependentUpon>modal.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\modal.min.css">
+      <DependentUpon>modal.css</DependentUpon>
+    </Content>
     <Content Include="Content\normalize.css" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\site.css">
@@ -267,6 +274,10 @@
       <DependentUpon>site.css</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
+    <Content Include="Content\modal.scss" />
+    <Content Include="Content\modal.css.map">
+      <DependentUpon>modal.css</DependentUpon>
+    </Content>
     <None Include="Resources\bank.png" />
     <None Include="Resources\ibox.png" />
     <None Include="Resources\visa.png" />
@@ -301,6 +312,12 @@
     <Content Include="Scripts\layout.min.js">
       <DependentUpon>layout.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\modal.js">
+      <DependentUpon>modal.coffee</DependentUpon>
+    </Content>
+    <Content Include="Scripts\modal.min.js">
+      <DependentUpon>modal.js</DependentUpon>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -314,6 +331,14 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Shared\BankPayment.cshtml" />
+    <Content Include="Scripts\modal.coffee" />
+    <Content Include="Scripts\modal.js.map">
+      <DependentUpon>modal.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\modal.min.js.map">
+      <DependentUpon>modal.min.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

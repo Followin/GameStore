@@ -370,27 +370,7 @@ $trueColor: #26a69a;
 }
 
 
-.cancel-button {
-    @extend input[type='submit'];
-    text-align: center;
-    line-height: 32px;
-    background: none;
-    color: #039BE5;
-    box-shadow: none;
-    margin-bottom: 0;
-    
-    &:hover {
-        background: rgba(0,0,0,.05);
-        box-shadow: none;
-    }
 
-    &::before {
-        display: inline-block;
-        content: "\27A5";
-        padding-left: 5px;
-        transform: rotate(180deg);
-    }
-}
 
 
 //multistep forms

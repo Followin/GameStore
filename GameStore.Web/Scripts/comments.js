@@ -53,7 +53,7 @@
     body = $('textarea');
     return $.ajax({
       type: "POST",
-      url: "/game/dota-2/newcomment",
+      url: $('form').attr('action'),
       contentType: "application/json",
       data: JSON.stringify({
         "CreateModel.ParentCommentId": $("#CreateModel_ParentCommentId").val(),
@@ -68,7 +68,22 @@
   });
 
   $('#body-wrapper').on('click', '.delete-comment-button', function() {
-    return location.href = $(this).data('href');
+    var href, modal;
+    href = $(this).data('href');
+    modal = new Modal({
+      headerText: "Confirm",
+      message: "Are you sure, you wanna delete this comment?"
+    }, {
+      success: function() {
+        location.href = href;
+        return $('#body-wrapper').removeClass('blured');
+      },
+      cancel: function() {
+        return $('#body-wrapper').removeClass('blured');
+      }
+    });
+    $('#body-wrapper').addClass('blured');
+    return modal.open();
   });
 
 }).call(this);

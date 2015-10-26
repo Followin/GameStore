@@ -16,7 +16,8 @@ namespace GameStore.Web.Controllers
 {
     public class OrderController : BaseController
     {
-        public OrderController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, ILogger logger) : base(commandDispatcher, queryDispatcher, logger)
+        public OrderController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, ILogger logger)
+            : base(commandDispatcher, queryDispatcher, logger)
         {
 
         }
@@ -33,11 +34,9 @@ namespace GameStore.Web.Controllers
 
         public ActionResult Checkout(String paymentMethodKey)
         {
-            if (PaymentList.PaymentMethods.ContainsKey(paymentMethodKey))
-            {
-                return PaymentList.PaymentMethods[paymentMethodKey].Checkout();
-            }
-            return HttpNotFound();
+            return PaymentList.PaymentMethods.ContainsKey(paymentMethodKey) 
+                ? PaymentList.PaymentMethods[paymentMethodKey].Checkout() 
+                : HttpNotFound();
         }
     }
 }

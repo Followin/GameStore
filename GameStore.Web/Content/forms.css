@@ -328,27 +328,6 @@
   box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
 }
 
-.cancel-button {
-  text-align: center;
-  line-height: 32px;
-  background: none;
-  color: #039BE5;
-  box-shadow: none;
-  margin-bottom: 0;
-}
-
-.cancel-button:hover {
-  background: rgba(0, 0, 0, 0.05);
-  box-shadow: none;
-}
-
-.cancel-button::before {
-  display: inline-block;
-  content: "\27A5";
-  padding-left: 5px;
-  transform: rotate(180deg);
-}
-
 .ms-form {
   counter-reset: step;
 }

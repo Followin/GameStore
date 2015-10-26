@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using GameStore.BLL.Services;
 using GameStore.Web.Abstract;
@@ -25,8 +22,10 @@ namespace GameStore.Web.Concrete
 
         public ActionResult Checkout()
         {
-            var stream = PdfService.GenerateInvoiceFile();
-            return new FileStreamResult(stream, "application/pdf");
+
+            var result = PdfService.GenerateInvoiceFile((HttpContext.Current.User as CustomPrincipal).SessionId);
+            return new FileContentResult(result, "application/pdf");
+
         }
     }
 }

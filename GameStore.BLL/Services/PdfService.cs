@@ -1,12 +1,18 @@
 ﻿using System;
-using System.IO;
+using SelectPdf;
+
 namespace GameStore.BLL.Services
 {
     public class PdfService
     {
-        public static Stream GenerateInvoiceFile()
+        public static byte[] GenerateInvoiceFile(String userName)
         {
-            return new MemoryStream(new byte[0]);
+            PdfDocument doc = new PdfDocument();
+            var page = doc.AddPage();
+            var font = doc.AddFont(PdfStandardFont.Helvetica);
+            var text = new PdfTextElement(50, 50, "Your session id: " + userName, font);
+            page.Add(text);
+            return doc.Save();
         }
     }
 }

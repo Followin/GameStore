@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using GameStore.BLL.Commands;
 using GameStore.BLL.Commands.Comment;
+using GameStore.BLL.Commands.Game;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Comment;
@@ -14,6 +15,7 @@ using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryResults;
 using GameStore.BLL.QueryResults.Comment;
 using GameStore.BLL.QueryResults.Game;
+using GameStore.Web.Abstract;
 using GameStore.Web.Models;
 using GameStore.Web.Models.Comment;
 using GameStore.Web.Models.Game;
@@ -36,6 +38,22 @@ namespace GameStore.Web.Controllers
                 {
                     Key = gamekey
                 });
+
+            var isVisited = QueryDispatcher.Dispatch<IsGameVisitedByUserQuery, BooleanQueryResult>(
+                new IsGameVisitedByUserQuery
+                {
+                    GameId = query.Id,
+                    UserId = (User as ICustomPrincipal).Id
+                });
+            if (!isVisited)
+            {
+                CommandDispatcher.Dispatch(new AddGameVisitCommand
+                {
+                    GameId = query.Id,
+                    UserId = (User as ICustomPrincipal).Id
+                });
+            }
+
             var game = Mapper.Map<DisplayGameViewModel>(query);
             return View(game);
         }

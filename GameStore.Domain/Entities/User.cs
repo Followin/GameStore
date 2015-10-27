@@ -8,6 +8,8 @@ namespace GameStore.Domain.Entities
     {
         public String SessionId { get; set; }
 
-        public ICollection<Order> Orders { get; set; } 
+        public virtual ICollection<Order> Orders { get; set; }
+
+        public virtual ICollection<Game> ViewedGames { get; set; } 
     }
 }

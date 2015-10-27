@@ -28,6 +28,8 @@ namespace GameStore.Domain.Entities
 
         public virtual ICollection<Genre> Genres { get; set; }
 
-        public virtual ICollection<PlatformType> PlatformTypes { get; set; } 
+        public virtual ICollection<PlatformType> PlatformTypes { get; set; }
+
+        public virtual ICollection<User> UsersViewed { get; set; } 
     }
 }

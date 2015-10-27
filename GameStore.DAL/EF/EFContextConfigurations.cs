@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity.ModelConfiguration;
 using GameStore.Domain.Entities;
 
 namespace GameStore.DAL.EF
@@ -23,6 +18,7 @@ namespace GameStore.DAL.EF
                                          .HasColumnType("SMALLINT");
             Property(x => x.Price).IsRequired()
                                   .HasColumnType("MONEY");
+            HasMany(x => x.UsersViewed).WithMany(x => x.ViewedGames);
         }
     }
 

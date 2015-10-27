@@ -70,6 +70,7 @@ namespace GameStore.Web.Controllers
             return View("Comments", model);
         }
 
+        [HttpPost]
         public ActionResult DeleteComment(String gamekey, Int32 id)
         {
             var command = new DeleteCommentCommand { Id = id };

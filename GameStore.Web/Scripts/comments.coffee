@@ -68,6 +68,7 @@ $("input[type='submit']").on('click', (e) ->
 
 $('#body-wrapper').on('click', '.delete-comment-button', ->
     href = $(this).data('href')
+    id = $(this).data('id')
     modal = new Modal(
         {
             headerText: "Confirm"
@@ -76,10 +77,20 @@ $('#body-wrapper').on('click', '.delete-comment-button', ->
         ,
         {
             success: ->
-                location.href = href
-                $('#body-wrapper').removeClass('blured')
-            cancel: ->
-                $('#body-wrapper').removeClass('blured')
+                $.ajax(
+                    type: "POST",
+                    url: href
+                    contentType: "application/json"
+                    data:
+                        JSON.stringify(
+                            "id": id
+                        )
+                    success: (data, statusText)->
+                        console.log data
+                        location.reload()
+                )
+              cancel: ->
+                   $('#body-wrapper').removeClass('blured')
         }
     )
     $('#body-wrapper').addClass('blured')

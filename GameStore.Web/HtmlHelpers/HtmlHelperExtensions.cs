@@ -80,7 +80,8 @@ namespace GameStore.Web.HtmlHelpers
                 var deleteButton = new TagBuilder("button");
                 deleteButton.AddCssClass("delete-comment-button");
                 deleteButton.Attributes["data-href"] = new UrlHelper(HttpContext.Current.Request.RequestContext)
-                    .Action("DeleteComment", "Game", new {id = comment.Id});
+                    .Action("DeleteComment", "Game");
+                deleteButton.Attributes["data-id"] = comment.Id.ToString();
                 deleteButton.SetInnerText("x");
 
                 commentDiv.InnerHtml += deleteButton;

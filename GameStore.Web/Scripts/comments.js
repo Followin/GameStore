@@ -68,15 +68,26 @@
   });
 
   $('#body-wrapper').on('click', '.delete-comment-button', function() {
-    var href, modal;
+    var href, id, modal;
     href = $(this).data('href');
+    id = $(this).data('id');
     modal = new Modal({
       headerText: "Confirm",
       message: "Are you sure, you wanna delete this comment?"
     }, {
       success: function() {
-        location.href = href;
-        return $('#body-wrapper').removeClass('blured');
+        return $.ajax({
+          type: "POST",
+          url: href,
+          contentType: "application/json",
+          data: JSON.stringify({
+            "id": id
+          }),
+          success: function(data, statusText) {
+            console.log(data);
+            return location.reload();
+          }
+        });
       },
       cancel: function() {
         return $('#body-wrapper').removeClass('blured');

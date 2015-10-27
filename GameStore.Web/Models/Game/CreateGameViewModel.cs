@@ -32,6 +32,9 @@ namespace GameStore.Web.Models.Game
         public Int32 PublisherId { get; set; }
 
         [Required]
+        public DateTime PublicationDate { get; set; }
+
+        [Required]
         public Int32[] GenreIds { get; set; }
 
         [Required]

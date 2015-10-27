@@ -23,6 +23,10 @@ namespace GameStore.BLL.QueryResults.Game
 
         public PublisherDTO Publisher { get; set; }
 
+        public DateTime PublicationDate { get; set; }
+
+        public DateTime IncomeDate { get; set; }
+
         public ICollection<GenreDTO> Genres { get; set; }
 
         public ICollection<PlatformTypeDTO> PlatformTypes { get; set; } 

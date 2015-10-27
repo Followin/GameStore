@@ -22,6 +22,10 @@ namespace GameStore.Web.Models.Game
 
         public DisplayPublisherViewModel Publisher { get; set; }
 
+        public DateTime PublicationDate { get; set; }
+
+        public DateTime IncomeDate { get; set; }
+
         public IEnumerable<GenreViewModel> Genres { get; set; }
 
         public IEnumerable<PlatformTypeViewModel> PlatformTypes { get; set; }

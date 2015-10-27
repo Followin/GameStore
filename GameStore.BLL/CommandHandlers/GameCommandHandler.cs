@@ -62,6 +62,8 @@ namespace GameStore.BLL.CommandHandlers
                 return platformType;
             }).ToList();
 
+            game.IncomeDate = DateTime.UtcNow;
+
             _db.Games.Add(game);
             _db.Save();
         }

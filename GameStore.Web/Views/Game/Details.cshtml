@@ -59,6 +59,22 @@
     </div>
     <div class="display-group">
         <div class="display-label">
+            @Html.DisplayNameFor(model => model.PublicationDate)
+        </div>
+        <div class="display-field">
+            @Model.IncomeDate.ToShortDateString()
+        </div>
+    </div>
+    <div class="display-group">
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.IncomeDate)
+        </div>
+        <div class="display-field">
+            @Model.IncomeDate.ToShortDateString()
+        </div>
+    </div>
+    <div class="display-group">
+        <div class="display-label">
             @Html.DisplayNameFor(model => model.Genres)
         </div>
         <div class="display-field">

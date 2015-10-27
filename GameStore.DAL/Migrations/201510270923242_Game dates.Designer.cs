@@ -5,13 +5,13 @@ namespace GameStore.DAL.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class _new : IMigrationMetadata
+    public sealed partial class Gamedates : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_new));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Gamedates));
         
         string IMigrationMetadata.Id
         {
-            get { return "201510191410026_new"; }
+            get { return "201510270923242_Game dates"; }
         }
         
         string IMigrationMetadata.Source

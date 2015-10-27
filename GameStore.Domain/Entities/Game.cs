@@ -20,6 +20,10 @@ namespace GameStore.Domain.Entities
 
         public Int32 PublisherId { get; set; }
 
+        public DateTime PublicationDate { get; set; }
+
+        public DateTime IncomeDate { get; set; }
+
         public virtual Publisher Publisher { get; set; }
 
         public virtual ICollection<Genre> Genres { get; set; }

@@ -42,9 +42,9 @@ namespace GameStore.DAL.EF
                     new Genre { Name = "Off-road" }
                 }
             });
-            context.Genres.Add(new Genre { Name = "RPG" });
+            var rpg = context.Genres.Add(new Genre { Name = "RPG" });
             context.Genres.Add(new Genre { Name = "Sports" });
-            context.Genres.Add(new Genre { Name = "Action" });
+            var action = context.Genres.Add(new Genre { Name = "Action" });
             context.Genres.Add(new Genre { Name = "Adventure" });
             context.Genres.Add(new Genre { Name = "Puzzle&Skill" });
             var moba = context.Genres.Add(new Genre { Name = "MOBA" });
@@ -61,6 +61,21 @@ namespace GameStore.DAL.EF
                 HomePage = "http://www.valvesoftware.com/",
             });
 
+            var cdProject = context.Publishers.Add(new Publisher
+            {
+                Id = 2,
+                CompanyName = "CD Project",
+                Description = "Poland private game developing company",
+                HomePage = "https://www.cdprojekt.com/"
+            });
+
+            var bethesda = context.Publishers.Add(new Publisher
+            {
+                CompanyName = "Bethesda",
+                Description = "American video game publisher. A subsidiary of ZeniMax Media.",
+                HomePage = "http://bethsoft.com/"
+            });
+
             var dota = context.Games.Add(new Game
             {
                 Name = "Dota 2",
@@ -70,8 +85,57 @@ namespace GameStore.DAL.EF
                 PlatformTypes = new[] { desktop },
                 Publisher = valve,
                 Discontinued = false,
+                IncomeDate = new DateTime(2013, 9, 7),
+                PublicationDate = new DateTime(2013, 9, 7),
                 Price = 100,
                 UnitsInStock = 1000
+            });
+
+            context.Games.Add(new Game
+            {
+                Name = "Fallout 3",
+                Description = "Action role-playing open world video game developed by Bethesda Game Studios, and is the third major installment in the Fallout series.",
+                Genres = new[] {action},
+                Key = "fallout-3",
+                PlatformTypes = new[] {desktop},
+                Publisher = bethesda,
+                Discontinued = false,
+                IncomeDate = new DateTime(2008, 8, 28),
+                PublicationDate = new DateTime(2009, 1, 1),
+                Price = 30,
+                UnitsInStock = 1000
+            });
+
+            context.Games.Add(new Game
+            {
+                Name = "Fallout 4",
+                Description =
+                    "200 years after a nuclear war, Fallout 4 is set in a post-apocalyptic Boston, in which the player character emerges from an underground bunker known as a Vault. Gameplay will be similar to Fallout 3. Completing quests and acquiring experience will level up the character, allowing for new abilities.",
+                Genres = new[] {action},
+                Key = "fallout-4",
+                PlatformTypes = new[] {desktop},
+                Publisher = bethesda,
+                Discontinued = false,
+                IncomeDate = new DateTime(2015, 10, 27),
+                PublicationDate = new DateTime(2015, 6, 3),
+                Price = 30,
+                UnitsInStock = 1000
+            });
+
+            context.Games.Add(new Game
+            {
+                Name = "The Witcher 3: Wild Hunt",
+                Description =
+                    "Played in a third-person perspective, players control protagonist Geralt of Rivia, a Witcher who sets out on a long journey through the large land of Northern Kingdoms. Players battle against the world's many dangers using swords and magic, while interacting with non-player characters and completing side quests and main missions all to progress through the story. Players mostly travel by foot, or mounted on Geralt's horse Roach.",
+                Key = "witcher-3",
+                Genres = new[] {rpg},
+                PlatformTypes = new[] {desktop},
+                Publisher = cdProject,
+                Discontinued = false,
+                UnitsInStock = 1000,
+                IncomeDate = new DateTime(2015, 5, 20),
+                PublicationDate = new DateTime(2015, 5, 19),
+                Price = 100
             });
 
             context.Comments.Add(new Comment

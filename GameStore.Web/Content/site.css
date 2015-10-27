@@ -326,7 +326,7 @@ h2 {
 
 .control-links .control-link {
   float: left;
-  border: rgba(0, 0, 0, 0.16);
+  border: 1px solid rgba(0, 0, 0, 0.16);
   background: #fff;
   -moz-transition: all, 0.1s linear;
   -o-transition: all, 0.1s linear;
@@ -343,12 +343,12 @@ h2 {
 }
 
 .control-links .control-link:hover {
-  -moz-transform: scale(1.1);
-  -ms-transform: scale(1.1);
-  -o-transform: scale(1.1);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-  box-shadow: 3px 3px 6px 3px rgba(0, 0, 0, 0.3);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+  box-shadow: 3px 3px 7px 1px rgba(0, 0, 0, 0.3);
 }
 
 .control-links .control-link a {

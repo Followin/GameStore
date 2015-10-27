@@ -32,6 +32,11 @@ input, textarea {
     @include box-shadow(0 3px 1px 0 rgba(0,0,0,.2));
 }
 
+.lone-submit-button {
+    width: 30%;
+    margin: 0 auto;
+}
+
 .custom-table {
     width: 100%;
 

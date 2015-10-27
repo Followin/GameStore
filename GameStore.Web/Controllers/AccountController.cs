@@ -53,5 +53,10 @@ namespace GameStore.Web.Controllers
 
             return RedirectToAction("Index", "Games");
         }
+
+        public ActionResult Ban()
+        {
+            return View();
+        }
     }
 }

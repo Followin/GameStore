@@ -18,7 +18,8 @@ namespace GameStore.BLL.CommandHandlers
     #region interfaces
         ICommandHandler<CreateGameCommand>,
         ICommandHandler<DeleteGameCommand>,
-        ICommandHandler<EditGameCommand>
+        ICommandHandler<EditGameCommand>,
+        ICommandHandler<AddGameVisitCommand>
     #endregion
     {
         private IGameStoreUnitOfWork _db;
@@ -120,6 +121,28 @@ namespace GameStore.BLL.CommandHandlers
 
                 return platformType;
             }).ToList();
+
+            _db.Games.Update(game);
+            _db.Save();
+        }
+
+        public void Execute(AddGameVisitCommand command)
+        {
+            Validate(command);
+
+            var game = _db.Games.Get(command.GameId);
+            if (game == null)
+                throw new ArgumentOutOfRangeException(
+                    NameGetter.GetName(() => command.GameId),
+                    "Game not found");
+
+            var user = _db.Users.Get(command.UserId);
+            if (user == null)
+                throw new ArgumentOutOfRangeException(
+                    NameGetter.GetName(() => command.UserId),
+                    "User not found");
+
+            game.UsersViewed.Add(user);
 
             _db.Games.Update(game);
             _db.Save();
@@ -233,6 +256,16 @@ namespace GameStore.BLL.CommandHandlers
 
             return game;
         }
+
+        private void Validate(AddGameVisitCommand command)
+        {
+            command.GameId.Argument(NameGetter.GetName(() => command.GameId))
+                          .GreaterThan(0);
+            command.UserId.Argument(NameGetter.GetName(() => command.UserId))
+                          .GreaterThan(0);
+        }
         #endregion
+
+        
     }
 }

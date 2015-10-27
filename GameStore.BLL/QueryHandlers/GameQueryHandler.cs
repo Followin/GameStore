@@ -25,7 +25,8 @@ namespace GameStore.BLL.QueryHandlers
         IQueryHandler<GetGamesByGenreQuery, GamesQueryResult>,
         IQueryHandler<GetGamesByPlatformTypesQuery, GamesQueryResult>,
         IQueryHandler<GetGameByKeyQuery, GameQueryResult>,
-        IQueryHandler<GetGamesCountQuery, CountQueryResult>
+        IQueryHandler<GetGamesCountQuery, CountQueryResult>,
+        IQueryHandler<IsGameVisitedByUserQuery, BooleanQueryResult>
     #endregion
     {
         private IGameStoreUnitOfWork _db;
@@ -163,6 +164,17 @@ namespace GameStore.BLL.QueryHandlers
         public CountQueryResult Retrieve(GetGamesCountQuery query)
         {
             return new CountQueryResult(_db.Games.Get(x => x.EntryState == EntryState.Active).Count());
+        }
+
+        public BooleanQueryResult Retrieve(IsGameVisitedByUserQuery query)
+        {
+            var game = _db.Games.Get(query.GameId);
+            if(game == null)
+                throw new ArgumentOutOfRangeException(
+                    NameGetter.GetName(() => query.GameId),
+                    "Game not found");
+
+            return game.UsersViewed.Any(x => x.Id == query.UserId);
         }
     }
 }

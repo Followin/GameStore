@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace GameStore.BLL.ExpressionPipeline
+namespace GameStore.BLL.GameExpressionPipeline
 {
     public interface IExpression<T> where T : Expression
     {

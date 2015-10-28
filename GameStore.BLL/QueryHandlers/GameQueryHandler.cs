@@ -6,6 +6,7 @@ using ArgumentValidation.Extensions;
 using AutoMapper;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.DTO;
+using GameStore.BLL.ExpressionPipeline;
 using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryResults;
@@ -26,7 +27,8 @@ namespace GameStore.BLL.QueryHandlers
         IQueryHandler<GetGamesByPlatformTypesQuery, GamesQueryResult>,
         IQueryHandler<GetGameByKeyQuery, GameQueryResult>,
         IQueryHandler<GetGamesCountQuery, CountQueryResult>,
-        IQueryHandler<IsGameVisitedByUserQuery, BooleanQueryResult>
+        IQueryHandler<IsGameVisitedByUserQuery, BooleanQueryResult>,
+        IQueryHandler<GetGamesQuery, GamesPartQueryResult>
     #endregion
     {
         private IGameStoreUnitOfWork _db;
@@ -175,6 +177,16 @@ namespace GameStore.BLL.QueryHandlers
                     "Game not found");
 
             return game.UsersViewed.Any(x => x.Id == query.UserId);
+        }
+
+        public GamesPartQueryResult Retrieve(GetGamesQuery query)
+        {
+            var games = _db.Games.Get(GameFilterPipeline.Execute(query));
+            var count = games.Count();
+
+            var gameDtos = Mapper.Map<IEnumerable<Game>, IEnumerable<GameDTO>>(games);
+
+            return new GamesPartQueryResult(gameDtos, count);
         }
     }
 }

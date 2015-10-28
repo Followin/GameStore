@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using GameStore.Domain.Entities;
 
-namespace GameStore.BLL.ExpressionPipeline
+namespace GameStore.BLL.GameExpressionPipeline
 {
     public abstract class BaseGameExpression : IExpression<Expression<Func<Game, Boolean>>>
     {

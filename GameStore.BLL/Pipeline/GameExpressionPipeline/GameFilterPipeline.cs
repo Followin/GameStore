@@ -39,7 +39,9 @@ namespace GameStore.BLL.Pipeline.GameExpressionPipeline
             }
 
             var filterTransformBlock = new TransformPipelineBlock<Expression<Func<Game, Boolean>>, IEnumerable<Game>>(
-                expr => _db.Games.Get(expr, GameOrderTypesList.GetOrderExpression(query.OrderBy)));
+                expr => query.OrderBy != null
+                    ? _db.Games.Get(expr, GameOrderTypesList.GetOrderExpression(query.OrderBy))
+                    : _db.Games.Get(expr));
             var action =
                 new ActionPipelineBlock<IEnumerable<Game>>(games => result = games);
             

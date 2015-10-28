@@ -5,6 +5,8 @@ namespace GameStore.Web.Models.Game
 {
     public class EditGameViewModel
     {
+        public Int32 Id { get; set; }
+
         [Required]
         [MinLength(3)]
         public String Name { get; set; }

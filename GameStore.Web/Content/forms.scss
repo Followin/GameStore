@@ -228,7 +228,6 @@ $trueColor: #26a69a;
         height: 2px;
         bottom: 0;
         left: 50%;
-        z-index: 1000;
         background: rgba(0,0,0,.08);
         @include transition(all .3s ease);
     }

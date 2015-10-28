@@ -26,6 +26,13 @@ namespace GameStore.DAL.Repositories
             return _set.FirstOrDefault(predicate);
         }
 
+        public int GetCount(Expression<Func<T, bool>> predicate = null)
+        {
+            return predicate == null
+                ? _set.Count()
+                : _set.Count(predicate);
+        }
+
         public void Add(T item)
         {
             _set.Add(item);

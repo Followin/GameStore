@@ -37,6 +37,8 @@ namespace GameStore.Domain.Abstract
         /// <returns></returns>
         TEntity GetSingle(Expression<Func<TEntity, Boolean>> predicate);
 
+        Int32 GetCount(Expression<Func<TEntity, Boolean>> predicate = null);
+
         void Add(TEntity item);
 
         void Delete(TKey id);

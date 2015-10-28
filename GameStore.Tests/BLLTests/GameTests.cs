@@ -84,8 +84,11 @@ namespace GameStore.Tests.BLLTests
                 (Int32 i) => platformTypes.FirstOrDefault(g => g.Id == i));
             _platformTypeRepositoryMock.Setup(x => x.GetSingle(It.IsAny<Expression<Func<PlatformType, Boolean>>>())).Returns(
                 (Expression<Func<PlatformType, Boolean>> predicate) => platformTypes.FirstOrDefault(predicate.Compile()));
-            _platformTypeRepositoryMock.Setup(x => x.Get(It.IsAny<Expression<Func<PlatformType, Boolean>>>())).Returns(
-                (Expression<Func<PlatformType, Boolean>> predicate) => platformTypes.Where(predicate.Compile()));
+            _platformTypeRepositoryMock.Setup(x => x.Get(
+                It.IsAny<Expression<Func<PlatformType, Boolean>>>(),
+                It.IsAny<Expression<Func<PlatformType, object>>>())).Returns(
+                    (Expression<Func<PlatformType, Boolean>> predicate,
+                    Expression<Func<PlatformType, object>> orderBy) => platformTypes.Where(predicate.Compile()));
 
             var valve = new Publisher
             {
@@ -166,8 +169,11 @@ namespace GameStore.Tests.BLLTests
             _gameRepositoryMock.Setup(x => x.Get()).Returns(_games);
             _gameRepositoryMock.Setup(x => x.Get(It.Is<Int32>(i => i == 1))).Returns(_dota);
             _gameRepositoryMock.Setup(x => x.Get(It.Is<Int32>(i => i == 2))).Returns(_witcher);
-            _gameRepositoryMock.Setup(x => x.Get(It.IsAny<Expression<Func<Game, Boolean>>>())).Returns(
-                (Expression<Func<Game, Boolean>> predicate) => _games.Where(predicate.Compile()));
+            _gameRepositoryMock.Setup(x => x.Get(
+                It.IsAny<Expression<Func<Game, Boolean>>>(),
+                It.IsAny<Expression<Func<Game, object>>>())).Returns(
+                    (Expression<Func<Game, Boolean>> predicate,
+                     Expression<Func<Game, object>> orderBy) => _games.Where(predicate.Compile()));
             _gameRepositoryMock.Setup(x => x.GetSingle(It.IsAny<Expression<Func<Game, Boolean>>>())).Returns(
                 (Expression<Func<Game, Boolean>> predicate) => _games.FirstOrDefault(predicate.Compile()));
 

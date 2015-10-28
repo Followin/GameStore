@@ -52,9 +52,12 @@ namespace GameStore.DAL.Repositories
             return _set.ToList();
         }
 
-        public IEnumerable<T> Get(Expression<Func<T, bool>> predicate)
+        public IEnumerable<T> Get(
+            Expression<Func<T, bool>> predicate,
+            Expression<Func<T, object>> orderBy = null)
         {
-            return _set.Where(predicate).ToList();
+            var result = _set.Where(predicate);
+            return orderBy == null ? result : result.OrderBy(orderBy);
         }
 
         public T Get(TKey id)

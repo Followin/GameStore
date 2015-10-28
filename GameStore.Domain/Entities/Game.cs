@@ -26,6 +26,8 @@ namespace GameStore.Domain.Entities
 
         public virtual Publisher Publisher { get; set; }
 
+        public virtual ICollection<Comment> Comments { get; set; } 
+
         public virtual ICollection<Genre> Genres { get; set; }
 
         public virtual ICollection<PlatformType> PlatformTypes { get; set; }

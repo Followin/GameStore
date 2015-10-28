@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using GameStore.BLL.Queries.Game;
+using GameStore.BLL.Static;
 using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
@@ -22,6 +23,7 @@ namespace GameStore.BLL.Pipeline.GameExpressionPipeline
         {
             ITargetPipelineBlock<Expression<Func<Game, Boolean>>> _root = null;
             ISourcePipelineBlock<Expression<Func<Game, Boolean>>> _previous = null;
+            IEnumerable<Game> result = null;
 
             foreach (var expressionPart in GetExpressionPart(query))
             {
@@ -36,16 +38,16 @@ namespace GameStore.BLL.Pipeline.GameExpressionPipeline
                 _previous = expressionPart;
             }
 
-
-            Expression<Func<Game, Boolean>> resultExpression = null;
-
+            var filterTransformBlock = new TransformPipelineBlock<Expression<Func<Game, Boolean>>, IEnumerable<Game>>(
+                expr => _db.Games.Get(expr, GameOrderTypesList.GetOrderExpression(query.OrderBy)));
             var action =
-                new ActionPipelineBlock<Expression<Func<Game, Boolean>>>(expression => resultExpression = expression);
-            _previous.Register(action);
+                new ActionPipelineBlock<IEnumerable<Game>>(games => result = games);
+            
+            _previous.Register(filterTransformBlock);
+            filterTransformBlock.Register(action);
 
             _root.Post(game => true);
-
-            return _db.Games.Get(resultExpression);
+            return result;
 
         }
 

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using ArgumentValidation;
 using ArgumentValidation.Extensions;
 using AutoMapper;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.DTO;
-using GameStore.BLL.ExpressionPipeline;
+using GameStore.BLL.Pipeline.GameExpressionPipeline;
 using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryResults;
@@ -181,12 +182,10 @@ namespace GameStore.BLL.QueryHandlers
 
         public GamesPartQueryResult Retrieve(GetGamesQuery query)
         {
-            var games = _db.Games.Get(GameFilterPipeline.Execute(query));
-            var count = games.Count();
+            var pipeline = new GameFilterPipeline(_db);
+            var games = pipeline.Execute(query);
 
-            var gameDtos = Mapper.Map<IEnumerable<Game>, IEnumerable<GameDTO>>(games);
-
-            return new GamesPartQueryResult(gameDtos, count);
+            return new GamesPartQueryResult(Mapper.Map<IEnumerable<Game>, IEnumerable<GameDTO>>(games), games.Count());
         }
     }
 }

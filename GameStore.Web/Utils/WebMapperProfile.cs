@@ -30,7 +30,7 @@ namespace GameStore.Web.Utils
             Mapper.CreateMap<PlatformTypeDTO, PlatformTypeViewModel>();
             Mapper.CreateMap<GenreDTO, GenreViewModel>();
             Mapper.CreateMap<PublisherDTO, DisplayPublisherViewModel>();
-            Mapper.CreateMap<GameDTO, DisplayGameViewModel>();
+            Mapper.CreateMap<GameDTO, DisplayGameModel>();
             Mapper.CreateMap<CommentDTO, DisplayCommentViewModel>();
 
             Mapper.CreateMap<PublisherQueryResult, DisplayPublisherViewModel>();

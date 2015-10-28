@@ -19,8 +19,10 @@ using GameStore.BLL.QueryResults.Game;
 using GameStore.BLL.QueryResults.Genre;
 using GameStore.BLL.QueryResults.PlatformType;
 using GameStore.BLL.QueryResults.Publisher;
+using GameStore.BLL.Static;
 using GameStore.Web.Models;
 using GameStore.Web.Models.Game;
+using GameStore.Web.Models.Publisher;
 using NLog;
 
 namespace GameStore.Web.Controllers
@@ -34,10 +36,13 @@ namespace GameStore.Web.Controllers
 
         public ActionResult Index()
         {
-            var gamesQuery = QueryDispatcher.Dispatch<GetAllGamesQuery, GamesQueryResult>(new GetAllGamesQuery());
-            var gamesVM = Mapper.Map<IEnumerable<DisplayGameViewModel>>(gamesQuery);
-            return Json(gamesVM, JsonRequestBehavior.AllowGet);
+            var displayViewModel = new DisplayGameViewModel();
+            FillDisplayGameViewModel(displayViewModel);
+
+            return View(displayViewModel);
         }
+
+        
 
         [HttpGet]
         public ActionResult Create()
@@ -108,6 +113,28 @@ namespace GameStore.Web.Controllers
             model.Genres = genres;
             model.PlatformTypes = platformTypes;
             model.Publishers = publishersSelectList;
+        }
+
+        private void FillDisplayGameViewModel(DisplayGameViewModel model)
+        {
+            var games = Mapper.Map<GamesPartQueryResult, IEnumerable<DisplayGameModel>>(
+                QueryDispatcher.Dispatch<GetGamesQuery, GamesPartQueryResult>(
+                new GetGamesQuery()));
+            var genres = Mapper.Map<GenresQueryResult, IEnumerable<GenreViewModel>>(
+                QueryDispatcher.Dispatch<GetAllGenresQuery, GenresQueryResult>(new GetAllGenresQuery()));
+            var platformTypes = Mapper.Map<PlatformTypesQueryResult, IEnumerable<PlatformTypeViewModel>>(
+                QueryDispatcher.Dispatch<GetAllPlatformTypesQuery, PlatformTypesQueryResult>(
+                    new GetAllPlatformTypesQuery()));
+            var publishers = Mapper.Map<PublishersQueryResult, IEnumerable<DisplayPublisherViewModel>>(
+                QueryDispatcher.Dispatch<GetAllPublishersQuery, PublishersQueryResult>(
+                    new GetAllPublishersQuery()));
+
+            model.Model = games;
+            model.Publishers = publishers;
+            model.Genres = genres;
+            model.OrderByVariants = GameOrderTypesList.GetOrderKeys();
+            model.PlatformTypes = platformTypes;
+
         }
     }
 }

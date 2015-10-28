@@ -37,6 +37,7 @@ input, textarea {
     margin: 0 auto;
 }
 
+
 .custom-table {
     width: 100%;
 
@@ -350,4 +351,21 @@ input[type="submit"] {
 
 .total {
     margin-bottom: 30px;
+}
+
+/**/
+
+.filterable-list-wrapper {
+    .paper-block {
+        float: left;
+    }
+
+    .paper-block:nth-child(1) {
+        width: 20%;
+        margin-right: 40px;
+    }
+
+    .paper-block:nth-child(2) {
+        width: 70%;
+    }
 }

@@ -1,0 +1,32 @@
+﻿@using GameStore.Web.HtmlHelpers
+@model GameStore.Web.Models.Game.DisplayGameViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="filterable-list-wrapper">
+    <div class="paper-block filterin-block">
+        <form>
+            <div class="form-group">
+                @Html.LabelFor(x => x.FilterModel.Name)
+                @Html.EditorFor(x => x.FilterModel.Name)
+                @Html.ValidationMessageFor(x => x.FilterModel.Name)
+        </div>
+        <div class="form-group">
+            @Html.CreateTree(Model.Genres, @Html.NameFor(x => x.FilterModel.GenreIds).ToString())
+        </div>
+    </form>
+    </div>
+    <div class="paper-block">
+        @foreach (var game in Model.Model)
+        {
+            <div class="game">
+                @game.Id
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/Scripts/forms")
+}

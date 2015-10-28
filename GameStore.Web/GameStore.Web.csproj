@@ -354,6 +354,7 @@
       <DependentUpon>ban.min.js</DependentUpon>
     </Content>
     <None Include="Views\Account\Ban.cshtml" />
+    <Content Include="Views\Games\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

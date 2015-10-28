@@ -450,4 +450,18 @@ h2 {
   margin-bottom: 30px;
 }
 
+/**/
+.filterable-list-wrapper .paper-block {
+  float: left;
+}
+
+.filterable-list-wrapper .paper-block:nth-child(1) {
+  width: 20%;
+  margin-right: 40px;
+}
+
+.filterable-list-wrapper .paper-block:nth-child(2) {
+  width: 70%;
+}
+
 /*# sourceMappingURL=site.css.map */

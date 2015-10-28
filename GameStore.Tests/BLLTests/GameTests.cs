@@ -145,7 +145,7 @@ namespace GameStore.Tests.BLLTests
                 Publisher = valve,
                 Discontinued = false,
                 UnitsInStock = 50,
-                Price = 100
+                Price = 200
             };
 
             _witcher = new Game
@@ -159,7 +159,7 @@ namespace GameStore.Tests.BLLTests
                 Publisher = cdProject,
                 Discontinued = false,
                 UnitsInStock = 50,
-                Price = 100
+                Price = 150
             };
             _games = new[] { _dota, _witcher };
             _gameRepositoryMock = new Mock<IGameRepository>();
@@ -1164,6 +1164,23 @@ namespace GameStore.Tests.BLLTests
             // Assert
             _gameRepositoryMock.Verify(x => x.GetSingle(It.IsAny<Expression<Func<Game, Boolean>>>()), Times.Once);
             Assert.AreEqual("Dota 2", result.Name);
+        }
+
+        [TestMethod]
+        public void GetGamesQuery_Right_Data()
+        {
+            // Arrange
+            var getGamesQuery = new GetGamesQuery
+            {
+                MaxPrice = 201,
+                Name = "ot"
+            };
+
+            // Act
+            var result = _queryHandler.Retrieve(getGamesQuery);
+
+            // Assert
+            Assert.AreEqual(1, result.Count);
         }
         #endregion
     }

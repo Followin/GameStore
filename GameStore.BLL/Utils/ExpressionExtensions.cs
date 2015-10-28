@@ -9,14 +9,40 @@ namespace GameStore.BLL.Utils
 {
     public static class ExpressionExtensions
     {
-        public static string GetPropertyName<TModel, TValue>(this Expression<Func<TModel, TValue>> propertySelector, char delimiter = '.', char endTrim = ')')
+        public static Expression<Func<T, bool>> AndAlso<T>(
+        this Expression<Func<T, bool>> expr1,
+        Expression<Func<T, bool>> expr2)
         {
-            var asString = propertySelector.ToString(); // gives you: "o => o.Whatever"
-            var lastDelim = asString.LastIndexOf(delimiter); // make sure there is a beginning property indicator; the "." in "o.Whatever" -- this may not be necessary?
+            var parameter = Expression.Parameter(typeof(T));
 
-            return lastDelim < 0
-                ? asString
-                : asString.Substring(lastDelim + 1).TrimEnd(endTrim);
+            var leftVisitor = new ReplaceExpressionVisitor(expr1.Parameters[0], parameter);
+            var left = leftVisitor.Visit(expr1.Body);
+
+            var rightVisitor = new ReplaceExpressionVisitor(expr2.Parameters[0], parameter);
+            var right = rightVisitor.Visit(expr2.Body);
+
+            return Expression.Lambda<Func<T, bool>>(
+                Expression.AndAlso(left, right), parameter);
+        }
+    }
+
+    public class ReplaceExpressionVisitor
+        : ExpressionVisitor
+    {
+        private readonly Expression _oldValue;
+        private readonly Expression _newValue;
+
+        public ReplaceExpressionVisitor(Expression oldValue, Expression newValue)
+        {
+            _oldValue = oldValue;
+            _newValue = newValue;
+        }
+
+        public override Expression Visit(Expression node)
+        {
+            if (node == _oldValue)
+                return _newValue;
+            return base.Visit(node);
         }
     }
 }

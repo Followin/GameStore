@@ -22,8 +22,8 @@ namespace GameStore.BLL.CommandHandlers
 
         public PublisherCommandHandler(IGameStoreUnitOfWork db, ILogger logger)
         {
-            this._db = db;
-            this._logger = logger;
+            _db = db;
+            _logger = logger;
         }
 
         public void Execute(CreatePublisherCommand command)

@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using AutoMapper;
+using GameStore.BLL.DTO;
 using GameStore.BLL.Queries.Game;
+using GameStore.BLL.QueryResults.Game;
 using GameStore.BLL.Static;
 using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
@@ -10,6 +13,16 @@ using GameStore.Domain.Entities;
 
 namespace GameStore.BLL.Pipeline.GameExpressionPipeline
 {
+    class GamesQueryBuilder
+    {
+        public Expression<Func<Game, Boolean>> Predicate { get; set; }
+
+        public String OrderBy { get; set; }
+
+        public Int32? Number { get; set; }
+
+        public Int32? Skip { get; set; }
+    }
     public class GameFilterPipeline
     {
         private IGameStoreUnitOfWork _db;
@@ -19,11 +32,11 @@ namespace GameStore.BLL.Pipeline.GameExpressionPipeline
             _db = db;
         }
 
-        public IEnumerable<Game> Execute(GetGamesQuery query)
+        public GamesPartQueryResult Execute(GetGamesQuery query)
         {
             ITargetPipelineBlock<Expression<Func<Game, Boolean>>> _root = null;
             ISourcePipelineBlock<Expression<Func<Game, Boolean>>> _previous = null;
-            IEnumerable<Game> result = null;
+
 
             foreach (var expressionPart in GetExpressionPart(query))
             {
@@ -37,16 +50,61 @@ namespace GameStore.BLL.Pipeline.GameExpressionPipeline
                 }
                 _previous = expressionPart;
             }
-
-            var filterTransformBlock = new TransformPipelineBlock<Expression<Func<Game, Boolean>>, IEnumerable<Game>>(
-                expr => query.OrderBy != null
-                    ? _db.Games.Get(expr, GameOrderTypesList.GetOrderExpression(query.OrderBy))
-                    : _db.Games.Get(expr));
-            var action =
-                new ActionPipelineBlock<IEnumerable<Game>>(games => result = games);
             
-            _previous.Register(filterTransformBlock);
-            filterTransformBlock.Register(action);
+            var builderTransformBlock = new TransformPipelineBlock<Expression<Func<Game, Boolean>>, GamesQueryBuilder>(
+                expr => new GamesQueryBuilder {Predicate = expr});
+            _previous.Register(builderTransformBlock);
+            ISourcePipelineBlock<GamesQueryBuilder> _builderBlock = null;
+            _builderBlock = builderTransformBlock;
+
+            if (query.OrderBy != null)
+            {
+                var orderTransformBlock = new TransformPipelineBlock<GamesQueryBuilder, GamesQueryBuilder>(
+                    builder =>
+                    {
+                        builder.OrderBy = GameOrderTypesList.GetOrderExpression(query.OrderBy);
+                        return builder;
+                    });
+                _builderBlock.Register(orderTransformBlock);
+                _builderBlock = orderTransformBlock;
+            }
+
+            if (query.Number.HasValue)
+            {
+                var itemsTransformBlock = new TransformPipelineBlock<GamesQueryBuilder, GamesQueryBuilder>(
+                    builder =>
+                    {
+                        builder.Number = query.Number.Value;
+                        return builder;
+                    });
+                _builderBlock.Register(itemsTransformBlock);
+                _builderBlock = itemsTransformBlock;
+            }
+
+            if (query.Skip.HasValue)
+            {
+                var skipTransformBlock = new TransformPipelineBlock<GamesQueryBuilder, GamesQueryBuilder>(
+                    builder =>
+                    {
+                        builder.Skip = query.Skip.Value;
+                        return builder;
+                    });
+                _builderBlock.Register(skipTransformBlock);
+                _builderBlock = skipTransformBlock;
+            }
+
+            GamesPartQueryResult result = null;
+
+            var action =
+                new ActionPipelineBlock<GamesQueryBuilder>(buildedQuery =>
+                {
+                    var games = _db.Games.Get(buildedQuery.Predicate, buildedQuery.OrderBy,
+                        buildedQuery.Skip, buildedQuery.Number);
+                    result = new GamesPartQueryResult(
+                        Mapper.Map<IEnumerable<Game>, IEnumerable<GameDTO>>(games),
+                        _db.Games.GetCount(buildedQuery.Predicate));
+                });
+            _builderBlock.Register(action);
 
             _root.Post(game => true);
             return result;
@@ -77,7 +135,7 @@ namespace GameStore.BLL.Pipeline.GameExpressionPipeline
             if (query.PublisherIds != null && query.PublisherIds.Any())
             {
                 yield return new TransformPipelineBlock<Expression<Func<Game, bool>>, Expression<Func<Game, bool>>>(
-                    expr => expr.AndAlso(game => query.PlatformTypeIds.Contains(game.PublisherId)));
+                    expr => expr.AndAlso(game => query.PublisherIds.Contains(game.PublisherId)));
             }
 
             if (query.MinDate.HasValue)
@@ -101,8 +159,7 @@ namespace GameStore.BLL.Pipeline.GameExpressionPipeline
             if (!String.IsNullOrWhiteSpace(query.Name))
             {
                 yield return new TransformPipelineBlock<Expression<Func<Game, bool>>, Expression<Func<Game, bool>>>(
-                    expr => expr.AndAlso(game => 
-                        game.Name.IndexOf(query.Name, StringComparison.InvariantCultureIgnoreCase) > -1));
+                    expr => expr.AndAlso(game => game.Name == query.Name));
             }
 
 

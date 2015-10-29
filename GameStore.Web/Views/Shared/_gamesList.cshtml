@@ -1,0 +1,16 @@
+﻿@using GameStore.Web.HtmlHelpers
+@model GameStore.Web.Models.Game.PagedDisplayGameModel
+
+@foreach (var game in Model.DisplayModel)
+{
+    <div class="game">
+        @Html.Partial("_gameInfo", game)
+    </div>
+
+}
+
+<div class="pagin">
+    @Html.PageLinks(Model.PagingInfo, i =>
+        new MvcHtmlString("<a name='page' class='page-link" + (i == Model.PagingInfo.CurrentPage?
+            " active":"") + "'" + "data-page='" + i + "'>" + i.ToString() + "</a>"))
+</div>

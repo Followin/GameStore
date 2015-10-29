@@ -26,7 +26,7 @@ namespace GameStore.BLL.QueryHandlers
         public GenreQueryHandler(IGameStoreUnitOfWork db, ILogger logger)
         {
             _db = db;
-            this._logger = logger;
+            _logger = logger;
         }
 
         public GenresQueryResult Retrieve(GetAllGenresQuery query)

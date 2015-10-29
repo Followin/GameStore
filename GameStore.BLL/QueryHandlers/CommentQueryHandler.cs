@@ -28,8 +28,8 @@ namespace GameStore.BLL.QueryHandlers
 
         public CommentQueryHandler(IGameStoreUnitOfWork db, ILogger logger)
         {
-            this._db = db;
-            this._logger = logger;
+            _db = db;
+            _logger = logger;
         }
 
         public CommentsQueryResult Retrieve(GetCommentsByGameKeyQuery query)

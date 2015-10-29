@@ -208,6 +208,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HtmlHelpers\HtmlHelperExtensions.cs" />
+    <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="ModelBinders\CurrentOrderModelBinder.cs" />
     <Compile Include="ModelBinders\SessionIdValueProvider.cs" />
     <Compile Include="ModelBinders\SessionIdValueProviderFactory.cs" />
@@ -223,6 +224,7 @@
     <Compile Include="Models\Order\OrderDetailsViewModel.cs" />
     <Compile Include="Models\Order\OrderViewModel.cs" />
     <Compile Include="Models\Order\VisaPaymentViewModel.cs" />
+    <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Models\PlatformTypeViewModel.cs" />
     <Compile Include="Models\Publisher\CreatePublisherViewModel.cs" />
     <Compile Include="Models\Publisher\PublisherViewModel.cs" />
@@ -233,6 +235,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Static\ItemsPerPageVariants.cs" />
     <Compile Include="Utils\PaymentList.cs" />
     <Compile Include="Utils\WebMapperProfile.cs" />
   </ItemGroup>
@@ -300,6 +303,12 @@
     <Content Include="Scripts\forms.min.js">
       <DependentUpon>forms.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\games.js">
+      <DependentUpon>games.coffee</DependentUpon>
+    </Content>
+    <Content Include="Scripts\games.min.js">
+      <DependentUpon>games.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\hideable.js">
       <DependentUpon>hideable.coffee</DependentUpon>
     </Content>
@@ -353,8 +362,17 @@
     <Content Include="Scripts\ban.min.js.map">
       <DependentUpon>ban.min.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\games.coffee" />
+    <Content Include="Scripts\games.js.map">
+      <DependentUpon>games.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\games.min.js.map">
+      <DependentUpon>games.min.js</DependentUpon>
+    </Content>
     <None Include="Views\Account\Ban.cshtml" />
     <Content Include="Views\Games\Index.cshtml" />
+    <Content Include="Views\Shared\_gameInfo.cshtml" />
+    <Content Include="Views\Shared\_gamesList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

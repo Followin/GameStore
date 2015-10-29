@@ -13,7 +13,7 @@ namespace GameStore.BLL.CQRS
 
         public CommandDispatcher(IKernel kernel)
         {
-            this._kernel = kernel;
+            _kernel = kernel;
         }
 
         public void Dispatch<TParameter>(TParameter command) where TParameter : ICommand

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Web.Mvc;
 using GameStore.Web.Models.Publisher;
 
 namespace GameStore.Web.Models.Game
@@ -38,15 +39,25 @@ namespace GameStore.Web.Models.Game
         public String Name { get; set; }
         public String OrderBy { get; set; }
         public Int32[] PublisherIds { get; set; }
+        public Int32 Page { get; set; }
+        public Int32 ItemsPerPage { get; set; }
+
+    }
+
+    public class PagedDisplayGameModel
+    {
+        public IEnumerable<DisplayGameModel> DisplayModel { get; set; }
+        public PagingInfo PagingInfo { get; set; }
     }
 
     public class DisplayGameViewModel
     {
-        public IEnumerable<DisplayGameModel> Model { get; set; }
+        public PagedDisplayGameModel Model { get; set; }
         public GameFiltersModel FilterModel { get; set; }
         public IEnumerable<GenreViewModel> Genres { get; set; }
         public IEnumerable<PlatformTypeViewModel> PlatformTypes { get; set; }
         public IEnumerable<DisplayPublisherViewModel> Publishers { get; set; }
-        public IEnumerable<String> OrderByVariants { get; set; } 
+        public IEnumerable<SelectListItem> OrderByVariants { get; set; }
+        public IEnumerable<SelectListItem> ItemsPerPageVariants { get; set; } 
     }
 }

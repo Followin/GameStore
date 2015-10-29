@@ -6,21 +6,22 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using GameStore.BLL.Utils;
 using GameStore.Domain.Entities;
 
 namespace GameStore.BLL.Static
 {
     public static class GameOrderTypesList
     {
-        private static IDictionary<String, Expression<Func<Game, object>>> _dictionary;
+        private static IDictionary<String, String> _dictionary;
 
         static GameOrderTypesList()
         {
-            _dictionary = new Dictionary<string, Expression<Func<Game, object>>>();
-            _dictionary.Add("Most popular", game => game.UsersViewed.Count);
-            _dictionary.Add("Most commented", game => game.Comments.Count);
-            _dictionary.Add("By price", game => game.Price);
-            _dictionary.Add("New", game => game.IncomeDate);
+            _dictionary = new Dictionary<String, String>();
+            _dictionary.Add("Most popular", "views");
+            _dictionary.Add("Most commented", "comments");
+            _dictionary.Add("By price", "price");
+            _dictionary.Add("New", "incomeDate");
         }
 
         public static IEnumerable<String> GetOrderKeys()
@@ -29,7 +30,7 @@ namespace GameStore.BLL.Static
         }
 
 
-        public static Expression<Func<Game, object>> GetOrderExpression(String key)
+        public static String GetOrderExpression(String key)
         {
             return _dictionary[key];
         }

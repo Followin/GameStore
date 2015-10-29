@@ -23,6 +23,7 @@ using GameStore.BLL.Static;
 using GameStore.Web.Models;
 using GameStore.Web.Models.Game;
 using GameStore.Web.Models.Publisher;
+using GameStore.Web.Static;
 using NLog;
 
 namespace GameStore.Web.Controllers
@@ -34,11 +35,52 @@ namespace GameStore.Web.Controllers
         {
         }
 
-        public ActionResult Index()
+        public ActionResult Index([Bind(Prefix = "filterModel")] GameFiltersModel model)
         {
             var displayViewModel = new DisplayGameViewModel();
-            FillDisplayGameViewModel(displayViewModel);
+            var query = new GetGamesQuery();
 
+            if (model == null)
+            {
+                model = new GameFiltersModel();
+            }
+
+            if (model.OrderBy == null)
+            {
+                model.OrderBy = "New";
+            }
+
+            if (model.Page == 0)
+            {
+                model.Page = 1;
+            }
+
+            if (model.ItemsPerPage == 0)
+            {
+                model.ItemsPerPage = 2;
+            }
+
+            Mapper.Map(model, query);
+            
+            var queryResult = QueryDispatcher.Dispatch<GetGamesQuery, GamesPartQueryResult>(query);
+            var viewModel = new PagedDisplayGameModel
+            {
+                DisplayModel = Mapper.Map<GamesPartQueryResult, IEnumerable<DisplayGameModel>>(queryResult),
+                PagingInfo = new PagingInfo
+                {
+                    ItemsPerPage = model.ItemsPerPage,
+                    CurrentPage = model.Page,
+                    TotalItems = queryResult.Count
+                }
+            };
+
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_gamesList", viewModel);
+            }
+
+            displayViewModel.Model = viewModel;
+            FillFilterLists(displayViewModel);
             return View(displayViewModel);
         }
 
@@ -115,11 +157,8 @@ namespace GameStore.Web.Controllers
             model.Publishers = publishersSelectList;
         }
 
-        private void FillDisplayGameViewModel(DisplayGameViewModel model)
+        private void FillFilterLists(DisplayGameViewModel model)
         {
-            var games = Mapper.Map<GamesPartQueryResult, IEnumerable<DisplayGameModel>>(
-                QueryDispatcher.Dispatch<GetGamesQuery, GamesPartQueryResult>(
-                new GetGamesQuery()));
             var genres = Mapper.Map<GenresQueryResult, IEnumerable<GenreViewModel>>(
                 QueryDispatcher.Dispatch<GetAllGenresQuery, GenresQueryResult>(new GetAllGenresQuery()));
             var platformTypes = Mapper.Map<PlatformTypesQueryResult, IEnumerable<PlatformTypeViewModel>>(
@@ -129,10 +168,20 @@ namespace GameStore.Web.Controllers
                 QueryDispatcher.Dispatch<GetAllPublishersQuery, PublishersQueryResult>(
                     new GetAllPublishersQuery()));
 
-            model.Model = games;
             model.Publishers = publishers;
             model.Genres = genres;
-            model.OrderByVariants = GameOrderTypesList.GetOrderKeys();
+            model.OrderByVariants = GameOrderTypesList.GetOrderKeys().Select(x => 
+                new SelectListItem
+                {
+                    Text = x,
+                    Value = x
+                });
+            model.ItemsPerPageVariants = ItemsPerPageVariants.Variants.Select(x =>
+                new SelectListItem
+                {
+                    Text = x.ToString(),
+                    Value = x.ToString()
+                });
             model.PlatformTypes = platformTypes;
 
         }

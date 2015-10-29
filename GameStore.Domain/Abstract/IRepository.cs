@@ -27,13 +27,10 @@ namespace GameStore.Domain.Abstract
         /// Get all items matching predicate
         /// </summary>
         /// <param name="predicate"></param>
-        /// <param name="orderBy"></param>
         /// <returns></returns>
         IEnumerable<TEntity> Get(
-            Expression<Func<TEntity, Boolean>> predicate, 
-            Expression<Func<TEntity, object>> orderBy = null);
-
-        /// <summary>
+            Expression<Func<TEntity, Boolean>> predicate);
+            /// <summary>
         /// Gets first item matching predicate
         /// </summary>
         /// <param name="predicate"></param>

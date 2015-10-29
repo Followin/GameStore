@@ -23,8 +23,8 @@ namespace GameStore.BLL.CommandHandlers
 
         public OrderCommandHandler(IGameStoreUnitOfWork db, ILogger logger)
         {
-            this._db = db;
-            this._logger = logger;
+            _db = db;
+            _logger = logger;
         }
 
         public void Execute(CreateOrderDetailsCommand command)

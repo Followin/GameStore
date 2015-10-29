@@ -11,7 +11,7 @@ namespace GameStore.BLL.QueryResults.Game
 
         public GamesQueryResult(IEnumerable<GameDTO> games)
         {
-            this._games = games;
+            _games = games;
         }
 
         public IEnumerator<GameDTO> GetEnumerator()

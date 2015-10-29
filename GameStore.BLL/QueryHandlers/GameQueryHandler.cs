@@ -37,8 +37,8 @@ namespace GameStore.BLL.QueryHandlers
 
         public GameQueryHandler(IGameStoreUnitOfWork db, ILogger logger)
         {
-            this._db = db;
-            this._logger = logger;
+            _db = db;
+            _logger = logger;
         }
 
         public GamesQueryResult Retrieve(GetAllGamesQuery query)
@@ -185,7 +185,7 @@ namespace GameStore.BLL.QueryHandlers
             var pipeline = new GameFilterPipeline(_db);
             var games = pipeline.Execute(query);
 
-            return new GamesPartQueryResult(Mapper.Map<IEnumerable<Game>, IEnumerable<GameDTO>>(games), games.Count());
+            return games;
         }
     }
 }

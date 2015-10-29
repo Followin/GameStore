@@ -4,12 +4,13 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.Remoting.Messaging;
 using GameStore.DAL.Abstract;
 using GameStore.Domain.Abstract;
 
 namespace GameStore.DAL.Repositories
 {
-    public class GenericRepository<T, TKey> : IRepository<T, TKey> 
+    public class GenericRepository<T, TKey> : IRepository<T, TKey>
         where T : Entity<TKey>
     {
         private IDbSet<T> _set;
@@ -52,13 +53,11 @@ namespace GameStore.DAL.Repositories
             return _set.ToList();
         }
 
-        public IEnumerable<T> Get(
-            Expression<Func<T, bool>> predicate,
-            Expression<Func<T, object>> orderBy = null)
+        public IEnumerable<T> Get(Expression<Func<T, bool>> predicate)
         {
-            var result = _set.Where(predicate);
-            return orderBy == null ? result : result.OrderBy(orderBy);
+            return _set.Where(predicate);
         }
+
 
         public T Get(TKey id)
         {

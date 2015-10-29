@@ -28,6 +28,9 @@ namespace GameStore.Web
             bundles.Add(new ScriptBundle("~/Scripts/ban").Include(
                 "~/Scripts/ban.js"));
 
+            bundles.Add(new ScriptBundle("~/Scripts/games").Include(
+                "~/Scripts/games.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/reset.css",
                 "~/Content/normalize.css",

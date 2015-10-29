@@ -6,27 +6,56 @@
 
 <div class="filterable-list-wrapper">
     <div class="paper-block filterin-block">
-        <form>
+        <form action="@Url.Action("Index")">
             <div class="form-group">
                 @Html.LabelFor(x => x.FilterModel.Name)
-                @Html.EditorFor(x => x.FilterModel.Name)
+                @Html.TextBoxFor(x => x.FilterModel.Name)
                 @Html.ValidationMessageFor(x => x.FilterModel.Name)
-        </div>
-        <div class="form-group">
-            @Html.CreateTree(Model.Genres, @Html.NameFor(x => x.FilterModel.GenreIds).ToString())
-        </div>
-    </form>
-    </div>
-    <div class="paper-block">
-        @foreach (var game in Model.Model)
-        {
-            <div class="game">
-                @game.Id
             </div>
-        }
+            <div class="form-group">
+                @Html.CreateTree(Model.Genres, @Html.NameFor(x => x.FilterModel.GenreIds).ToString())
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.FilterModel.PlatformTypeIds)
+                @foreach (var pt in Model.PlatformTypes)
+                {
+                    <div class="checkbox-wrapper">
+                        <input id="@String.Concat("platform-type-", pt.Id)" type="checkbox" name="@Html.NameFor(x => x.FilterModel.PlatformTypeIds)" value="@pt.Id"/>
+                        <label for="@String.Concat("platform-type-", pt.Id)">@pt.Name</label>
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.FilterModel.PublisherIds)
+                @foreach (var p in Model.Publishers)
+                {
+                    <div class="checkbox-wrapper">
+                        <input id="@String.Concat("publisher-", p.Id)" type="checkbox" name="@Html.NameFor(x => x.FilterModel.PublisherIds)" value="@p.Id"/>
+                        <label for="@String.Concat("publisher-", p.Id)">@p.CompanyName</label>
+                    </div>
+                }
+            </div>
+            <input type="submit" value="Filter" class="filter-button"/>
+        </form>
+    </div>
+    <div class="items-block">
+        <div class="paper-block">
+            <form>
+                <div class="form-group">
+                    @Html.DropDownListFor(x => x.FilterModel.OrderBy, Model.OrderByVariants)
+                </div>
+                <div class="form-group">
+                    @Html.DropDownListFor(x => x.FilterModel.ItemsPerPage, Model.ItemsPerPageVariants)
+                </div>
+            </form>
+        </div>
+        <div class="paper-block games-list">
+            @Html.Partial("_gamesList", @Model.Model)
+        </div>
     </div>
 </div>
 
 @section scripts {
     @Scripts.Render("~/Scripts/forms")
+    @Scripts.Render("~/Scripts/games")
 }

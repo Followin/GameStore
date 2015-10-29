@@ -14,7 +14,7 @@ namespace GameStore.DAL.EF
 
         protected override void Seed(EFContext context)
         {
-            this._context = context;
+            _context = context;
 
             // unique indexes
             CreateIndex("Key", typeof(Game));

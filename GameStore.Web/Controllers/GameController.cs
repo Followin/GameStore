@@ -54,7 +54,7 @@ namespace GameStore.Web.Controllers
                 });
             }
 
-            var game = Mapper.Map<DisplayGameViewModel>(query);
+            var game = Mapper.Map<DisplayGameModel>(query);
             return View(game);
         }
 

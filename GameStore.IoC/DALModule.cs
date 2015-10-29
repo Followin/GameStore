@@ -14,7 +14,7 @@ namespace GameStore.IoC
 
         public DALModule(String connectionString)
         {
-            this._connectionString = connectionString;
+            _connectionString = connectionString;
         }
 
         public override void Load()
@@ -23,7 +23,7 @@ namespace GameStore.IoC
                               .SelectAllClasses()
                               .Where(x => x.Name != "EFContext")
                               .BindDefaultInterfaces());
-            Bind<IContext>().To<EFContext>().InSingletonScope().WithConstructorArgument("connectionString", _connectionString);
+            Bind<IContext>().To<EFContext>().WithConstructorArgument("connectionString", _connectionString);
             
         }
     }

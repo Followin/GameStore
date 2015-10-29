@@ -140,6 +140,7 @@
     <Compile Include="Static\GameOrderTypesList.cs" />
     <Compile Include="Utils\EntityNotFoundException.cs" />
     <Compile Include="Utils\ExpressionExtensions.cs" />
+    <Compile Include="Utils\FunctorComparer.cs" />
     <Compile Include="Utils\NameGetter.cs" />
     <Compile Include="Utils\ValidationExtensions\DecimalValidationExtensions.cs" />
     <Compile Include="Utils\ValidationExtensions\DoubleValidationExtensions.cs" />

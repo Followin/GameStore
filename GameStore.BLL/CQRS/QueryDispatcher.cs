@@ -13,7 +13,7 @@ namespace GameStore.BLL.CQRS
 
         public QueryDispatcher(IKernel kernel)
         {
-            this._kernel = kernel;
+            _kernel = kernel;
         }
 
         public TResult Dispatch<TParameter, TResult>(TParameter query)

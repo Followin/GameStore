@@ -27,8 +27,8 @@ namespace GameStore.BLL.CommandHandlers
 
         public GameCommandHandler(IGameStoreUnitOfWork db, ILogger logger)
         {
-            this._db = db;
-            this._logger = logger;
+            _db = db;
+            _logger = logger;
         }
 
         public void Execute(CreateGameCommand command)

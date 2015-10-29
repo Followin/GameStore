@@ -151,7 +151,7 @@ header {
     &.mini {
 
         + #games-count {
-            top: 85%;
+            top: 95%;
         }
     }
 }
@@ -179,7 +179,7 @@ header {
 
 
 #body-wrapper {
-    margin-top: 12%;
+    margin-top: 7%;
 
     &.blured {
         @include filter(blur(4px));
@@ -356,16 +356,35 @@ input[type="submit"] {
 /**/
 
 .filterable-list-wrapper {
-    .paper-block {
+
+    .filterin-block {
         float: left;
-    }
-
-    .paper-block:nth-child(1) {
         width: 20%;
-        margin-right: 40px;
     }
 
-    .paper-block:nth-child(2) {
-        width: 70%;
+    .items-block {
+        float: left;
+        width: 74%;
+    }
+
+    .filter-button {
+        width: 90%;
+    }
+}
+
+.game {
+    border-bottom: 1px solid rgba(0,0,0,.3);
+    padding: 10px;
+}
+.game:last-child{
+    border:none;
+}
+
+.page-link {
+    cursor: pointer;
+    margin-right: 3px;
+
+    &.active {
+        color: rgba(0,0,0,.3);
     }
 }

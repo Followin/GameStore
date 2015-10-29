@@ -24,8 +24,8 @@ namespace GameStore.BLL.CommandHandlers
 
         public CommentCommandHandler(IGameStoreUnitOfWork db, ILogger logger)
         {
-            this._db = db;
-            this._logger = logger;
+            _db = db;
+            _logger = logger;
         }
 
         public void Execute(CreateCommentCommand command)

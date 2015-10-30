@@ -24,7 +24,6 @@ namespace GameStore.Tests.PLTests
     public class GameControllerTests
     {
         private GameController _gameController;
-        private GamesController _gamesController;
         private Mock<IQueryDispatcher> _queryDispatcherMock;
         private Mock<ICommandDispatcher> _commandDispatcherMock;
 
@@ -44,10 +43,6 @@ namespace GameStore.Tests.PLTests
                 _commandDispatcherMock.Object,
                 _queryDispatcherMock.Object,
                 loggerMock.Object);
-            _gamesController = new GamesController(
-                _commandDispatcherMock.Object,
-                _queryDispatcherMock.Object,
-                loggerMock.Object);
         }
 
         
@@ -58,7 +53,7 @@ namespace GameStore.Tests.PLTests
             // Arrange
 
             // Act
-            var result = (RedirectToRouteResult)_gamesController.Create(new CreateGameViewModel
+            var result = (RedirectToRouteResult)_gameController.Create(new CreateGameViewModel
             {
                 CreateModel = new CreateGameModel
                 {
@@ -77,7 +72,7 @@ namespace GameStore.Tests.PLTests
         [TestMethod]
         public void EditGame_Redirect_After()
         {
-            var result = (RedirectToRouteResult)_gamesController.Edit(new EditGameViewModel
+            var result = (RedirectToRouteResult)_gameController.Edit(new EditGameViewModel
             {
                 Id = 1,
                 Description = "New game description",
@@ -94,7 +89,7 @@ namespace GameStore.Tests.PLTests
         [TestMethod]
         public void Delete_Redirect_After()
         {
-            var result = (RedirectToRouteResult)_gamesController.Remove("game-key");
+            var result = (RedirectToRouteResult)_gameController.Remove("game-key");
 
             // Assert
             Assert.AreEqual("Index", result.RouteValues["action"]);

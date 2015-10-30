@@ -170,8 +170,7 @@ namespace GameStore.Tests.BLLTests
             _gameRepositoryMock.Setup(x => x.Get(It.Is<Int32>(i => i == 2))).Returns(_witcher);
             _gameRepositoryMock.Setup(x => x.Get(
                 It.IsAny<Expression<Func<Game, Boolean>>>())).Returns(
-                    (Expression<Func<Game, Boolean>> predicate,
-                     Expression<Func<Game, object>> orderBy) => _games.Where(predicate.Compile()));
+                    (Expression<Func<Game, Boolean>> predicate) => _games.Where(predicate.Compile()));
             _gameRepositoryMock.Setup(x => x.GetSingle(It.IsAny<Expression<Func<Game, Boolean>>>())).Returns(
                 (Expression<Func<Game, Boolean>> predicate) => _games.FirstOrDefault(predicate.Compile()));
 
@@ -1174,17 +1173,13 @@ namespace GameStore.Tests.BLLTests
         public void GetGamesQuery_Right_Data()
         {
             // Arrange
-            var getGamesQuery = new GetGamesQuery
-            {
-                MaxPrice = 201,
-                Name = "ot"
-            };
+            var getGamesQuery = new GetAllGamesQuery();
 
             // Act
             var result = _queryHandler.Retrieve(getGamesQuery);
 
             // Assert
-            Assert.AreEqual(1, result.Count);
+            Assert.AreEqual(2, result.Count());
         }
         #endregion
     }

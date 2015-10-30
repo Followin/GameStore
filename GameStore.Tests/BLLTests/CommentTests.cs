@@ -81,8 +81,7 @@ namespace GameStore.Tests.BLLTests
             _commentRepositoryMock = new Mock<ICommentRepository>();
             _commentRepositoryMock.Setup(x => x.Get(
                 It.IsAny<Expression<Func<Comment, Boolean>>>())).Returns(
-                (Expression<Func<Comment, Boolean>> predicate,
-                    Expression<Func<Comment, object>> orderBy) => _comments.Where(predicate.Compile()));
+                (Expression<Func<Comment, Boolean>> predicate) => _comments.Where(predicate.Compile()));
             _commentRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
                 (Int32 i) => _comments.FirstOrDefault(c => c.Id == i));
 

@@ -31,6 +31,7 @@ namespace GameStore.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             System.Web.Mvc.ModelBinders.Binders.Add(typeof(OrderViewModel), new CurrentOrderModelBinder());
             ValueProviderFactories.Factories.Add(new SessionIdValueProviderFactory());
+            DataAnnotationsModelValidatorProvider.AddImplicitRequiredAttributeForValueTypes = false;
 
             Mapper.Initialize(cfg =>
             {

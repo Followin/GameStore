@@ -1,4 +1,4 @@
-namespace GameStore.BLL.Pipeline
+namespace Pipeline
 {
     public interface ITransformPipelineBlock<in TInput, out TOutput> :
         ITargetPipelineBlock<TInput>,

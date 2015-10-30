@@ -23,7 +23,7 @@ namespace GameStore.IoC
                               .SelectAllClasses()
                               .Where(x => x.Name != "EFContext")
                               .BindDefaultInterfaces());
-            Bind<IContext>().To<EFContext>().WithConstructorArgument("connectionString", _connectionString);
+            Bind<IContext>().To<EFContext>().InThreadScope().WithConstructorArgument("connectionString", _connectionString);
             
         }
     }

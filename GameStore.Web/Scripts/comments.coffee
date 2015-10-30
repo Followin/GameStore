@@ -49,20 +49,20 @@ $('#body-wrapper').on('click', '.quote-comment', (e) ->
 $("input[type='submit']").on('click', (e) -> 
     e.preventDefault()
     body = $('textarea')
-    
-    $.ajax(
-        type: "POST"
-        url: $('form').attr('action')
-        contentType: "application/json"
-        data: 
-            JSON.stringify(
-                "CreateModel.ParentCommentId": $("#CreateModel_ParentCommentId").val()
-                "CreateModel.Name": $("#CreateModel_Name").val()
-                "CreateModel.Quotes": $('.quotes').html()
-                "CreateModel.Body": body.val()
-            )
-        success: ->
-            location.reload()
+    if $('form').valid()
+        $.ajax(
+            type: "POST"
+            url: $('form').attr('action')
+            contentType: "application/json"
+            data: 
+                JSON.stringify(
+                    "CreateModel.ParentCommentId": $("#CreateModel_ParentCommentId").val()
+                    "CreateModel.Name": $("#CreateModel_Name").val()
+                    "CreateModel.Quotes": $('.quotes').html()
+                    "CreateModel.Body": body.val()
+                )
+            success: ->
+                location.reload()
     )
 )
 

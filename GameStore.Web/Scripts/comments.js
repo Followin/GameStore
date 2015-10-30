@@ -51,20 +51,22 @@
     var body;
     e.preventDefault();
     body = $('textarea');
-    return $.ajax({
-      type: "POST",
-      url: $('form').attr('action'),
-      contentType: "application/json",
-      data: JSON.stringify({
-        "CreateModel.ParentCommentId": $("#CreateModel_ParentCommentId").val(),
-        "CreateModel.Name": $("#CreateModel_Name").val(),
-        "CreateModel.Quotes": $('.quotes').html(),
-        "CreateModel.Body": body.val()
-      }),
-      success: function() {
-        return location.reload();
-      }
-    });
+    if ($('form').valid()) {
+      return $.ajax({
+        type: "POST",
+        url: $('form').attr('action'),
+        contentType: "application/json",
+        data: JSON.stringify({
+          "CreateModel.ParentCommentId": $("#CreateModel_ParentCommentId").val(),
+          "CreateModel.Name": $("#CreateModel_Name").val(),
+          "CreateModel.Quotes": $('.quotes').html(),
+          "CreateModel.Body": body.val()
+        }),
+        success: function() {
+          return location.reload();
+        }
+      });
+    }
   });
 
   $('#body-wrapper').on('click', '.delete-comment-button', function() {

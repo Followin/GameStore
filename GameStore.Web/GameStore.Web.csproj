@@ -197,7 +197,6 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BasketController.cs" />
     <Compile Include="Controllers\GameController.cs" />
-    <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PublisherController.cs" />
     <Compile Include="Filters\ExceptionLogger.cs" />
@@ -236,6 +235,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Static\ItemsPerPageVariants.cs" />
+    <Compile Include="Static\DatesShortcutsList.cs" />
     <Compile Include="Utils\PaymentList.cs" />
     <Compile Include="Utils\WebMapperProfile.cs" />
   </ItemGroup>
@@ -370,7 +370,7 @@
       <DependentUpon>games.min.js</DependentUpon>
     </Content>
     <None Include="Views\Account\Ban.cshtml" />
-    <Content Include="Views\Games\Index.cshtml" />
+    <Content Include="Views\Game\Index.cshtml" />
     <Content Include="Views\Shared\_gameInfo.cshtml" />
     <Content Include="Views\Shared\_gamesList.cshtml" />
   </ItemGroup>
@@ -438,7 +438,7 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Shared\EditorTemplates\CreateGameViewModel.cshtml" />
-    <Content Include="Views\Games\Create.cshtml" />
+    <Content Include="Views\Game\Create.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_gamesCount.cshtml" />
     <Content Include="Views\_viewstart.cshtml" />
@@ -505,7 +505,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>58151</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:5000/</IISUrl>
+          <IISUrl>http://localhost:5002/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

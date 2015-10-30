@@ -16,6 +16,7 @@ using GameStore.Web.Models;
 using GameStore.Web.Models.Comment;
 using GameStore.Web.Models.Game;
 using GameStore.Web.Models.Publisher;
+using GameStore.Web.Static;
 
 namespace GameStore.Web.Utils
 {
@@ -35,10 +36,11 @@ namespace GameStore.Web.Utils
             Mapper.CreateMap<CommentDTO, DisplayCommentViewModel>();
 
             Mapper.CreateMap<PublisherQueryResult, DisplayPublisherViewModel>();
-            Mapper.CreateMap<GameQueryResult, DisplayGameViewModel>();
+            Mapper.CreateMap<GameQueryResult, DisplayGameModel>();
             Mapper.CreateMap<GameFiltersModel, GetGamesQuery>()
                   .ForMember(x => x.Skip, _ => _.MapFrom(x => x.ItemsPerPage*(x.Page-1)))
-                  .ForMember(x => x.Number, _ => _.MapFrom(x => x.ItemsPerPage));
+                  .ForMember(x => x.Number, _ => _.MapFrom(x => x.ItemsPerPage))
+                  .ForMember(x => x.MinDate, _ => _.MapFrom(x => x.MinDateShortcut == null ? null : DatesShortcutsList.GetDate(x.MinDateShortcut)));
         }
     }
 }

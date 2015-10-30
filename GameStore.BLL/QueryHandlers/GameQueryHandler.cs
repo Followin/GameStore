@@ -7,7 +7,6 @@ using ArgumentValidation.Extensions;
 using AutoMapper;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.DTO;
-using GameStore.BLL.Pipeline.GameExpressionPipeline;
 using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryResults;

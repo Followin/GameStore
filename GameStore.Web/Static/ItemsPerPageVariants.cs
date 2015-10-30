@@ -11,7 +11,7 @@ namespace GameStore.Web.Static
 
         static ItemsPerPageVariants()
         {
-            Variants = new[] {10, 20, 50, 100};
+            Variants = new[] {1, 10, 20, 50, 100};
         }
     }
 }

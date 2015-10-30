@@ -19,7 +19,7 @@ namespace GameStore.BLL.Commands.Game
 
         public Int32 PublisherId { get; set; }
 
-        public DateTime PublishDate { get; set; }
+        public DateTime PublicationDate { get; set; }
 
         public Int32[] GenreIds { get; set; }
 

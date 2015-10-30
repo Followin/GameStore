@@ -18,10 +18,11 @@ namespace GameStore.BLL.Static
         static GameOrderTypesList()
         {
             _dictionary = new Dictionary<String, String>();
+            _dictionary.Add("New", "incomeDate");
             _dictionary.Add("Most popular", "views");
             _dictionary.Add("Most commented", "comments");
-            _dictionary.Add("By price", "price");
-            _dictionary.Add("New", "incomeDate");
+            _dictionary.Add("By price ascending", "priceAsc");
+            _dictionary.Add("By price descending", "priceDesc");
         }
 
         public static IEnumerable<String> GetOrderKeys()

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using GameStore.Web.Models.Publisher;
 
@@ -35,13 +36,25 @@ namespace GameStore.Web.Models.Game
     public class GameFiltersModel
     {
         public Int32[] GenreIds { get; set; }
-        public Int32[] PlatformTypeIds { get; set; }
-        public String Name { get; set; }
-        public String OrderBy { get; set; }
-        public Int32[] PublisherIds { get; set; }
-        public Int32 Page { get; set; }
-        public Int32 ItemsPerPage { get; set; }
 
+        public Int32[] PlatformTypeIds { get; set; }
+
+        [StringLength(100, MinimumLength = 3)]
+        public String Name { get; set; }
+
+        public String OrderBy { get; set; }
+
+        public Int32[] PublisherIds { get; set; }
+
+        public Int32 Page { get; set; }
+
+        public Int32? ItemsPerPage { get; set; }
+
+        public Int32 MinPrice { get; set; }
+
+        public Int32 MaxPrice { get; set; }
+
+        public String MinDateShortcut { get; set; }
     }
 
     public class PagedDisplayGameModel
@@ -58,6 +71,7 @@ namespace GameStore.Web.Models.Game
         public IEnumerable<PlatformTypeViewModel> PlatformTypes { get; set; }
         public IEnumerable<DisplayPublisherViewModel> Publishers { get; set; }
         public IEnumerable<SelectListItem> OrderByVariants { get; set; }
-        public IEnumerable<SelectListItem> ItemsPerPageVariants { get; set; } 
+        public IEnumerable<SelectListItem> ItemsPerPageVariants { get; set; }
+        public IEnumerable<SelectListItem> DatesShorcuts { get; set; } 
     }
 }

@@ -1,4 +1,5 @@
 ﻿@using GameStore.Web.HtmlHelpers
+@using Newtonsoft.Json.Linq
 @model GameStore.Web.Models.Game.DisplayGameViewModel
 @{
     ViewBag.Title = "Index";
@@ -6,11 +7,29 @@
 
 <div class="filterable-list-wrapper">
     <div class="paper-block filterin-block">
-        <form action="@Url.Action("Index")">
+        <button class="filterin-block-switch arrow-wrapper">
+            <div class=" arrow left"></div>
+        </button>
+        <form action="@Url.Action("Index")" class="filters-form">
             <div class="form-group">
                 @Html.LabelFor(x => x.FilterModel.Name)
-                @Html.TextBoxFor(x => x.FilterModel.Name)
+                @Html.EditorFor(x => x.FilterModel.Name)
                 @Html.ValidationMessageFor(x => x.FilterModel.Name)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.FilterModel.MinPrice)
+                @Html.TextBoxFor(x => x.FilterModel.MinPrice, new {value = ""})
+                @Html.ValidationMessageFor(x => x.FilterModel.MinPrice)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.FilterModel.MaxPrice)
+                @Html.TextBoxFor(x => x.FilterModel.MaxPrice, new {value = ""})
+                @Html.ValidationMessageFor(x => x.FilterModel.MaxPrice)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.FilterModel.MinDateShortcut)
+                @Html.DropDownListFor(x => x.FilterModel.MinDateShortcut, Model.DatesShorcuts)
+                @Html.ValidationMessageFor(x => x.FilterModel.MinDateShortcut)
             </div>
             <div class="form-group">
                 @Html.CreateTree(Model.Genres, @Html.NameFor(x => x.FilterModel.GenreIds).ToString())
@@ -35,16 +54,18 @@
                     </div>
                 }
             </div>
-            <input type="submit" value="Filter" class="filter-button"/>
+            <input type="submit" value="Filter" class="filter-button" disabled="disabled"/>
         </form>
     </div>
     <div class="items-block">
         <div class="paper-block">
-            <form>
+            <form class="pagin-form">
                 <div class="form-group">
+                    @Html.LabelFor(x => x.FilterModel.OrderBy)
                     @Html.DropDownListFor(x => x.FilterModel.OrderBy, Model.OrderByVariants)
                 </div>
                 <div class="form-group">
+                    @Html.LabelFor(x => x.FilterModel.ItemsPerPage)
                     @Html.DropDownListFor(x => x.FilterModel.ItemsPerPage, Model.ItemsPerPageVariants)
                 </div>
             </form>

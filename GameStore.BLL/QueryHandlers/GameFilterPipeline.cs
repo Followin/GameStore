@@ -10,12 +10,13 @@ using GameStore.BLL.Static;
 using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
+using Pipeline;
 
-namespace GameStore.BLL.Pipeline.GameExpressionPipeline
+namespace GameStore.BLL.QueryHandlers
 {
     class GamesQueryBuilder
     {
-        public Expression<Func<Game, Boolean>> Predicate { get; set; }
+        public Expression<Func<Game, bool>> Predicate { get; set; }
 
         public String OrderBy { get; set; }
 
@@ -114,7 +115,7 @@ namespace GameStore.BLL.Pipeline.GameExpressionPipeline
 
 
 
-        public static IEnumerable<ITransformPipelineBlock<Expression<Func<Game, Boolean>>, Expression<Func<Game, Boolean>>>>
+        static IEnumerable<ITransformPipelineBlock<Expression<Func<Game, Boolean>>, Expression<Func<Game, Boolean>>>>
             GetExpressionPart(GetGamesQuery query)
         {
             yield return new TransformPipelineBlock<Expression<Func<Game, bool>>, Expression<Func<Game, bool>>>(
@@ -123,7 +124,7 @@ namespace GameStore.BLL.Pipeline.GameExpressionPipeline
             if (query.GenreIds != null && query.GenreIds.Any())
             {
                 yield return new TransformPipelineBlock<Expression<Func<Game, bool>>, Expression<Func<Game, bool>>>(
-                    expr => expr.AndAlso(game => query.GenreIds.Intersect(game.Genres.Select(x => x.Id)).Any()));
+                    expr => expr.AndAlso(game => query.GenreIds.Intersect(Enumerable.Select<Genre, int>(game.Genres, x => x.Id)).Any()));
             }
 
             if (query.PlatformTypeIds != null && query.PlatformTypeIds.Any())

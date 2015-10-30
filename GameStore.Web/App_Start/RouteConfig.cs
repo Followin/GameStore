@@ -11,20 +11,15 @@ namespace GameStore.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Create",
-                url: "{controller}/new",
-                defaults: new { action = "Create" });
-
-            routes.MapRoute(
-                name: "Edit",
-                url: "{controller}/update",
-                defaults: new { action = "Edit" });
-
-            routes.MapRoute(
                 name: "Game",
                 url: "{controller}/{gamekey}/{action}",
                 defaults: new { action = "Details" },
                 constraints: new { controller = "Game" });
+
+            routes.MapRoute(
+                name: "Games",
+                url: "Games/{action}",
+                defaults: new {controller = "game", action = "index"});
 
             routes.MapRoute(
                 name: "Publisher",
@@ -40,7 +35,7 @@ namespace GameStore.Web
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Games", action = "Index", id = UrlParameter.Optional });
+                defaults: new { controller = "Game", action = "Index", id = UrlParameter.Optional });
         }
     }
 }

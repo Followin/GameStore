@@ -16,7 +16,7 @@ namespace GameStore.BLL.CommandHandlers
 {
     public class GameCommandHandler :
     #region interfaces
-        ICommandHandler<CreateGameCommand>,
+ ICommandHandler<CreateGameCommand>,
         ICommandHandler<DeleteGameCommand>,
         ICommandHandler<EditGameCommand>,
         ICommandHandler<AddGameVisitCommand>
@@ -137,24 +137,27 @@ namespace GameStore.BLL.CommandHandlers
                     "Game not found");
 
             var user = _db.Users.Get(command.UserId);
-            if (user == null)
-                throw new ArgumentOutOfRangeException(
-                    NameGetter.GetName(() => command.UserId),
-                    "User not found");
+            if (user != null)
+            {
+                //throw new ArgumentOutOfRangeException(
+                //    NameGetter.GetName(() => command.UserId),
+                //    "User not found");
 
-            game.UsersViewed.Add(user);
 
-            _db.Games.Update(game);
-            _db.Save();
+                game.UsersViewed.Add(user);
+
+                _db.Games.Update(game);
+                _db.Save();
+            }
         }
-        
+
         #region Validators
         private void Validate(CreateGameCommand command)
         {
             command.Name.Argument(NameGetter.GetName(() => command.Name))
                         .NotNull()
                         .NotWhiteSpace();
-            
+
             command.Key.Argument(NameGetter.GetName(() => command.Key))
                        .NotNull()
                        .NotWhiteSpace();
@@ -266,6 +269,6 @@ namespace GameStore.BLL.CommandHandlers
         }
         #endregion
 
-        
+
     }
 }

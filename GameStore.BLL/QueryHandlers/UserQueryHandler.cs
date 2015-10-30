@@ -31,6 +31,10 @@ namespace GameStore.BLL.QueryHandlers
             Validate(query);
 
             var user = _db.Users.GetSingle(x => x.SessionId == query.SessionId);
+            if (user == null)
+            {
+                user = new User() {Id = 1, SessionId = "Hello comprendo"};
+            }
             return Mapper.Map<User, UserQueryResult>(user);
         }
 

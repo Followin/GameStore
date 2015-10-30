@@ -97,13 +97,6 @@
     <Compile Include="DTO\GenreDTO.cs" />
     <Compile Include="DTO\PlatformTypeDTO.cs" />
     <Compile Include="DTO\PublisherDTO.cs" />
-    <Compile Include="Pipeline\ActionPipelineBlock.cs" />
-    <Compile Include="Pipeline\ActionPipelineBlockBase.cs" />
-    <Compile Include="Pipeline\GameExpressionPipeline\GameFilterPipeline.cs" />
-    <Compile Include="Pipeline\IPipelineBlock.cs" />
-    <Compile Include="Pipeline\ITransformPipelineBlock.cs" />
-    <Compile Include="Pipeline\TransformPipelineBlock.cs" />
-    <Compile Include="Pipeline\TransformPipelineBlockBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\Comment\GetCommentsByGameKeyQuery.cs" />
     <Compile Include="Queries\Game\GetGamesQuery.cs" />
@@ -120,6 +113,7 @@
     <Compile Include="Queries\Publisher\GetPublisherByCompanyNameQuery.cs" />
     <Compile Include="Queries\User\GetUserBySessionIdQuery.cs" />
     <Compile Include="QueryHandlers\CommentQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GameFilterPipeline.cs" />
     <Compile Include="QueryHandlers\GameQueryHandler.cs" />
     <Compile Include="QueryHandlers\GenreQueryHandler.cs" />
     <Compile Include="QueryHandlers\PlatformTypeQueryHandler.cs" />
@@ -164,6 +158,10 @@
     <ProjectReference Include="..\GameStore.Domain\GameStore.Domain.csproj">
       <Project>{ff51b1fd-d69f-41c5-9d49-e2253062a85d}</Project>
       <Name>GameStore.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pipeline\Pipeline.csproj">
+      <Project>{b6d496b9-71c1-4a20-a724-b479e01c1a05}</Project>
+      <Name>Pipeline</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

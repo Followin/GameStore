@@ -1,4 +1,4 @@
-﻿namespace GameStore.BLL.Pipeline
+﻿namespace Pipeline
 {
     public interface ITargetPipelineBlock<in TOutput>
     {

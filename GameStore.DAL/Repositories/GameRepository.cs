@@ -33,12 +33,19 @@ namespace GameStore.DAL.Repositories
                     case "views":
                         fullyResult = fullyResult.OrderBy(x => x.UsersViewed.Count);
                         break;
+
                     case "comments":
                         fullyResult = fullyResult.OrderBy(x => x.Comments.Count);
                         break;
-                    case "price":
+
+                    case "priceAsc":
                         fullyResult = fullyResult.OrderBy(x => x.Price);
                         break;
+
+                    case "priceDesc":
+                        fullyResult = fullyResult.OrderByDescending(x => x.Price);
+                        break;
+
                     case "incomeDate":
                         fullyResult = fullyResult.OrderBy(x => x.IncomeDate);
                         break;

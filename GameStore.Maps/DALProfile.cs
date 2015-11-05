@@ -27,7 +27,7 @@ namespace GameStore.Maps
                   .ForMember(x => x.Genres, _ => _.MapFrom(x => new[] {x.Category}))
                   .ForMember(x => x.Publisher, _ => _.MapFrom(x => x.Supplier))
                   .ForMember(x => x.PublisherId, _ => _.MapFrom(x => KeyEncoder.Encode(x.SupplierID.Value, DatabaseTypes.Northwind)))
-                  .ForMember(x => x.Comments, _ => _.Ignore())
+                  .ForMember(x => x.Comments, _ => _.UseValue(new Comment[0]))
                   .ForMember(x => x.Discontinued, _ => _.MapFrom(x => x.Discontinued))
                   .ForMember(x => x.IncomeDate, _ => _.UseValue(DateTime.MinValue))
                   .ForMember(x => x.Key, _ => _.MapFrom(x => x.ProductID.ToString()))

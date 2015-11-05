@@ -43,10 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\Entity.cs" />
-    <Compile Include="Abstract\Entities\CommentBase.cs" />
-    <Compile Include="Abstract\Entities\GameBase.cs" />
-    <Compile Include="Abstract\Entities\GenreBase.cs" />
-    <Compile Include="Abstract\Entities\SubGenreBase.cs" />
     <Compile Include="Abstract\IGameStoreUnitOfWork.cs" />
     <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="Abstract\IUnitOfWork.cs" />

@@ -88,6 +88,9 @@ $('#body-wrapper').on('click', '.delete-comment-button', ->
                     success: (data, statusText)->
                         console.log data
                         location.reload()
+                    error: (data, statusText)->
+                        location.href = JSON.parse(data.responseText).href
+                        
                 )
               cancel: ->
                    $('#body-wrapper').removeClass('blured')

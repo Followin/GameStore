@@ -41,7 +41,7 @@ namespace GameStore.DAL.Repositories
                         break;
 
                     case "comments":
-                        fullyResult = fullyResult.OrderBy(x => x.Comments.Count);
+                        fullyResult = fullyResult.OrderBy(x => _db.Comments.Count(y => y.GameId == x.Id));
                         break;
 
                     case "priceAsc":

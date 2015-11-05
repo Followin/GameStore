@@ -88,6 +88,9 @@
           success: function(data, statusText) {
             console.log(data);
             return location.reload();
+          },
+          error: function(data, statusText) {
+            return location.href = JSON.parse(data.responseText).href;
           }
         });
       },

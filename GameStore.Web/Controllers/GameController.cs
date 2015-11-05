@@ -105,7 +105,8 @@ namespace GameStore.Web.Controllers
         {
             var command = new DeleteCommentCommand { Id = id };
             CommandDispatcher.Dispatch(command);
-            return RedirectToAction("Comments", "Game", new { gamekey });
+            Response.StatusCode = 302;
+            return Json(new { href = Url.Action("Comments", "Game", new { gamekey })});
         }
 
         public ActionResult Comments(String gamekey)

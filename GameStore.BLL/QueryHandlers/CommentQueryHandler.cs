@@ -33,6 +33,7 @@ namespace GameStore.BLL.QueryHandlers
         }
 
         public CommentsQueryResult Retrieve(GetCommentsByGameKeyQuery query)
+        
         {
             query.Key.Argument(NameGetter.GetName(() => query.Key))
                  .NotNull()
@@ -47,28 +48,30 @@ namespace GameStore.BLL.QueryHandlers
 
             var comments = _db.Comments.Get(c => c.GameId == game.Id 
                 && c.ParentComment == null 
-                && c.EntryState == EntryState.Active);
+                && c.EntryState == EntryState.Active).ToList();
 
-            Action<IEnumerable<Comment>> removeDeletedComments = null;
-            removeDeletedComments = commentList =>
-            {
-                foreach (var comment in commentList)
-                {
-                    if (comment.ChildComments == null) continue;
-                    var toDelete =
-                        comment.ChildComments.Where(childComment => childComment.EntryState == EntryState.Deleted);
-                    while (toDelete.Any())
-                    {
-                        comment.ChildComments.Remove(toDelete.First());
-                    }
-                    removeDeletedComments(comment.ChildComments);
-                }
-            };
-            removeDeletedComments(comments);
+            RemoveDeletedComments(comments);
 
             var commentsList = Mapper.Map<IEnumerable<Comment>, IEnumerable<CommentDTO>>(comments);
 
             return new CommentsQueryResult(commentsList);
+        }
+
+        private void RemoveDeletedComments(IEnumerable<Comment> commentList)
+        {
+            foreach (var comment in commentList)
+            {
+                if (comment.ChildComments == null) continue;
+                var toDelete =
+                    comment.ChildComments.Where(childComment => childComment.EntryState == EntryState.Deleted).ToList();
+                while (toDelete.Any())
+                {
+                    comment.ChildComments.Remove(toDelete.First());
+                    toDelete.Remove(toDelete.First());
+                }
+
+                RemoveDeletedComments(comment.ChildComments);
+            }
         }
     }
 }

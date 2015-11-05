@@ -7,6 +7,10 @@
             Execute(item);
         }
 
+        /// <summary>
+        /// Action to execute on recieving an item
+        /// </summary>
+        /// <param name="item">Recieved item</param>
         protected abstract void Execute(TInput item);
     }
 }

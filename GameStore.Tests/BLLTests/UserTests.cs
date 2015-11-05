@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using GameStore.BLL.CommandHandlers;
+using GameStore.BLL.CommandHandlers.User;
 using GameStore.BLL.Commands.User;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Abstract.Repositories;
@@ -19,7 +20,7 @@ namespace GameStore.Tests.BLLTests
         private Mock<IUserRepository> _userRepositoryMock;
         private Mock<IGameStoreUnitOfWork> _unitOfWorkMock;
         private CreateUserCommand _rightCreateCommandSample;
-        private UserCommandHandler _commandHandler;
+        private CreateUserCommandHandler _commandHandler;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
@@ -49,7 +50,7 @@ namespace GameStore.Tests.BLLTests
 
             var logger = new Mock<ILogger>();
             
-            _commandHandler = new UserCommandHandler(_unitOfWorkMock.Object, logger.Object);
+            _commandHandler = new CreateUserCommandHandler(_unitOfWorkMock.Object, logger.Object);
 
             _rightCreateCommandSample = new CreateUserCommand
             {

@@ -5,6 +5,9 @@ namespace GameStore.Web.Abstract
 {
     public interface IPayment
     {
+        /// <summary>
+        /// Link to image of payment
+        /// </summary>
         String ImageLink { get; }
 
         String Name { get; }

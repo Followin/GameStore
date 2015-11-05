@@ -13,7 +13,7 @@ using NLog;
 
 namespace GameStore.BLL.CommandHandlers.Game
 {
-    class DeleteGameCommandHandler : ICommandHandler<DeleteGameCommand>
+    public class DeleteGameCommandHandler : ICommandHandler<DeleteGameCommand>
     {
         private IGameStoreUnitOfWork _db;
         private ILogger _logger;

@@ -8,6 +8,9 @@ namespace GameStore.Domain.Abstract
 {
     public interface IUnitOfWork : IDisposable
     {
+        /// <summary>
+        /// Save all maden changes
+        /// </summary>
         void Save();
     }
 }

@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 using GameStore.BLL.CommandHandlers;
+using GameStore.BLL.CommandHandlers.Comment;
 using GameStore.BLL.Commands;
 using GameStore.BLL.Commands.Comment;
 using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Comment;
 using GameStore.BLL.QueryHandlers;
+using GameStore.BLL.QueryHandlers.Comment;
 using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Abstract.Repositories;
@@ -26,8 +29,8 @@ namespace GameStore.Tests.BLLTests
         private Mock<IGameStoreUnitOfWork> _unitOfWorkMock;
         private Comment[] _comments;
         private CreateCommentCommand _createCommentCommand;
-        private CommentCommandHandler _commandHandler;
-        private CommentQueryHandler _queryHandler;
+        private CreateCommentHandler _commandHandler;
+        private GetCommentsByGameKeyQueryHandler _queryHandler;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
@@ -91,8 +94,8 @@ namespace GameStore.Tests.BLLTests
 
             ILogger logger = new Mock<ILogger>().Object;
 
-            _queryHandler = new CommentQueryHandler(_unitOfWorkMock.Object, logger);
-            _commandHandler = new CommentCommandHandler(_unitOfWorkMock.Object, logger);
+            _queryHandler = new GetCommentsByGameKeyQueryHandler(_unitOfWorkMock.Object, logger);
+            _commandHandler = new CreateCommentHandler(_unitOfWorkMock.Object, logger);
         }
 
         [TestMethod]

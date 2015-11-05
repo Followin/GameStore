@@ -18,6 +18,11 @@
             _next = nextItem;
         }
 
+        /// <summary>
+        /// Performs transformation of item and posts it to a next block
+        /// </summary>
+        /// <param name="item">Item to transform</param>
+        /// <returns>Returning item</returns>
         protected abstract TOutput Execute(TInput item);
     }
 }

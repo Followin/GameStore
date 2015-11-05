@@ -15,12 +15,12 @@ using NLog;
 
 namespace GameStore.BLL.QueryHandlers.Publisher
 {
-    public class GetPublisherByCompanyNameQueryResult : IQueryHandler<GetPublisherByCompanyNameQuery, PublisherQueryResult>
+    public class GetPublisherByCompanyNameQueryHandler : IQueryHandler<GetPublisherByCompanyNameQuery, PublisherQueryResult>
     {
         private IGameStoreUnitOfWork _db;
         private ILogger _logger;
 
-        public GetPublisherByCompanyNameQueryResult(IGameStoreUnitOfWork db, ILogger logger)
+        public GetPublisherByCompanyNameQueryHandler(IGameStoreUnitOfWork db, ILogger logger)
         {
             _db = db;
             _logger = logger;

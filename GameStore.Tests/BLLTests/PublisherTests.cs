@@ -2,11 +2,13 @@
 using System.Linq;
 using System.Linq.Expressions;
 using GameStore.BLL.CommandHandlers;
+using GameStore.BLL.CommandHandlers.Publisher;
 using GameStore.BLL.Commands;
 using GameStore.BLL.Commands.Publisher;
 using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Publisher;
 using GameStore.BLL.QueryHandlers;
+using GameStore.BLL.QueryHandlers.Publisher;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Abstract.Repositories;
 using GameStore.Domain.Entities;
@@ -20,8 +22,9 @@ namespace GameStore.Tests.BLLTests
     [TestClass]
     public class PublisherTests
     {
-        private PublisherQueryHandler _queryHandler;
-        private PublisherCommandHandler _commandHandler;
+        private GetAllPublishersQueryhandler _getAllQueryHandler;
+        private GetPublisherByCompanyNameQueryHandler _getByCompanyNameQueryHandler;
+        private CreatePublisherCommandHandler _createCommandHandler;
         private Mock<IPublisherRepository> _publisherRepositoryMock;
         private Mock<IGameStoreUnitOfWork> _unitOfWorkMock;
         private GetPublisherByCompanyNameQuery _getPublisherByCompanyNameQuerySample;
@@ -60,8 +63,9 @@ namespace GameStore.Tests.BLLTests
 
             var logger = new Mock<ILogger>();
 
-            _queryHandler = new PublisherQueryHandler(_unitOfWorkMock.Object, logger.Object);
-            _commandHandler = new PublisherCommandHandler(_unitOfWorkMock.Object, logger.Object);
+            _getAllQueryHandler = new GetAllPublishersQueryhandler(_unitOfWorkMock.Object, logger.Object);
+            _createCommandHandler = new CreatePublisherCommandHandler(_unitOfWorkMock.Object, logger.Object);
+            _getByCompanyNameQueryHandler = new GetPublisherByCompanyNameQueryHandler(_unitOfWorkMock.Object, logger.Object);
 
             _getPublisherByCompanyNameQuerySample = new GetPublisherByCompanyNameQuery
             {
@@ -86,7 +90,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                _queryHandler.Retrieve(_getPublisherByCompanyNameQuerySample));
+                _getByCompanyNameQueryHandler.Retrieve(_getPublisherByCompanyNameQuerySample));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Publishers, Times.Never);
@@ -101,7 +105,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                _queryHandler.Retrieve(_getPublisherByCompanyNameQuerySample));
+                _getByCompanyNameQueryHandler.Retrieve(_getPublisherByCompanyNameQuerySample));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Publishers, Times.Never);
@@ -113,7 +117,7 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             // Act
-            var result = _queryHandler.Retrieve(_getPublisherByCompanyNameQuerySample);
+            var result = _getByCompanyNameQueryHandler.Retrieve(_getPublisherByCompanyNameQuerySample);
 
             // Assert
             Assert.AreEqual("Valve", result.CompanyName);
@@ -131,7 +135,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(
-                () => _commandHandler.Execute(_createPublisherCommandSample));
+                () => _createCommandHandler.Execute(_createPublisherCommandSample));
 
             // Assert
             _publisherRepositoryMock.Verify(x => x.Add(It.IsAny<Publisher>()), Times.Never);
@@ -146,7 +150,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(
-                () => _commandHandler.Execute(_createPublisherCommandSample));
+                () => _createCommandHandler.Execute(_createPublisherCommandSample));
 
             // Assert
             _publisherRepositoryMock.Verify(x => x.Add(It.IsAny<Publisher>()), Times.Never);
@@ -161,7 +165,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(
-                () => _commandHandler.Execute(_createPublisherCommandSample));
+                () => _createCommandHandler.Execute(_createPublisherCommandSample));
 
             // Assert
             _publisherRepositoryMock.Verify(x => x.Add(It.IsAny<Publisher>()), Times.Never);
@@ -176,7 +180,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(
-                () => _commandHandler.Execute(_createPublisherCommandSample));
+                () => _createCommandHandler.Execute(_createPublisherCommandSample));
 
             // Assert
             _publisherRepositoryMock.Verify(x => x.Add(It.IsAny<Publisher>()), Times.Never);
@@ -191,7 +195,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(
-                () => _commandHandler.Execute(_createPublisherCommandSample));
+                () => _createCommandHandler.Execute(_createPublisherCommandSample));
 
             // Assert
             _publisherRepositoryMock.Verify(x => x.Add(It.IsAny<Publisher>()), Times.Never);
@@ -206,7 +210,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(
-                () => _commandHandler.Execute(_createPublisherCommandSample));
+                () => _createCommandHandler.Execute(_createPublisherCommandSample));
 
             // Assert
             _publisherRepositoryMock.Verify(x => x.Add(It.IsAny<Publisher>()), Times.Never);
@@ -221,7 +225,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(
-                () => _commandHandler.Execute(_createPublisherCommandSample));
+                () => _createCommandHandler.Execute(_createPublisherCommandSample));
 
             // Assert
             _publisherRepositoryMock.Verify(x => x.Add(It.IsAny<Publisher>()), Times.Never);
@@ -233,7 +237,7 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             // Act
-            _commandHandler.Execute(_createPublisherCommandSample);
+            _createCommandHandler.Execute(_createPublisherCommandSample);
 
             // Assert
             _publisherRepositoryMock.Verify(x => x.Add(It.Is<Publisher>(p => p.CompanyName == "Bethesda")), Times.Once);

@@ -6,6 +6,10 @@ namespace Pipeline
     {
         private Func<TInput, TOutput> _execute;
 
+        /// <summary>
+        /// Creates transform block
+        /// </summary>
+        /// <param name="execute">Transform item using funcion..</param>
         public TransformPipelineBlock(Func<TInput, TOutput> execute)
         {
             _execute = execute;

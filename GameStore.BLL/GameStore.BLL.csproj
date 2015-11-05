@@ -139,7 +139,7 @@
     <Compile Include="QueryHandlers\Order\GetShippersQueryHandler.cs" />
     <Compile Include="QueryHandlers\Platform\GetAllPlatformTypesQueryHandler.cs" />
     <Compile Include="QueryHandlers\Publisher\GetAllPublishersQueryhandler.cs" />
-    <Compile Include="QueryHandlers\Publisher\GetPublisherByCompanyNameQueryResult.cs" />
+    <Compile Include="QueryHandlers\Publisher\GetPublisherByCompanyNameQueryHandler.cs" />
     <Compile Include="QueryHandlers\User\GetuserBySessionIdQueryhandler.cs" />
     <Compile Include="QueryResults\BooleanQueryResult.cs" />
     <Compile Include="QueryResults\Comment\CommentsQueryResult.cs" />

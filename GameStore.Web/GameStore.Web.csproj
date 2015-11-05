@@ -245,6 +245,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="App_Data\Northwind.mdf" />
+    <Content Include="App_Data\Northwind_log.ldf">
+      <DependentUpon>Northwind.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\forms.css">

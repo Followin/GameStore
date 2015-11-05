@@ -2,11 +2,13 @@
 using System.Linq;
 using System.Linq.Expressions;
 using GameStore.BLL.CommandHandlers;
+using GameStore.BLL.CommandHandlers.Game;
 using GameStore.BLL.Commands;
 using GameStore.BLL.Commands.Game;
 using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryHandlers;
+using GameStore.BLL.QueryHandlers.Game;
 using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Abstract.Repositories;
@@ -21,8 +23,9 @@ namespace GameStore.Tests.BLLTests
     [TestClass]
     public class GameHandlerTests
     {
-        private GameCommandHandler _commandHandler;
-        private GameQueryHandler _queryHandler;
+        private AddGameCommandHandler _addGameCommandHandler;
+        private EditGameCommandHandler _editGameCommandHandler;
+        private DeleteGameCommandHandler _deleteGameCommandHandler;
         private Mock<IGameRepository> _gameRepositoryMock;
         private Mock<IGenreRepository> _genreRepositoryMock;
         private Mock<IPlatformTypeRepository> _platformTypeRepositoryMock;
@@ -30,6 +33,7 @@ namespace GameStore.Tests.BLLTests
         private Mock<IGameStoreUnitOfWork> _unitOfWorkMock;
         private CreateGameCommand _newGameRightCommand;
         private EditGameCommand _editGameRightCommand;
+        private Mock<ILogger> _logger;
         private Game _dota;
         private Game _witcher;
         private Game[] _games;
@@ -180,9 +184,10 @@ namespace GameStore.Tests.BLLTests
             _unitOfWorkMock.Setup(x => x.PlatformTypes).Returns(_platformTypeRepositoryMock.Object);
             _unitOfWorkMock.Setup(x => x.Publishers).Returns(_publisherRepositoryMock.Object);
 
-            var logger = new Mock<ILogger>();
-            _commandHandler = new GameCommandHandler(_unitOfWorkMock.Object, logger.Object);
-            _queryHandler = new GameQueryHandler(_unitOfWorkMock.Object, logger.Object);
+            _logger = new Mock<ILogger>();
+            _addGameCommandHandler = new AddGameCommandHandler(_unitOfWorkMock.Object, _logger.Object);
+            _editGameCommandHandler = new EditGameCommandHandler(_unitOfWorkMock.Object, _logger.Object);
+            _deleteGameCommandHandler = new DeleteGameCommandHandler(_unitOfWorkMock.Object, _logger.Object);
         }
 
         #region Create_Tests
@@ -194,7 +199,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                _commandHandler.Execute(_newGameRightCommand));
+                _addGameCommandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("Name", result.ParamName);
@@ -208,7 +213,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                _commandHandler.Execute(_newGameRightCommand));
+                _addGameCommandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("Name", result.ParamName);
@@ -222,7 +227,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                _commandHandler.Execute(_newGameRightCommand));
+                _addGameCommandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("Key", result.ParamName);
@@ -236,7 +241,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                _commandHandler.Execute(_newGameRightCommand));
+                _addGameCommandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("Key", result.ParamName);
@@ -250,7 +255,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                _commandHandler.Execute(_newGameRightCommand));
+                _addGameCommandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("Description", result.ParamName);
@@ -264,7 +269,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                _commandHandler.Execute(_newGameRightCommand));
+                _addGameCommandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("Description", result.ParamName);
@@ -278,7 +283,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                _commandHandler.Execute(_newGameRightCommand));
+                _addGameCommandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("GenreIds", result.ParamName);
@@ -292,7 +297,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                _commandHandler.Execute(_newGameRightCommand));
+                _addGameCommandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("GenreIds", result.ParamName);
@@ -306,7 +311,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                _commandHandler.Execute(_newGameRightCommand));
+                _addGameCommandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("PlatformTypeIds", result.ParamName);
@@ -320,7 +325,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                _commandHandler.Execute(_newGameRightCommand));
+                _addGameCommandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("PlatformTypeIds", result.ParamName);
@@ -336,7 +341,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                _commandHandler.Execute(_newGameRightCommand));
+                _addGameCommandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("Key", result.ParamName);
@@ -350,7 +355,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<EntityNotFoundException>(() =>
-                _commandHandler.Execute(_newGameRightCommand));
+                _addGameCommandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("GenreIds", result.ParamName);
@@ -364,7 +369,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<EntityNotFoundException>(() =>
-                _commandHandler.Execute(_newGameRightCommand));
+                _addGameCommandHandler.Execute(_newGameRightCommand));
 
             // Assert
             Assert.AreEqual("PlatformTypeIds", result.ParamName);
@@ -378,7 +383,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                _commandHandler.Execute(_newGameRightCommand));
+                _addGameCommandHandler.Execute(_newGameRightCommand));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Games, Times.Never);
@@ -393,7 +398,7 @@ namespace GameStore.Tests.BLLTests
             
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                _commandHandler.Execute(_newGameRightCommand));
+                _addGameCommandHandler.Execute(_newGameRightCommand));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Games, Times.Never);
@@ -408,7 +413,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                _commandHandler.Execute(_newGameRightCommand));
+                _addGameCommandHandler.Execute(_newGameRightCommand));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Games, Times.Never);
@@ -423,7 +428,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                _commandHandler.Execute(_newGameRightCommand));
+                _addGameCommandHandler.Execute(_newGameRightCommand));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Games, Times.Never);
@@ -439,7 +444,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                _commandHandler.Execute(_newGameRightCommand));
+                _addGameCommandHandler.Execute(_newGameRightCommand));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Games, Times.Never);
@@ -455,7 +460,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                _commandHandler.Execute(_newGameRightCommand));
+                _addGameCommandHandler.Execute(_newGameRightCommand));
 
             // Assert
             _gameRepositoryMock.Verify(x => x.Add(It.IsAny<Game>()), Times.Never);
@@ -467,7 +472,7 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             // Act
-            _commandHandler.Execute(_newGameRightCommand);
+            _addGameCommandHandler.Execute(_newGameRightCommand);
 
             // Assert
             _gameRepositoryMock.Verify(x => x.Add(It.IsAny<Game>()), Times.Once);
@@ -486,7 +491,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             _gameRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Never());
@@ -501,7 +506,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             _gameRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Never());
@@ -516,7 +521,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("Id", result.ParamName);
@@ -530,7 +535,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("Name", result.ParamName);
@@ -544,7 +549,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("Name", result.ParamName);
@@ -558,7 +563,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("Key", result.ParamName);
@@ -572,7 +577,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("Key", result.ParamName);
@@ -586,7 +591,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("Description", result.ParamName);
@@ -600,7 +605,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("Description", result.ParamName);
@@ -614,7 +619,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("GenreIds", result.ParamName);
@@ -628,7 +633,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("GenreIds", result.ParamName);
@@ -642,7 +647,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("PlatformTypeIds", result.ParamName);
@@ -656,7 +661,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("PlatformTypeIds", result.ParamName);
@@ -670,7 +675,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("Key", result.ParamName);
@@ -684,7 +689,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<EntityNotFoundException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("GenreIds", result.ParamName);
@@ -698,7 +703,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<EntityNotFoundException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             Assert.AreEqual("PlatformTypeIds", result.ParamName);
@@ -712,7 +717,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Games, Times.Never);
@@ -727,7 +732,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Games, Times.Never);
@@ -742,7 +747,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Games, Times.Never);
@@ -757,7 +762,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Games, Times.Never);
@@ -773,7 +778,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Games, Times.Never);
@@ -789,7 +794,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                _commandHandler.Execute(_editGameRightCommand));
+                _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
             _gameRepositoryMock.Verify(x => x.Update(It.IsAny<Game>()), Times.Never);
@@ -801,7 +806,7 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             // Act
-            _commandHandler.Execute(_editGameRightCommand);
+            _editGameCommandHandler.Execute(_editGameRightCommand);
 
             // Assert
             _gameRepositoryMock.Verify(x => x.Update(It.IsAny<Game>()), Times.Once);
@@ -820,7 +825,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                _commandHandler.Execute(deleteGameCommand));
+                _deleteGameCommandHandler.Execute(deleteGameCommand));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Games, Times.Never);
@@ -835,7 +840,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                _commandHandler.Execute(deleteGameCommand));
+                _deleteGameCommandHandler.Execute(deleteGameCommand));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Games, Times.Never);
@@ -850,7 +855,7 @@ namespace GameStore.Tests.BLLTests
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                _commandHandler.Execute(deleteGameCommand));
+                _deleteGameCommandHandler.Execute(deleteGameCommand));
 
             // Assert
             Assert.AreEqual("Key", result.ParamName);
@@ -863,7 +868,7 @@ namespace GameStore.Tests.BLLTests
             var deleteGameCommand = new DeleteGameCommand { Key = "dota-2" };
 
             // Act
-            _commandHandler.Execute(deleteGameCommand);
+            _deleteGameCommandHandler.Execute(deleteGameCommand);
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Save(), Times.Once);
@@ -877,9 +882,10 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             var getAllGamesQuery = new GetAllGamesQuery();
+            var getAllGamesQueryHandler = new GetAllGamesQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
-            var result = _queryHandler.Retrieve(getAllGamesQuery);
+            var result = getAllGamesQueryHandler.Retrieve(getAllGamesQuery);
 
             // Assert
             Assert.AreEqual(2, result.Count());
@@ -890,10 +896,11 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             var getGameById = new GetGameByIdQuery { Id = 0 };
+            var getGameByIdHandler = new GetGameByIdQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                _queryHandler.Retrieve(getGameById));
+                getGameByIdHandler.Retrieve(getGameById));
 
             // Assert
             _gameRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Never);
@@ -905,10 +912,11 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             var getGameById = new GetGameByIdQuery { Id = -1 };
+            var getGameByIdHandler = new GetGameByIdQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                _queryHandler.Retrieve(getGameById));
+                getGameByIdHandler.Retrieve(getGameById));
 
             // Assert
             _gameRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Never);
@@ -920,9 +928,10 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             var getGameById = new GetGameByIdQuery { Id = 1 };
+            var getGameByIdHandler = new GetGameByIdQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
-            var result = _queryHandler.Retrieve(getGameById);
+            var result = getGameByIdHandler.Retrieve(getGameById);
 
             // Assert
             _gameRepositoryMock.Verify(x => x.Get(It.Is<Int32>(i => i == 1)), Times.Once());
@@ -934,10 +943,11 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             var getGamesByGenre = new GetGamesByGenreQuery { Id = -1 };
+            var getGamesByGenreHandler = new GetGamesByGenreQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                _queryHandler.Retrieve(getGamesByGenre));
+                getGamesByGenreHandler.Retrieve(getGamesByGenre));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Genres, Times.Never);
@@ -950,10 +960,11 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             var getGamesByGenre = new GetGamesByGenreQuery { Name = String.Empty };
+            var getGamesByGenreHandler = new GetGamesByGenreQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                _queryHandler.Retrieve(getGamesByGenre));
+                getGamesByGenreHandler.Retrieve(getGamesByGenre));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Genres, Times.Never);
@@ -966,10 +977,11 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             var getGamesByGenre = new GetGamesByGenreQuery();
+            var getGamesByGenreHandler = new GetGamesByGenreQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                _queryHandler.Retrieve(getGamesByGenre));
+                getGamesByGenreHandler.Retrieve(getGamesByGenre));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Genres, Times.Never);
@@ -982,10 +994,11 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             var getGamesByGenre = new GetGamesByGenreQuery { Id = 5 };
+            var getGamesByGenreHandler = new GetGamesByGenreQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                _queryHandler.Retrieve(getGamesByGenre));
+                getGamesByGenreHandler.Retrieve(getGamesByGenre));
 
             // Assert
             _genreRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Once);
@@ -998,10 +1011,11 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             var getGamesByGenre = new GetGamesByGenreQuery { Name = "notExisingGenre" };
+            var getGamesByGenreHandler = new GetGamesByGenreQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
             var result = ExceptionAssert.Throws<EntityNotFoundException>(() =>
-                _queryHandler.Retrieve(getGamesByGenre));
+                getGamesByGenreHandler.Retrieve(getGamesByGenre));
 
             // Assert
             _genreRepositoryMock.Verify(x => x.GetSingle(It.IsAny<Expression<Func<Genre, Boolean>>>()), Times.Once);
@@ -1014,9 +1028,10 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             var getGamesByGenre = new GetGamesByGenreQuery { Id = 2 };
+            var getGamesByGenreHandler = new GetGamesByGenreQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
-            var result = _queryHandler.Retrieve(getGamesByGenre);
+            var result = getGamesByGenreHandler.Retrieve(getGamesByGenre);
 
             // Assert
             Assert.AreEqual(2, result.Count());
@@ -1027,9 +1042,10 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             var getGamesByGenre = new GetGamesByGenreQuery() { Name = "RTS" };
+            var getGamesByGenreHandler = new GetGamesByGenreQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
-            var result = _queryHandler.Retrieve(getGamesByGenre);
+            var result = getGamesByGenreHandler.Retrieve(getGamesByGenre);
 
             // Assert
             Assert.AreEqual(1, result.Count());
@@ -1040,10 +1056,11 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             var getGamesByPlatformTypes = new GetGamesByPlatformTypesQuery { Ids = new[] { 0 } };
+            var getGamesByPlatformTypesHandler = new GetGamesByPlatformTypesQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                _queryHandler.Retrieve(getGamesByPlatformTypes));
+                getGamesByPlatformTypesHandler.Retrieve(getGamesByPlatformTypes));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Genres, Times.Never);
@@ -1056,10 +1073,11 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             var getGamesByPlatformTypes = new GetGamesByPlatformTypesQuery { Ids = new[] { -1 } };
+            var getGamesByPlatformTypesHandler = new GetGamesByPlatformTypesQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                _queryHandler.Retrieve(getGamesByPlatformTypes));
+                getGamesByPlatformTypesHandler.Retrieve(getGamesByPlatformTypes));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Genres, Times.Never);
@@ -1072,10 +1090,11 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             var getGamesByPlatformTypes = new GetGamesByPlatformTypesQuery { Names = new[] { String.Empty } };
+            var getGamesByPlatformTypesHandler = new GetGamesByPlatformTypesQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                _queryHandler.Retrieve(getGamesByPlatformTypes));
+                getGamesByPlatformTypesHandler.Retrieve(getGamesByPlatformTypes));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Genres, Times.Never);
@@ -1088,10 +1107,11 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             var getGamesByPlatformTypes = new GetGamesByPlatformTypesQuery();
+            var getGamesByPlatformTypesHandler = new GetGamesByPlatformTypesQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                _queryHandler.Retrieve(getGamesByPlatformTypes));
+                getGamesByPlatformTypesHandler.Retrieve(getGamesByPlatformTypes));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Genres, Times.Never);
@@ -1104,9 +1124,10 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             var getGamesByPlatformTypes = new GetGamesByPlatformTypesQuery { Ids = new[] { 1 } };
+            var getGamesByPlatformTypesHandler = new GetGamesByPlatformTypesQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
-            var result = _queryHandler.Retrieve(getGamesByPlatformTypes);
+            var result = getGamesByPlatformTypesHandler.Retrieve(getGamesByPlatformTypes);
 
             // Assert
             Assert.AreEqual(2, result.Count());
@@ -1117,9 +1138,10 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             var getGamesByPlatformTypes = new GetGamesByPlatformTypesQuery { Names = new[] { "Web" } };
+            var getGamesByPlatformTypesHandler = new GetGamesByPlatformTypesQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
-            var result = _queryHandler.Retrieve(getGamesByPlatformTypes);
+            var result = getGamesByPlatformTypesHandler.Retrieve(getGamesByPlatformTypes);
 
             // Assert
             Assert.AreEqual(1, result.Count());
@@ -1130,10 +1152,11 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             var getGameByKey = new GetGameByKeyQuery();
+            var getGameByKeyQueryHandler = new GetGameByKeyQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                _queryHandler.Retrieve(getGameByKey));
+                getGameByKeyQueryHandler.Retrieve(getGameByKey));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Games, Times.Never);
@@ -1145,10 +1168,11 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             var getGameByKey = new GetGameByKeyQuery { Key = String.Empty };
+            var getGameByKeyQueryHandler = new GetGameByKeyQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                _queryHandler.Retrieve(getGameByKey));
+                getGameByKeyQueryHandler.Retrieve(getGameByKey));
 
             // Assert
             _unitOfWorkMock.Verify(x => x.Games, Times.Never);
@@ -1160,9 +1184,10 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             var getGameByKey = new GetGameByKeyQuery { Key = "dota-2" };
+            var getGameByKeyQueryHandler = new GetGameByKeyQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
-            var result = _queryHandler.Retrieve(getGameByKey);
+            var result = getGameByKeyQueryHandler.Retrieve(getGameByKey);
 
             // Assert
             _gameRepositoryMock.Verify(x => x.GetSingle(It.IsAny<Expression<Func<Game, Boolean>>>()), Times.Once);
@@ -1174,9 +1199,10 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             var getGamesQuery = new GetAllGamesQuery();
+            var getAllGamesQueryHandler = new GetAllGamesQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
-            var result = _queryHandler.Retrieve(getGamesQuery);
+            var result = getAllGamesQueryHandler.Retrieve(getGamesQuery);
 
             // Assert
             Assert.AreEqual(2, result.Count());

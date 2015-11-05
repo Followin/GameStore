@@ -27,13 +27,19 @@ namespace GameStore.Domain.Abstract
         /// <returns></returns>
         IEnumerable<TEntity> Get(
             Expression<Func<TEntity, Boolean>> predicate);
-            /// <summary>
+
+        /// <summary>
         /// Gets first item matching predicate
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
         TEntity GetSingle(Expression<Func<TEntity, Boolean>> predicate);
 
+        /// <summary>
+        /// Get items count
+        /// </summary>
+        /// <param name="predicate">predicate for items to match</param>
+        /// <returns>Items count</returns>
         Int32 GetCount(Expression<Func<TEntity, Boolean>> predicate = null);
 
         void Add(TEntity item);

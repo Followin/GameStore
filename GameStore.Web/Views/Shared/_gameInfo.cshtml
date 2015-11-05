@@ -40,7 +40,7 @@
         @Html.DisplayNameFor(model => model.Publisher)
     </div>
     <div class="display-field">
-        <a href="@Url.Action("Details", "Publisher", new {CompanyName = Model.Publisher.CompanyName})">@Model.Publisher.CompanyName</a>
+        <a href="@(Url.Action("Details", "Publisher", new {CompanyName = Model.Publisher.CompanyName}))">@Model.Publisher.CompanyName</a>
     </div>
 </div>
 <div class="display-group">

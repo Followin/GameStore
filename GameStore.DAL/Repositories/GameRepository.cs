@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Metadata.Edm;
 using System.Linq;
 using System.Linq.Expressions;
 using GameStore.DAL.Abstract;
@@ -193,13 +194,29 @@ namespace GameStore.DAL.Repositories
             {
                 case DatabaseTypes.GameStore:
                     _db.Entry(item).State = EntityState.Modified;
+                    UpdateGameGenres(item);
                     break;
                 case DatabaseTypes.Northwind:
                     _db.Games.Add(item);
+                    UpdateGameGenres(item);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private void UpdateGameGenres(Game item)
+        {
+            var existingGenres = _db.GamesGenres.Where(x => x.GameId == item.Id).ToList();
+            foreach (var genre in existingGenres.Select(x => x.GenreId).Except(item.Genres.Select(x => x.Id)))
+            {
+                _db.GamesGenres.Remove(_db.GamesGenres.Find(item.Id, genre));
+            }
+            foreach (var genre in item.Genres.Select(x => x.Id).Except(existingGenres.Select(x => x.GenreId)))
+            {
+                _db.GamesGenres.Add(new GameGenre {GameId = item.Id, GenreId = genre});
+            }
+            _db.SaveChanges();
         }
     }
 }

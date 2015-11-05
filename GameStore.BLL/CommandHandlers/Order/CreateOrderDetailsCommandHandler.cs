@@ -21,6 +21,12 @@ namespace GameStore.BLL.CommandHandlers.Order
         private IGameStoreUnitOfWork _db;
         private ILogger _logger;
 
+        public CreateOrderDetailsCommandHandler(IGameStoreUnitOfWork db, ILogger logger)
+        {
+            _db = db;
+            _logger = logger;
+        }
+
         public void Execute(CreateOrderDetailsCommand command)
         {
             Validate(command);

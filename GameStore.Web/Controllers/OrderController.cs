@@ -40,6 +40,14 @@ namespace GameStore.Web.Controllers
             return View(orderCheckout);
         }
 
+        public ActionResult Details(Int32 id)
+        {
+            var orderResult = Mapper.Map<OrderViewModel>(QueryDispatcher.Dispatch<GetOrderByIdQuery, OrderQueryResult>(
+                new GetOrderByIdQuery {Id = id}));
+
+            return View(orderResult);
+        }
+
         public ActionResult History()
         {
             var orders =

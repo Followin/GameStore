@@ -376,6 +376,7 @@
     <Content Include="Views\Shared\_gamesList.cshtml" />
     <Content Include="Views\Order\History.cshtml" />
     <Content Include="Views\Order\Shippers.cshtml" />
+    <Content Include="Views\Order\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

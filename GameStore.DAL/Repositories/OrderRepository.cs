@@ -51,9 +51,20 @@ namespace GameStore.DAL.Repositories
 
         public Order Get(int id)
         {
-            var order = _db.Orders.Find(id);
-            FillOrder(order);
-            return order;
+            var databaseType = KeyEncoder.GetBase(id);
+            switch (databaseType)
+            {
+                case DatabaseTypes.GameStore:
+                    var order = _db.Orders.Find(id);
+                    FillOrder(order);
+                    return order;
+                case DatabaseTypes.Northwind:
+                    order = _northwind.Orders.Get(KeyEncoder.GetId(id));
+                    return order;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
         }
 
         public IEnumerable<Order> Get(Func<Order, bool> predicate)
@@ -71,11 +82,10 @@ namespace GameStore.DAL.Repositories
                 {
                     nextId = _db.Orders.Max(x => x.Id) + KeyEncoder.Coefficient;
                 }
-                existingOrder = new Order {Id = nextId, Payed = false, UserId = userId, OrderDetails = new List<OrderDetails>()};
+                existingOrder = new Order { Id = nextId, Payed = false, UserId = userId, OrderDetails = new List<OrderDetails>() };
                 _db.Orders.Add(existingOrder);
 
                 _db.SaveChanges();
-                
             }
             FillOrder(existingOrder);
             return existingOrder;

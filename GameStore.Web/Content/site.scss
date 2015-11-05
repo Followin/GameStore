@@ -17,6 +17,9 @@ input, textarea {
     color: rgba(0,0,0,.7);
 }
 
+.clickable-row {
+    cursor: pointer;
+}
 
 .button {
     display: block;
@@ -94,7 +97,6 @@ input, textarea {
     tbody {
         tr {
             background: #fff;
-            cursor: default;
 
             &:nth-child(even) {
                 background: #e0e0e0;

@@ -115,6 +115,7 @@
     <Compile Include="Queries\Game\GetGamesCountQuery.cs" />
     <Compile Include="Queries\Genre\GetAllGenresQuery.cs" />
     <Compile Include="Queries\Order\GetCurrentOrder.cs" />
+    <Compile Include="Queries\Order\GetOrderByIdQuery.cs" />
     <Compile Include="Queries\Order\GetOrdersHistoryQuery.cs" />
     <Compile Include="Queries\Order\GetShippersQuery.cs" />
     <Compile Include="Queries\PlatformType\GetAllPlatformTypesQuery.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="QueryHandlers\Game\IsGameVisitedByUserQueryHandler.cs" />
     <Compile Include="QueryHandlers\Genre\GetAllGenresQueryHandler.cs" />
     <Compile Include="QueryHandlers\Order\GetCurrentOrderQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Order\GetOrderByIdQueryHandler.cs" />
     <Compile Include="QueryHandlers\Order\GetOrdersHistoryQueryHandler.cs" />
     <Compile Include="QueryHandlers\Order\GetShippersQueryHandler.cs" />
     <Compile Include="QueryHandlers\Platform\GetAllPlatformTypesQueryHandler.cs" />

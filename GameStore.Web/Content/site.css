@@ -120,6 +120,10 @@ input, textarea {
   color: rgba(0, 0, 0, 0.7);
 }
 
+.clickable-row {
+  cursor: pointer;
+}
+
 .button, header .basket-link a, input[type="submit"], .game-comment .delete-comment-button, .game-comment .comment-buttons .comment-button, .make-order-button, .payment-methods a {
   display: block;
   padding: 8px 24px;
@@ -196,7 +200,6 @@ input, textarea {
 
 .headed-table tbody tr {
   background: #fff;
-  cursor: default;
 }
 
 .headed-table tbody tr:nth-child(even) {

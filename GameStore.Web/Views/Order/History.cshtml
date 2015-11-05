@@ -17,7 +17,7 @@
         <tbody>
         @foreach (var order in Model)
         {
-            <tr>
+            <tr class="clickable-row" data-href="@Url.Action("Details", "Order", new {id = order.Id})">
                 <td>@Math.Round(order.Price, 2)$</td>
                 <td>@(order.Time.HasValue ? @order.Time.Value.ToShortDateString() : "Not payed")</td>
                 <td>@order.Payed</td>

@@ -218,6 +218,7 @@
     <Compile Include="Models\Game\DisplayGameViewModel.cs" />
     <Compile Include="Models\Game\EditGameViewModel.cs" />
     <Compile Include="Models\GenreViewModel.cs" />
+    <Compile Include="Models\Order\DisplayShippersViewModel.cs" />
     <Compile Include="Models\Order\IboxPaymentViewModel.cs" />
     <Compile Include="Models\Order\OrderCheckoutViewModel.cs" />
     <Compile Include="Models\Order\OrderDetailsViewModel.cs" />
@@ -373,6 +374,8 @@
     <Content Include="Views\Game\Index.cshtml" />
     <Content Include="Views\Shared\_gameInfo.cshtml" />
     <Content Include="Views\Shared\_gamesList.cshtml" />
+    <Content Include="Views\Order\History.cshtml" />
+    <Content Include="Views\Order\Shippers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

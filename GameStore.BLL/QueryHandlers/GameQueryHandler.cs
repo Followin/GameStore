@@ -176,7 +176,7 @@ namespace GameStore.BLL.QueryHandlers
                     NameGetter.GetName(() => query.GameId),
                     "Game not found");
 
-            return game.UsersViewed.Any(x => x.Id == query.UserId);
+            return game.UsersViewed != null && game.UsersViewed.Any(x => x.Id == query.UserId);
         }
 
         public GamesPartQueryResult Retrieve(GetGamesQuery query)

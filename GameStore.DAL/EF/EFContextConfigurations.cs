@@ -1,4 +1,5 @@
-﻿using System.Data.Entity.ModelConfiguration;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using GameStore.Domain.Entities;
 
 namespace GameStore.DAL.EF
@@ -7,6 +8,7 @@ namespace GameStore.DAL.EF
     {
         public GameConfiguration()
         {
+            Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             Property(x => x.Key).IsRequired()
                                 .HasMaxLength(50);
             Property(x => x.Name).IsRequired()
@@ -36,6 +38,7 @@ namespace GameStore.DAL.EF
     {
         public GenreConfiguration()
         {
+            Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             Property(x => x.Name).IsRequired()
                                  .HasMaxLength(50);
         }
@@ -54,6 +57,7 @@ namespace GameStore.DAL.EF
     {
         public PublisherConfiguration()
         {
+            Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             Property(x => x.CompanyName).IsRequired()
                                        .HasMaxLength(40);
             Property(x => x.HomePage).IsRequired()
@@ -68,6 +72,8 @@ namespace GameStore.DAL.EF
         public OrderDetailsConfiguration()
         {
             ToTable("OrderDetails");
+
+            HasKey(x => new {x.GameId, x.OrderId});
             Property(x => x.Quantity).IsRequired()
                                      .HasColumnType("SMALLINT");
             Property(x => x.Discount).HasColumnType("REAL");
@@ -80,7 +86,7 @@ namespace GameStore.DAL.EF
     {
         public OrderConfiguration()
         {
-            Property(x => x.Time).IsRequired();
+            Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
         }
     }
 
@@ -90,6 +96,14 @@ namespace GameStore.DAL.EF
         {
             Property(x => x.SessionId).IsRequired()
                                       .HasMaxLength(20);
+        }
+    }
+
+    public class GameGenreConfiguration : EntityTypeConfiguration<GameGenre>
+    {
+        public GameGenreConfiguration()
+        {
+            HasKey(x => new {x.GenreId, x.GameId});
         }
     }
 }

@@ -11,6 +11,14 @@ namespace GameStore.Web.Models.Order
             OrderDetails = new List<OrderDetailsViewModel>();
         }
 
+        public Int32 Id { get; set; }
+
+        public Int32 UserId { get; set; }
+
+        public DateTime? Time { get; set; }
+
+        public Boolean Payed { get; set; }
+
         public List<OrderDetailsViewModel> OrderDetails { get; set; }
 
         public Decimal Price

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using ArgumentValidation;
 using ArgumentValidation.Extensions;
 using AutoMapper;
@@ -30,8 +31,19 @@ namespace GameStore.BLL.CommandHandlers
         public void Execute(CreateOrderDetailsCommand command)
         {
             Validate(command);
-            var orderDetails = Mapper.Map<CreateOrderDetailsCommand, OrderDetails>(command);
-            _db.OrderDetails.Add(orderDetails);
+            var order = _db.Orders.Get(command.OrderId);
+            var existingOrderDetails = order.OrderDetails.FirstOrDefault(x => x.GameId == command.GameId);
+            if (existingOrderDetails != null)
+            {
+                existingOrderDetails.Quantity += command.Quantity;
+                _db.Orders.EditOrderDetails(existingOrderDetails);
+            }
+            else
+            {
+                var orderDetails = Mapper.Map<CreateOrderDetailsCommand, OrderDetails>(command);
+                _db.Orders.AddOrderDetails(orderDetails);
+            }
+
             _db.Save();
         }
 
@@ -56,12 +68,6 @@ namespace GameStore.BLL.CommandHandlers
                     "Game not found");
             }
 
-            if (_db.Orders.Get(command.OrderId) == null)
-            {
-                throw new ArgumentOutOfRangeException(
-                    NameGetter.GetName(() => command.OrderId),
-                    "Order not found");
-            }
         }
         #endregion
     }

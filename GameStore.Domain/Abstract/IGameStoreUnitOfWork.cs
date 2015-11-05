@@ -16,7 +16,6 @@ namespace GameStore.Domain.Abstract
 
         IPublisherRepository Publishers { get; }
 
-        IOrderDetailsRepository OrderDetails { get; }
 
         IOrderRepository Orders { get; }
 

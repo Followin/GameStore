@@ -1,21 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using GameStore.DAL.Abstract;
+using GameStore.DAL.EF;
+using GameStore.DAL.Static;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Abstract.Repositories;
 using GameStore.Domain.Entities;
 
 namespace GameStore.DAL.Repositories
 {
-    public class GameRepository : GenericRepository<Game, Int32>, IGameRepository
+    public class GameRepository : IGameRepository
     {
-        private IDbSet<Game> _set;  
-        public GameRepository(IContext context) : base(context)
+        private EFContext _db;
+        private INorthwindUnitOfWork _northwind;
+
+        public GameRepository(EFContext context, INorthwindUnitOfWork northwind)
         {
-            _set = context.Set<Game>();
+            _northwind = northwind;
+            _db = context;
         }
 
         public IEnumerable<Game> Get(
@@ -24,8 +30,8 @@ namespace GameStore.DAL.Repositories
             int? skip = null,
             int? number = null)
         {
-            
-            IQueryable<Game> fullyResult = _set;
+
+            var fullyResult = Get();
             if (comparer != null)
             {
                 switch (comparer)
@@ -52,7 +58,7 @@ namespace GameStore.DAL.Repositories
                 }
             }
 
-            fullyResult = fullyResult.Where(predicate);
+            fullyResult = fullyResult.Where(predicate.Compile());
 
             if (skip.HasValue)
             {
@@ -65,6 +71,135 @@ namespace GameStore.DAL.Repositories
             }
 
             return fullyResult.ToList();
+        }
+
+        private void FillGame(Game game)
+        {
+            var genresIds =
+                _db.GamesGenres.ToList().Where(x => x.GameId == game.Id)
+                   .Select(x => x.GenreId)
+                   .GroupBy(x => KeyEncoder.GetBase(x));
+            var mainGenres = genresIds.FirstOrDefault(x => x.Key == DatabaseTypes.GameStore);
+            var outGenres = genresIds.FirstOrDefault(x => x.Key == DatabaseTypes.Northwind);
+
+            List<Genre> resultGenres = new List<Genre>();
+            if (mainGenres != null)
+            {
+                resultGenres.AddRange(_db.Genres.Where(x => mainGenres.Contains(x.Id)));
+            }
+            if (outGenres != null)
+            {
+                resultGenres.AddRange(outGenres.Select(KeyEncoder.GetId).Select(_northwind.Genres.Get));
+            }
+            game.Genres = resultGenres;
+
+            var publisherDatabase = KeyEncoder.GetBase(game.PublisherId);
+            switch (publisherDatabase)
+            {
+                case DatabaseTypes.GameStore:
+                    game.Publisher = _db.Publishers.Find(game.PublisherId);
+                    break;
+                case DatabaseTypes.Northwind:
+                    game.Publisher = _northwind.Publishers.Get(KeyEncoder.GetId(game.PublisherId));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public Game GetByKey(string key)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Game Get(int id)
+        {
+            var database = KeyEncoder.GetBase(id);
+            switch (database)
+            {
+                case DatabaseTypes.GameStore:
+                    var game = _db.Games.Find(id);
+                    FillGame(game);
+                    return game;
+                case DatabaseTypes.Northwind:
+                    return _northwind.Games.Get(KeyEncoder.GetId(id));
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public IEnumerable<Game> Get()
+        {
+            var games = _db.Games.ToList();
+            var exludeIds = games.Where(x => KeyEncoder.GetBase(x.Id) == DatabaseTypes.Northwind).Select(x => KeyEncoder.GetId(x.Id));
+            games.ForEach(FillGame);
+            games.AddRange(_northwind.Games.GetExluding(exludeIds));
+            return games;
+        }
+
+        public IEnumerable<Game> Get(Expression<Func<Game, bool>> predicate)
+        {
+            return Get().Where(predicate.Compile());
+        }
+
+        public Game GetSingle(Expression<Func<Game, bool>> predicate)
+        {
+            return Get().FirstOrDefault(predicate.Compile());
+        }
+
+        public int GetCount(Expression<Func<Game, bool>> predicate = null)
+        {
+            return predicate == null
+                ? Get().Count()
+                : Get().Count(predicate.Compile());
+        }
+
+        public void Add(Game item)
+        {
+            var nextId = _db.Games.Max(x => x.Id) + KeyEncoder.Coefficient;
+            item.Id = nextId;
+            
+            foreach (var genre in item.Genres)
+            {
+                _db.GamesGenres.Add(new GameGenre {GameId = item.Id, GenreId = genre.Id});
+            }
+            _db.Games.Add(item);
+        }
+
+        public void Delete(int id)
+        {
+            var database = KeyEncoder.GetBase(id);
+            switch (database)
+            {
+                case DatabaseTypes.GameStore:
+                    var game = _db.Games.Find(id);
+                    game.EntryState = EntryState.Deleted;
+                    _db.Entry(game).State = EntityState.Modified;
+                    break;
+                case DatabaseTypes.Northwind:
+                    var nGame = _northwind.Games.Get(KeyEncoder.GetId(id));
+                    nGame.EntryState = EntryState.Deleted;
+                    _db.Games.Add(nGame);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void Update(Game item)
+        {
+            var database = KeyEncoder.GetBase(item.Id);
+            switch (database)
+            {
+                case DatabaseTypes.GameStore:
+                    _db.Entry(item).State = EntityState.Modified;
+                    break;
+                case DatabaseTypes.Northwind:
+                    _db.Games.Add(item);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

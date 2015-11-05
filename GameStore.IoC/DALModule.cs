@@ -1,9 +1,9 @@
 ﻿using System;
 using GameStore.DAL.Abstract;
 using GameStore.DAL.EF;
+using GameStore.DAL.Northwind.Repositories;
 using GameStore.DAL.Repositories;
 using GameStore.Domain.Abstract;
-using Ninject.Extensions.Conventions;
 using Ninject.Modules;
 
 namespace GameStore.IoC
@@ -19,12 +19,10 @@ namespace GameStore.IoC
 
         public override void Load()
         {
-            Kernel.Bind(_ => _.FromAssembliesMatching("GameStore.DAL.dll")
-                              .SelectAllClasses()
-                              .Where(x => x.Name != "EFContext")
-                              .BindDefaultInterfaces());
-            Bind<IContext>().To<EFContext>().InThreadScope().WithConstructorArgument("connectionString", _connectionString);
-            
+            Bind<EFContext>().To<EFContext>().InThreadScope().WithConstructorArgument("connectionString", _connectionString);
+            Bind<IGameStoreUnitOfWork>().To<GameStoreUnitOfWork>();
+            Bind<INorthwindUnitOfWork>().To<NorthwindUnitOfWork>();
+
         }
     }
 }

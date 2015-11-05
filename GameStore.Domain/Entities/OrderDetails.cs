@@ -1,9 +1,10 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using GameStore.Domain.Abstract;
 
 namespace GameStore.Domain.Entities
 {
-    public class OrderDetails : Entity<Int32>
+    public class OrderDetails
     {
         public Decimal Price { get; set; }
 
@@ -13,6 +14,7 @@ namespace GameStore.Domain.Entities
 
         public Int32 GameId { get; set; }
 
+        [NotMapped]
         public virtual Game Game { get; set; }
 
         public Int32 OrderId { get; set; }

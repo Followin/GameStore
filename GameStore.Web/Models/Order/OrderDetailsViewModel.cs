@@ -16,6 +16,6 @@ namespace GameStore.Web.Models.Order
 
         public Int32 GameId { get; set; }
 
-        public String GameName { get; set; }
+        public DisplayGameModel Game { get; set; }
     }
 }

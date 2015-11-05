@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,18 +53,19 @@
     <Compile Include="Abstract\Repositories\ICommentRepository.cs" />
     <Compile Include="Abstract\Repositories\IGameRepository.cs" />
     <Compile Include="Abstract\Repositories\IGenreRepository.cs" />
-    <Compile Include="Abstract\Repositories\IOrderDetailsRepository.cs" />
     <Compile Include="Abstract\Repositories\IOrderRepository.cs" />
     <Compile Include="Abstract\Repositories\IPlatformTypeRepository.cs" />
     <Compile Include="Abstract\Repositories\IPublisherRepository.cs" />
     <Compile Include="Abstract\Repositories\IUserRepository.cs" />
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\Game.cs" />
+    <Compile Include="Entities\GamesGenres.cs" />
     <Compile Include="Entities\Genre.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderDetails.cs" />
     <Compile Include="Entities\PlatformType.cs" />
     <Compile Include="Entities\Publisher.cs" />
+    <Compile Include="Entities\Shipper.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

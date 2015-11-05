@@ -95,8 +95,10 @@
     <Compile Include="DTO\EntityDTO.cs" />
     <Compile Include="DTO\GameDTO.cs" />
     <Compile Include="DTO\GenreDTO.cs" />
+    <Compile Include="DTO\OrderDetailsDTO.cs" />
     <Compile Include="DTO\PlatformTypeDTO.cs" />
     <Compile Include="DTO\PublisherDTO.cs" />
+    <Compile Include="DTO\ShipperDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\Comment\GetCommentsByGameKeyQuery.cs" />
     <Compile Include="Queries\Game\GetGamesQuery.cs" />
@@ -108,6 +110,9 @@
     <Compile Include="Queries\Game\GetGamesByPlatformTypesQuery.cs" />
     <Compile Include="Queries\Game\GetGamesCountQuery.cs" />
     <Compile Include="Queries\Genre\GetAllGenresQuery.cs" />
+    <Compile Include="Queries\Order\GetCurrentOrder.cs" />
+    <Compile Include="Queries\Order\GetOrdersHistoryQuery.cs" />
+    <Compile Include="Queries\Order\GetShippersQuery.cs" />
     <Compile Include="Queries\PlatformType\GetAllPlatformTypesQuery.cs" />
     <Compile Include="Queries\Publisher\GetAllPublishersQuery.cs" />
     <Compile Include="Queries\Publisher\GetPublisherByCompanyNameQuery.cs" />
@@ -116,6 +121,7 @@
     <Compile Include="QueryHandlers\GameFilterPipeline.cs" />
     <Compile Include="QueryHandlers\GameQueryHandler.cs" />
     <Compile Include="QueryHandlers\GenreQueryHandler.cs" />
+    <Compile Include="QueryHandlers\OrderQueryHandler.cs" />
     <Compile Include="QueryHandlers\PlatformTypeQueryHandler.cs" />
     <Compile Include="QueryHandlers\PublisherQueryHandler.cs" />
     <Compile Include="QueryHandlers\UserQueryHandler.cs" />
@@ -126,6 +132,9 @@
     <Compile Include="QueryResults\Game\GamesPartQueryResult.cs" />
     <Compile Include="QueryResults\Game\GamesQueryResult.cs" />
     <Compile Include="QueryResults\Genre\GenresQueryResult.cs" />
+    <Compile Include="QueryResults\Order\OrderQueryResult.cs" />
+    <Compile Include="QueryResults\Order\OrdersQueryResult.cs" />
+    <Compile Include="QueryResults\Order\ShippersQueryResult.cs" />
     <Compile Include="QueryResults\PlatformType\PlatformTypesQueryResult.cs" />
     <Compile Include="QueryResults\Publisher\PublisherQueryResult.cs" />
     <Compile Include="QueryResults\Publisher\PublishersQueryResult.cs" />

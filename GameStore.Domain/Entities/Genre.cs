@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using GameStore.Domain.Abstract;
 
 namespace GameStore.Domain.Entities
@@ -14,6 +15,7 @@ namespace GameStore.Domain.Entities
 
         public virtual ICollection<Genre> ChildGenres { get; set; } 
 
+        [NotMapped]
         public virtual ICollection<Game> Games { get; set; }
     }
 }

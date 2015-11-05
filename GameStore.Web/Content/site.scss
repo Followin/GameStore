@@ -368,7 +368,7 @@ input[type="submit"] {
         width: 20%;
         position: relative;
         margin-left: 0;
-        @include transition(all .4s ease-out);
+        @include transition(all .4s linear);
 
         .filterin-block-switch {
             background: none;

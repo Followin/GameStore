@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using GameStore.Domain.Abstract;
 
 namespace GameStore.Domain.Entities
@@ -18,16 +19,19 @@ namespace GameStore.Domain.Entities
 
         public Boolean Discontinued { get; set; }
 
-        public Int32 PublisherId { get; set; }
-
         public DateTime PublicationDate { get; set; }
 
         public DateTime IncomeDate { get; set; }
 
+        public Int32 PublisherId { get; set; }
+
+        [NotMapped]
         public virtual Publisher Publisher { get; set; }
 
+        [NotMapped]
         public virtual ICollection<Comment> Comments { get; set; } 
 
+        [NotMapped]
         public virtual ICollection<Genre> Genres { get; set; }
 
         public virtual ICollection<PlatformType> PlatformTypes { get; set; }

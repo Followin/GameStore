@@ -11,10 +11,12 @@ using GameStore.BLL.DTO;
 using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryResults;
 using GameStore.BLL.QueryResults.Game;
+using GameStore.BLL.QueryResults.Order;
 using GameStore.BLL.QueryResults.Publisher;
 using GameStore.Web.Models;
 using GameStore.Web.Models.Comment;
 using GameStore.Web.Models.Game;
+using GameStore.Web.Models.Order;
 using GameStore.Web.Models.Publisher;
 using GameStore.Web.Static;
 
@@ -34,6 +36,10 @@ namespace GameStore.Web.Utils
             Mapper.CreateMap<PublisherDTO, DisplayPublisherViewModel>();
             Mapper.CreateMap<GameDTO, DisplayGameModel>();
             Mapper.CreateMap<CommentDTO, DisplayCommentViewModel>();
+            Mapper.CreateMap<OrderDetailsDTO, OrderDetailsViewModel>();
+            Mapper.CreateMap<OrderQueryResult, OrderViewModel>();
+            Mapper.CreateMap<ShipperDTO, ShipperViewModel>();
+
 
             Mapper.CreateMap<PublisherQueryResult, DisplayPublisherViewModel>();
             Mapper.CreateMap<GameQueryResult, DisplayGameModel>();

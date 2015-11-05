@@ -37,6 +37,7 @@ namespace GameStore.Web
             {
                 cfg.AddProfile(new BLLProfile());
                 cfg.AddProfile(new WebMapperProfile());
+                cfg.AddProfile(new DALProfile());
             });
             InitializePayments();
 

@@ -7,6 +7,7 @@ using GameStore.BLL.Commands.Publisher;
 using GameStore.BLL.Commands.User;
 using GameStore.BLL.DTO;
 using GameStore.BLL.QueryResults.Game;
+using GameStore.BLL.QueryResults.Order;
 using GameStore.BLL.QueryResults.Publisher;
 using GameStore.BLL.QueryResults.User;
 using GameStore.Domain.Entities;
@@ -20,8 +21,11 @@ namespace GameStore.Maps
             Mapper.CreateMap<Game, GameQueryResult>();
             Mapper.CreateMap<GameDTO, GameQueryResult>();
             Mapper.CreateMap<Game, GameDTO>();
+            Mapper.CreateMap<OrderDetails, OrderDetailsDTO>();
+
             Mapper.CreateMap<Publisher, PublisherQueryResult>();
             Mapper.CreateMap<User, UserQueryResult>();
+            Mapper.CreateMap<Order, OrderQueryResult>();
 
             // Commands -> Entities
             Mapper.CreateMap<CreateGameCommand, Game>()
@@ -39,8 +43,8 @@ namespace GameStore.Maps
             Mapper.CreateMap<CreatePublisherCommand, Publisher>()
                   .ForMember(x => x.Games, _ => _.Ignore());
 
-            Mapper.CreateMap<CreateUserCommand, User>()
-                  .ForMember(x => x.Orders, _ => _.Ignore());
+            Mapper.CreateMap<CreateUserCommand, User>();
+                  //.ForMember(x => x.Orders, _ => _.Ignore());
 
             Mapper.CreateMap<CreateOrderDetailsCommand, OrderDetails>();
 
@@ -50,6 +54,7 @@ namespace GameStore.Maps
             Mapper.CreateMap<PlatformType, PlatformTypeDTO>();
             Mapper.CreateMap<Publisher, PublisherDTO>();
             Mapper.CreateMap<Game, GameDTO>();
+            Mapper.CreateMap<Shipper, ShipperDTO>();
         }
     }
 }

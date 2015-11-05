@@ -12,5 +12,7 @@ namespace GameStore.Domain.Abstract.Repositories
             String comparer,
             Int32? skip = null,
             Int32? number = null);
+
+        Game GetByKey(String key);
     }
 }

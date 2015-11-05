@@ -8,17 +8,20 @@ using AutoMapper;
 using GameStore.BLL.Commands;
 using GameStore.BLL.Commands.Comment;
 using GameStore.BLL.Commands.Game;
+using GameStore.BLL.Commands.Order;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Comment;
 using GameStore.BLL.Queries.Game;
 using GameStore.BLL.Queries.Genre;
+using GameStore.BLL.Queries.Order;
 using GameStore.BLL.Queries.PlatformType;
 using GameStore.BLL.Queries.Publisher;
 using GameStore.BLL.QueryResults;
 using GameStore.BLL.QueryResults.Comment;
 using GameStore.BLL.QueryResults.Game;
 using GameStore.BLL.QueryResults.Genre;
+using GameStore.BLL.QueryResults.Order;
 using GameStore.BLL.QueryResults.PlatformType;
 using GameStore.BLL.QueryResults.Publisher;
 using GameStore.BLL.Static;
@@ -122,7 +125,7 @@ namespace GameStore.Web.Controllers
             return new FileContentResult(new byte[0], "application/pdf");
         }
 
-        public ActionResult Buy(String gamekey, OrderViewModel currentOrder)
+        public ActionResult Buy(String gamekey)
         {
             var game = QueryDispatcher.Dispatch<GetGameByKeyQuery, GameQueryResult>(
                 new GetGameByKeyQuery { Key = gamekey });
@@ -131,20 +134,20 @@ namespace GameStore.Web.Controllers
                 return HttpNotFound();
             }
 
-            var existingOrderDetail = currentOrder.OrderDetails.FirstOrDefault(x => x.GameId == game.Id);
-            if (existingOrderDetail == null)
+            var currentOrder = QueryDispatcher.Dispatch<GetCurrentOrder, OrderQueryResult>(new GetCurrentOrder {UserId = 1});
+
+            var newOrderDetails = new CreateOrderDetailsCommand
             {
-                currentOrder.OrderDetails.Add(new OrderDetailsViewModel
-                {
-                    Discount = 0F,
-                    GameId = game.Id,
-                    GameName = game.Name,
-                    Price = game.Price,
-                    Quantity = 1
-                });
-                return RedirectToAction("Index", "Game");
-            }
-            existingOrderDetail.Quantity++;
+                Discount = 0F,
+                GameId = game.Id,
+                OrderId = currentOrder.Id,
+                Price = game.Price,
+                Quantity = 1
+            };
+
+            CommandDispatcher.Dispatch(newOrderDetails);
+
+
             return RedirectToAction("Index", "Game");
 
         }

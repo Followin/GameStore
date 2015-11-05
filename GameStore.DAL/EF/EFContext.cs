@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Data.Entity.ModelConfiguration;
-using GameStore.DAL.Abstract;
 using GameStore.Domain.Entities;
 
 namespace GameStore.DAL.EF
 {
-    public class EFContext : DbContext, IContext
+    public class EFContext : DbContext
     {
         public EFContext(String connectionString)
             : base(connectionString)
@@ -31,7 +28,9 @@ namespace GameStore.DAL.EF
 
         public IDbSet<User> Users { get; set; }
 
-        public IDbSet<Order> Orders { get; set; } 
+        public IDbSet<Order> Orders { get; set; }
+
+        public IDbSet<GameGenre> GamesGenres { get; set; }
 
         public new IDbSet<T> Set<T>() where T : class
         {
@@ -52,6 +51,7 @@ namespace GameStore.DAL.EF
             modelBuilder.Configurations.Add(new PublisherConfiguration());
             modelBuilder.Configurations.Add(new OrderDetailsConfiguration());
             modelBuilder.Configurations.Add(new OrderConfiguration());
+            modelBuilder.Configurations.Add(new GameGenreConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

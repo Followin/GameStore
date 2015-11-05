@@ -18,7 +18,7 @@
       data: forms.serialize(),
       success: function(data, statusText) {
         filters = serializedForms;
-        filtersOnly = $('form.filters-form').serialize();
+        filtersOnly = $('form.filters-form');
         $('.games-list').html(data);
         return $('input[type=submit]').prop('disabled', true);
       }

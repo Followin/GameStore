@@ -1,28 +1,21 @@
 ﻿using System;
-using System.Linq;
 using ArgumentValidation;
 using ArgumentValidation.Extensions;
 using AutoMapper;
-using GameStore.BLL.Commands;
 using GameStore.BLL.Commands.Comment;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
-using GameStore.Domain.Entities;
 using NLog;
 
-namespace GameStore.BLL.CommandHandlers
+namespace GameStore.BLL.CommandHandlers.Comment
 {
-    public class CommentCommandHandler :
-    #region interfaces
-        ICommandHandler<CreateCommentCommand>,
-        ICommandHandler<DeleteCommentCommand>
-    #endregion
+    public class CreateCommentHandler : ICommandHandler<CreateCommentCommand>
     {
         private IGameStoreUnitOfWork _db;
         private ILogger _logger;
 
-        public CommentCommandHandler(IGameStoreUnitOfWork db, ILogger logger)
+        public CreateCommentHandler(IGameStoreUnitOfWork db, ILogger logger)
         {
             _db = db;
             _logger = logger;
@@ -35,7 +28,7 @@ namespace GameStore.BLL.CommandHandlers
             if (command.GameId == null && command.ParentCommentId == null)
             {
                 throw new ArgumentNullException(
-                    NameGetter.GetName(() => command.GameId) + 
+                    NameGetter.GetName(() => command.GameId) +
                     ", " + NameGetter.GetName(() => command.ParentCommentId),
                     "Either GameId or ParentCommentId must be specified");
             }
@@ -47,7 +40,7 @@ namespace GameStore.BLL.CommandHandlers
                         .NotNull()
                         .NotWhiteSpace();
 
-            var newComment = Mapper.Map<CreateCommentCommand, Comment>(command);
+            var newComment = Mapper.Map<CreateCommentCommand, Domain.Entities.Comment>(command);
             if (command.GameId != null)
             {
                 if (command.GameId <= 0)
@@ -90,36 +83,6 @@ namespace GameStore.BLL.CommandHandlers
 
             _db.Comments.Add(newComment);
             _db.Save();
-        }
-
-
-        public void Execute(DeleteCommentCommand command)
-        {
-            command.Id.Argument(NameGetter.GetName(() => command.Id))
-                      .GreaterThan(0);
-
-            var comment = _db.Comments.Get(command.Id);
-
-            if (comment == null)
-            {
-                throw new ArgumentOutOfRangeException(
-                    NameGetter.GetName(() => command.Id),
-                    "Comment not found");
-            }
-
-            if (comment.ChildComments != null && comment.ChildComments.Any())
-            {
-                comment.Quotes = null;
-                comment.Body = "<Deleted>";
-            }
-            else
-            {
-                comment.EntryState = EntryState.Deleted;
-            }
-
-            _db.Comments.Update(comment);
-            _db.Save();
-
         }
     }
 }

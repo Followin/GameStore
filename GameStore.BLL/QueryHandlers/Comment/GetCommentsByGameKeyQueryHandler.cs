@@ -1,39 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using ArgumentValidation;
 using ArgumentValidation.Extensions;
 using AutoMapper;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.DTO;
-using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Comment;
-using GameStore.BLL.QueryResults;
 using GameStore.BLL.QueryResults.Comment;
 using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
-using GameStore.Domain.Entities;
 using NLog;
 using EntryState = GameStore.Domain.Abstract.EntryState;
 
-namespace GameStore.BLL.QueryHandlers
+namespace GameStore.BLL.QueryHandlers.Comment
 {
-    public class CommentQueryHandler :
-    #region interfaces  
-        IQueryHandler<GetCommentsByGameKeyQuery, CommentsQueryResult>
-    #endregion
+    public class GetCommentsByGameKeyQueryHandler : IQueryHandler<GetCommentsByGameKeyQuery, CommentsQueryResult>
     {
         private IGameStoreUnitOfWork _db;
         private ILogger _logger;
 
-        public CommentQueryHandler(IGameStoreUnitOfWork db, ILogger logger)
+        public GetCommentsByGameKeyQueryHandler(IGameStoreUnitOfWork db, ILogger logger)
         {
             _db = db;
             _logger = logger;
         }
 
         public CommentsQueryResult Retrieve(GetCommentsByGameKeyQuery query)
-        
         {
             query.Key.Argument(NameGetter.GetName(() => query.Key))
                  .NotNull()
@@ -46,18 +41,18 @@ namespace GameStore.BLL.QueryHandlers
                     NameGetter.GetName(() => query.Key));
             }
 
-            var comments = _db.Comments.Get(c => c.GameId == game.Id 
-                && c.ParentComment == null 
+            var comments = _db.Comments.Get(c => c.GameId == game.Id
+                && c.ParentComment == null
                 && c.EntryState == EntryState.Active).ToList();
 
             RemoveDeletedComments(comments);
 
-            var commentsList = Mapper.Map<IEnumerable<Comment>, IEnumerable<CommentDTO>>(comments);
+            var commentsList = Mapper.Map<IEnumerable<Domain.Entities.Comment>, IEnumerable<CommentDTO>>(comments);
 
             return new CommentsQueryResult(commentsList);
         }
 
-        private void RemoveDeletedComments(IEnumerable<Comment> commentList)
+        private void RemoveDeletedComments(IEnumerable<Domain.Entities.Comment> commentList)
         {
             foreach (var comment in commentList)
             {

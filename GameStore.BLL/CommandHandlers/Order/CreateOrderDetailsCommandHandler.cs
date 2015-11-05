@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using ArgumentValidation;
 using ArgumentValidation.Extensions;
 using AutoMapper;
-using GameStore.BLL.Commands;
 using GameStore.BLL.Commands.Order;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Utils;
@@ -12,21 +14,12 @@ using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
 using NLog;
 
-namespace GameStore.BLL.CommandHandlers
+namespace GameStore.BLL.CommandHandlers.Order
 {
-    public class OrderCommandHandler : 
-    #region interfaces
-        ICommandHandler<CreateOrderDetailsCommand>
-    #endregion
+    public class CreateOrderDetailsCommandHandler : ICommandHandler<CreateOrderDetailsCommand>
     {
         private IGameStoreUnitOfWork _db;
         private ILogger _logger;
-
-        public OrderCommandHandler(IGameStoreUnitOfWork db, ILogger logger)
-        {
-            _db = db;
-            _logger = logger;
-        }
 
         public void Execute(CreateOrderDetailsCommand command)
         {

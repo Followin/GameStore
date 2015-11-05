@@ -1,26 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using ArgumentValidation;
 using ArgumentValidation.Extensions;
 using AutoMapper;
-using GameStore.BLL.Commands;
 using GameStore.BLL.Commands.Publisher;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
-using GameStore.Domain.Entities;
 using NLog;
 
-namespace GameStore.BLL.CommandHandlers
+namespace GameStore.BLL.CommandHandlers.Publisher
 {
-    public class PublisherCommandHandler : 
-    #region interfaces
-        ICommandHandler<CreatePublisherCommand>
-    #endregion
+    public class CreatePublisherCommandHandler : ICommandHandler<CreatePublisherCommand>
     {
         private IGameStoreUnitOfWork _db;
         private ILogger _logger;
 
-        public PublisherCommandHandler(IGameStoreUnitOfWork db, ILogger logger)
+        public CreatePublisherCommandHandler(IGameStoreUnitOfWork db, ILogger logger)
         {
             _db = db;
             _logger = logger;
@@ -30,13 +29,13 @@ namespace GameStore.BLL.CommandHandlers
         {
             Validate(command);
 
-            var publisher = Mapper.Map<CreatePublisherCommand, Publisher>(command);
+            var publisher = Mapper.Map<CreatePublisherCommand, Domain.Entities.Publisher>(command);
 
             _db.Publishers.Add(publisher);
             _db.Save();
         }
 
-#region validation
+        #region validation
 
         private void Validate(CreatePublisherCommand command)
         {
@@ -56,6 +55,6 @@ namespace GameStore.BLL.CommandHandlers
                     NameGetter.GetName(() => command.CompanyName));
             }
         }
-#endregion
+        #endregion
     }
 }

@@ -12,11 +12,11 @@ using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
 using Pipeline;
 
-namespace GameStore.BLL.QueryHandlers
+namespace GameStore.BLL.QueryHandlers.Game
 {
     class GamesQueryBuilder
     {
-        public Expression<Func<Game, bool>> Predicate { get; set; }
+        public Expression<Func<Domain.Entities.Game, bool>> Predicate { get; set; }
 
         public String OrderBy { get; set; }
 
@@ -35,8 +35,8 @@ namespace GameStore.BLL.QueryHandlers
 
         public GamesPartQueryResult Execute(GetGamesQuery query)
         {
-            ITargetPipelineBlock<Expression<Func<Game, Boolean>>> _root = null;
-            ISourcePipelineBlock<Expression<Func<Game, Boolean>>> _previous = null;
+            ITargetPipelineBlock<Expression<Func<Domain.Entities.Game, bool>>> _root = null;
+            ISourcePipelineBlock<Expression<Func<Domain.Entities.Game, bool>>> _previous = null;
 
 
             foreach (var expressionPart in GetExpressionPart(query))
@@ -52,7 +52,7 @@ namespace GameStore.BLL.QueryHandlers
                 _previous = expressionPart;
             }
             
-            var builderTransformBlock = new TransformPipelineBlock<Expression<Func<Game, Boolean>>, GamesQueryBuilder>(
+            var builderTransformBlock = new TransformPipelineBlock<Expression<Func<Domain.Entities.Game, bool>>, GamesQueryBuilder>(
                 expr => new GamesQueryBuilder {Predicate = expr});
             _previous.Register(builderTransformBlock);
             ISourcePipelineBlock<GamesQueryBuilder> _builderBlock = null;
@@ -102,7 +102,7 @@ namespace GameStore.BLL.QueryHandlers
                     var games = _db.Games.Get(buildedQuery.Predicate, buildedQuery.OrderBy,
                         buildedQuery.Skip, buildedQuery.Number);
                     result = new GamesPartQueryResult(
-                        Mapper.Map<IEnumerable<Game>, IEnumerable<GameDTO>>(games),
+                        Mapper.Map<IEnumerable<Domain.Entities.Game>, IEnumerable<GameDTO>>(games),
                         _db.Games.GetCount(buildedQuery.Predicate));
                 });
             _builderBlock.Register(action);
@@ -115,51 +115,51 @@ namespace GameStore.BLL.QueryHandlers
 
 
 
-        static IEnumerable<ITransformPipelineBlock<Expression<Func<Game, Boolean>>, Expression<Func<Game, Boolean>>>>
+        static IEnumerable<ITransformPipelineBlock<Expression<Func<Domain.Entities.Game, bool>>, Expression<Func<Domain.Entities.Game, bool>>>>
             GetExpressionPart(GetGamesQuery query)
         {
-            yield return new TransformPipelineBlock<Expression<Func<Game, bool>>, Expression<Func<Game, bool>>>(
+            yield return new TransformPipelineBlock<Expression<Func<Domain.Entities.Game, bool>>, Expression<Func<Domain.Entities.Game, bool>>>(
                 expr => game => true);
 
             if (query.GenreIds != null && query.GenreIds.Any())
             {
-                yield return new TransformPipelineBlock<Expression<Func<Game, bool>>, Expression<Func<Game, bool>>>(
-                    expr => expr.AndAlso(game => query.GenreIds.Intersect(Enumerable.Select<Genre, int>(game.Genres, x => x.Id)).Any()));
+                yield return new TransformPipelineBlock<Expression<Func<Domain.Entities.Game, bool>>, Expression<Func<Domain.Entities.Game, bool>>>(
+                    expr => expr.AndAlso(game => query.GenreIds.Intersect(game.Genres.Select(x => x.Id)).Any()));
             }
 
             if (query.PlatformTypeIds != null && query.PlatformTypeIds.Any())
             {
-                yield return new TransformPipelineBlock<Expression<Func<Game, bool>>, Expression<Func<Game, bool>>>(
+                yield return new TransformPipelineBlock<Expression<Func<Domain.Entities.Game, bool>>, Expression<Func<Domain.Entities.Game, bool>>>(
                     expr => expr.AndAlso(game => query.PlatformTypeIds.Intersect(game.PlatformTypes.Select(x => x.Id)).Any()));
             }
 
             if (query.PublisherIds != null && query.PublisherIds.Any())
             {
-                yield return new TransformPipelineBlock<Expression<Func<Game, bool>>, Expression<Func<Game, bool>>>(
+                yield return new TransformPipelineBlock<Expression<Func<Domain.Entities.Game, bool>>, Expression<Func<Domain.Entities.Game, bool>>>(
                     expr => expr.AndAlso(game => query.PublisherIds.Contains(game.PublisherId)));
             }
 
             if (query.MinDate.HasValue)
             {
-                yield return new TransformPipelineBlock<Expression<Func<Game, bool>>, Expression<Func<Game, bool>>>(
+                yield return new TransformPipelineBlock<Expression<Func<Domain.Entities.Game, bool>>, Expression<Func<Domain.Entities.Game, bool>>>(
                     expr => expr.AndAlso(game => game.PublicationDate > query.MinDate.Value));
             }
 
             if (query.MinPrice > 0)
             {
-                yield return new TransformPipelineBlock<Expression<Func<Game, bool>>, Expression<Func<Game, bool>>>(
+                yield return new TransformPipelineBlock<Expression<Func<Domain.Entities.Game, bool>>, Expression<Func<Domain.Entities.Game, bool>>>(
                     expr => expr.AndAlso(game => game.Price > query.MinPrice));
             }
 
             if (query.MaxPrice > 0)
             {
-                yield return new TransformPipelineBlock<Expression<Func<Game, bool>>, Expression<Func<Game, bool>>>(
+                yield return new TransformPipelineBlock<Expression<Func<Domain.Entities.Game, bool>>, Expression<Func<Domain.Entities.Game, bool>>>(
                     expr => expr.AndAlso(game => game.Price < query.MaxPrice));
             }
 
             if (!String.IsNullOrWhiteSpace(query.Name))
             {
-                yield return new TransformPipelineBlock<Expression<Func<Game, bool>>, Expression<Func<Game, bool>>>(
+                yield return new TransformPipelineBlock<Expression<Func<Domain.Entities.Game, bool>>, Expression<Func<Domain.Entities.Game, bool>>>(
                     expr => expr.AndAlso(game => game.Name == query.Name));
             }
 

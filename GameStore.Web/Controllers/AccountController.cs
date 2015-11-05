@@ -51,7 +51,7 @@ namespace GameStore.Web.Controllers
             var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
             Response.Cookies.Add(cookie);
 
-            return RedirectToAction("Index", "Games");
+            return RedirectToAction("Index", "Game");
         }
 
         public ActionResult Ban()

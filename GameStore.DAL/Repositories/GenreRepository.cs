@@ -65,7 +65,7 @@ namespace GameStore.DAL.Repositories
 
         public void Add(Genre item)
         {
-            var lastId = _db.Genres.Max(x => x.Id);
+            var lastId = _db.Genres.Select(x => x.Id).ToList().Where(x => KeyEncoder.GetBase(x) == DatabaseTypes.GameStore).Max(x => x) + KeyEncoder.Coefficient;
             lastId += KeyEncoder.Coefficient;
             item.Id = lastId;
             _db.Genres.Add(item);

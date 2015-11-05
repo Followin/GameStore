@@ -64,7 +64,7 @@ namespace GameStore.DAL.Repositories
 
         public void Add(Publisher item)
         {
-            var lastId = _db.Publishers.Max(x => x.Id);
+            var lastId = _db.Publishers.Select(x => x.Id).ToList().Where(x => KeyEncoder.GetBase(x) == DatabaseTypes.GameStore).Max(x => x) + KeyEncoder.Coefficient;
             lastId += KeyEncoder.Coefficient;
             item.Id = lastId;
             _db.Publishers.Add(item);

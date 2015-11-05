@@ -53,7 +53,7 @@ namespace GameStore.DAL.Repositories
                         break;
 
                     case "incomeDate":
-                        fullyResult = fullyResult.OrderBy(x => x.IncomeDate);
+                        fullyResult = fullyResult.OrderByDescending(x => x.IncomeDate);
                         break;
                 }
             }
@@ -156,7 +156,7 @@ namespace GameStore.DAL.Repositories
 
         public void Add(Game item)
         {
-            var nextId = _db.Games.Max(x => x.Id) + KeyEncoder.Coefficient;
+            var nextId = _db.Games.Select(x => x.Id).ToList().Where(x => KeyEncoder.GetBase(x) == DatabaseTypes.GameStore).Max(x => x) + KeyEncoder.Coefficient;
             item.Id = nextId;
             
             foreach (var genre in item.Genres)

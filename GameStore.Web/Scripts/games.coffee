@@ -14,7 +14,7 @@ $('.filter-button').on('click', (e) ->
         data: forms.serialize()
         success: (data, statusText) ->
             filters = serializedForms
-            filtersOnly = $('form.filters-form').serialize()
+            filtersOnly = $('form.filters-form')
             $('.games-list').html(data)
             $('input[type=submit]').prop('disabled', true)
     )

@@ -1,13 +1,7 @@
 ﻿@model GameStore.Web.Models.Game.DisplayGameModel
 
-<div class="display-group">
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
-    </div>
-</div>
+<a href="@Url.Action("Details", "Game", new { gamekey = Model.Key })">@Model.Name
+</a>
 <div class="display-group">
     <div class="display-label">
         @Html.DisplayNameFor(model => model.Description)

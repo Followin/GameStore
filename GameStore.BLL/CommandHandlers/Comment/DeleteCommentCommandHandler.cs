@@ -25,10 +25,12 @@ namespace GameStore.BLL.CommandHandlers.Comment
         }
 
 
-        public void Execute(DeleteCommentCommand command)
+        public CommandResult Execute(DeleteCommentCommand command)
         {
             command.Id.Argument(NameGetter.GetName(() => command.Id))
                       .GreaterThan(0);
+
+            var commandResult = new CommandResult();
 
             var comment = _db.Comments.Get(command.Id);
 
@@ -39,10 +41,15 @@ namespace GameStore.BLL.CommandHandlers.Comment
                     "Comment not found");
             }
 
+            RemoveDeletedComments(new[] {comment});
+
             if (comment.ChildComments != null && comment.ChildComments.Any())
             {
                 comment.Quotes = null;
                 comment.Body = "<Deleted>";
+
+                commandResult.Success = false;
+                commandResult.Data = "<Deleted>";
             }
             else
             {
@@ -52,6 +59,27 @@ namespace GameStore.BLL.CommandHandlers.Comment
             _db.Comments.Update(comment);
             _db.Save();
 
+            return commandResult;
+
+        }
+
+        private void RemoveDeletedComments(IEnumerable<Domain.Entities.Comment> commentList)
+        {
+            foreach (var comment in commentList)
+            {
+                if (comment.ChildComments == null) continue;
+
+                RemoveDeletedComments(comment.ChildComments);
+
+                var toDelete =
+                    comment.ChildComments.Where(childComment => childComment.EntryState == EntryState.Deleted).ToList();
+                while (toDelete.Any())
+                {
+                    comment.ChildComments.Remove(toDelete.First());
+                    toDelete.Remove(toDelete.First());
+                }
+
+            }
         }
 
 

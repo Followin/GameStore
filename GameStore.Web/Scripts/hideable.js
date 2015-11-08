@@ -1,8 +1,7 @@
 ﻿(function() {
   $(document).ready(function() {
-    console.dir($('.hideable ul'));
     $(".hideable ul:not(.hideable > ul)").before($("<button type='button' class='hideable-toggle'></button>"));
-    return $('.hideable-toggle').on('click', function() {
+    return $('body').on('click', '.hideable-toggle', function() {
       $(this).next('ul').slideToggle();
       return $(this).toggleClass('hidden');
     });

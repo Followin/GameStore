@@ -25,7 +25,7 @@ namespace GameStore.BLL.CommandHandlers.Publisher
             _logger = logger;
         }
 
-        public void Execute(CreatePublisherCommand command)
+        public CommandResult Execute(CreatePublisherCommand command)
         {
             Validate(command);
 
@@ -33,6 +33,8 @@ namespace GameStore.BLL.CommandHandlers.Publisher
 
             _db.Publishers.Add(publisher);
             _db.Save();
+
+            return new CommandResult();
         }
 
         #region validation

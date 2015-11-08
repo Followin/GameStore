@@ -40,14 +40,16 @@
       $('body').append(__modal).css('overflow', 'hidden');
       okayButton.click((function(_this) {
         return function() {
+          _this.success();
           __modal.remove();
-          return _this.success();
+          return $('body').css('overflow', '');
         };
       })(this));
       cancelButton.click((function(_this) {
         return function() {
+          _this.cancel();
           __modal.remove();
-          return _this.cancel();
+          return $('body').css('overflow', '');
         };
       })(this));
       return __isAnimating = false;

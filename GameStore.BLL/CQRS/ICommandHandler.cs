@@ -16,6 +16,6 @@ namespace GameStore.BLL.CQRS
         /// Execute command
         /// </summary>
         /// <param name="command">command</param>
-        void Execute(TParameter command);
+        CommandResult Execute(TParameter command);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.DTO;
@@ -8,6 +9,8 @@ namespace GameStore.BLL.QueryResults.Comment
     public class CommentsQueryResult : IEnumerable<CommentDTO>, IQueryResult
     {
         private IEnumerable<CommentDTO> _comments;
+
+        public Int32 GameId { get; set; }
 
         public CommentsQueryResult(IEnumerable<CommentDTO> comments)
         {

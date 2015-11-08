@@ -38,13 +38,15 @@ class Modal
         $('body').append(__modal).css('overflow', 'hidden')
         
         okayButton.click( =>
-            __modal.remove()
             @success()
+            __modal.remove()
+            $('body').css('overflow', '')
         )
         
         cancelButton.click( =>
-            __modal.remove()
             @cancel()
+            __modal.remove()
+            $('body').css('overflow', '')
         )
         
         __isAnimating = false

@@ -49,7 +49,7 @@ namespace GameStore.BLL.QueryHandlers.Comment
 
             var commentsList = Mapper.Map<IEnumerable<Domain.Entities.Comment>, IEnumerable<CommentDTO>>(comments);
 
-            return new CommentsQueryResult(commentsList);
+            return new CommentsQueryResult(commentsList) {GameId = game.Id};
         }
 
         private void RemoveDeletedComments(IEnumerable<Domain.Entities.Comment> commentList)
@@ -57,6 +57,9 @@ namespace GameStore.BLL.QueryHandlers.Comment
             foreach (var comment in commentList)
             {
                 if (comment.ChildComments == null) continue;
+
+                RemoveDeletedComments(comment.ChildComments);
+
                 var toDelete =
                     comment.ChildComments.Where(childComment => childComment.EntryState == EntryState.Deleted).ToList();
                 while (toDelete.Any())
@@ -65,7 +68,7 @@ namespace GameStore.BLL.QueryHandlers.Comment
                     toDelete.Remove(toDelete.First());
                 }
 
-                RemoveDeletedComments(comment.ChildComments);
+                
             }
         }
     }

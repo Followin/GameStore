@@ -16,10 +16,10 @@ namespace GameStore.BLL.CQRS
             _kernel = kernel;
         }
 
-        public void Dispatch<TParameter>(TParameter command) where TParameter : ICommand
+        public CommandResult Dispatch<TParameter>(TParameter command) where TParameter : ICommand
         {
             var handler = _kernel.Get<ICommandHandler<TParameter>>();
-            handler.Execute(command);
+            return handler.Execute(command);
         }
     }
 }

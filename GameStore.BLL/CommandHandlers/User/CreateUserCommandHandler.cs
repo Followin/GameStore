@@ -21,14 +21,17 @@ namespace GameStore.BLL.CommandHandlers.User
             _logger = logger;
         }
 
-        public void Execute(CreateUserCommand command)
+        public CommandResult Execute(CreateUserCommand command)
         {
             _logger.Info("CreateUserCommand enter");
             Validate(command);
 
             var user = Mapper.Map<CreateUserCommand, Domain.Entities.User>(command);
+
             _db.Users.Add(user);
             _db.Save();
+
+            return new CommandResult();
         }
 
         #region validation

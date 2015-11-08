@@ -24,7 +24,7 @@ namespace GameStore.BLL.CommandHandlers.Game
             _logger = logger;
         }
 
-        public void Execute(AddGameVisitCommand command)
+        public CommandResult Execute(AddGameVisitCommand command)
         {
             Validate(command);
 
@@ -47,6 +47,8 @@ namespace GameStore.BLL.CommandHandlers.Game
                 _db.Games.Update(game);
                 _db.Save();
             }
+
+            return new CommandResult();
         }
 
         private void Validate(AddGameVisitCommand command)

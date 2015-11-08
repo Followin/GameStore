@@ -70,45 +70,6 @@ namespace GameStore.Web.Controllers
             return View(game);
         }
 
-        [HttpPost]
-        [ActionName("NewComment")]
-        public ActionResult CreateComment(String gamekey, CommentViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                if (model.CreateModel.ParentCommentId == null)
-                {
-                    var query = QueryDispatcher.Dispatch<GetGameByKeyQuery, GameQueryResult>(
-                        new GetGameByKeyQuery
-                        {
-                            Key = gamekey
-                        });
-                    model.CreateModel.GameId = query.Id;
-                }
-                var command = Mapper.Map<CreateCommentViewModel, CreateCommentCommand>(model.CreateModel);
-                CommandDispatcher.Dispatch(command);
-                return RedirectToRoute(new { action = "Comments", controller = "Game", gamekey = gamekey });
-            }
-
-            var commentsQuery = QueryDispatcher.Dispatch<GetCommentsByGameKeyQuery, CommentsQueryResult>(
-                new GetCommentsByGameKeyQuery
-                {
-                    Key = gamekey
-                });
-            var comments = Mapper.Map<IEnumerable<DisplayCommentViewModel>>(commentsQuery);
-            model.Comments = comments;
-            return View("Comments", model);
-        }
-
-        [HttpPost]
-        public ActionResult DeleteComment(String gamekey, Int32 id)
-        {
-            var command = new DeleteCommentCommand { Id = id };
-            CommandDispatcher.Dispatch(command);
-            Response.StatusCode = 302;
-            return Json(new { href = Url.Action("Comments", "Game", new { gamekey })});
-        }
-
         public ActionResult Comments(String gamekey)
         {
             var query = QueryDispatcher.Dispatch<GetCommentsByGameKeyQuery, CommentsQueryResult>(
@@ -117,7 +78,7 @@ namespace GameStore.Web.Controllers
                     Key = gamekey
                 });
             var comments = Mapper.Map<IEnumerable<DisplayCommentViewModel>>(query);
-            var model = new CommentViewModel { Comments = comments };
+            var model = new CommentViewModel { Comments = comments, GameId = query.GameId };
             return View(model);
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using ArgumentValidation;
 using ArgumentValidation.Extensions;
 using AutoMapper;
@@ -21,7 +22,7 @@ namespace GameStore.BLL.CommandHandlers.Comment
             _logger = logger;
         }
 
-        public void Execute(CreateCommentCommand command)
+        public CommandResult Execute(CreateCommentCommand command)
         {
             command.Argument(NameGetter.GetName(() => command))
                    .NotNull();
@@ -61,7 +62,8 @@ namespace GameStore.BLL.CommandHandlers.Comment
 
                 newComment.GameId = game.Id;
             }
-            else
+
+            if(command.ParentCommentId.HasValue)
             {
                 if (command.ParentCommentId <= 0)
                 {
@@ -83,6 +85,8 @@ namespace GameStore.BLL.CommandHandlers.Comment
 
             _db.Comments.Add(newComment);
             _db.Save();
+
+            return new CommandResult { Data = newComment.Id };
         }
     }
 }

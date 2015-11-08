@@ -27,7 +27,7 @@ namespace GameStore.BLL.CommandHandlers.Order
             _logger = logger;
         }
 
-        public void Execute(CreateOrderDetailsCommand command)
+        public CommandResult Execute(CreateOrderDetailsCommand command)
         {
             Validate(command);
             var order = _db.Orders.Get(command.OrderId);
@@ -44,6 +44,8 @@ namespace GameStore.BLL.CommandHandlers.Order
             }
 
             _db.Save();
+
+            return new CommandResult();
         }
 
         #region validation

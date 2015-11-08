@@ -53,7 +53,7 @@ namespace GameStore.DAL.Repositories
 
         public IEnumerable<T> Get(Expression<Func<T, bool>> predicate)
         {
-            return _set.Where(predicate);
+            return _set.Where(predicate).ToList();
         }
 
 

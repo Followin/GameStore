@@ -26,7 +26,7 @@ namespace GameStore.BLL.CommandHandlers.Game
             _logger = logger;
         }
 
-        public void Execute(CreateGameCommand command)
+        public CommandResult Execute(CreateGameCommand command)
         {
             Validate(command);
 
@@ -62,6 +62,8 @@ namespace GameStore.BLL.CommandHandlers.Game
 
             _db.Games.Add(game);
             _db.Save();
+
+            return new CommandResult();
         }
 
         private void Validate(CreateGameCommand command)

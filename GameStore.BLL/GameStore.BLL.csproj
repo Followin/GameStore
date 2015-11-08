@@ -87,6 +87,7 @@
     <Compile Include="Commands\Publisher\CreatePublisherCommand.cs" />
     <Compile Include="Commands\User\CreateUserCommand.cs" />
     <Compile Include="CQRS\CommandDispatcher.cs" />
+    <Compile Include="CQRS\CommandResult.cs" />
     <Compile Include="CQRS\ICommand.cs" />
     <Compile Include="CQRS\ICommandDispatcher.cs" />
     <Compile Include="CQRS\ICommandHandler.cs" />

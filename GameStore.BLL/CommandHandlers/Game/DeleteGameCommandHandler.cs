@@ -25,7 +25,7 @@ namespace GameStore.BLL.CommandHandlers.Game
         }
 
 
-        public void Execute(DeleteGameCommand command)
+        public CommandResult Execute(DeleteGameCommand command)
         {
             command.Argument(NameGetter.GetName(() => command))
                    .NotNull();
@@ -45,6 +45,8 @@ namespace GameStore.BLL.CommandHandlers.Game
             game.EntryState = EntryState.Deleted;
             _db.Games.Update(game);
             _db.Save();
+
+            return new CommandResult();
         }
 
     }

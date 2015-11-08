@@ -26,7 +26,7 @@ namespace GameStore.BLL.CommandHandlers.Game
             _logger = logger;
         }
 
-        public void Execute(EditGameCommand command)
+        public CommandResult Execute(EditGameCommand command)
         {
             var game = Validate(command);
 
@@ -59,6 +59,8 @@ namespace GameStore.BLL.CommandHandlers.Game
 
             _db.Games.Update(game);
             _db.Save();
+            
+            return new CommandResult();
         }
 
         private Domain.Entities.Game Validate(EditGameCommand command)

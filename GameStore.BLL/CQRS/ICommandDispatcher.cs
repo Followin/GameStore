@@ -16,6 +16,6 @@ namespace GameStore.BLL.CQRS
         /// </summary>
         /// <typeparam name="TParameter">Command type</typeparam>
         /// <param name="command">command</param>
-        void Dispatch<TParameter>(TParameter command) where TParameter : ICommand; 
+        CommandResult Dispatch<TParameter>(TParameter command) where TParameter : ICommand; 
     }
 }

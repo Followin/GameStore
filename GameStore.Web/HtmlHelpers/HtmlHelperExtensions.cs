@@ -49,6 +49,7 @@ namespace GameStore.Web.HtmlHelpers
 
                 var commentDiv = new TagBuilder("div");
                 commentDiv.AddCssClass("game-comment");
+                commentDiv.Attributes["data-id"] = comment.Id.ToString();
                 
                 var header = new TagBuilder("h3");
                 header.AddCssClass("author-name");

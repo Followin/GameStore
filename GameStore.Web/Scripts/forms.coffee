@@ -25,7 +25,7 @@ jQuery.fn.insertFormValidation = ->
     inputValGroups = $form.find('.form-group:has("input"), .form-group:has("textarea")')
 
 
-    for group in inputValGroups 
+    for group in inputValGroups
         input = $(group).find("input[type='text'], input[type='password'],
          input[type='email'], input[type='number'], input[type='date'],
           input[type='time'],textarea")

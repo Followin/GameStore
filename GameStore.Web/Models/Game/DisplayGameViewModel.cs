@@ -14,7 +14,9 @@ namespace GameStore.Web.Models.Game
 
         public String Key { get; set; }
 
-        public String Description { get; set; }
+        public String DescriptionEn { get; set; }
+
+        public String DescriptionRu { get; set; }
 
         public Decimal Price { get; set; }
 

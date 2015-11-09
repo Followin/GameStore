@@ -9,16 +9,20 @@ namespace GameStore.Web.Models.Game
     public class CreateGameModel
     {
         [Required]
-        [MinLength(3)]
+        [StringLength(30, MinimumLength = 5)]
         public String Name { get; set; }
 
         [Required]
-        [MinLength(3)]
+        [StringLength(20, MinimumLength = 3)]
         public String Key { get; set; }
 
         [Required]
         [MinLength(10)]
-        public String Description { get; set; }
+        public String DescriptionEn { get; set; }
+
+        [Required]
+        [MinLength(10)]
+        public String DescriptionRu { get; set; }
 
         [Required]
         public Double Price { get; set; }

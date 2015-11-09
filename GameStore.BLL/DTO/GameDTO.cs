@@ -9,7 +9,9 @@ namespace GameStore.BLL.DTO
 
         public String Name { get; set; }
 
-        public String Description { get; set; }
+        public String DescriptionRu { get; set; }
+
+        public String DescriptionEn { get; set; }
 
         public Decimal Price { get; set; }
 

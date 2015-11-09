@@ -9,7 +9,9 @@ namespace GameStore.BLL.Commands.Game
 
         public String Key { get; set; }
 
-        public String Description { get; set; }
+        public String DescriptionEn { get; set; }
+
+        public String DescriptionRu { get; set; }
 
         public Double Price { get; set; }
 

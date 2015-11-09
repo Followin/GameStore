@@ -1,0 +1,39 @@
+﻿@using GameStore.Web.HtmlHelpers
+@model GameStore.Web.Models.Comment.CommentViewModel
+@{
+    ViewBag.Title = "Comments";
+}
+
+<div class="paper-block">
+    <h2>Comments</h2>
+    <div class="comments-list hideable">
+        @Html.CreateTree(Model.Comments)
+    </div>
+    @using (Html.BeginForm("NewComment", "Game"))
+    {
+        @Html.HiddenFor(x => x.GameId)
+        @Html.HiddenFor(x => x.CreateModel.ParentCommentId)
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.CreateModel.Name)
+            @Html.EditorFor(x => x.CreateModel.Name)
+            @Html.ValidationMessageFor(x => x.CreateModel.Name)
+        </div>
+
+        <div class="quotes"></div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.CreateModel.Body)
+            @Html.EditorFor(x => x.CreateModel.Body)
+            @Html.ValidationMessageFor(x => x.CreateModel.Body)
+        </div>
+        <input type="submit" value="Submit" />
+    }
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
+    <script src="~/signalr/hubs"></script>
+    @Scripts.Render("~/Scripts/comments")
+    @Scripts.Render("~/Scripts/forms")
+}

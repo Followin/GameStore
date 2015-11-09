@@ -1,0 +1,43 @@
+﻿.hideable li {
+  position: relative;
+}
+
+.hideable-toggle {
+  display: inline-block;
+  position: relative;
+  background: none;
+  border: none;
+  top: 3px;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.hideable-toggle:focus {
+  outline: none;
+}
+
+.hideable-toggle::after, .hideable-toggle::before {
+  content: "";
+  position: absolute;
+  display: block;
+  top: 9px;
+  left: 0;
+  width: 15px;
+  height: 2px;
+  background: red;
+  transform: rotate(0deg);
+  transition: all 0.4s ease-out;
+}
+
+.hideable-toggle.hidden::before, .hideable-toggle.hidden::after {
+  transform: rotate(-360deg);
+  background: green;
+}
+
+.hideable-toggle.hidden::before {
+  transform: rotate(-450deg);
+}
+
+/*# sourceMappingURL=hideable.css.map */

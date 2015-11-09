@@ -1,0 +1,59 @@
+﻿@using GameStore.Web.HtmlHelpers
+@model GameStore.Web.Models.Game.CreateGameViewModel
+
+<div class="form-group">
+    @Html.LabelFor(model => model.CreateModel.Name)
+    @Html.EditorFor(model => model.CreateModel.Name)
+    @Html.ValidationMessageFor(model => model.CreateModel.Name)
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.CreateModel.Key)
+    @Html.EditorFor(model => model.CreateModel.Key)
+    @Html.ValidationMessageFor(model => model.CreateModel.Key)
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.CreateModel.Description)
+    @Html.EditorFor(model => model.CreateModel.Description)
+    @Html.ValidationMessageFor(model => model.CreateModel.Description)
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.CreateModel.Price)
+    @Html.EditorFor(model => model.CreateModel.Price)
+    @Html.ValidationMessageFor(model => model.CreateModel.Price)
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.CreateModel.UnitsInStock)
+    @Html.EditorFor(model => model.CreateModel.UnitsInStock)
+    @Html.ValidationMessageFor(model => model.CreateModel.UnitsInStock)
+</div>
+
+<div class="form-group">
+    @Html.EditorFor(model => model.CreateModel.Discontinued)
+    @Html.LabelFor(model => model.CreateModel.Discontinued)
+    @Html.ValidationMessageFor(model => model.CreateModel.Discontinued)
+</div>
+
+<div class="form-group">
+    @Html.EditorFor(model => model.CreateModel.PublicationDate)
+    @Html.LabelFor(model => model.CreateModel.PublicationDate)
+    @Html.ValidationMessageFor(model => model.CreateModel.PublicationDate)
+</div>
+
+<div class="form-group checkbox-group genres-selector hideable">
+    @Html.LabelFor(model => model.CreateModel.GenreIds)
+    @Html.CreateTree(Model.Genres, "CreateModel.GenreIds")
+</div>
+
+<div class="form-group checkbox-group platformType-selector">
+    @Html.LabelFor(model => model.CreateModel.PlatformTypeIds)
+    @Html.EditorFor(model => model.PlatformTypes, "PlatformTypeViewModelList")
+</div>
+
+<div class="form-group select-group">
+    @Html.LabelFor(model => model.CreateModel.PublisherId)
+    @Html.DropDownListFor(model => model.CreateModel.PublisherId, Model.Publishers)
+</div>

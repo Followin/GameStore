@@ -1,0 +1,27 @@
+﻿@model GameStore.Web.Models.Order.DisplayShippersViewModel
+@{
+    ViewBag.Title = "Shippers";
+}
+
+<div class="paper-block">
+    <h2>Shippers</h2>
+    <table class="custom-table headed-table">
+        <thead>
+        <tr>
+            <td>ShipperId</td>
+            <td>CompaneName</td>
+            <td>Phone</td>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var shipper in Model.Shippers)
+        {
+            <tr>
+                <td>@shipper.Id</td>
+                <td>@shipper.CompanyName</td>
+                <td>@shipper.Phone</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

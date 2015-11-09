@@ -1,17 +1,18 @@
-﻿@model IEnumerable<GameStore.Web.Models.Order.OrderViewModel>
+﻿@using GameStore.Web.App_LocalResources
+@model IEnumerable<GameStore.Web.Models.Order.OrderViewModel>
 @{
-    ViewBag.Title = "History";
+    ViewBag.Title = GlobalRes.History;
 }
 
 <div class="paper-block">
     <table class="custom-table headed-table">
         <thead>
         <tr>
-            <td>Price</td>
-            <td>Time</td>
-            <td>Payed</td>
-            <td>User id</td>
-            <td>Products count</td>
+            <td>@GlobalRes.Price</td>
+            <td>@GlobalRes.Time</td>
+            <td>@GlobalRes.Payed</td>
+            <td>@GlobalRes.User</td>
+            <td>@GlobalRes.Quantity</td>
         </tr>
         </thead>
         <tbody>
@@ -19,7 +20,7 @@
         {
             <tr class="clickable-row" data-href="@Url.Action("Details", "Order", new {id = order.Id})">
                 <td>@Math.Round(order.Price, 2)$</td>
-                <td>@(order.Time.HasValue ? @order.Time.Value.ToShortDateString() : "Not payed")</td>
+                <td>@(order.Time.HasValue ? @order.Time.Value.ToShortDateString() : GlobalRes.NotPayed)</td>
                 <td>@order.Payed</td>
                 <td>@order.UserId</td>
                 <td>@order.OrderDetails.Count</td>

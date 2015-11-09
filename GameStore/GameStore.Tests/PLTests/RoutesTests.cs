@@ -26,22 +26,14 @@ namespace GameStore.Tests
                 new { controller = "Game", action = "Index" });
         }
 
-        [TestMethod]
-        public void CreateComment()
-        {
-            RouteAssert.HasRoute(
-                routes,
-                "/game/somegamekey/newcomment",
-                new { controller = "Game", action = "NewComment", gamekey = "somegamekey" });
-        }
 
         [TestMethod]
         public void Game()
         {
             RouteAssert.HasRoute(
                 routes,
-                "/Game/somegamekey/someaction",
-                new { controller = "Game", action = "someaction", gamekey = "somegamekey" });
+                "en/Game/somegamekey/someaction",
+                new { lang="en", controller = "Game", action = "someaction", gamekey = "somegamekey" });
         }
 
         

@@ -1,17 +1,18 @@
-﻿@model GameStore.Web.Models.Order.OrderViewModel
+﻿@using GameStore.Web.App_LocalResources
+@model GameStore.Web.Models.Order.OrderViewModel
 
 @{
     ViewBag.Title = "Order Details";
 }
 
 <div class="paper-block">
-    <h2>Order Details</h2>
+    <h2>@GlobalRes.OrderDetails</h2>
     <table class="custom-table headed-table">
         <thead>
         <tr>
-            <td>Product</td>
-            <td>Price</td>
-            <td>Quantity</td>
+            <td>@GlobalRes.Product</td>
+            <td>@GlobalRes.Price</td>
+            <td>@GlobalRes.Quantity</td>
         </tr>
         </thead>
         <tbody>

@@ -117,7 +117,160 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Basket" xml:space="preserve">
+    <value>Корзина</value>
+  </data>
+  <data name="Buy" xml:space="preserve">
+    <value>Купить</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Комментарии</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Название компании</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="Cvv2" xml:space="preserve">
+    <value>Cvv2</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Подробности</value>
+  </data>
+  <data name="Discontinued" xml:space="preserve">
+    <value>Снято с производства</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Скидка</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Скачать</value>
+  </data>
+  <data name="ExpireDate" xml:space="preserve">
+    <value>Дата истечение</value>
+  </data>
   <data name="FieldIsRequired" xml:space="preserve">
-    <value>Поле необходимо для заполнения</value>
+    <value>Поле {0} обязательно для заполнения</value>
+  </data>
+  <data name="Game" xml:space="preserve">
+    <value>Игра</value>
+  </data>
+  <data name="Games" xml:space="preserve">
+    <value>Игры</value>
+  </data>
+  <data name="Genres" xml:space="preserve">
+    <value>Жанры</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Привет</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>История</value>
+  </data>
+  <data name="HomePage" xml:space="preserve">
+    <value>Домашняя страница</value>
+  </data>
+  <data name="IncomeDate" xml:space="preserve">
+    <value>Дата поступление</value>
+  </data>
+  <data name="ItemsPerPage" xml:space="preserve">
+    <value>Товаров на странице</value>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>Ключ</value>
+  </data>
+  <data name="Length_10_200" xml:space="preserve">
+    <value>Поле {0} должно быть от 10 до 200 символов длиной</value>
+  </data>
+  <data name="Length_3_100" xml:space="preserve">
+    <value>Поле {0} должно быть от 3 до 100 символов длиной</value>
+  </data>
+  <data name="Length_5_30" xml:space="preserve">
+    <value>Поле {0} должно быть от 5 до 30 символов длиной</value>
+  </data>
+  <data name="MakeOrder" xml:space="preserve">
+    <value>Сделать заказ</value>
+  </data>
+  <data name="MaxPrice" xml:space="preserve">
+    <value>Максимальная цена</value>
+  </data>
+  <data name="MinDate" xml:space="preserve">
+    <value>Минимальная дата</value>
+  </data>
+  <data name="MinPrice" xml:space="preserve">
+    <value>Минимальная цена</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="NotPayed" xml:space="preserve">
+    <value>Не оплачен</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="OrderBy" xml:space="preserve">
+    <value>Сортировать по</value>
+  </data>
+  <data name="OrderDetails" xml:space="preserve">
+    <value>Подробности заказа</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Страница</value>
+  </data>
+  <data name="Pay" xml:space="preserve">
+    <value>Оплатить</value>
+  </data>
+  <data name="Payed" xml:space="preserve">
+    <value>Оплачен</value>
+  </data>
+  <data name="PaymentOrder" xml:space="preserve">
+    <value>Оформление заказа</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="PlatformTypes" xml:space="preserve">
+    <value>Типы платформ</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Продукты</value>
+  </data>
+  <data name="PublicationDate" xml:space="preserve">
+    <value>Дата публикации</value>
+  </data>
+  <data name="Publisher" xml:space="preserve">
+    <value>Издатель</value>
+  </data>
+  <data name="Publishers" xml:space="preserve">
+    <value>Издатели</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Кол-во</value>
+  </data>
+  <data name="Shippers" xml:space="preserve">
+    <value>Доставщики</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Время</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Всего</value>
+  </data>
+  <data name="UnitsInStock" xml:space="preserve">
+    <value>Кол-во на складе</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Пользователь</value>
   </data>
 </root>

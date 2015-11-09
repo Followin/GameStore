@@ -45,7 +45,7 @@ namespace GameStore.Tests.BLLTests
             {
                 Id = 1,
                 Name = "Dota 2",
-                Description = "Just try it",
+                DescriptionEn = "Just try it",
                 Key = "dota-2"
             };
             var games = new[] { dota };

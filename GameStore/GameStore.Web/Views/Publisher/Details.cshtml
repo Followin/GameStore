@@ -1,11 +1,12 @@
-﻿@model GameStore.Web.Models.Publisher.DisplayPublisherViewModel
+﻿@using GameStore.Web.App_LocalResources
+@model GameStore.Web.Models.Publisher.DisplayPublisherViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = GlobalRes.Details;
 }
 
 <div class="paper-block">
-    <h2>Details</h2>
+    <h2>@GlobalRes.Details</h2>
 
     <div class="display-label">
         @Html.DisplayNameFor(model => model.CompanyName)

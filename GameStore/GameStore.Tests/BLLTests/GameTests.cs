@@ -50,14 +50,14 @@ namespace GameStore.Tests.BLLTests
             var rts = new Genre
             {
                 Id = 1,
-                Name = "RTS",
+                NameEn = "RTS",
                 ChildGenres = new Genre[0]
             };
 
             var strategy = new Genre
             {
                 Id = 2,
-                Name = "Strategy",
+                NameEn = "Strategy",
                 ChildGenres = new[] { rts }
             };
 
@@ -116,7 +116,7 @@ namespace GameStore.Tests.BLLTests
             _newGameRightCommand = new CreateGameCommand
             {
                 Name = "GTA 5",
-                Description = "5 part",
+                DescriptionEn = "5 part",
                 Key = "gta-5",
                 GenreIds = new[] { 1 },
                 PlatformTypeIds = new[] { 1 },
@@ -130,7 +130,7 @@ namespace GameStore.Tests.BLLTests
             {
                 Id = 1,
                 Name = "New name",
-                Description = "New description",
+                DescriptionEn = "New description",
                 Key = "new-key",
                 GenreIds = new[] { 2 },
                 PlatformTypeIds = new[] { 2 },
@@ -144,7 +144,7 @@ namespace GameStore.Tests.BLLTests
             {
                 Id = 1,
                 Name = "Dota 2",
-                Description = "Just try it",
+                DescriptionEn = "Just try it",
                 Key = "dota-2",
                 Genres = new[] { rts },
                 PlatformTypes = new[] { desktop, web },
@@ -158,7 +158,7 @@ namespace GameStore.Tests.BLLTests
             {
                 Id = 2,
                 Name = "Witcher 3",
-                Description = "3d part of trilogy",
+                DescriptionEn = "3d part of trilogy",
                 Key = "witcher-3",
                 Genres = new[] { strategy },
                 PlatformTypes = new[] { desktop },
@@ -251,28 +251,28 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_Description_Argument_Is_Null()
         {
             // Arrange
-            _newGameRightCommand.Description = null;
+            _newGameRightCommand.DescriptionEn = null;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
                 _addGameCommandHandler.Execute(_newGameRightCommand));
 
             // Assert
-            Assert.AreEqual("Description", result.ParamName);
+            Assert.AreEqual("DescriptionEn", result.ParamName);
         }
 
         [TestMethod]
         public void Create_Game_Description_Argument_Is_Empty()
         {
             // Arrange
-            _newGameRightCommand.Description = String.Empty;
+            _newGameRightCommand.DescriptionEn = String.Empty;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
                 _addGameCommandHandler.Execute(_newGameRightCommand));
 
             // Assert
-            Assert.AreEqual("Description", result.ParamName);
+            Assert.AreEqual("DescriptionEn", result.ParamName);
         }
 
         [TestMethod]
@@ -587,28 +587,28 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_Description_Argument_Is_Null()
         {
             // Arrange
-            _editGameRightCommand.Description = null;
+            _editGameRightCommand.DescriptionEn = null;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
                 _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
-            Assert.AreEqual("Description", result.ParamName);
+            Assert.AreEqual("DescriptionEn", result.ParamName);
         }
 
         [TestMethod]
         public void Edit_Game_Description_Argument_Is_Empty()
         {
             // Arrange
-            _editGameRightCommand.Description = String.Empty;
+            _editGameRightCommand.DescriptionEn = String.Empty;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
                 _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
-            Assert.AreEqual("Description", result.ParamName);
+            Assert.AreEqual("DescriptionEn", result.ParamName);
         }
 
         [TestMethod]

@@ -35,6 +35,12 @@ namespace GameStore.Web
                 constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
+                name: "Def",
+                url: "{lang}/{controller}/{action}/{id}",
+                defaults: new { controller = "Game", action = "Index", id = UrlParameter.Optional },
+                constraints: new { lang = @"ru|en" });
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Game", action = "Index", id = UrlParameter.Optional, lang = "en" });

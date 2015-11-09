@@ -57,7 +57,7 @@ namespace GameStore.Tests.PLTests
             {
                 CreateModel = new CreateGameModel
                 {
-                    Description = "New game description",
+                    DescriptionEn = "New game description",
                     GenreIds = new[] { 1, 2 },
                     Key = "new-game",
                     Name = "New game",
@@ -75,7 +75,7 @@ namespace GameStore.Tests.PLTests
             var result = (RedirectToRouteResult)_gameController.Edit(new EditGameViewModel
             {
                 Id = 1,
-                Description = "New game description",
+                DescriptionEn = "New game description",
                 GenreIds = new[] { 1, 2 },
                 Key = "new-game",
                 Name = "New game",

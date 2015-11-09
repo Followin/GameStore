@@ -1,12 +1,13 @@
 ﻿@using System.Threading
+@using GameStore.Web.App_LocalResources
 @model GameStore.Web.Models.Game.DisplayGameModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = GlobalRes.Details;
 }
 
 <div class="paper-block">
-    <h2>@Html.DisplayFor(model => model.Name): Details</h2>
+    <h2>@Html.DisplayFor(model => model.Name): @GlobalRes.Details</h2>
 
 
     <div class="display-group">
@@ -130,15 +131,15 @@
     </div>
     <div class="control-links">
         <div class="control-link buy-link-wrapper">
-            <a href="@Url.Action("Buy")">Buy</a>
+            <a href="@Url.Action("Buy")">@GlobalRes.Buy</a>
         </div>
 
         <div class="control-link download-link-wrapper">
-            <a href="@Url.Action("Download")" target="_blank">Download</a>
+            <a href="@Url.Action("Download")" target="_blank">@GlobalRes.Download</a>
         </div>
 
         <div class="control-link comments-link-wrapper">
-            <a href="@Url.Action("Comments")">Comments</a>
+            <a href="@Url.Action("Comments")">@GlobalRes.Comments</a>
         </div>
     </div>
 </div>

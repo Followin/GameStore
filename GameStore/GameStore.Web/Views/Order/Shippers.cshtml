@@ -1,16 +1,17 @@
-﻿@model GameStore.Web.Models.Order.DisplayShippersViewModel
+﻿@using GameStore.Web.App_LocalResources
+@model GameStore.Web.Models.Order.DisplayShippersViewModel
 @{
-    ViewBag.Title = "Shippers";
+    ViewBag.Title = GlobalRes.Shippers;
 }
 
 <div class="paper-block">
-    <h2>Shippers</h2>
+    <h2>@GlobalRes.Shippers</h2>
     <table class="custom-table headed-table">
         <thead>
         <tr>
-            <td>ShipperId</td>
-            <td>CompaneName</td>
-            <td>Phone</td>
+            <td>Id</td>
+            <td>@GlobalRes.CompanyName</td>
+            <td>@GlobalRes.Phone</td>
         </tr>
         </thead>
         <tbody>

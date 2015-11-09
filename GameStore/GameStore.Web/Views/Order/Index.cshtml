@@ -1,18 +1,19 @@
-﻿@model GameStore.Web.Models.Order.OrderCheckoutViewModel
+﻿@using GameStore.Web.App_LocalResources
+@model GameStore.Web.Models.Order.OrderCheckoutViewModel
 @{
     ViewBag.Title = "Index";
 }
 
 <div class="paper-block">
-    <h2>Payment order</h2>
+    <h2>@GlobalRes.PaymentOrder</h2>
     <div class="order-details">
-        <h3>Order details</h3>
+        <h3>@GlobalRes.OrderDetails</h3>
         <table class="custom-table headed-table order-detail">
             <thead>
                 <tr>
-                    <td>Game</td>
-                    <td>Price</td>
-                    <td>Count</td>
+                    <td>@GlobalRes.Game</td>
+                    <td>@GlobalRes.Price</td>
+                    <td>@GlobalRes.Quantity</td>
                 </tr>
             </thead>
             <tbody>
@@ -42,8 +43,8 @@
             <thead>
                 <tr>
                     <td></td>
-                    <td>Name</td>
-                    <td>Description</td>
+                    <td>@GlobalRes.Name</td>
+                    <td>@GlobalRes.Description</td>
                 </tr>
             </thead>
             <tbody>
@@ -53,7 +54,7 @@
                         <td><img src="@paymentMethod.Value.ImageLink" width=100 height=40 /></td>
                         <td>@paymentMethod.Value.Name</td>
                         <td>@paymentMethod.Value.Description</td>
-                        <td><a href="@Url.Action("Checkout", "Order", new {paymentMethodKey = paymentMethod.Key})">Pay</a></td>
+                        <td><a href="@Url.Action("Checkout", "Order", new {paymentMethodKey = paymentMethod.Key})">@GlobalRes.Pay</a></td>
                     </tr>
                 }
             </tbody>

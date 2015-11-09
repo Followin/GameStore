@@ -29,31 +29,33 @@ namespace GameStore.DAL.EF
             context.Genres.Add(new Genre
             {
                 Id = GetNextId(ref genreId),
-                Name = "Strategy",
+                NameEn = "Strategy",
+                NameRu = "Стратегия",
                 ChildGenres = new[]
                 {
-                    new Genre { Id = GetNextId(ref genreId), Name = "RTS" },
-                    new Genre { Id = GetNextId(ref genreId), Name = "TBS" }
+                    new Genre { Id = GetNextId(ref genreId), NameRu = "RTS", NameEn = "RTS" },
+                    new Genre { Id = GetNextId(ref genreId), NameRu = "TBS", NameEn = "TBS" }
                 }
             });
             context.Genres.Add(new Genre
             {
                 Id = GetNextId(ref genreId),
-                Name = "Races",
+                NameEn = "Races",
+                NameRu = "Гонки",
                 ChildGenres = new[]
                 {
-                    new Genre { Id = GetNextId(ref genreId), Name = "Rally" },
-                    new Genre { Id = GetNextId(ref genreId), Name = "Arcade" },
-                    new Genre { Id = GetNextId(ref genreId), Name = "Formula" },
-                    new Genre { Id = GetNextId(ref genreId), Name = "Off-road" }
+                    new Genre { Id = GetNextId(ref genreId), NameEn = "Rally", NameRu = "Ралли" },
+                    new Genre { Id = GetNextId(ref genreId), NameEn = "Arcade", NameRu = "Аркада" },
+                    new Genre { Id = GetNextId(ref genreId), NameEn = "Formula", NameRu = "Формула" },
+                    new Genre { Id = GetNextId(ref genreId), NameEn = "Off-road", NameRu = "Гонки по бездороъю" }
                 }
             });
-            var rpg = context.Genres.Add(new Genre { Id = GetNextId(ref genreId), Name = "RPG" });
-            context.Genres.Add(new Genre { Id = GetNextId(ref genreId), Name = "Sports" });
-            var action = context.Genres.Add(new Genre { Id = GetNextId(ref genreId), Name = "Action" });
-            context.Genres.Add(new Genre { Id = GetNextId(ref genreId), Name = "Adventure" });
-            context.Genres.Add(new Genre { Id = GetNextId(ref genreId), Name = "Puzzle&Skill" });
-            var moba = context.Genres.Add(new Genre { Id = GetNextId(ref genreId), Name = "MOBA" });
+            var rpg = context.Genres.Add(new Genre { Id = GetNextId(ref genreId), NameEn = "RPG", NameRu = "RPG" });
+            context.Genres.Add(new Genre { Id = GetNextId(ref genreId), NameEn = "Sports", NameRu = "Спорт" });
+            var action = context.Genres.Add(new Genre { Id = GetNextId(ref genreId), NameEn = "Action", NameRu = "Action" });
+            context.Genres.Add(new Genre { Id = GetNextId(ref genreId), NameEn = "Adventure", NameRu = "Приключения" });
+            context.Genres.Add(new Genre { Id = GetNextId(ref genreId), NameEn = "Puzzle&Skill", NameRu = "Головоломка" });
+            var moba = context.Genres.Add(new Genre { Id = GetNextId(ref genreId), NameEn = "MOBA", NameRu = "MOBA" });
 
             context.PlatformTypes.Add(new PlatformType { Name = "Mobile" });
             context.PlatformTypes.Add(new PlatformType { Name = "Browser" });

@@ -18,7 +18,8 @@ namespace GameStore.Maps
             Mapper.CreateMap<Category, Genre>()
                   .ForMember(x => x.Id, _ => _.MapFrom(x => KeyEncoder.Encode(x.CategoryID, DatabaseTypes.Northwind)))
                   .ForMember(x => x.ChildGenres, _ => _.Ignore())
-                  .ForMember(x => x.Name, _ => _.MapFrom(x => x.CategoryName))
+                  .ForMember(x => x.NameEn, _ => _.MapFrom(x => x.CategoryName))
+                  .ForMember(x => x.NameRu, _ => _.MapFrom(x => x.CategoryName))
                   .ForMember(x => x.ParentGenreId, _ => _.Ignore());
 
             Mapper.CreateMap<Product, Game>()
@@ -35,7 +36,8 @@ namespace GameStore.Maps
                   .ForMember(x => x.UnitsInStock, _ => _.MapFrom(x => x.UnitsInStock))
                   .ForMember(x => x.PlatformTypes, _ => _.UseValue(new PlatformType[0]))
                   .ForMember(x => x.PublicationDate, _ => _.UseValue(DateTime.MinValue))
-                  .ForMember(x => x.Description, _ => _.Ignore());
+                  .ForMember(x => x.DescriptionEn, _ => _.Ignore())
+                  .ForMember(x => x.DescriptionRu, _ => _.Ignore());
 
             Mapper.CreateMap<Supplier, Publisher>()
                   .ForMember(x => x.Id, _ => _.MapFrom(x => KeyEncoder.Encode(x.SupplierID, DatabaseTypes.Northwind)))

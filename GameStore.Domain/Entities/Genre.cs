@@ -7,7 +7,9 @@ namespace GameStore.Domain.Entities
 {
     public class Genre : Entity<Int32>
     {
-        public String Name { get; set; }
+        public String NameRu { get; set; }
+
+        public String NameEn { get; set; }
 
         public Int32? ParentGenreId { get; set; }
 

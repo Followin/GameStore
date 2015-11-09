@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EE745E23-6D52-4F41-B66A-B3D96AE4733F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GameStore.BLL</RootNamespace>
+    <AssemblyName>GameStore.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>e021a72d</NuGetPackageImportStamp>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ArgumentValidation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>libs\ArgumentValidation\ArgumentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=4.0.4.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.0.4\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.1.2\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Select.Pdf">
+      <HintPath>..\packages\Select.Pdf.15.2.0.0\lib\net40\Select.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommandHandlers\Comment\CreateCommentHandler.cs" />
+    <Compile Include="CommandHandlers\Comment\DeleteCommentCommandHandler.cs" />
+    <Compile Include="CommandHandlers\Game\AddGameCommandHandler.cs" />
+    <Compile Include="CommandHandlers\Game\AddVisitCommandHandler.cs" />
+    <Compile Include="CommandHandlers\Game\DeleteGameCommandHandler.cs" />
+    <Compile Include="CommandHandlers\Game\EditGameCommandHandler.cs" />
+    <Compile Include="CommandHandlers\Order\CreateOrderDetailsCommandHandler.cs" />
+    <Compile Include="CommandHandlers\Publisher\CreatePublisherCommandHandler.cs" />
+    <Compile Include="CommandHandlers\User\CreateUserCommandHandler.cs" />
+    <Compile Include="Commands\Comment\CreateCommentCommand.cs" />
+    <Compile Include="Commands\Comment\DeleteCommentCommand.cs" />
+    <Compile Include="Commands\Game\AddGameVisitCommand.cs" />
+    <Compile Include="Commands\Game\CreateGameCommand.cs" />
+    <Compile Include="Commands\Game\DeleteGameCommand.cs" />
+    <Compile Include="Commands\Game\EditGameCommand.cs" />
+    <Compile Include="Commands\Order\CreateOrderDetailsCommand.cs" />
+    <Compile Include="Commands\Publisher\CreatePublisherCommand.cs" />
+    <Compile Include="Commands\User\CreateUserCommand.cs" />
+    <Compile Include="CQRS\CommandDispatcher.cs" />
+    <Compile Include="CQRS\CommandResult.cs" />
+    <Compile Include="CQRS\ICommand.cs" />
+    <Compile Include="CQRS\ICommandDispatcher.cs" />
+    <Compile Include="CQRS\ICommandHandler.cs" />
+    <Compile Include="CQRS\IQuery.cs" />
+    <Compile Include="CQRS\IQueryDispatcher.cs" />
+    <Compile Include="CQRS\IQueryHandler.cs" />
+    <Compile Include="CQRS\IQueryResult.cs" />
+    <Compile Include="CQRS\QueryDispatcher.cs" />
+    <Compile Include="DTO\CommentDTO.cs" />
+    <Compile Include="DTO\EntityDTO.cs" />
+    <Compile Include="DTO\GameDTO.cs" />
+    <Compile Include="DTO\GenreDTO.cs" />
+    <Compile Include="DTO\OrderDetailsDTO.cs" />
+    <Compile Include="DTO\PlatformTypeDTO.cs" />
+    <Compile Include="DTO\PublisherDTO.cs" />
+    <Compile Include="DTO\ShipperDTO.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\Comment\GetCommentsByGameKeyQuery.cs" />
+    <Compile Include="Queries\Game\GetGamesQuery.cs" />
+    <Compile Include="Queries\Game\IsGameVisitedByUserQuery.cs" />
+    <Compile Include="Queries\Game\GetAllGamesQuery.cs" />
+    <Compile Include="Queries\Game\GetGameByIdQuery.cs" />
+    <Compile Include="Queries\Game\GetGameByKeyQuery.cs" />
+    <Compile Include="Queries\Game\GetGamesByGenreQuery.cs" />
+    <Compile Include="Queries\Game\GetGamesByPlatformTypesQuery.cs" />
+    <Compile Include="Queries\Game\GetGamesCountQuery.cs" />
+    <Compile Include="Queries\Genre\GetAllGenresQuery.cs" />
+    <Compile Include="Queries\Order\GetCurrentOrder.cs" />
+    <Compile Include="Queries\Order\GetOrderByIdQuery.cs" />
+    <Compile Include="Queries\Order\GetOrdersHistoryQuery.cs" />
+    <Compile Include="Queries\Order\GetShippersQuery.cs" />
+    <Compile Include="Queries\PlatformType\GetAllPlatformTypesQuery.cs" />
+    <Compile Include="Queries\Publisher\GetAllPublishersQuery.cs" />
+    <Compile Include="Queries\Publisher\GetPublisherByCompanyNameQuery.cs" />
+    <Compile Include="Queries\User\GetUserBySessionIdQuery.cs" />
+    <Compile Include="QueryHandlers\Comment\GetCommentsByGameKeyQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Game\GameFilterPipeline.cs" />
+    <Compile Include="QueryHandlers\Game\GetAllGamesQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Game\GetGameByIdQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Game\GetGameByKeyQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Game\GetGamesByGenreQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Game\GetGamesByPlatformTypesQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Game\GetGamesCountQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Game\GetGamesQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Game\IsGameVisitedByUserQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Genre\GetAllGenresQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Order\GetCurrentOrderQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Order\GetOrderByIdQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Order\GetOrdersHistoryQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Order\GetShippersQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Platform\GetAllPlatformTypesQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Publisher\GetAllPublishersQueryhandler.cs" />
+    <Compile Include="QueryHandlers\Publisher\GetPublisherByCompanyNameQueryHandler.cs" />
+    <Compile Include="QueryHandlers\User\GetuserBySessionIdQueryhandler.cs" />
+    <Compile Include="QueryResults\BooleanQueryResult.cs" />
+    <Compile Include="QueryResults\Comment\CommentsQueryResult.cs" />
+    <Compile Include="QueryResults\CountQueryResult.cs" />
+    <Compile Include="QueryResults\Game\GameQueryResult.cs" />
+    <Compile Include="QueryResults\Game\GamesPartQueryResult.cs" />
+    <Compile Include="QueryResults\Game\GamesQueryResult.cs" />
+    <Compile Include="QueryResults\Genre\GenresQueryResult.cs" />
+    <Compile Include="QueryResults\Order\OrderQueryResult.cs" />
+    <Compile Include="QueryResults\Order\OrdersQueryResult.cs" />
+    <Compile Include="QueryResults\Order\ShippersQueryResult.cs" />
+    <Compile Include="QueryResults\PlatformType\PlatformTypesQueryResult.cs" />
+    <Compile Include="QueryResults\Publisher\PublisherQueryResult.cs" />
+    <Compile Include="QueryResults\Publisher\PublishersQueryResult.cs" />
+    <Compile Include="QueryResults\User\UserQueryResult.cs" />
+    <Compile Include="Services\PdfService.cs" />
+    <Compile Include="Static\GameOrderTypesList.cs" />
+    <Compile Include="Utils\EntityNotFoundException.cs" />
+    <Compile Include="Utils\ExpressionExtensions.cs" />
+    <Compile Include="Utils\FunctorComparer.cs" />
+    <Compile Include="Utils\NameGetter.cs" />
+    <Compile Include="Utils\ValidationExtensions\DecimalValidationExtensions.cs" />
+    <Compile Include="Utils\ValidationExtensions\DoubleValidationExtensions.cs" />
+    <Compile Include="Utils\ValidationExtensions\FloatValidationExtensions.cs" />
+    <Compile Include="Utils\ValidationExtensions\Int16ValidationExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameStore.DAL\GameStore.DAL.csproj">
+      <Project>{7582ab39-8dfe-4b67-820c-7975a612a447}</Project>
+      <Name>GameStore.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameStore.Domain\GameStore.Domain.csproj">
+      <Project>{ff51b1fd-d69f-41c5-9d49-e2253062a85d}</Project>
+      <Name>GameStore.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pipeline\Pipeline.csproj">
+      <Project>{b6d496b9-71c1-4a20-a724-b479e01c1a05}</Project>
+      <Name>Pipeline</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Select.Pdf.15.2.0.0\build\Select.Pdf.targets" Condition="Exists('..\packages\Select.Pdf.15.2.0.0\build\Select.Pdf.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Select.Pdf.15.2.0.0\build\Select.Pdf.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Select.Pdf.15.2.0.0\build\Select.Pdf.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

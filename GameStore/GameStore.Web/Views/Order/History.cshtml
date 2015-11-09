@@ -1,0 +1,30 @@
+﻿@model IEnumerable<GameStore.Web.Models.Order.OrderViewModel>
+@{
+    ViewBag.Title = "History";
+}
+
+<div class="paper-block">
+    <table class="custom-table headed-table">
+        <thead>
+        <tr>
+            <td>Price</td>
+            <td>Time</td>
+            <td>Payed</td>
+            <td>User id</td>
+            <td>Products count</td>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var order in Model)
+        {
+            <tr class="clickable-row" data-href="@Url.Action("Details", "Order", new {id = order.Id})">
+                <td>@Math.Round(order.Price, 2)$</td>
+                <td>@(order.Time.HasValue ? @order.Time.Value.ToShortDateString() : "Not payed")</td>
+                <td>@order.Payed</td>
+                <td>@order.UserId</td>
+                <td>@order.OrderDetails.Count</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

@@ -2,13 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using GameStore.Web.App_LocalResources;
 using Newtonsoft.Json;
 
 namespace GameStore.Web.Models.Game
 {
     public class CreateGameModel
     {
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(GlobalRes),
+            ErrorMessageResourceName = "FieldIsRequired")]
         [StringLength(30, MinimumLength = 5)]
         public String Name { get; set; }
 

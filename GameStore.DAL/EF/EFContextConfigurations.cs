@@ -13,7 +13,7 @@ namespace GameStore.DAL.EF
                                 .HasMaxLength(50);
             Property(x => x.Name).IsRequired()
                                  .HasMaxLength(50);
-            Property(x => x.Description).IsRequired();
+            Property(x => x.DescriptionRu).IsRequired();
             Property(x => x.Discontinued).IsRequired()
                                        .HasColumnType("BIT");
             Property(x => x.UnitsInStock).IsRequired()
@@ -39,8 +39,10 @@ namespace GameStore.DAL.EF
         public GenreConfiguration()
         {
             Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-            Property(x => x.Name).IsRequired()
-                                 .HasMaxLength(50);
+            Property(x => x.NameRu).IsRequired()
+                                   .HasMaxLength(50);
+            Property(x => x.NameEn).IsRequired()
+                                   .HasMaxLength(50);
         }
     }
 

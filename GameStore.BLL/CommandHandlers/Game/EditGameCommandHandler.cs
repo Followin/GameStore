@@ -76,7 +76,7 @@ namespace GameStore.BLL.CommandHandlers.Game
             command.Key.Argument(NameGetter.GetName(() => command.Key))
                        .NotNull()
                        .NotWhiteSpace();
-            command.Description.Argument(NameGetter.GetName(() => command.Description))
+            command.DescriptionEn.Argument(NameGetter.GetName(() => command.DescriptionEn))
                                .NotNull()
                                .NotWhiteSpace();
             command.Price.Argument(NameGetter.GetName(() => command.Price))

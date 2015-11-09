@@ -12,30 +12,32 @@ namespace GameStore.Web
 
             routes.MapRoute(
                 name: "Game",
-                url: "{controller}/{gamekey}/{action}",
+                url: "{lang}/{controller}/{gamekey}/{action}",
                 defaults: new { action = "Details" },
-                constraints: new { controller = "Game" });
+                constraints: new { controller = "Game", lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "Games",
-                url: "Games/{action}",
-                defaults: new {controller = "game", action = "index"});
+                url: "{lang}/Games/{action}",
+                defaults: new { controller = "game", action = "index", lang = @"ru|en" },
+                constraints: new { lang = @"ru||en" });
 
             routes.MapRoute(
                 name: "Publisher",
-                url: "{controller}/{companyname}/{action}",
+                url: "{lang}/{controller}/{companyname}/{action}",
                 defaults: new { action = "Details" },
-                constraints: new { controller = "Publisher" });
+                constraints: new { controller = "Publisher", lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "Order",
-                url: "order/checkout/{paymentMethodKey}",
-                defaults: new { controller = "order", action = "checkout" });
+                url: "{lang}/order/checkout/{paymentMethodKey}",
+                defaults: new { controller = "order", action = "checkout" },
+                constraints: new { lang = @"ru|en" });
 
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Game", action = "Index", id = UrlParameter.Optional });
+                defaults: new { controller = "Game", action = "Index", id = UrlParameter.Optional, lang = "en" });
         }
     }
 }

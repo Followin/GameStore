@@ -20,7 +20,8 @@ namespace GameStore.DAL.EF
 
             // unique indexes
             CreateIndex("Key", typeof(Game));
-            CreateIndex("Name", typeof(Genre));
+            CreateIndex("NameEn", typeof(Genre));
+            CreateIndex("NameRu", typeof(Genre));
             CreateIndex("Name", typeof(PlatformType));
 
             var genreId = (Int32)DatabaseTypes.GameStore;
@@ -94,7 +95,8 @@ namespace GameStore.DAL.EF
             {
                 Id = GetNextId(ref gameId),
                 Name = "Dota 2",
-                Description = "Just try it",
+                DescriptionEn = "Just try it",
+                DescriptionRu = "компьютерная многопользовательская командная игра жанра Multiplayer online battle arena, реализация известной карты DotA для игры Warcraft III в отдельном клиенте.",
                 Key = "dota-2",
                 PlatformTypes = new[] { desktop },
                 PublisherId = valve.Id,
@@ -109,7 +111,8 @@ namespace GameStore.DAL.EF
             {
                 Id = GetNextId(ref gameId),
                 Name = "Fallout 3",
-                Description = "Action role-playing open world video game developed by Bethesda Game Studios, and is the third major installment in the Fallout series.",
+                DescriptionRu = "Сюжет Fallout 3 продолжает развитие событий серии игр Fallout, действие которых происходит в мире, медленно возрождающемся после ядерной войны 2077 года. Время действия игры — 2277 год, её события происходят через 36 лет после событий игры Fallout 2. Как и в предыдущих играх серии, в Fallout 3 фигурирует сеть подземных убежищ, построенная корпорацией Vault-Tec, как заявлялось, для спасения некоторой части населения Америки от последствий войны, хотя и вне убежищ присутствуют выжившие люди, находящиеся в гораздо меньшей безопасности. Главный герой игры — Одинокий странник, с малых лет живший в убежище № 101. Хотя по его представлениям убежище с момента ядерной войны ни разу не открывалось, его отец однажды уходит наружу. Одинокий странник отправляется на его поиски, чтобы узнать причины ухода.", 
+                DescriptionEn = "Action role-playing open world video game developed by Bethesda Game Studios, and is the third major installment in the Fallout series.",
                 Key = "fallout-3",
                 PlatformTypes = new[] {desktop},
                 PublisherId = bethesda.Id,
@@ -124,7 +127,8 @@ namespace GameStore.DAL.EF
             {
                 Id = GetNextId(ref gameId),
                 Name = "Fallout 4",
-                Description =
+                DescriptionRu = "Игра является пятой частью серии, и будет выпущена 10 ноября 2015 года на PC, PS4 и Xbox One. На территории России и СНГ локализуется компанией СофтКлаб.", 
+                DescriptionEn = 
                     "200 years after a nuclear war, Fallout 4 is set in a post-apocalyptic Boston, in which the player character emerges from an underground bunker known as a Vault. Gameplay will be similar to Fallout 3. Completing quests and acquiring experience will level up the character, allowing for new abilities.",
                 Key = "fallout-4",
                 PlatformTypes = new[] {desktop},
@@ -140,7 +144,8 @@ namespace GameStore.DAL.EF
             {
                 Id = GetNextId(ref gameId),
                 Name = "The Witcher 3: Wild Hunt",
-                Description =
+                DescriptionRu = "Действие игры происходит в вымышленном фэнтезийном мире, напоминающем средневековую Европу. Главный герой Геральт из Ривии, «ведьмак» — профессиональный охотник на чудовищ — отправляется в путешествие в поисках девушки по имени Цири, обладающей сверхъестественными способностями. В отличие от предыдущих игр серии, «Ведьмак 3: Дикая Охота» — игра с открытым миром: игрок может свободно путешествовать по обширным территориям, самостоятельно находя новые места и задания.",
+                DescriptionEn =
                     "Played in a third-person perspective, players control protagonist Geralt of Rivia, a Witcher who sets out on a long journey through the large land of Northern Kingdoms. Players battle against the world's many dangers using swords and magic, while interacting with non-player characters and completing side quests and main missions all to progress through the story. Players mostly travel by foot, or mounted on Geralt's horse Roach.",
                 Key = "witcher-3",
                 PlatformTypes = new[] {desktop},

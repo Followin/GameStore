@@ -14,9 +14,15 @@
 </div>
 
 <div class="form-group">
-    @Html.LabelFor(model => model.CreateModel.Description)
-    @Html.EditorFor(model => model.CreateModel.Description)
-    @Html.ValidationMessageFor(model => model.CreateModel.Description)
+    @Html.LabelFor(model => model.CreateModel.DescriptionRu)
+    @Html.EditorFor(model => model.CreateModel.DescriptionRu)
+    @Html.ValidationMessageFor(model => model.CreateModel.DescriptionRu)
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.CreateModel.DescriptionEn)
+    @Html.EditorFor(model => model.CreateModel.DescriptionEn)
+    @Html.ValidationMessageFor(model => model.CreateModel.DescriptionEn)
 </div>
 
 <div class="form-group">

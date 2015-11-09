@@ -15,6 +15,7 @@ namespace GameStore.Web
             filters.Add(new LogAttribute());
             filters.Add(new ExceptionLogger());
             filters.Add(new AuthorizeAttribute());
+            filters.Add(new LocalizeAttribute());
         }
     }
 }

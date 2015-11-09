@@ -14,6 +14,7 @@ namespace GameStore.Web.Concrete
             Identity = new GenericIdentity(id);
         }
 
+
         public IIdentity Identity { get; private set; }
 
         public int Id { get; set; }

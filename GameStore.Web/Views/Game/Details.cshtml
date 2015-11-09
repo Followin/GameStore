@@ -1,4 +1,5 @@
-﻿@model GameStore.Web.Models.Game.DisplayGameModel
+﻿@using System.Threading
+@model GameStore.Web.Models.Game.DisplayGameModel
 
 @{
     ViewBag.Title = "Details";
@@ -19,11 +20,17 @@
 
     <div class="display-group">
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.DescriptionEn)
         </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.Description)
-        </div>
+        @switch (Thread.CurrentThread.CurrentCulture.Name.Substring(0, 2))
+        {
+            case "en":
+                @Html.DisplayFor(model => model.DescriptionEn)
+                break;
+            case "ru":
+            @Html.DisplayFor(model => model.DescriptionRu)
+                break;
+        }
     </div>
     <div class="display-group">
         <div class="display-label">
@@ -84,9 +91,20 @@
             }
             else
             {
-                foreach (var genre in Model.Genres)
+                switch (Thread.CurrentThread.CurrentCulture.Name.Substring(0, 2))
                 {
-                    <span>@genre.Name </span>
+                    case "ru":
+                        foreach (var genre in Model.Genres)
+                        {
+                            <span>@genre.NameRu </span>
+                        }
+                        break;
+                    case "en":
+                        foreach (var genre in Model.Genres)
+                        {
+                            <span>@genre.NameEn </span>
+                        }
+                        break;
                 }
             }
         </div>

@@ -56,7 +56,7 @@ namespace GameStore.BLL.QueryHandlers.Game
             }
             else
             {
-                genre = _db.Genres.GetSingle(g => g.Name == query.Name);
+                genre = _db.Genres.GetSingle(g => g.NameEn == query.Name);
                 if (genre == null)
                 {
                     throw new EntityNotFoundException(

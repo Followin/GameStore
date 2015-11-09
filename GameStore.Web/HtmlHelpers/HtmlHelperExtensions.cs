@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using GameStore.Web.Models;
@@ -25,7 +26,17 @@ namespace GameStore.Web.HtmlHelpers
 
                 var labelFor = new TagBuilder("label");
                 labelFor.Attributes["for"] = "genre" + genre.Id;
-                labelFor.SetInnerText(genre.Name);
+
+                switch (Thread.CurrentThread.CurrentCulture.Name.Substring(0, 2))
+                {
+                    case "ru":
+                        labelFor.SetInnerText(genre.NameRu);
+                        break;
+                    case "en":
+                        labelFor.SetInnerText(genre.NameEn);
+                        break;
+                }
+                
 
                 liTag.InnerHtml += genreCheckBox;
                 liTag.InnerHtml += labelFor;
@@ -80,8 +91,6 @@ namespace GameStore.Web.HtmlHelpers
 
                 var deleteButton = new TagBuilder("button");
                 deleteButton.AddCssClass("delete-comment-button");
-                deleteButton.Attributes["data-href"] = new UrlHelper(HttpContext.Current.Request.RequestContext)
-                    .Action("DeleteComment", "Game");
                 deleteButton.Attributes["data-id"] = comment.Id.ToString();
                 deleteButton.SetInnerText("x");
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using GameStore.Domain.Entities;
+using GameStore.Static;
 
 namespace GameStore.Domain.Abstract.Repositories
 {
@@ -17,7 +18,7 @@ namespace GameStore.Domain.Abstract.Repositories
         /// <returns>games list</returns>
         IEnumerable<Game> Get(
             Expression<Func<Game, Boolean>> predicate,
-            String comparer,
+            GamesOrderType orderBy,
             Int32? skip = null,
             Int32? number = null);
 

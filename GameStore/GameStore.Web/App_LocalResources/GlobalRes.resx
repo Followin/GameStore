@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
   <data name="Basket" xml:space="preserve">
     <value>Basket</value>
   </data>
   <data name="Buy" xml:space="preserve">
     <value>Buy</value>
+  </data>
+  <data name="ChooseTimeSpan" xml:space="preserve">
+    <value>Choose span</value>
   </data>
   <data name="Comments" xml:space="preserve">
     <value>Comments</value>
@@ -134,6 +140,24 @@
   </data>
   <data name="Cvv2" xml:space="preserve">
     <value>Cvv2</value>
+  </data>
+  <data name="DaysShortcut.Choose" xml:space="preserve">
+    <value>Choose one</value>
+  </data>
+  <data name="DaysShortcut.Month" xml:space="preserve">
+    <value>Last month</value>
+  </data>
+  <data name="DaysShortcut.Week" xml:space="preserve">
+    <value>Last week</value>
+  </data>
+  <data name="DaysShortcut.Year" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="DaysShortcut.Years2" xml:space="preserve">
+    <value>2 years</value>
+  </data>
+  <data name="DaysShortcut.Years3" xml:space="preserve">
+    <value>3 years</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
@@ -161,6 +185,21 @@
   </data>
   <data name="Games" xml:space="preserve">
     <value>Games</value>
+  </data>
+  <data name="GamesOrderType.Comments" xml:space="preserve">
+    <value>Comments number</value>
+  </data>
+  <data name="GamesOrderType.IncomeDate" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="GamesOrderType.PriceAsc" xml:space="preserve">
+    <value>Price ascending</value>
+  </data>
+  <data name="GamesOrderType.PriceDesc" xml:space="preserve">
+    <value>Price descending</value>
+  </data>
+  <data name="GamesOrderType.Views" xml:space="preserve">
+    <value>Most popular</value>
   </data>
   <data name="Genres" xml:space="preserve">
     <value>Genres</value>

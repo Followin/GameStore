@@ -11,6 +11,7 @@ using GameStore.DAL.Static;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Abstract.Repositories;
 using GameStore.Domain.Entities;
+using GameStore.Static;
 
 namespace GameStore.DAL.Repositories
 {
@@ -27,37 +28,35 @@ namespace GameStore.DAL.Repositories
 
         public IEnumerable<Game> Get(
             Expression<Func<Game, bool>> predicate,
-            String comparer = null,
+            GamesOrderType orderBy,
             int? skip = null,
             int? number = null)
         {
 
             var fullyResult = Get();
-            if (comparer != null)
-            {
-                switch (comparer)
+                switch (orderBy)
                 {
-                    case "views":
+                    case GamesOrderType.Views:
                         fullyResult = fullyResult.OrderBy(x => x.UsersViewed.Count);
                         break;
 
-                    case "comments":
+                    case GamesOrderType.Comments:
                         fullyResult = fullyResult.OrderBy(x => _db.Comments.Count(y => y.GameId == x.Id));
                         break;
 
-                    case "priceAsc":
+                    case GamesOrderType.PriceAsc:
                         fullyResult = fullyResult.OrderBy(x => x.Price);
                         break;
 
-                    case "priceDesc":
+                    case GamesOrderType.PriceDesc:
                         fullyResult = fullyResult.OrderByDescending(x => x.Price);
                         break;
 
-                    case "incomeDate":
+                    case GamesOrderType.IncomeDate:
                         fullyResult = fullyResult.OrderByDescending(x => x.IncomeDate);
                         break;
                 }
-            }
+            
 
             fullyResult = fullyResult.Where(predicate.Compile());
 
@@ -219,4 +218,5 @@ namespace GameStore.DAL.Repositories
             _db.SaveChanges();
         }
     }
+
 }

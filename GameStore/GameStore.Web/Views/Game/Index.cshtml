@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 @Html.LabelFor(x => x.FilterModel.MinDateShortcut)
-                @Html.DropDownListFor(x => x.FilterModel.MinDateShortcut, Model.DatesShorcuts)
+                @Html.EditorFor(x => x.FilterModel.MinDateShortcut)
                 @Html.ValidationMessageFor(x => x.FilterModel.MinDateShortcut)
             </div>
             <div class="form-group">
@@ -62,7 +62,7 @@
             <form class="pagin-form">
                 <div class="form-group">
                     @Html.LabelFor(x => x.FilterModel.OrderBy)
-                    @Html.DropDownListFor(x => x.FilterModel.OrderBy, Model.OrderByVariants)
+                    @Html.EditorFor(x => x.FilterModel.OrderBy)
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(x => x.FilterModel.ItemsPerPage)

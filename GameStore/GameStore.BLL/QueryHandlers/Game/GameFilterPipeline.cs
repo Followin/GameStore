@@ -6,10 +6,10 @@ using AutoMapper;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryResults.Game;
-using GameStore.BLL.Static;
 using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
+using GameStore.Static;
 using Pipeline;
 
 namespace GameStore.BLL.QueryHandlers.Game
@@ -18,7 +18,7 @@ namespace GameStore.BLL.QueryHandlers.Game
     {
         public Expression<Func<Domain.Entities.Game, bool>> Predicate { get; set; }
 
-        public String OrderBy { get; set; }
+        public GamesOrderType OrderBy { get; set; }
 
         public Int32? Number { get; set; }
 
@@ -63,7 +63,7 @@ namespace GameStore.BLL.QueryHandlers.Game
                 var orderTransformBlock = new TransformPipelineBlock<GamesQueryBuilder, GamesQueryBuilder>(
                     builder =>
                     {
-                        builder.OrderBy = GameOrderTypesList.GetOrderExpression(query.OrderBy);
+                        builder.OrderBy = query.OrderBy;
                         return builder;
                     });
                 _builderBlock.Register(orderTransformBlock);

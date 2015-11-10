@@ -61,6 +61,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string All {
+            get {
+                return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Basket.
         /// </summary>
         public static string Basket {
@@ -75,6 +84,15 @@ namespace GameStore.Web.App_LocalResources {
         public static string Buy {
             get {
                 return ResourceManager.GetString("Buy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose span.
+        /// </summary>
+        public static string ChooseTimeSpan {
+            get {
+                return ResourceManager.GetString("ChooseTimeSpan", resourceCulture);
             }
         }
         
@@ -111,6 +129,60 @@ namespace GameStore.Web.App_LocalResources {
         public static string Cvv2 {
             get {
                 return ResourceManager.GetString("Cvv2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose one.
+        /// </summary>
+        public static string DaysShortcut_Choose {
+            get {
+                return ResourceManager.GetString("DaysShortcut.Choose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last month.
+        /// </summary>
+        public static string DaysShortcut_Month {
+            get {
+                return ResourceManager.GetString("DaysShortcut.Month", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last week.
+        /// </summary>
+        public static string DaysShortcut_Week {
+            get {
+                return ResourceManager.GetString("DaysShortcut.Week", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Year.
+        /// </summary>
+        public static string DaysShortcut_Year {
+            get {
+                return ResourceManager.GetString("DaysShortcut.Year", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2 years.
+        /// </summary>
+        public static string DaysShortcut_Years2 {
+            get {
+                return ResourceManager.GetString("DaysShortcut.Years2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 3 years.
+        /// </summary>
+        public static string DaysShortcut_Years3 {
+            get {
+                return ResourceManager.GetString("DaysShortcut.Years3", resourceCulture);
             }
         }
         
@@ -192,6 +264,51 @@ namespace GameStore.Web.App_LocalResources {
         public static string Games {
             get {
                 return ResourceManager.GetString("Games", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comments number.
+        /// </summary>
+        public static string GamesOrderType_Comments {
+            get {
+                return ResourceManager.GetString("GamesOrderType.Comments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New.
+        /// </summary>
+        public static string GamesOrderType_IncomeDate {
+            get {
+                return ResourceManager.GetString("GamesOrderType.IncomeDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price ascending.
+        /// </summary>
+        public static string GamesOrderType_PriceAsc {
+            get {
+                return ResourceManager.GetString("GamesOrderType.PriceAsc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price descending.
+        /// </summary>
+        public static string GamesOrderType_PriceDesc {
+            get {
+                return ResourceManager.GetString("GamesOrderType.PriceDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Most popular.
+        /// </summary>
+        public static string GamesOrderType_Views {
+            get {
+                return ResourceManager.GetString("GamesOrderType.Views", resourceCulture);
             }
         }
         

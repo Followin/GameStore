@@ -159,7 +159,6 @@
     <Compile Include="QueryResults\Publisher\PublishersQueryResult.cs" />
     <Compile Include="QueryResults\User\UserQueryResult.cs" />
     <Compile Include="Services\PdfService.cs" />
-    <Compile Include="Static\GameOrderTypesList.cs" />
     <Compile Include="Utils\EntityNotFoundException.cs" />
     <Compile Include="Utils\ExpressionExtensions.cs" />
     <Compile Include="Utils\FunctorComparer.cs" />
@@ -186,6 +185,10 @@
     <ProjectReference Include="..\GameStore.Domain\GameStore.Domain.csproj">
       <Project>{ff51b1fd-d69f-41c5-9d49-e2253062a85d}</Project>
       <Name>GameStore.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameStore.Static\GameStore.Static.csproj">
+      <Project>{1DABB4A6-4B69-42AA-BC9C-4C679493BC5A}</Project>
+      <Name>GameStore.Static</Name>
     </ProjectReference>
     <ProjectReference Include="..\Pipeline\Pipeline.csproj">
       <Project>{b6d496b9-71c1-4a20-a724-b479e01c1a05}</Project>

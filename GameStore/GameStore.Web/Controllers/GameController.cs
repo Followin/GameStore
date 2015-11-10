@@ -24,8 +24,8 @@ using GameStore.BLL.QueryResults.Genre;
 using GameStore.BLL.QueryResults.Order;
 using GameStore.BLL.QueryResults.PlatformType;
 using GameStore.BLL.QueryResults.Publisher;
-using GameStore.BLL.Static;
 using GameStore.Web.Abstract;
+using GameStore.Web.App_LocalResources;
 using GameStore.Web.Models;
 using GameStore.Web.Models.Comment;
 using GameStore.Web.Models.Game;
@@ -124,10 +124,6 @@ namespace GameStore.Web.Controllers
                 model = new GameFiltersModel();
             }
 
-            if (model.OrderBy == null)
-            {
-                model.OrderBy = "New";
-            }
 
             if (model.Page == 0)
             {
@@ -250,33 +246,15 @@ namespace GameStore.Web.Controllers
                 }).ToList();
             itemsPerPageVariantsList.Insert(0, new SelectListItem
             {
-                Text = "All",
-                Value = ""
-            });
-            var dateTimeShortcuts = DatesShortcutsList.GetShortcuts().Select(x =>
-                new SelectListItem
-                {
-                    Text = x,
-                    Value = x
-                }).ToList();
-            dateTimeShortcuts.Insert(0, new SelectListItem
-            {
-                Text = "Choose span",
+                Text = GlobalRes.All,
                 Value = ""
             });
 
 
             model.Publishers = publishers;
             model.Genres = genres;
-            model.OrderByVariants = GameOrderTypesList.GetOrderKeys().Select(x =>
-                new SelectListItem
-                {
-                    Text = x,
-                    Value = x
-                });
             model.ItemsPerPageVariants = itemsPerPageVariantsList;
             model.PlatformTypes = platformTypes;
-            model.DatesShorcuts = dateTimeShortcuts;
 
         }
     }

@@ -46,7 +46,7 @@ namespace GameStore.Web.Utils
             Mapper.CreateMap<GameFiltersModel, GetGamesQuery>()
                   .ForMember(x => x.Skip, _ => _.MapFrom(x => x.ItemsPerPage*(x.Page-1)))
                   .ForMember(x => x.Number, _ => _.MapFrom(x => x.ItemsPerPage))
-                  .ForMember(x => x.MinDate, _ => _.MapFrom(x => x.MinDateShortcut == null ? null : DatesShortcutsList.GetDate(x.MinDateShortcut)));
+                  .ForMember(x => x.MinDate, _ => _.MapFrom(x => x.MinDateShortcut == DaysShortcut.Choose ? null : (DateTime?)DateTime.Now.AddDays(-1 * (Int32)x.MinDateShortcut)));
         }
     }
 }

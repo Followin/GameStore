@@ -17,12 +17,16 @@
 
     <header>
         <div class="logo">
-            <a href="/">
+            <a href="@Url.Action("Index", "Game")">
                 Game<span class="s-letter">S</span>tore
             </a>
         </div>
         <div class="basket-link">
             <a href="@Url.Action("Index", "Basket")"><i class="fa fa-shopping-cart"></i> @GlobalRes.Basket</a>
+        </div>
+        <div class="languages">
+            <a href="@Url.Action("", new { lang = "ru" })">ru</a>
+            <a href="@Url.Action("", new { lang = "en" })">en</a>
         </div>
         <div class="user">
             @GlobalRes.Hello, @((User as CustomPrincipal).Id)

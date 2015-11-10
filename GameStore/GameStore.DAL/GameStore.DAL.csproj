@@ -131,6 +131,10 @@
       <Project>{ff51b1fd-d69f-41c5-9d49-e2253062a85d}</Project>
       <Name>GameStore.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GameStore.Static\GameStore.Static.csproj">
+      <Project>{1DABB4A6-4B69-42AA-BC9C-4C679493BC5A}</Project>
+      <Name>GameStore.Static</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201510270923242_Game dates.resx">

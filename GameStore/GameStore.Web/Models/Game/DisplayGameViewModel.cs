@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using GameStore.Static;
 using GameStore.Web.App_LocalResources;
 using GameStore.Web.Models.Publisher;
+using GameStore.Web.Static;
 
 namespace GameStore.Web.Models.Game
 {
@@ -80,7 +82,7 @@ namespace GameStore.Web.Models.Game
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "OrderBy")]
-        public String OrderBy { get; set; }
+        public GamesOrderType OrderBy { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Publishers")]
@@ -104,7 +106,7 @@ namespace GameStore.Web.Models.Game
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "MinDate")]
-        public String MinDateShortcut { get; set; }
+        public DaysShortcut MinDateShortcut { get; set; }
     }
 
     public class PagedDisplayGameModel
@@ -120,8 +122,6 @@ namespace GameStore.Web.Models.Game
         public IEnumerable<GenreViewModel> Genres { get; set; }
         public IEnumerable<PlatformTypeViewModel> PlatformTypes { get; set; }
         public IEnumerable<DisplayPublisherViewModel> Publishers { get; set; }
-        public IEnumerable<SelectListItem> OrderByVariants { get; set; }
         public IEnumerable<SelectListItem> ItemsPerPageVariants { get; set; }
-        public IEnumerable<SelectListItem> DatesShorcuts { get; set; } 
     }
 }

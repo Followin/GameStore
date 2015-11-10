@@ -14,7 +14,9 @@ namespace GameStore.Web.Models.Game
             ErrorMessageResourceName = "FieldIsRequired")]
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Name")]
-        [StringLength(30, MinimumLength = 5)]
+        [StringLength(30, MinimumLength = 5,
+            ErrorMessageResourceType = typeof(GlobalRes),
+            ErrorMessageResourceName = "Length_5_30")]
         public String Name { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(GlobalRes),

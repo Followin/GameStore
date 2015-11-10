@@ -34,6 +34,9 @@ namespace GameStore.Web
             ValueProviderFactories.Factories.Add(new SessionIdValueProviderFactory());
             DataAnnotationsModelValidatorProvider.AddImplicitRequiredAttributeForValueTypes = false;
 
+            ClientDataTypeModelValidatorProvider.ResourceClassKey = "Validation";
+            DefaultModelBinder.ResourceClassKey = "Validation";
+
             Mapper.Initialize(cfg =>
             {
                 cfg.AddProfile(new BLLProfile());

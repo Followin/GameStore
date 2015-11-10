@@ -195,6 +195,16 @@
   <ItemGroup>
     <Compile Include="Abstract\ICustomPrincipal.cs" />
     <Compile Include="Abstract\IPayment.cs" />
+    <Compile Include="App_GlobalResources\Validation.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Validation.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Validation.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Validation.ru.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_LocalResources\GlobalRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -518,6 +528,14 @@
     <Content Include="Views\Shared\VisaPayment.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_GlobalResources\Validation.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Validation.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Validation.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Validation.ru.designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="App_LocalResources\GlobalRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>GlobalRes.Designer.cs</LastGenOutput>

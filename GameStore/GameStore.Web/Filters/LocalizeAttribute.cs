@@ -23,6 +23,7 @@ namespace GameStore.Web.Filters
             }
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureName);
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(cultureName);
+            Thread.CurrentThread.CurrentCulture.NumberFormat = new NumberFormatInfo { CurrencyDecimalSeparator = ".", NumberDecimalSeparator = "." };
         }
 
         public void OnActionExecuted(ActionExecutedContext filterContext)

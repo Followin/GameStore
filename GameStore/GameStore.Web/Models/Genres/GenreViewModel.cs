@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GameStore.Web.App_LocalResources;
 
-namespace GameStore.Web.Models
+namespace GameStore.Web.Models.Genres
 {
     public class GenreViewModel
     {
@@ -14,11 +11,7 @@ namespace GameStore.Web.Models
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Name")]
-        public String NameRu { get; set; }
-
-        [Display(ResourceType = typeof(GlobalRes),
-            Name = "Name")]
-        public String NameEn { get; set; }
+        public String Name { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Genres")]

@@ -238,7 +238,7 @@
     <Compile Include="Models\Game\CreateGameViewModel.cs" />
     <Compile Include="Models\Game\DisplayGameViewModel.cs" />
     <Compile Include="Models\Game\EditGameViewModel.cs" />
-    <Compile Include="Models\GenreViewModel.cs" />
+    <Compile Include="Models\Genres\GenreViewModel.cs" />
     <Compile Include="Models\Order\DisplayShippersViewModel.cs" />
     <Compile Include="Models\Order\IboxPaymentViewModel.cs" />
     <Compile Include="Models\Order\OrderCheckoutViewModel.cs" />

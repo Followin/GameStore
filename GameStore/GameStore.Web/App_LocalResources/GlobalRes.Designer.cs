@@ -457,6 +457,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Other.
+        /// </summary>
+        public static string NoGenres {
+            get {
+                return ResourceManager.GetString("NoGenres", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not payed.
         /// </summary>
         public static string NotPayed {

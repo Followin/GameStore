@@ -249,6 +249,9 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="NoGenres" xml:space="preserve">
+    <value>Other</value>
+  </data>
   <data name="NotPayed" xml:space="preserve">
     <value>Not payed</value>
   </data>

@@ -29,6 +29,7 @@ using GameStore.Web.App_LocalResources;
 using GameStore.Web.Models;
 using GameStore.Web.Models.Comment;
 using GameStore.Web.Models.Game;
+using GameStore.Web.Models.Genres;
 using GameStore.Web.Models.Order;
 using GameStore.Web.Models.Publisher;
 using GameStore.Web.Static;

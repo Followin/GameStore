@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using GameStore.Static;
 using GameStore.Web.App_LocalResources;
+using GameStore.Web.Models.Genres;
 using GameStore.Web.Models.Publisher;
 using GameStore.Web.Static;
 
@@ -24,11 +25,7 @@ namespace GameStore.Web.Models.Game
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Description")]
-        public String DescriptionEn { get; set; }
-
-        [Display(ResourceType = typeof(GlobalRes),
-            Name = "Description")]
-        public String DescriptionRu { get; set; }
+        public String Description { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Price")]

@@ -1,6 +1,7 @@
 ﻿@using System.Threading
 @using GameStore.Web.Models
-@model IEnumerable<GenreViewModel>
+@using GameStore.Web.Models.Genres
+@model IEnumerable<GameStore.Web.Models.Genres.GenreViewModel>
 
 @{
     Func<IEnumerable<GenreViewModel>, MvcHtmlString> getGenresList = null;

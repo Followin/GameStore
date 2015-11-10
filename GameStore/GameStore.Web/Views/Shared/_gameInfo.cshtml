@@ -1,4 +1,5 @@
 ﻿@using System.Threading
+@using GameStore.Web.App_LocalResources
 @model GameStore.Web.Models.Game.DisplayGameModel
 
 <a href="@Url.Action("Details", "Game", new { gamekey = Model.Key })">
@@ -6,17 +7,11 @@
 </a>
 <div class="display-group">
     <div class="display-label">
-        @Html.DisplayNameFor(model => model.DescriptionRu)
+        @Html.DisplayNameFor(model => model.Description)
     </div>
-    @switch (Thread.CurrentThread.CurrentCulture.Name.Substring(0, 2))
-    {
-        case "en":
-            @Html.DisplayFor(model => model.DescriptionEn)
-            break;
-        case "ru":
-        @Html.DisplayFor(model => model.DescriptionRu)
-            break;
-    }
+    <div class="display-field">
+        @Html.DisplayFor(x => x.Description)
+    </div>
 </div>
 <div class="display-group">
     <div class="display-label">
@@ -73,25 +68,14 @@
     <div class="display-field">
         @if (Model.Genres == null || !Model.Genres.Any())
         {
-            <span>No Genre</span>
+            <span>@GlobalRes.NoGenres</span>
         }
         else
         {
-            switch (Thread.CurrentThread.CurrentCulture.Name.Substring(0, 2))
-            {
-                case "ru":
-                    foreach (var genre in Model.Genres)
-                    {
-                        <span>@genre.NameRu </span>
-                    }
-                    break;
-                case "en":
-                    foreach (var genre in Model.Genres)
-                    {
-                        <span>@genre.NameEn </span>
-                    }
-                    break;
-            }
+             foreach (var genre in Model.Genres)
+             {
+                 <span>@genre.Name </span>
+             }
         }
     </div>
 </div>

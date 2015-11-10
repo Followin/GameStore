@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using GameStore.Web.Models;
 using GameStore.Web.Models.Comment;
+using GameStore.Web.Models.Genres;
 
 namespace GameStore.Web.HtmlHelpers
 {
@@ -26,16 +27,7 @@ namespace GameStore.Web.HtmlHelpers
 
                 var labelFor = new TagBuilder("label");
                 labelFor.Attributes["for"] = "genre" + genre.Id;
-
-                switch (Thread.CurrentThread.CurrentCulture.Name.Substring(0, 2))
-                {
-                    case "ru":
-                        labelFor.SetInnerText(genre.NameRu);
-                        break;
-                    case "en":
-                        labelFor.SetInnerText(genre.NameEn);
-                        break;
-                }
+                labelFor.SetInnerText(genre.Name);
                 
 
                 liTag.InnerHtml += genreCheckBox;

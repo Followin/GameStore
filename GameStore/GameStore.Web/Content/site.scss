@@ -162,6 +162,21 @@ header {
             top: 95%;
         }
     }
+
+    .languages {
+        position: absolute;
+        bottom: -30px;
+        right: 0;
+        background: $header;
+        border-radius: 0 0 5px 5px;
+        line-height: 30px;
+        padding: 3px;
+
+        a {
+            color: #fff;
+            text-decoration: none;
+        }
+    }
 }
 
 #games-count {

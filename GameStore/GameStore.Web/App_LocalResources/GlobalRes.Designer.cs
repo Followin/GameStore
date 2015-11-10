@@ -137,7 +137,7 @@ namespace GameStore.Web.App_LocalResources {
         /// </summary>
         public static string DaysShortcut_Choose {
             get {
-                return ResourceManager.GetString("DaysShortcut.Choose", resourceCulture);
+                return ResourceManager.GetString("DaysShortcut_Choose", resourceCulture);
             }
         }
         
@@ -146,7 +146,7 @@ namespace GameStore.Web.App_LocalResources {
         /// </summary>
         public static string DaysShortcut_Month {
             get {
-                return ResourceManager.GetString("DaysShortcut.Month", resourceCulture);
+                return ResourceManager.GetString("DaysShortcut_Month", resourceCulture);
             }
         }
         
@@ -155,7 +155,7 @@ namespace GameStore.Web.App_LocalResources {
         /// </summary>
         public static string DaysShortcut_Week {
             get {
-                return ResourceManager.GetString("DaysShortcut.Week", resourceCulture);
+                return ResourceManager.GetString("DaysShortcut_Week", resourceCulture);
             }
         }
         
@@ -164,7 +164,7 @@ namespace GameStore.Web.App_LocalResources {
         /// </summary>
         public static string DaysShortcut_Year {
             get {
-                return ResourceManager.GetString("DaysShortcut.Year", resourceCulture);
+                return ResourceManager.GetString("DaysShortcut_Year", resourceCulture);
             }
         }
         
@@ -173,7 +173,7 @@ namespace GameStore.Web.App_LocalResources {
         /// </summary>
         public static string DaysShortcut_Years2 {
             get {
-                return ResourceManager.GetString("DaysShortcut.Years2", resourceCulture);
+                return ResourceManager.GetString("DaysShortcut_Years2", resourceCulture);
             }
         }
         
@@ -182,7 +182,7 @@ namespace GameStore.Web.App_LocalResources {
         /// </summary>
         public static string DaysShortcut_Years3 {
             get {
-                return ResourceManager.GetString("DaysShortcut.Years3", resourceCulture);
+                return ResourceManager.GetString("DaysShortcut_Years3", resourceCulture);
             }
         }
         
@@ -272,7 +272,7 @@ namespace GameStore.Web.App_LocalResources {
         /// </summary>
         public static string GamesOrderType_Comments {
             get {
-                return ResourceManager.GetString("GamesOrderType.Comments", resourceCulture);
+                return ResourceManager.GetString("GamesOrderType_Comments", resourceCulture);
             }
         }
         
@@ -281,7 +281,7 @@ namespace GameStore.Web.App_LocalResources {
         /// </summary>
         public static string GamesOrderType_IncomeDate {
             get {
-                return ResourceManager.GetString("GamesOrderType.IncomeDate", resourceCulture);
+                return ResourceManager.GetString("GamesOrderType_IncomeDate", resourceCulture);
             }
         }
         
@@ -290,7 +290,7 @@ namespace GameStore.Web.App_LocalResources {
         /// </summary>
         public static string GamesOrderType_PriceAsc {
             get {
-                return ResourceManager.GetString("GamesOrderType.PriceAsc", resourceCulture);
+                return ResourceManager.GetString("GamesOrderType_PriceAsc", resourceCulture);
             }
         }
         
@@ -299,7 +299,7 @@ namespace GameStore.Web.App_LocalResources {
         /// </summary>
         public static string GamesOrderType_PriceDesc {
             get {
-                return ResourceManager.GetString("GamesOrderType.PriceDesc", resourceCulture);
+                return ResourceManager.GetString("GamesOrderType_PriceDesc", resourceCulture);
             }
         }
         
@@ -308,7 +308,7 @@ namespace GameStore.Web.App_LocalResources {
         /// </summary>
         public static string GamesOrderType_Views {
             get {
-                return ResourceManager.GetString("GamesOrderType.Views", resourceCulture);
+                return ResourceManager.GetString("GamesOrderType_Views", resourceCulture);
             }
         }
         
@@ -421,6 +421,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Message.
+        /// </summary>
+        public static string Message {
+            get {
+                return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Min. Date.
         /// </summary>
         public static string MinDate {
@@ -516,6 +525,15 @@ namespace GameStore.Web.App_LocalResources {
         public static string PaymentOrder {
             get {
                 return ResourceManager.GetString("PaymentOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string PersonName {
+            get {
+                return ResourceManager.GetString("PersonName", resourceCulture);
             }
         }
         

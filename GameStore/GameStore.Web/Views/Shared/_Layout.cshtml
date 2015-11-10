@@ -17,7 +17,7 @@
 
     <header>
         <div class="logo">
-            <a href="@Url.Action("Index", "Game")">
+            <a href="@Url.RouteUrl("def", new { action = "Index", controller = "Game" })">
                 Game<span class="s-letter">S</span>tore
             </a>
         </div>

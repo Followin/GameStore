@@ -141,22 +141,22 @@
   <data name="Cvv2" xml:space="preserve">
     <value>Cvv2</value>
   </data>
-  <data name="DaysShortcut.Choose" xml:space="preserve">
+  <data name="DaysShortcut_Choose" xml:space="preserve">
     <value>Выберите</value>
   </data>
-  <data name="DaysShortcut.Month" xml:space="preserve">
+  <data name="DaysShortcut_Month" xml:space="preserve">
     <value>За месяц</value>
   </data>
-  <data name="DaysShortcut.Week" xml:space="preserve">
+  <data name="DaysShortcut_Week" xml:space="preserve">
     <value>За неделю</value>
   </data>
-  <data name="DaysShortcut.Year" xml:space="preserve">
+  <data name="DaysShortcut_Year" xml:space="preserve">
     <value>За год</value>
   </data>
-  <data name="DaysShortcut.Years2" xml:space="preserve">
+  <data name="DaysShortcut_Years2" xml:space="preserve">
     <value>За 2 года</value>
   </data>
-  <data name="DaysShortcut.Years3" xml:space="preserve">
+  <data name="DaysShortcut_Years3" xml:space="preserve">
     <value>За 3 года</value>
   </data>
   <data name="Description" xml:space="preserve">
@@ -186,19 +186,19 @@
   <data name="Games" xml:space="preserve">
     <value>Игры</value>
   </data>
-  <data name="GamesOrderType.Comments" xml:space="preserve">
+  <data name="GamesOrderType_Comments" xml:space="preserve">
     <value>Кол-ву комментариев</value>
   </data>
-  <data name="GamesOrderType.IncomeDate" xml:space="preserve">
+  <data name="GamesOrderType_IncomeDate" xml:space="preserve">
     <value>Новинки</value>
   </data>
-  <data name="GamesOrderType.PriceAsc" xml:space="preserve">
+  <data name="GamesOrderType_PriceAsc" xml:space="preserve">
     <value>Цене (по возрастанию)</value>
   </data>
-  <data name="GamesOrderType.PriceDesc" xml:space="preserve">
+  <data name="GamesOrderType_PriceDesc" xml:space="preserve">
     <value>Цене (по убыванию)</value>
   </data>
-  <data name="GamesOrderType.Views" xml:space="preserve">
+  <data name="GamesOrderType_Views" xml:space="preserve">
     <value>Популярности</value>
   </data>
   <data name="Genres" xml:space="preserve">
@@ -237,6 +237,9 @@
   <data name="MaxPrice" xml:space="preserve">
     <value>Максимальная цена</value>
   </data>
+  <data name="Message" xml:space="preserve">
+    <value>Сообщение</value>
+  </data>
   <data name="MinDate" xml:space="preserve">
     <value>Минимальная дата</value>
   </data>
@@ -269,6 +272,9 @@
   </data>
   <data name="PaymentOrder" xml:space="preserve">
     <value>Оформление заказа</value>
+  </data>
+  <data name="PersonName" xml:space="preserve">
+    <value>Имя</value>
   </data>
   <data name="Phone" xml:space="preserve">
     <value>Телефон</value>

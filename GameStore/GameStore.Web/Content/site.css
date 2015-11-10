@@ -264,6 +264,21 @@ header.mini + #games-count {
   top: 95%;
 }
 
+header .languages {
+  position: absolute;
+  bottom: -30px;
+  right: 0;
+  background: #481FBA;
+  border-radius: 0 0 5px 5px;
+  line-height: 30px;
+  padding: 3px;
+}
+
+header .languages a {
+  color: #fff;
+  text-decoration: none;
+}
+
 #games-count {
   position: fixed;
   z-index: 200;

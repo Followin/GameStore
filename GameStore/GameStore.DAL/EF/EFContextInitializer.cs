@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Security.Claims;
 using GameStore.DAL.Static;
 using GameStore.Domain.Entities;
+using GameStore.Static;
 
 namespace GameStore.DAL.EF
 {
@@ -172,6 +174,18 @@ namespace GameStore.DAL.EF
                     new Comment() { Name = "SecondAuthor", GameId = dota.Id, Body = "Can't disagree" }
                 }
             });
+
+            //context.Users.Add(new User
+            //{
+            //    Name = "Admin",
+            //    PasswordHash = "Admin",
+            //    Claims = new[] {new UserClaim
+            //    {
+            //        Type = ClaimTypes.Role,
+            //        Issuer = "GameStore",
+            //        Value = Roles.Admin
+            //    }}
+            //});
 
             context.SaveChanges();
         }

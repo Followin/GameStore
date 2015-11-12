@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Web;
 using AutoMapper;
+using GameStore.Auth.Models;
 using GameStore.BLL.Commands;
 using GameStore.BLL.Commands.Comment;
 using GameStore.BLL.Commands.Game;
@@ -14,7 +15,9 @@ using GameStore.BLL.QueryResults;
 using GameStore.BLL.QueryResults.Game;
 using GameStore.BLL.QueryResults.Order;
 using GameStore.BLL.QueryResults.Publisher;
+using GameStore.Static;
 using GameStore.Web.Models;
+using GameStore.Web.Models.Account;
 using GameStore.Web.Models.Comment;
 using GameStore.Web.Models.Game;
 using GameStore.Web.Models.Genres;
@@ -51,6 +54,11 @@ namespace GameStore.Web.Utils
                   .ForMember(x => x.Skip, _ => _.MapFrom(x => x.ItemsPerPage*(x.Page-1)))
                   .ForMember(x => x.Number, _ => _.MapFrom(x => x.ItemsPerPage))
                   .ForMember(x => x.MinDate, _ => _.MapFrom(x => x.MinDateShortcut == DaysShortcut.Choose ? null : (DateTime?)DateTime.Now.AddDays(-1 * (Int32)x.MinDateShortcut)));
+
+            Mapper.CreateMap<RegisterAccountViewModel, RegisterUserModel>()
+                  .ForMember(x => x.Password, _ => _.MapFrom(x => x.Password))
+                  .ForMember(x => x.Roles, _ => _.UseValue(Roles.User));
+
         }
 
         public String GetGameDescription(GameDTO gameDto)

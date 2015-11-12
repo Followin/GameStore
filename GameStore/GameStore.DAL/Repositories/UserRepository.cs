@@ -15,12 +15,22 @@ namespace GameStore.DAL.Repositories
 
         public void AddUserWithClaims(User user, IEnumerable<UserClaim> claims)
         {
-            throw new NotImplementedException();
+            var addedUser = Db.Users.Add(user);
+            var bindedClaims = claims.Select(x => new UserClaim()
+            {
+                Issuer = x.Issuer,
+                Value = x.Value,
+                User = addedUser,
+                Type = x.Type
+            });
+            AddClaims(bindedClaims);
+
+
         }
 
         public void AddClaim(UserClaim claim)
         {
-            Db.UserClaims.Add(new UserClaim());
+            Db.UserClaims.Add(claim);
         }
 
         public void AddClaims(IEnumerable<UserClaim> claims)

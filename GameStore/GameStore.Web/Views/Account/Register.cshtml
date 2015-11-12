@@ -1,0 +1,36 @@
+﻿@using GameStore.Web.App_LocalResources
+@model GameStore.Web.Models.Account.RegisterAccountViewModel
+@{
+    ViewBag.Title = GlobalRes.Register;
+}
+
+<div class="paper-block">
+    <h2>@GlobalRes.Register</h2>
+
+    @using (Html.BeginForm("Register", "Account"))
+    {
+        <div class="form-group">
+            @Html.LabelFor(x => x.Name)
+            @Html.EditorFor(x => x.Name)
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Password)
+            @Html.EditorFor(x => x.Password)
+            @Html.ValidationMessageFor(x => x.Password)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.PasswordConfirm)
+            @Html.EditorFor(x => x.PasswordConfirm)
+            @Html.ValidationMessageFor(x => x.PasswordConfirm)
+        </div>
+        
+        <input type="submit" value="@GlobalRes.Submit"/>
+    }
+</div>
+
+@section scripts {
+    @Scripts.Render("~/Scripts/forms")
+}

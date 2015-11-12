@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
-using System.Web.Security;
+using AutoMapper;
 using GameStore.Auth.Abstract;
+using GameStore.Auth.Models;
 using GameStore.BLL.CQRS;
-using GameStore.Web.Concrete;
+using GameStore.Web.Models.Account;
 using NLog;
 
 namespace GameStore.Web.Controllers
@@ -23,6 +22,29 @@ namespace GameStore.Web.Controllers
         public ActionResult Login(String login, String password, String returnUrl)
         {
             _auth.Login(login, password, false);
+            return RedirectToAction("Index", "Game");
+        }
+
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(RegisterAccountViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                _auth.Register(Mapper.Map<RegisterAccountViewModel, RegisterUserModel>(model));
+                return RedirectToAction("Index", "Game");
+            }
+            return View(model);
+            
+        }
+
+        public ActionResult Logout()
+        {
+            _auth.Logout();
             return RedirectToAction("Index", "Game");
         }
 

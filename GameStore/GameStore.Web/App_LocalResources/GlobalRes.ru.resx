@@ -267,6 +267,15 @@
   <data name="Page" xml:space="preserve">
     <value>Страница</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="PasswordConfirm" xml:space="preserve">
+    <value>Подтверждение пароля</value>
+  </data>
+  <data name="PasswordsMustMatch" xml:space="preserve">
+    <value>Пароль и подтверждение должны совпадать</value>
+  </data>
   <data name="Pay" xml:space="preserve">
     <value>Оплатить</value>
   </data>
@@ -303,6 +312,9 @@
   <data name="Quantity" xml:space="preserve">
     <value>Кол-во</value>
   </data>
+  <data name="Register" xml:space="preserve">
+    <value>Регистрация</value>
+  </data>
   <data name="Shippers" xml:space="preserve">
     <value>Доставщики</value>
   </data>
@@ -320,5 +332,8 @@
   </data>
   <data name="User" xml:space="preserve">
     <value>Пользователь</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Имя пользователя</value>
   </data>
 </root>

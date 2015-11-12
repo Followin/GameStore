@@ -242,6 +242,7 @@
     <Compile Include="ModelBinders\CurrentOrderModelBinder.cs" />
     <Compile Include="ModelBinders\SessionIdValueProvider.cs" />
     <Compile Include="ModelBinders\SessionIdValueProviderFactory.cs" />
+    <Compile Include="Models\Account\RegisterAccountViewModel.cs" />
     <Compile Include="Models\Comment\CommentViewModel.cs" />
     <Compile Include="Models\Comment\CreateCommentViewModel.cs" />
     <Compile Include="Models\Comment\DisplayCommentViewModel.cs" />
@@ -417,6 +418,7 @@
     <Content Include="Views\Order\Shippers.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

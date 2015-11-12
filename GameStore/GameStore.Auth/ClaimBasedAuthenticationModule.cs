@@ -25,11 +25,13 @@ namespace GameStore.Auth
             var cookie = HttpContext.Current.Request.Cookies[AuthenticationService.CookieName];
             if (cookie != null)
             {
-                var ticketDataFormat = new TicketDataFormat(new MachineKeyProtector());
+                var ticketDataFormat = new TicketDataFormat(new MachineKeyProtector(AuthenticationService.AuthPurpose));
                 var ticket = ticketDataFormat.Unprotect(cookie.Value);
-
-                var claimsPrincipal = new ClaimsPrincipal(ticket.Identity);
-                HttpContext.Current.User = claimsPrincipal;
+                if (ticket != null)
+                {
+                    var claimsPrincipal = new ClaimsPrincipal(ticket.Identity);
+                    HttpContext.Current.User = claimsPrincipal;
+                }
             }
         }
     }

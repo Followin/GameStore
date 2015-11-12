@@ -22,7 +22,7 @@ namespace GameStore.DAL.Repositories
 
         public T GetSingle(Expression<Func<T, bool>> predicate)
         {
-            return _set.FirstOrDefault(predicate);
+            return _set.ToList().FirstOrDefault(predicate.Compile());
         }
 
         public int GetCount(Expression<Func<T, bool>> predicate = null)

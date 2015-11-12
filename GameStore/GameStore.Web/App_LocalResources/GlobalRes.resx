@@ -267,6 +267,15 @@
   <data name="Page" xml:space="preserve">
     <value>Page</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordCinfirm" xml:space="preserve">
+    <value>Password confirmation</value>
+  </data>
+  <data name="PasswordsMustMatch" xml:space="preserve">
+    <value>Passwords Must Match</value>
+  </data>
   <data name="Pay" xml:space="preserve">
     <value>Pay</value>
   </data>
@@ -303,6 +312,9 @@
   <data name="Quantity" xml:space="preserve">
     <value>Quantity</value>
   </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
   <data name="Shippers" xml:space="preserve">
     <value>Shippers</value>
   </data>
@@ -320,5 +332,8 @@
   </data>
   <data name="User" xml:space="preserve">
     <value>User</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>User name</value>
   </data>
 </root>

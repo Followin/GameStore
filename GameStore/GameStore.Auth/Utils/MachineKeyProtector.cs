@@ -6,7 +6,12 @@ namespace GameStore.Auth.Utils
 {
     public class MachineKeyProtector : IDataProtector
     {
-        private String _purpose = "auth";
+        private readonly String _purpose;
+
+        public MachineKeyProtector(string purpose)
+        {
+            _purpose = purpose;
+        }
 
         public byte[] Protect(byte[] userData)
         {
@@ -15,7 +20,14 @@ namespace GameStore.Auth.Utils
 
         public byte[] Unprotect(byte[] protectedData)
         {
-            return MachineKey.Unprotect(protectedData, _purpose);
+            try
+            {
+                return MachineKey.Unprotect(protectedData, _purpose);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

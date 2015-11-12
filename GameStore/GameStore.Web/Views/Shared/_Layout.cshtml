@@ -1,6 +1,4 @@
-﻿@using System.Security.Claims
-@using GameStore.Web.App_LocalResources
-@using GameStore.Web.Concrete
+﻿@using GameStore.Web.App_LocalResources
 @{
     Layout = null;
 }
@@ -30,7 +28,7 @@
             <a href="@Url.Action("", new { lang = "en" })">en</a>
         </div>
         <div class="user">
-        @GlobalRes.Hello, @User.Identity.Name : @(User.IsInRole("Admin"))
+        @GlobalRes.Hello, @User.Identity.Name
             </div>
     </header>
     <div id="games-count" data-href="@Url.Action("GetGamesCount", "Game")">

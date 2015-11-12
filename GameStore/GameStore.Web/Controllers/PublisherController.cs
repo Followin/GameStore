@@ -30,19 +30,21 @@ namespace GameStore.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Manager")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Manager")]
         public ActionResult Create(CreatePublisherViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var command = Mapper.Map<CreatePublisherViewModel, CreatePublisherCommand>(model);
                 CommandDispatcher.Dispatch(command);
-                return RedirectToAction("Index", "Games");
+                return RedirectToAction("Index", "Game");
             }
 
             return View(model);

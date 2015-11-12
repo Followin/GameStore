@@ -52,21 +52,6 @@ namespace GameStore.Web.Controllers
                     Key = gamekey
                 });
 
-            var isVisited = QueryDispatcher.Dispatch<IsGameVisitedByUserQuery, BooleanQueryResult>(
-                new IsGameVisitedByUserQuery
-                {
-                    GameId = query.Id,
-                    UserId = (User as ICustomPrincipal).Id
-                });
-            if (!isVisited)
-            {
-                CommandDispatcher.Dispatch(new AddGameVisitCommand
-                {
-                    GameId = query.Id,
-                    UserId = (User as ICustomPrincipal).Id
-                });
-            }
-
             var game = Mapper.Map<DisplayGameModel>(query);
             return View(game);
         }
@@ -79,7 +64,7 @@ namespace GameStore.Web.Controllers
                     Key = gamekey
                 });
             var comments = Mapper.Map<IEnumerable<DisplayCommentViewModel>>(query);
-            var model = new CommentViewModel { Comments = comments, GameId = query.GameId };
+            var model = new CommentViewModel { Comments = comments, GameId = query.GameId, IsDeleted = query.GameIsDeleted };
             return View(model);
         }
 
@@ -157,9 +142,10 @@ namespace GameStore.Web.Controllers
         }
 
 
-
+        
         [HttpGet]
         [ActionName("New")]
+        [Authorize(Roles="Manager")]
         public ActionResult Create()
         {
             var model = new CreateGameViewModel();
@@ -169,6 +155,7 @@ namespace GameStore.Web.Controllers
 
         [HttpPost]
         [ActionName("New")]
+        [Authorize(Roles = "Manager")]
         public ActionResult Create(CreateGameViewModel model)
         {
             if (ModelState.IsValid)
@@ -183,6 +170,7 @@ namespace GameStore.Web.Controllers
 
         [HttpPost]
         [ActionName("Update")]
+        [Authorize(Roles = "Manager")]
         public ActionResult Edit(EditGameViewModel model)
         {
             if (ModelState.IsValid)
@@ -194,6 +182,7 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Manager")]
         public ActionResult Remove(String key)
         {
             CommandDispatcher.Dispatch(new DeleteGameCommand { Key = key });

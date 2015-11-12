@@ -403,6 +403,24 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log in.
+        /// </summary>
+        public static string LoginAct {
+            get {
+                return ResourceManager.GetString("LoginAct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Make order.
         /// </summary>
         public static string MakeOrder {
@@ -655,6 +673,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remember me.
+        /// </summary>
+        public static string RememberMe {
+            get {
+                return ResourceManager.GetString("RememberMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shippers.
         /// </summary>
         public static string Shippers {
@@ -714,6 +741,15 @@ namespace GameStore.Web.App_LocalResources {
         public static string UserName {
             get {
                 return ResourceManager.GetString("UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login or password is wrong..
+        /// </summary>
+        public static string WrongLoginOrPassword {
+            get {
+                return ResourceManager.GetString("WrongLoginOrPassword", resourceCulture);
             }
         }
     }

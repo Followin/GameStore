@@ -31,7 +31,7 @@ namespace GameStore.BLL.QueryHandlers.Game
             query.Key.Argument(NameGetter.GetName(() => query.Key))
                      .NotNull()
                      .NotWhiteSpace();
-            var gameQueryResult = Mapper.Map<Domain.Entities.Game, GameQueryResult>(_db.Games.GetSingle(g => g.EntryState == EntryState.Active && g.Key == query.Key));
+            var gameQueryResult = Mapper.Map<Domain.Entities.Game, GameQueryResult>(_db.Games.GetSingle(g => g.Key == query.Key));
             return gameQueryResult;
         }
     }

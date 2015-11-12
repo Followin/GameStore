@@ -231,6 +231,12 @@
   <data name="Length_5_30" xml:space="preserve">
     <value>Поле {0} должно быть от 5 до 30 символов длиной</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Вход</value>
+  </data>
+  <data name="LoginAct" xml:space="preserve">
+    <value>Войти</value>
+  </data>
   <data name="MakeOrder" xml:space="preserve">
     <value>Сделать заказ</value>
   </data>
@@ -315,6 +321,9 @@
   <data name="Register" xml:space="preserve">
     <value>Регистрация</value>
   </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Запомнить меня</value>
+  </data>
   <data name="Shippers" xml:space="preserve">
     <value>Доставщики</value>
   </data>
@@ -335,5 +344,8 @@
   </data>
   <data name="UserName" xml:space="preserve">
     <value>Имя пользователя</value>
+  </data>
+  <data name="WrongLoginOrPassword" xml:space="preserve">
+    <value>Пароль или Логин неверны</value>
   </data>
 </root>

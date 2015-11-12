@@ -31,6 +31,8 @@ namespace GameStore.BLL.QueryResults.Game
 
         public ICollection<GenreDTO> Genres { get; set; }
 
-        public ICollection<PlatformTypeDTO> PlatformTypes { get; set; } 
+        public ICollection<PlatformTypeDTO> PlatformTypes { get; set; }
+
+        public EntryState EntryState { get; set; }
     }
 }

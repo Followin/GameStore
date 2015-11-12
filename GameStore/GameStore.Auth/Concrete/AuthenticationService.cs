@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.Net.Mime;
 using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
 using System.Web;
 using System.Web.Helpers;
 using GameStore.Auth.Abstract;
@@ -13,8 +10,6 @@ using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataHandler;
-using Microsoft.Owin.Security.DataHandler.Serializer;
-using Microsoft.Owin.Security.DataProtection;
 
 namespace GameStore.Auth.Concrete
 {
@@ -44,7 +39,7 @@ namespace GameStore.Auth.Concrete
             _db.Save();
         }
 
-        public void Login(string name, string password, Boolean isPersistent)
+        public LoginResult Login(string name, string password, Boolean isPersistent)
         {
             var user = _db.Users.GetSingle(
                 x => x.Name == name && 
@@ -52,8 +47,9 @@ namespace GameStore.Auth.Concrete
             
             if (user == null)
             {
-                throw new ArgumentException("User not found");
+                return new LoginResult { Status = LoginResultStatus.WrongCredentials };
             }
+
             var claims = user.Claims.Select(x => new Claim(x.Type, x.Value, null, x.Issuer));
             ClaimsPrincipal principal = new MyClaimsPrincipal(user.Name, claims);
 
@@ -71,6 +67,7 @@ namespace GameStore.Auth.Concrete
             var newCookie = new HttpCookie(CookieName, serializedTicket);
             HttpContext.Current.Response.Cookies.Add(newCookie);
 
+            return new LoginResult { Status = LoginResultStatus.Success };
         }
 
         public void Logout()

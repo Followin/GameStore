@@ -58,6 +58,8 @@ namespace GameStore.Web.Models.Game
         [Display(ResourceType = typeof(GlobalRes),
             Name = "PlatformTypes")]
         public IEnumerable<PlatformTypeViewModel> PlatformTypes { get; set; }
+
+        public Boolean IsDeleted { get; set; }
     }
 
     public class GameFiltersModel

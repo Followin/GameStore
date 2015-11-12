@@ -28,6 +28,7 @@ namespace GameStore.Web.Hubs
             return Groups.Remove(Context.ConnectionId, groupName);
         }
 
+        [Authorize]
         public void CreateComment(String gameId, String parentId, String name, String quotes, String body)
         {
             var createCommentCommand = new CreateCommentCommand
@@ -49,6 +50,7 @@ namespace GameStore.Web.Hubs
             Clients.Group(gameId).addComment(id, parentId, name, quotes, body);
         }
 
+        [Authorize(Roles="Moderator")]
         public void DeleteComment(String gameId, String commentId)
         {
             var deleteCommentCommand = new DeleteCommentCommand { Id = Int32.Parse(commentId) };

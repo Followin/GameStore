@@ -86,7 +86,10 @@ namespace GameStore.Web.HtmlHelpers
                 deleteButton.Attributes["data-id"] = comment.Id.ToString();
                 deleteButton.SetInnerText("x");
 
-                commentDiv.InnerHtml += deleteButton;
+                if (HttpContext.Current.User.IsInRole("Manager"))
+                {
+                    commentDiv.InnerHtml += deleteButton;
+                }
                 commentDiv.InnerHtml += header;
                 commentDiv.InnerHtml += body;
                 commentDiv.InnerHtml += commentButtonsDiv;

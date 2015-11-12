@@ -41,7 +41,8 @@ namespace GameStore.Web.Utils
                 .ForMember(x => x.Name, _ => _.ResolveUsing(GetGenreName));
             Mapper.CreateMap<PublisherDTO, DisplayPublisherViewModel>();
             Mapper.CreateMap<GameDTO, DisplayGameModel>()
-                .ForMember(x => x.Description, _ => _.ResolveUsing(GetGameDescription));
+                .ForMember(x => x.Description, _ => _.ResolveUsing(GetGameDescription))
+                .ForMember(x => x.IsDeleted, _ => _.MapFrom(x => x.EntryState == EntryState.Deleted));
             Mapper.CreateMap<CommentDTO, DisplayCommentViewModel>();
             Mapper.CreateMap<OrderDetailsDTO, OrderDetailsViewModel>();
             Mapper.CreateMap<OrderQueryResult, OrderViewModel>();
@@ -49,9 +50,10 @@ namespace GameStore.Web.Utils
 
 
             Mapper.CreateMap<PublisherQueryResult, DisplayPublisherViewModel>();
-            Mapper.CreateMap<GameQueryResult, DisplayGameModel>();
+            Mapper.CreateMap<GameQueryResult, DisplayGameModel>()
+                  .ForMember(x => x.IsDeleted, _ => _.MapFrom(x => x.EntryState == EntryState.Deleted));
             Mapper.CreateMap<GameFiltersModel, GetGamesQuery>()
-                  .ForMember(x => x.Skip, _ => _.MapFrom(x => x.ItemsPerPage*(x.Page-1)))
+                  .ForMember(x => x.Skip, _ => _.MapFrom(x => x.ItemsPerPage * (x.Page - 1)))
                   .ForMember(x => x.Number, _ => _.MapFrom(x => x.ItemsPerPage))
                   .ForMember(x => x.MinDate, _ => _.MapFrom(x => x.MinDateShortcut == DaysShortcut.Choose ? null : (DateTime?)DateTime.Now.AddDays(-1 * (Int32)x.MinDateShortcut)));
 

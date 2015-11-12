@@ -49,7 +49,7 @@ namespace GameStore.BLL.QueryHandlers.Comment
 
             var commentsList = Mapper.Map<IEnumerable<Domain.Entities.Comment>, IEnumerable<CommentDTO>>(comments);
 
-            return new CommentsQueryResult(commentsList) {GameId = game.Id};
+            return new CommentsQueryResult(commentsList) {GameId = game.Id, GameIsDeleted = game.EntryState == EntryState.Deleted};
         }
 
         private void RemoveDeletedComments(IEnumerable<Domain.Entities.Comment> commentList)

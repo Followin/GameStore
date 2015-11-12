@@ -8,9 +8,9 @@ using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryResults.Game;
 using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
-using GameStore.Domain.Entities;
 using GameStore.Static;
 using Pipeline;
+using EntryState = GameStore.Domain.Abstract.EntryState;
 
 namespace GameStore.BLL.QueryHandlers.Game
 {
@@ -119,7 +119,7 @@ namespace GameStore.BLL.QueryHandlers.Game
             GetExpressionPart(GetGamesQuery query)
         {
             yield return new TransformPipelineBlock<Expression<Func<Domain.Entities.Game, bool>>, Expression<Func<Domain.Entities.Game, bool>>>(
-                expr => game => true);
+                expr => game => game.EntryState == EntryState.Active);
 
             if (query.GenreIds != null && query.GenreIds.Any())
             {

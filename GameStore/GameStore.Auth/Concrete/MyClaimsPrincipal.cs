@@ -13,8 +13,7 @@ namespace GameStore.Auth.Concrete
         private List<Claim> _claims; 
         public MyClaimsPrincipal(String userName, IEnumerable<Claim> claims)
         {
-            _claims = new List<Claim>();
-            _claims.Add(new Claim(ClaimTypes.Name, userName));
+            _claims = new List<Claim> {new Claim(ClaimTypes.Name, userName)};
             _claims.AddRange(claims);
 
             var claimsIdentity = new ClaimsIdentity(_claims, "Local claims auth", ClaimTypes.Name, ClaimTypes.Role);

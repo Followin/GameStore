@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Security.Claims;
 using GameStore.DAL.Static;
+using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
 using GameStore.Static;
 
@@ -122,7 +123,8 @@ namespace GameStore.DAL.EF
                 IncomeDate = new DateTime(2008, 8, 28),
                 PublicationDate = new DateTime(2009, 1, 1),
                 Price = 30,
-                UnitsInStock = 1000
+                UnitsInStock = 1000,
+                EntryState = EntryState.Deleted
             });
 
             var fallout4 = context.Games.Add(new Game
@@ -140,6 +142,7 @@ namespace GameStore.DAL.EF
                 PublicationDate = new DateTime(2015, 6, 3),
                 Price = 30,
                 UnitsInStock = 1000
+                
             });
 
             var witcher3 = context.Games.Add(new Game
@@ -175,17 +178,50 @@ namespace GameStore.DAL.EF
                 }
             });
 
-            //context.Users.Add(new User
-            //{
-            //    Name = "Admin",
-            //    PasswordHash = "Admin",
-            //    Claims = new[] {new UserClaim
-            //    {
-            //        Type = ClaimTypes.Role,
-            //        Issuer = "GameStore",
-            //        Value = Roles.Admin
-            //    }}
-            //});
+            context.Users.Add(new User
+            {
+                Name = "Admin",
+                PasswordHash = "ABOB+2NtMPelLA77KE4KTt/EztyZqH1aZ9+eMIwYkBhWUcViMyhYj2Zf9arebVTTcQ==",
+                Claims = new[]
+                {
+                    new UserClaim
+                    {
+                        Type = ClaimTypes.Role,
+                        Issuer = "GameStore",
+                        Value = Roles.Admin
+                    }
+                }
+            });
+
+            context.Users.Add(new User
+            {
+                Name = "Moderator",
+                PasswordHash = "ABOB+2NtMPelLA77KE4KTt/EztyZqH1aZ9+eMIwYkBhWUcViMyhYj2Zf9arebVTTcQ==",
+                Claims = new[]
+                {
+                    new UserClaim
+                    {
+                        Type = ClaimTypes.Role,
+                        Issuer = "GameStore",
+                        Value = Roles.Moderator
+                    }
+                }
+            });
+
+            context.Users.Add(new User
+            {
+                Name = "Manager",
+                PasswordHash = "ABOB+2NtMPelLA77KE4KTt/EztyZqH1aZ9+eMIwYkBhWUcViMyhYj2Zf9arebVTTcQ==",
+                Claims = new[]
+                {
+                    new UserClaim
+                    {
+                        Type = ClaimTypes.Role,
+                        Issuer = "GameStore",
+                        Value = Roles.Manager
+                    }
+                }
+            });
 
             context.SaveChanges();
         }

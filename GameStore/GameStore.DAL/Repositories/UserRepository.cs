@@ -13,6 +13,11 @@ namespace GameStore.DAL.Repositories
         {
         }
 
+        public void AddUserWithClaims(User user, IEnumerable<UserClaim> claims)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddClaim(UserClaim claim)
         {
             Db.UserClaims.Add(new UserClaim());

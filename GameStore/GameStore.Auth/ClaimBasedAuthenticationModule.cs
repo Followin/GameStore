@@ -2,6 +2,9 @@
 using System;
 using System.Security.Claims;
 using System.Web;
+using GameStore.Auth.Concrete;
+using GameStore.Auth.Utils;
+using Microsoft.Owin.Security.DataHandler;
 
 namespace GameStore.Auth
 {
@@ -19,9 +22,14 @@ namespace GameStore.Auth
 
         private static void ReplacePrincipal(object sender, EventArgs e)
         {
-            if ((HttpContext.Current.User.Identity as ClaimsIdentity).
+            var cookie = HttpContext.Current.Request.Cookies[AuthenticationService.CookieName];
+            if (cookie != null)
             {
-                
+                var ticketDataFormat = new TicketDataFormat(new MachineKeyProtector());
+                var ticket = ticketDataFormat.Unprotect(cookie.Value);
+
+                var claimsPrincipal = new ClaimsPrincipal(ticket.Identity);
+                HttpContext.Current.User = claimsPrincipal;
             }
         }
     }

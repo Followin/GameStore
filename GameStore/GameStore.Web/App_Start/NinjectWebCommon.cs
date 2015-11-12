@@ -45,7 +45,7 @@ namespace GameStore.Web.App_Start
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var modules = new INinjectModule[] { new DALModule("DefaultConnection"), new BLLModule()  };
+            var modules = new INinjectModule[] { new DALModule("DefaultConnection"), new BLLModule(), new  AuthModule(), };
             var kernel = new StandardKernel(modules);
             
             try

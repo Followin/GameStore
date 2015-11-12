@@ -113,7 +113,6 @@
     <Compile Include="BLLTests\GameTests.cs" />
     <Compile Include="BLLTests\OrderTests.cs" />
     <Compile Include="BLLTests\PublisherTests.cs" />
-    <Compile Include="BLLTests\UserTests.cs" />
     <Compile Include="DALTests\RepositoryTests.cs" />
     <Compile Include="PLTests\GameControllerTests.cs" />
     <Compile Include="PLTests\RoutesTests.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Mime;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -75,29 +76,5 @@ namespace GameStore.Web
                     "Invoice payment using bank"));
         }
 
-        protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
-        {
-            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-
-            if (authCookie != null)
-            {
-                var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-
-                var serializer = new JavaScriptSerializer();
-
-                var serializeModel = serializer.Deserialize<CustomPrincipalSerializeModel>(authTicket.UserData);
-
-                var user = new CustomPrincipal(authTicket.Name)
-                {
-                    Id = serializeModel.Id,
-                    SessionId = serializeModel.SessionId
-                };
-
-                HttpContext.Current.User = user;
-
-                var ticket = new AuthenticationTicket();
-                var secureDataFormat = new TicketDataFormat();
-            }
-        }
     }
 }

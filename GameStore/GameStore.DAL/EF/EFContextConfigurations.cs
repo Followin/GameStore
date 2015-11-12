@@ -20,7 +20,6 @@ namespace GameStore.DAL.EF
                                          .HasColumnType("SMALLINT");
             Property(x => x.Price).IsRequired()
                                   .HasColumnType("MONEY");
-            HasMany(x => x.UsersViewed).WithMany(x => x.ViewedGames);
         }
     }
 
@@ -96,8 +95,6 @@ namespace GameStore.DAL.EF
     {
         public UserConfiguration()
         {
-            Property(x => x.SessionId).IsRequired()
-                                      .HasMaxLength(20);
         }
     }
 

@@ -78,7 +78,6 @@
     <Compile Include="CommandHandlers\Game\EditGameCommandHandler.cs" />
     <Compile Include="CommandHandlers\Order\CreateOrderDetailsCommandHandler.cs" />
     <Compile Include="CommandHandlers\Publisher\CreatePublisherCommandHandler.cs" />
-    <Compile Include="CommandHandlers\User\CreateUserCommandHandler.cs" />
     <Compile Include="Commands\Comment\CreateCommentCommand.cs" />
     <Compile Include="Commands\Comment\DeleteCommentCommand.cs" />
     <Compile Include="Commands\Game\AddGameVisitCommand.cs" />
@@ -87,7 +86,6 @@
     <Compile Include="Commands\Game\EditGameCommand.cs" />
     <Compile Include="Commands\Order\CreateOrderDetailsCommand.cs" />
     <Compile Include="Commands\Publisher\CreatePublisherCommand.cs" />
-    <Compile Include="Commands\User\CreateUserCommand.cs" />
     <Compile Include="CQRS\CommandDispatcher.cs" />
     <Compile Include="CQRS\CommandResult.cs" />
     <Compile Include="CQRS\ICommand.cs" />
@@ -124,7 +122,6 @@
     <Compile Include="Queries\PlatformType\GetAllPlatformTypesQuery.cs" />
     <Compile Include="Queries\Publisher\GetAllPublishersQuery.cs" />
     <Compile Include="Queries\Publisher\GetPublisherByCompanyNameQuery.cs" />
-    <Compile Include="Queries\User\GetUserBySessionIdQuery.cs" />
     <Compile Include="QueryHandlers\Comment\GetCommentsByGameKeyQueryHandler.cs" />
     <Compile Include="QueryHandlers\Game\GameFilterPipeline.cs" />
     <Compile Include="QueryHandlers\Game\GetAllGamesQueryHandler.cs" />
@@ -143,7 +140,6 @@
     <Compile Include="QueryHandlers\Platform\GetAllPlatformTypesQueryHandler.cs" />
     <Compile Include="QueryHandlers\Publisher\GetAllPublishersQueryhandler.cs" />
     <Compile Include="QueryHandlers\Publisher\GetPublisherByCompanyNameQueryHandler.cs" />
-    <Compile Include="QueryHandlers\User\GetuserBySessionIdQueryhandler.cs" />
     <Compile Include="QueryResults\BooleanQueryResult.cs" />
     <Compile Include="QueryResults\Comment\CommentsQueryResult.cs" />
     <Compile Include="QueryResults\CountQueryResult.cs" />
@@ -157,7 +153,6 @@
     <Compile Include="QueryResults\PlatformType\PlatformTypesQueryResult.cs" />
     <Compile Include="QueryResults\Publisher\PublisherQueryResult.cs" />
     <Compile Include="QueryResults\Publisher\PublishersQueryResult.cs" />
-    <Compile Include="QueryResults\User\UserQueryResult.cs" />
     <Compile Include="Services\PdfService.cs" />
     <Compile Include="Utils\EntityNotFoundException.cs" />
     <Compile Include="Utils\ExpressionExtensions.cs" />

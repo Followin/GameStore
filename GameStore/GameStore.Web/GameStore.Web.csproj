@@ -423,6 +423,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GameStore.Auth\GameStore.Auth.csproj">
+      <Project>{6e29195b-5b53-4462-b3c4-f0ad56c2de52}</Project>
+      <Name>GameStore.Auth</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GameStore.BLL\GameStore.BLL.csproj">
       <Project>{ee745e23-6d52-4f41-b66a-b3d96ae4733f}</Project>
       <Name>GameStore.BLL</Name>

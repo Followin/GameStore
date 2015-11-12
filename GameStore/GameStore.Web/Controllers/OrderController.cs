@@ -10,7 +10,9 @@ using GameStore.BLL.CQRS;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Queries.Order;
 using GameStore.BLL.QueryResults.Order;
+using GameStore.Static;
 using GameStore.Web.Concrete;
+using GameStore.Web.Filters;
 using GameStore.Web.Models.Order;
 using GameStore.Web.Properties;
 using GameStore.Web.Utils;
@@ -48,6 +50,7 @@ namespace GameStore.Web.Controllers
             return View(orderResult);
         }
 
+        [ClaimsAuthorize(ClaimTypesExtensions.PublisherPermission, "Full")]
         public ActionResult History()
         {
             var orders =

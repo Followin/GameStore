@@ -8,24 +8,14 @@ namespace GameStore.Static
 {
     public static class Roles
     {
-        public static String Admin
-        {
-            get { return "Admin"; }
-        }
+        public const String Admin = "Admin";
 
-        public static String Manager
-        {
-            get { return "Manager"; }
-        }
+        public const String Manager = "Manager";
 
-        public static String Moderator
-        {
-            get { return "Moderator"; }
-        }
+        public const String Moderator = "Moderator";
 
-        public static String User
-        {
-            get { return "User"; }
-        }
+        public const String User = "User";
+
+        public const String Guest = "Guest";
     }
 }

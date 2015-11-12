@@ -8,6 +8,7 @@ using GameStore.Auth.Models;
 using GameStore.Auth.Utils;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
+using GameStore.Static;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataHandler;
 
@@ -50,7 +51,8 @@ namespace GameStore.Auth.Concrete
                 return new LoginResult { Status = LoginResultStatus.WrongCredentials };
             }
 
-            var claims = user.Claims.Select(x => new Claim(x.Type, x.Value, null, x.Issuer));
+            var claims = user.Claims.Select(x => new Claim(x.Type, x.Value, null, x.Issuer)).ToList();
+            claims.AddRange(claims.Where(x => x.Type == ClaimTypes.Role).ToList().SelectMany(x => RoleClaims.GetClaimsForRole(x.Value)));
             ClaimsPrincipal principal = new MyClaimsPrincipal(user.Name, claims);
 
             var authenticationProperties = new AuthenticationProperties

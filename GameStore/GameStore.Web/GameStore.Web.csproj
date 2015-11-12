@@ -228,6 +228,7 @@
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PublisherController.cs" />
+    <Compile Include="Filters\ClaimsAuthorizeAttribute.cs" />
     <Compile Include="Filters\ExceptionLogger.cs" />
     <Compile Include="Filters\LocalizeAttribute.cs" />
     <Compile Include="Filters\LogAttribute.cs" />

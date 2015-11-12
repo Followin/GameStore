@@ -35,6 +35,7 @@
         else
         {
             <a href="@Url.Action("Login", "Account")" class="user-control">Log in</a>
+            <a href="@Url.Action("Register", "Account")" class="user-control">Register</a>
         }
     </div>
 </header>
@@ -50,9 +51,20 @@
             <div class="loader-dot"></div>
         </div>
     </div>
-    <div id="body-wrapper">
-        @RenderBody()
-    </div>
+<div id="body-wrapper">
+    @RenderBody()
+</div>
+<div class="claims">
+    <table>
+        @foreach (var claim in (User as ClaimsPrincipal).Claims)
+        {
+            <tr>
+                <td>@claim.Type</td>
+                <td>@claim.Value</td>
+            </tr>
+        }
+    </table>
+</div>
     @Scripts.Render("~/Scripts/jquery")
     @Scripts.Render("~/Scripts/layout")
     @RenderSection("scripts", false)

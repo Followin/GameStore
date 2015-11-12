@@ -1,9 +1,11 @@
 ﻿
 using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Web;
 using GameStore.Auth.Concrete;
 using GameStore.Auth.Utils;
+using GameStore.Static;
 using Microsoft.Owin.Security.DataHandler;
 
 namespace GameStore.Auth
@@ -17,7 +19,7 @@ namespace GameStore.Auth
 
         public void Dispose()
         {
-            
+
         }
 
         private static void ReplacePrincipal(object sender, EventArgs e)
@@ -30,6 +32,14 @@ namespace GameStore.Auth
                 if (ticket != null)
                 {
                     var claimsPrincipal = new ClaimsPrincipal(ticket.Identity);
+                    HttpContext.Current.User = claimsPrincipal;
+                }
+                else
+                {
+                    var claimsPrincipal = new ClaimsPrincipal(
+                        new ClaimsIdentity(
+                            RoleClaims.GetClaimsForRole(Roles.Guest)
+                                      .Concat(new[] {new Claim(ClaimTypes.Role, Roles.Guest)})));
                     HttpContext.Current.User = claimsPrincipal;
                 }
             }

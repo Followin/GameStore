@@ -28,6 +28,8 @@ namespace GameStore.DAL.EF
 
         public IDbSet<User> Users { get; set; }
 
+        public IDbSet<UserClaim> UserClaims { get; set; } 
+
         public IDbSet<Order> Orders { get; set; }
 
         public IDbSet<GameGenre> GamesGenres { get; set; }

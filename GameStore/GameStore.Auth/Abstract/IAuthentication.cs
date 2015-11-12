@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using GameStore.Auth.Models;
+
+namespace GameStore.Auth.Abstract
+{
+    public interface IAuthenticationService
+    {
+        void Register(RegisterUserModel userModel);
+
+        void Login(String name, String password);
+
+        void Logout();
+    }
+}

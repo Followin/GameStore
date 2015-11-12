@@ -14,6 +14,9 @@ using GameStore.Web.Concrete;
 using GameStore.Web.ModelBinders;
 using GameStore.Web.Models.Order;
 using GameStore.Web.Utils;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.DataHandler;
+using Microsoft.Owin.Security.DataHandler.Serializer;
 using MotorDepot.WEB.Utils;
 
 namespace GameStore.Web
@@ -91,6 +94,9 @@ namespace GameStore.Web
                 };
 
                 HttpContext.Current.User = user;
+
+                var ticket = new AuthenticationTicket();
+                var secureDataFormat = new TicketDataFormat();
             }
         }
     }

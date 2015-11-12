@@ -12,12 +12,12 @@ namespace GameStore.DAL.Repositories
         where T : Entity<TKey>
     {
         private IDbSet<T> _set;
-        private EFContext _db;
+        protected EFContext Db;
 
         public GenericRepository(EFContext context)
         {
-            _db = context;
-            _set = _db.Set<T>();
+            Db = context;
+            _set = Db.Set<T>();
         }
 
         public T GetSingle(Expression<Func<T, bool>> predicate)
@@ -64,7 +64,7 @@ namespace GameStore.DAL.Repositories
 
         public void Update(T item)
         {
-            _db.SetModified(item);
+            Db.SetModified(item);
         }
     }
 }

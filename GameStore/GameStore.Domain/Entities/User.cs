@@ -7,11 +7,12 @@ namespace GameStore.Domain.Entities
 {
     public class User : Entity<Int32>
     {
-        public String SessionId { get; set; }
+        public String Name { get; set; }
 
-        //public virtual ICollection<Order> Orders { get; set; }
+        public String PasswordHash { get; set; }
 
-        [NotMapped]
-        public virtual ICollection<Game> ViewedGames { get; set; } 
+        public String SecurityStamp { get; set; }
+
+        public virtual ICollection<UserClaim> Claims { get; set; } 
     }
 }

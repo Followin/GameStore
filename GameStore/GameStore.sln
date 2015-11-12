@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7535BE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.Static", "GameStore.Static\GameStore.Static.csproj", "{1DABB4A6-4B69-42AA-BC9C-4C679493BC5A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.Auth", "GameStore.Auth\GameStore.Auth.csproj", "{6E29195B-5B53-4462-B3C4-F0AD56C2DE52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,10 @@ Global
 		{1DABB4A6-4B69-42AA-BC9C-4C679493BC5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DABB4A6-4B69-42AA-BC9C-4C679493BC5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DABB4A6-4B69-42AA-BC9C-4C679493BC5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E29195B-5B53-4462-B3C4-F0AD56C2DE52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E29195B-5B53-4462-B3C4-F0AD56C2DE52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E29195B-5B53-4462-B3C4-F0AD56C2DE52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E29195B-5B53-4462-B3C4-F0AD56C2DE52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

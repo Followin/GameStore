@@ -63,6 +63,7 @@
     <Compile Include="Entities\Publisher.cs" />
     <Compile Include="Entities\Shipper.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\UserClaim.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

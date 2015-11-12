@@ -15,6 +15,7 @@ namespace GameStore.Auth.Concrete
             var genericIdentity = new GenericIdentity(userName, "Local auth");
             var claimsIdentity = new ClaimsIdentity(genericIdentity, claims);
             AddIdentity(claimsIdentity);
+            
         }
     }
 }

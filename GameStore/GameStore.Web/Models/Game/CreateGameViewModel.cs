@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using GameStore.Web.App_LocalResources;
 using GameStore.Web.Models.Genres;
-using Newtonsoft.Json;
 
 namespace GameStore.Web.Models.Game
 {

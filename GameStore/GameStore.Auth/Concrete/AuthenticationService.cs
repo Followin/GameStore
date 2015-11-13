@@ -54,6 +54,18 @@ namespace GameStore.Auth.Concrete
             var claims = user.Claims.Select(x => new Claim(x.Type, x.Value, null, x.Issuer)).ToList();
             claims.AddRange(claims.Where(x => x.Type == ClaimTypes.Role).ToList().SelectMany(x => RoleClaims.GetClaimsForRole(x.Value)));
             claims.Add(new Claim(ClaimTypes.SerialNumber, user.Id.ToString()));
+
+            if (user.BanExpirationTime.HasValue && user.BanExpirationTime > DateTime.UtcNow)
+            {
+                var claim =
+                    claims.FirstOrDefault(
+                        x => x.Type == ClaimTypesExtensions.CommentPermission && x.Value == Permissions.Add);
+                if (claim != null)
+                {
+                    claims.Remove(claim);
+                }
+            }
+
             ClaimsPrincipal principal = new MyClaimsPrincipal(user.Name, claims);
 
             var authenticationProperties = new AuthenticationProperties

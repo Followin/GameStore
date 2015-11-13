@@ -6,6 +6,8 @@
 
 @using (Html.BeginForm())
 {
+    @Html.HiddenFor(x => x.UserId)
+    
     <div class="paper-block">
         <div class="form-group">
             @Html.EditorFor(x => x.Permanent)

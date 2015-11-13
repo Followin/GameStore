@@ -11,10 +11,10 @@ namespace GameStore.Web.Models.User
 
         public Boolean Permanent { get; set; }
 
-        public Int32 Hours { get; set; }
+        public Int32? Hours { get; set; }
 
-        public Int32 Days { get; set; }
+        public Int32? Days { get; set; }
 
-        public Int32 Months { get; set; }
+        public Int32? Months { get; set; }
     }
 }

@@ -11,6 +11,7 @@ using GameStore.Static;
 using GameStore.Web.App_LocalResources;
 using GameStore.Web.Filters;
 using GameStore.Web.Models.Account;
+using GameStore.Web.Models.User;
 using NLog;
 
 namespace GameStore.Web.Controllers
@@ -120,9 +121,39 @@ namespace GameStore.Web.Controllers
         }
 
         [ClaimsAuthorize(ClaimTypesExtensions.UserPermission, Permissions.Ban)]
-        public ActionResult Ban()
+        public ActionResult Ban(Int32 userId)
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Ban(BanViewModel model)
+        {
+            if (model.Permanent)
+            {
+                _userService.BanUser(model.UserId, DateTime.MaxValue);
+            }
+
+            var time = DateTime.UtcNow;
+
+            if (model.Hours.HasValue)
+            {
+                time = time.AddHours(model.Hours.Value);
+            }
+
+            if (model.Days.HasValue)
+            {
+                time = time.AddDays(model.Days.Value);
+            }
+
+            if (model.Months.HasValue)
+            {
+                time = time.AddMonths(model.Months.Value);
+            }
+
+            _userService.BanUser(model.UserId, time);
+
+            return RedirectToAction("Index", "Game");
         }
     }
 }

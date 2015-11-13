@@ -21,5 +21,18 @@ namespace GameStore.Auth.Concrete
         {
             return _db.Users.GetSingle(x => x.Name == name) == null;
         }
+
+        public void BanUser(int userId, DateTime expirationTime)
+        {
+            var user = _db.Users.Get(userId);
+            if (user == null)
+            {
+                throw new ArgumentOutOfRangeException("userId", "user not found");
+            }
+
+            user.BanExpirationTime = expirationTime;
+            _db.Users.Update(user);
+            _db.Save();
+        }
     }
 }

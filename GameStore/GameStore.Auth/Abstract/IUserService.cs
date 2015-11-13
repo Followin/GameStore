@@ -9,5 +9,7 @@ namespace GameStore.Auth.Abstract
     public interface IUserService
     {
         Boolean IsUsernameFree(String name);
+
+        void BanUser(Int32 userId, DateTime expirationTime);
     }
 }

@@ -1,0 +1,53 @@
+﻿@using GameStore.Web.App_LocalResources
+@model GameStore.Web.Models.Account.CreateUserViewModel
+@{
+    ViewBag.Title = GlobalRes.Create;
+}
+
+<div class="paper-block">
+    <h2>@GlobalRes.Create</h2>
+    @using (Html.BeginForm("Create", "Account"))
+    {
+        <div class="form-group">
+            @Html.LabelFor(x => x.Name)
+            @Html.EditorFor(x => x.Name)
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Password)
+            @Html.EditorFor(x => x.Password)
+            @Html.ValidationMessageFor(x => x.Password)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.PasswordConfirm)
+            @Html.EditorFor(x => x.PasswordConfirm)
+            @Html.ValidationMessageFor(x => x.PasswordConfirm)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Role)
+            <select name="@Html.NameFor(x => x.Role)">
+                @foreach (var role in ViewBag.Roles)
+                {
+                    <option value="@role">@role</option>
+                }
+            </select>
+            @Html.ValidationMessageFor(x => x.Role)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.PublisherId)
+            <select name="@Html.NameFor(x => x.PublisherId)">
+                @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.Publishers)
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+            @Html.ValidationMessageFor(x => x.Role)
+        </div>
+
+        <input type="submit" value="@GlobalRes.Submit"/>
+    }
+</div>
+
+@section scripts {
+    @Scripts.Render("~/Scripts/forms")
+}

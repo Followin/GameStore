@@ -113,7 +113,7 @@
         </div>
     </div>
     <div class="control-links">
-        @if (!Model.IsDeleted)
+        @if (!Model.IsDeleted && User.Identity.IsAuthenticated)
         {
             <div class="control-link buy-link-wrapper">
                 <a href="@Url.Action("Buy")">@GlobalRes.Buy</a>

@@ -321,7 +321,6 @@ header .languages a {
   width: 135px;
   border-radius: 5px;
   padding: 7px;
-  padding-right: 0;
 }
 
 .basket-link:hover .basket-text {
@@ -707,6 +706,14 @@ h2 {
   -webkit-box-shadow: inset 0 0 3px 2px rgba(0, 0, 0, 0.3);
   -ms-box-shadow: inset 0 0 3px 2px rgba(0, 0, 0, 0.3);
   box-shadow: inset 0 0 3px 2px rgba(0, 0, 0, 0.3);
+}
+
+.td-button {
+  font-size: 0.8em;
+  display: inline-block;
+  margin-left: 10%;
+  background: #4ead1f;
+  padding: 3px 7px;
 }
 
 /*# sourceMappingURL=site.css.map */

@@ -25,7 +25,7 @@ namespace GameStore.Domain.Entities
 
         public DateTime IncomeDate { get; set; }
 
-        public Int32 PublisherId { get; set; }
+        public Int32? PublisherId { get; set; }
 
         [NotMapped]
         public virtual Publisher Publisher { get; set; }

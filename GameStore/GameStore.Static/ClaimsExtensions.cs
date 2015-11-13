@@ -19,5 +19,7 @@ namespace GameStore.Static
         public const String Genre = "GenrePermission";
 
         public const String Publisher = "Publisher";
+
+        public const String OrderPermission = "OrderPermission";
     }
 }

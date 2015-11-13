@@ -23,7 +23,7 @@ namespace GameStore.Tests.BLLTests
     [TestClass]
     public class GameHandlerTests
     {
-        private AddGameCommandHandler _addGameCommandHandler;
+        private CreateGameCommandHandler _addGameCommandHandler;
         private EditGameCommandHandler _editGameCommandHandler;
         private DeleteGameCommandHandler _deleteGameCommandHandler;
         private Mock<IGameRepository> _gameRepositoryMock;
@@ -185,7 +185,7 @@ namespace GameStore.Tests.BLLTests
             _unitOfWorkMock.Setup(x => x.Publishers).Returns(_publisherRepositoryMock.Object);
 
             _logger = new Mock<ILogger>();
-            _addGameCommandHandler = new AddGameCommandHandler(_unitOfWorkMock.Object, _logger.Object);
+            _addGameCommandHandler = new CreateGameCommandHandler(_unitOfWorkMock.Object, _logger.Object);
             _editGameCommandHandler = new EditGameCommandHandler(_unitOfWorkMock.Object, _logger.Object);
             _deleteGameCommandHandler = new DeleteGameCommandHandler(_unitOfWorkMock.Object, _logger.Object);
         }

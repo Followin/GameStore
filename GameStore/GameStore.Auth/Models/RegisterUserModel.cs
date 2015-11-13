@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace GameStore.Auth.Models
 {
@@ -12,6 +10,6 @@ namespace GameStore.Auth.Models
 
         public String Password { get; set; }
 
-        public String Roles { get; set; }
+        public IEnumerable<Claim> Claims { get; set; }
     }
 }

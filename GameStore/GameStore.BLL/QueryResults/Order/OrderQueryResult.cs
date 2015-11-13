@@ -11,9 +11,9 @@ namespace GameStore.BLL.QueryResults.Order
 
         public Int32 UserId { get; set; }
 
-        public DateTime? Time { get; set; }
+        public DateTime? OrderDate { get; set; }
 
-        public Boolean Payed { get; set; }
+        public DateTime? ShippedDate { get; set; }
 
         public IEnumerable<OrderDetailsDTO> OrderDetails { get; set; } 
     }

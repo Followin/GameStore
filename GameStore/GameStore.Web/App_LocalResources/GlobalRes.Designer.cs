@@ -196,6 +196,24 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to English description.
+        /// </summary>
+        public static string DescriptionEn {
+            get {
+                return ResourceManager.GetString("DescriptionEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Russian description.
+        /// </summary>
+        public static string DescriptionRu {
+            get {
+                return ResourceManager.GetString("DescriptionRu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Details.
         /// </summary>
         public static string Details {
@@ -246,6 +264,24 @@ namespace GameStore.Web.App_LocalResources {
         public static string FieldIsRequired {
             get {
                 return ResourceManager.GetString("FieldIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter.
+        /// </summary>
+        public static string Filter {
+            get {
+                return ResourceManager.GetString("Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From.
+        /// </summary>
+        public static string From {
+            get {
+                return ResourceManager.GetString("From", resourceCulture);
             }
         }
         
@@ -430,6 +466,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mark as shipped.
+        /// </summary>
+        public static string MarkAsShipped {
+            get {
+                return ResourceManager.GetString("MarkAsShipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Maximum price.
         /// </summary>
         public static string MaxPrice {
@@ -475,6 +520,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sorry this nickname is already in use.
+        /// </summary>
+        public static string NicknameAlreadyExists {
+            get {
+                return ResourceManager.GetString("NicknameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Other.
         /// </summary>
         public static string NoGenres {
@@ -484,11 +538,20 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Not payed.
+        ///   Looks up a localized string similar to Not paid.
         /// </summary>
-        public static string NotPayed {
+        public static string NotPaid {
             get {
-                return ResourceManager.GetString("NotPayed", resourceCulture);
+                return ResourceManager.GetString("NotPaid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not selected.
+        /// </summary>
+        public static string NotSelected {
+            get {
+                return ResourceManager.GetString("NotSelected", resourceCulture);
             }
         }
         
@@ -511,6 +574,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Order date.
+        /// </summary>
+        public static string OrderDate {
+            get {
+                return ResourceManager.GetString("OrderDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Order details.
         /// </summary>
         public static string OrderDetails {
@@ -525,6 +597,15 @@ namespace GameStore.Web.App_LocalResources {
         public static string Page {
             get {
                 return ResourceManager.GetString("Page", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paid.
+        /// </summary>
+        public static string Paid {
+            get {
+                return ResourceManager.GetString("Paid", resourceCulture);
             }
         }
         
@@ -561,15 +642,6 @@ namespace GameStore.Web.App_LocalResources {
         public static string Pay {
             get {
                 return ResourceManager.GetString("Pay", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Payed.
-        /// </summary>
-        public static string Payed {
-            get {
-                return ResourceManager.GetString("Payed", resourceCulture);
             }
         }
         
@@ -682,11 +754,47 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        public static string Role {
+            get {
+                return ResourceManager.GetString("Role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shipped.
+        /// </summary>
+        public static string Shipped {
+            get {
+                return ResourceManager.GetString("Shipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shipped date.
+        /// </summary>
+        public static string ShippedDate {
+            get {
+                return ResourceManager.GetString("ShippedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shippers.
         /// </summary>
         public static string Shippers {
             get {
                 return ResourceManager.GetString("Shippers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
             }
         }
         
@@ -709,6 +817,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To.
+        /// </summary>
+        public static string To {
+            get {
+                return ResourceManager.GetString("To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total.
         /// </summary>
         public static string Total {
@@ -723,6 +840,15 @@ namespace GameStore.Web.App_LocalResources {
         public static string UnitsInStock {
             get {
                 return ResourceManager.GetString("UnitsInStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        public static string Unknown {
+            get {
+                return ResourceManager.GetString("Unknown", resourceCulture);
             }
         }
         

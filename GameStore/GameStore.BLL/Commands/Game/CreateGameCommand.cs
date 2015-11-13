@@ -19,7 +19,7 @@ namespace GameStore.BLL.Commands.Game
 
         public Boolean Discontinued { get; set; }
 
-        public Int32 PublisherId { get; set; }
+        public Int32? PublisherId { get; set; }
 
         public DateTime PublicationDate { get; set; }
 

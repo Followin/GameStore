@@ -1,4 +1,6 @@
-﻿@using GameStore.Web.App_LocalResources
+﻿@using System.Security.Claims
+@using GameStore.Static
+@using GameStore.Web.App_LocalResources
 @model GameStore.Web.Models.Publisher.DisplayPublisherViewModel
 
 @{
@@ -13,6 +15,10 @@
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.CompanyName)
+        @if (((User as ClaimsPrincipal).HasClaim(ClaimTypesExtensions.Publisher, @Model.Id.ToString())))
+        {
+            <span>(Yours)</span>
+        }
     </div>
 
     <div class="display-label">

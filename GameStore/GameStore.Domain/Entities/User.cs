@@ -13,6 +13,8 @@ namespace GameStore.Domain.Entities
 
         public String SecurityStamp { get; set; }
 
+        public DateTime? BanExpirationTime { get;set; }
+
         public virtual ICollection<UserClaim> Claims { get; set; } 
     }
 }

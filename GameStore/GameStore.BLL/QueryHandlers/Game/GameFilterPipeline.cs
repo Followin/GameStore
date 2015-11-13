@@ -136,7 +136,7 @@ namespace GameStore.BLL.QueryHandlers.Game
             if (query.PublisherIds != null && query.PublisherIds.Any())
             {
                 yield return new TransformPipelineBlock<Expression<Func<Domain.Entities.Game, bool>>, Expression<Func<Domain.Entities.Game, bool>>>(
-                    expr => expr.AndAlso(game => query.PublisherIds.Contains(game.PublisherId)));
+                    expr => expr.AndAlso(game => game.PublisherId.HasValue && query.PublisherIds.Contains(game.PublisherId.Value)));
             }
 
             if (query.MinDate.HasValue)

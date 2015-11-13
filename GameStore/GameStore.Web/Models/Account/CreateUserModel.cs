@@ -8,12 +8,12 @@ using GameStore.Web.App_LocalResources;
 
 namespace GameStore.Web.Models.Account
 {
-    public class RegisterAccountViewModel
+    public class CreateUserViewModel
     {
         [Required]
         [Display(ResourceType = typeof(GlobalRes),
             Name = "UserName")]
-        [StringLength(30, MinimumLength = 5, 
+        [StringLength(30, MinimumLength = 5,
             ErrorMessageResourceType = typeof(GlobalRes),
             ErrorMessageResourceName = "Length_5_30")]
         [Remote("IsUsernameFree", "Account",
@@ -34,5 +34,14 @@ namespace GameStore.Web.Models.Account
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessageResourceType = typeof(GlobalRes),
             ErrorMessageResourceName = "PasswordsMustMatch")]
         public String PasswordConfirm { get; set; }
+
+        [Required]
+        [Display(ResourceType = typeof(GlobalRes),
+            Name = "Role")]
+        public String Role { get; set; }
+
+        [Display(ResourceType = typeof(GlobalRes),
+            Name = "Publisher")]
+        public Int32? PublisherId { get; set; }
     }
 }

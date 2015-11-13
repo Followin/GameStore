@@ -1,0 +1,63 @@
+﻿@using GameStore.Web.App_LocalResources
+@model GameStore.Web.Models.Order.OrderCheckoutViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="paper-block">
+    <h2>@GlobalRes.PaymentOrder</h2>
+    <div class="order-details">
+        <h3>@GlobalRes.OrderDetails</h3>
+        <table class="custom-table headed-table order-detail">
+            <thead>
+                <tr>
+                    <td>@GlobalRes.Game</td>
+                    <td>@GlobalRes.Price</td>
+                    <td>@GlobalRes.Quantity</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var orderDetail in Model.Order.OrderDetails)
+                {
+                    <tr>
+                        <td>
+                            @orderDetail.Game.Name
+                        </td>
+                        <td>
+                            @Math.Round(orderDetail.Price, 2) $
+                        </td>
+                        <td>
+                            @orderDetail.Quantity
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <hr />
+
+        <div class="total">
+            Total: @Math.Round(Model.Order.Price, 2) $
+        </div>
+
+        <table class="custom-table payment-methods">
+            <thead>
+                <tr>
+                    <td></td>
+                    <td>@GlobalRes.Name</td>
+                    <td>@GlobalRes.Description</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var paymentMethod in Model.PaymentMethods)
+                {
+                    <tr>
+                        <td><img src="@paymentMethod.Value.ImageLink" width=100 height=40 /></td>
+                        <td>@paymentMethod.Value.Name</td>
+                        <td>@paymentMethod.Value.Description</td>
+                        <td><a href="@Url.Action("Checkout", "Order", new {paymentMethodKey = paymentMethod.Key})">@GlobalRes.Pay</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -162,6 +162,12 @@
   <data name="Description" xml:space="preserve">
     <value>Описание</value>
   </data>
+  <data name="DescriptionEn" xml:space="preserve">
+    <value>Описание на английском</value>
+  </data>
+  <data name="DescriptionRu" xml:space="preserve">
+    <value>Описание на русском</value>
+  </data>
   <data name="Details" xml:space="preserve">
     <value>Подробности</value>
   </data>
@@ -179,6 +185,12 @@
   </data>
   <data name="FieldIsRequired" xml:space="preserve">
     <value>Поле {0} обязательно для заполнения</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Фильтровать</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>От</value>
   </data>
   <data name="Game" xml:space="preserve">
     <value>Игра</value>
@@ -240,6 +252,9 @@
   <data name="MakeOrder" xml:space="preserve">
     <value>Сделать заказ</value>
   </data>
+  <data name="MarkAsShipped" xml:space="preserve">
+    <value>Отметить как доставленный</value>
+  </data>
   <data name="MaxPrice" xml:space="preserve">
     <value>Максимальная цена</value>
   </data>
@@ -255,11 +270,17 @@
   <data name="Name" xml:space="preserve">
     <value>Название</value>
   </data>
+  <data name="NicknameAlreadyExists" xml:space="preserve">
+    <value>Извините, такое имя пользователя уже используется.</value>
+  </data>
   <data name="NoGenres" xml:space="preserve">
     <value>Другое</value>
   </data>
-  <data name="NotPayed" xml:space="preserve">
+  <data name="NotPaid" xml:space="preserve">
     <value>Не оплачен</value>
+  </data>
+  <data name="NotSelected" xml:space="preserve">
+    <value>Не выбрано</value>
   </data>
   <data name="Number" xml:space="preserve">
     <value>Номер</value>
@@ -267,11 +288,17 @@
   <data name="OrderBy" xml:space="preserve">
     <value>Сортировать по</value>
   </data>
+  <data name="OrderDate" xml:space="preserve">
+    <value>Дата оплаты</value>
+  </data>
   <data name="OrderDetails" xml:space="preserve">
     <value>Подробности заказа</value>
   </data>
   <data name="Page" xml:space="preserve">
     <value>Страница</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Оплачен</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Пароль</value>
@@ -284,9 +311,6 @@
   </data>
   <data name="Pay" xml:space="preserve">
     <value>Оплатить</value>
-  </data>
-  <data name="Payed" xml:space="preserve">
-    <value>Оплачен</value>
   </data>
   <data name="PaymentOrder" xml:space="preserve">
     <value>Оформление заказа</value>
@@ -324,8 +348,20 @@
   <data name="RememberMe" xml:space="preserve">
     <value>Запомнить меня</value>
   </data>
+  <data name="Role" xml:space="preserve">
+    <value>Роль</value>
+  </data>
+  <data name="Shipped" xml:space="preserve">
+    <value>Доставлено</value>
+  </data>
+  <data name="ShippedDate" xml:space="preserve">
+    <value>Дата доставки</value>
+  </data>
   <data name="Shippers" xml:space="preserve">
     <value>Доставщики</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Отправить</value>
@@ -333,11 +369,17 @@
   <data name="Time" xml:space="preserve">
     <value>Время</value>
   </data>
+  <data name="To" xml:space="preserve">
+    <value>До</value>
+  </data>
   <data name="Total" xml:space="preserve">
     <value>Всего</value>
   </data>
   <data name="UnitsInStock" xml:space="preserve">
     <value>Кол-во на складе</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Неизвестен</value>
   </data>
   <data name="User" xml:space="preserve">
     <value>Пользователь</value>

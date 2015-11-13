@@ -34,8 +34,8 @@ namespace GameStore.Auth.Concrete
                     Name = userModel.Name,
                     PasswordHash = Crypto.HashPassword(userModel.Password)
                 },
-                userModel.Roles.Split(',')
-                         .Select(role => new UserClaim() {Type = ClaimTypes.Role, Value = role, Issuer = "GameStore"})
+                userModel.Claims
+                         .Select(claim => new UserClaim() {Type = claim.Type, Value = claim.Value, Issuer = "GameStore"})
                 );
             _db.Save();
         }
@@ -53,6 +53,7 @@ namespace GameStore.Auth.Concrete
 
             var claims = user.Claims.Select(x => new Claim(x.Type, x.Value, null, x.Issuer)).ToList();
             claims.AddRange(claims.Where(x => x.Type == ClaimTypes.Role).ToList().SelectMany(x => RoleClaims.GetClaimsForRole(x.Value)));
+            claims.Add(new Claim(ClaimTypes.SerialNumber, user.Id.ToString()));
             ClaimsPrincipal principal = new MyClaimsPrincipal(user.Name, claims);
 
             var authenticationProperties = new AuthenticationProperties

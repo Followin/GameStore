@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using AutoMapper;
+using GameStore.BLL.Commands.Order;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Queries.Order;
 using GameStore.BLL.QueryResults.Order;
 using GameStore.Static;
+using GameStore.Web.App_LocalResources;
 using GameStore.Web.Concrete;
 using GameStore.Web.Filters;
 using GameStore.Web.Models.Order;
@@ -29,11 +32,15 @@ namespace GameStore.Web.Controllers
 
         }
 
-        public ActionResult Index()
+        [Authorize]
+        public ActionResult Order()
         {
 
             var currentOrder = Mapper.Map<OrderViewModel>(QueryDispatcher.Dispatch<GetCurrentOrder, OrderQueryResult>(
-                new GetCurrentOrder { UserId = 1 }));
+                new GetCurrentOrder
+                {
+                    UserId = Int32.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
+                }));
             var orderCheckout = new OrderCheckoutViewModel
             {
                 Order = currentOrder,
@@ -45,26 +52,80 @@ namespace GameStore.Web.Controllers
         public ActionResult Details(Int32 id)
         {
             var orderResult = Mapper.Map<OrderViewModel>(QueryDispatcher.Dispatch<GetOrderByIdQuery, OrderQueryResult>(
-                new GetOrderByIdQuery {Id = id}));
+                new GetOrderByIdQuery { Id = id }));
 
             return View(orderResult);
         }
 
-        [ClaimsAuthorize(ClaimTypesExtensions.PublisherPermission, "Full")]
-        public ActionResult History()
+        public ActionResult Index(DateTime? minDate = null, DateTime? maxDate = null)
         {
+            if (!minDate.HasValue)
+            {
+                minDate = DateTime.UtcNow.AddDays(-30);
+            }
+
+
             var orders =
                 Mapper.Map<IEnumerable<OrderViewModel>>(QueryDispatcher
                     .Dispatch<GetOrdersHistoryQuery, OrdersQueryResult>(
-                        new GetOrdersHistoryQuery()));
-            return View(orders);
+                        new GetOrdersHistoryQuery { MinDate = minDate, MaxDate = maxDate }));
+            var model = new OrdersViewModel { Orders = orders };
+
+            return View(model);
         }
 
+        public ActionResult History(DateTime? minDate = null, DateTime? maxDate = null)
+        {
+            if (!maxDate.HasValue)
+            {
+                maxDate = DateTime.UtcNow.AddDays(-30);
+            }
+
+            var orders =
+                Mapper.Map<IEnumerable<OrderViewModel>>(QueryDispatcher
+                    .Dispatch<GetOrdersHistoryQuery, OrdersQueryResult>(
+                        new GetOrdersHistoryQuery { MinDate = minDate, MaxDate = maxDate }));
+            var model = new OrdersViewModel { Orders = orders };
+
+            return View(model);
+        }
+
+        [Authorize]
         public ActionResult Checkout(String paymentMethodKey)
         {
-            return PaymentList.PaymentMethods.ContainsKey(paymentMethodKey) 
-                ? PaymentList.PaymentMethods[paymentMethodKey].Checkout() 
+            var currentOrder = QueryDispatcher.Dispatch<GetCurrentOrder, OrderQueryResult>(
+                new GetCurrentOrder
+                {
+                    UserId = Int32.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
+                });
+            CommandDispatcher.Dispatch(new CheckoutOrderCommand { Id = currentOrder.Id });
+
+            return PaymentList.PaymentMethods.ContainsKey(paymentMethodKey)
+                ? PaymentList.PaymentMethods[paymentMethodKey].Checkout()
                 : HttpNotFound();
+        }
+
+        [HttpPost]
+        [ClaimsAuthorize(ClaimTypesExtensions.OrderPermission, Permissions.Edit)]
+        public ActionResult Ship(Int32 id)
+        {
+            var command = new ShipOrderCommand { Id = id };
+            var result = CommandDispatcher.Dispatch(command);
+
+            if (Request.IsAjaxRequest())
+            {
+                return Json(
+                    new
+                    {
+                        success = result.Success,
+                        date = result.Success
+                            ? ((DateTime)result.Data).ToShortDateString()
+                            : "",
+                        orderStatus = GlobalRes.Shipped
+                    });
+            }
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult Shippers()

@@ -41,7 +41,7 @@ namespace GameStore.DAL.Repositories
                         break;
 
                     case GamesOrderType.Comments:
-                        fullyResult = fullyResult.OrderBy(x => _db.Comments.Count(y => y.GameId == x.Id));
+                        fullyResult = fullyResult.OrderByDescending(x => _db.Comments.Count(y => y.GameId == x.Id));
                         break;
 
                     case GamesOrderType.PriceAsc:
@@ -93,17 +93,20 @@ namespace GameStore.DAL.Repositories
             }
             game.Genres = resultGenres;
 
-            var publisherDatabase = KeyEncoder.GetBase(game.PublisherId);
-            switch (publisherDatabase)
+            if (game.PublisherId.HasValue)
             {
-                case DatabaseTypes.GameStore:
-                    game.Publisher = _db.Publishers.Find(game.PublisherId);
-                    break;
-                case DatabaseTypes.Northwind:
-                    game.Publisher = _northwind.Publishers.Get(KeyEncoder.GetId(game.PublisherId));
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                var publisherDatabase = KeyEncoder.GetBase(game.PublisherId.Value);
+                switch (publisherDatabase)
+                {
+                    case DatabaseTypes.GameStore:
+                        game.Publisher = _db.Publishers.Find(game.PublisherId);
+                        break;
+                    case DatabaseTypes.Northwind:
+                        game.Publisher = _northwind.Publishers.Get(KeyEncoder.GetId(game.PublisherId.Value));
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
         }
 

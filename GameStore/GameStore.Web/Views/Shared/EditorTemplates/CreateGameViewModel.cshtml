@@ -44,8 +44,8 @@
 </div>
 
 <div class="form-group">
-    @Html.EditorFor(model => model.CreateModel.PublicationDate)
     @Html.LabelFor(model => model.CreateModel.PublicationDate)
+    @Html.EditorFor(model => model.CreateModel.PublicationDate)
     @Html.ValidationMessageFor(model => model.CreateModel.PublicationDate)
 </div>
 
@@ -61,5 +61,10 @@
 
 <div class="form-group select-group">
     @Html.LabelFor(model => model.CreateModel.PublisherId)
-    @Html.DropDownListFor(model => model.CreateModel.PublisherId, Model.Publishers)
+    <select name="@Html.NameFor(x => x.CreateModel.PublisherId)">
+        @foreach (var publisher in Model.Publishers)
+        {
+            <option value="@publisher.Value">@publisher.Text</option>
+        }
+    </select>
 </div>

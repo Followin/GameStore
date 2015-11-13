@@ -1,63 +1,64 @@
-﻿@using GameStore.Web.App_LocalResources
-@model GameStore.Web.Models.Order.OrderCheckoutViewModel
+﻿@using System.Security.Claims
+@using GameStore.Static
+@using GameStore.Web.App_LocalResources
+@model GameStore.Web.Models.Order.OrdersViewModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = GlobalRes.History;
 }
 
 <div class="paper-block">
-    <h2>@GlobalRes.PaymentOrder</h2>
-    <div class="order-details">
-        <h3>@GlobalRes.OrderDetails</h3>
-        <table class="custom-table headed-table order-detail">
-            <thead>
-                <tr>
-                    <td>@GlobalRes.Game</td>
-                    <td>@GlobalRes.Price</td>
-                    <td>@GlobalRes.Quantity</td>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var orderDetail in Model.Order.OrderDetails)
-                {
-                    <tr>
-                        <td>
-                            @orderDetail.Game.Name
-                        </td>
-                        <td>
-                            @Math.Round(orderDetail.Price, 2) $
-                        </td>
-                        <td>
-                            @orderDetail.Quantity
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        <hr />
-
-        <div class="total">
-            Total: @Math.Round(Model.Order.Price, 2) $
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            @Html.LabelFor(x => x.MinDate)
+            @Html.EditorFor(x => x.MinDate)
+            @Html.ValidationMessageFor(x => x.MinDate)
         </div>
-
-        <table class="custom-table payment-methods">
-            <thead>
-                <tr>
-                    <td></td>
-                    <td>@GlobalRes.Name</td>
-                    <td>@GlobalRes.Description</td>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var paymentMethod in Model.PaymentMethods)
-                {
-                    <tr>
-                        <td><img src="@paymentMethod.Value.ImageLink" width=100 height=40 /></td>
-                        <td>@paymentMethod.Value.Name</td>
-                        <td>@paymentMethod.Value.Description</td>
-                        <td><a href="@Url.Action("Checkout", "Order", new {paymentMethodKey = paymentMethod.Key})">@GlobalRes.Pay</a></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.MaxDate)
+            @Html.EditorFor(x => x.MaxDate)
+            @Html.ValidationMessageFor(x => x.MaxDate)
+        </div>
+        <input type="submit" value="@GlobalRes.Filter" />
+    }
 </div>
+
+<div class="paper-block">
+    <table class="custom-table headed-table">
+        <thead>
+            <tr>
+                <td>@GlobalRes.Price</td>
+                <td>@GlobalRes.User</td>
+                <td>@GlobalRes.Quantity</td>
+                <td>@GlobalRes.Status</td>
+                <td>@GlobalRes.OrderDate</td>
+                <td>@GlobalRes.ShippedDate</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.Orders)
+            {
+                <tr class="clickable-row" data-href="@Url.Action("Details", "Order", new {id = order.Id})">
+                    <td>@Math.Round(order.Price, 2)$</td>
+                    <td>@order.UserId</td>
+                    <td>@order.OrderDetails.Count</td>
+                    <td>
+                        @order.Status
+                        @if (order.ShippedDate == null &&
+                        User.Identity.IsAuthenticated &&
+                        (User as ClaimsPrincipal).HasClaim(ClaimTypesExtensions.OrderPermission, Permissions.Edit))
+                        {
+                            <a class="button td-button ship-order-button" href="@Url.Action("Ship", "Order", new { id = order.Id })">@GlobalRes.MarkAsShipped</a>
+                        }
+                    <td>@(order.OrderDate.HasValue ? order.OrderDate.Value.ToShortDateString() : "")</td>
+                    <td class="shipped-date">@(order.ShippedDate.HasValue ? order.ShippedDate.Value.ToShortDateString() : "")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/Scripts/forms")
+    @Scripts.Render("~/Scripts/orders")
+}

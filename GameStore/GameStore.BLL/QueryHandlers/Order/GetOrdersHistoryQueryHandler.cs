@@ -21,6 +21,23 @@ namespace GameStore.BLL.QueryHandlers.Order
         public OrdersQueryResult Retrieve(GetOrdersHistoryQuery query)
         {
             var orders = _db.Orders.Get().ToList();
+
+            if (query.OnlyPaid)
+            {
+                orders = orders.Where(x => x.OrderDate.HasValue).ToList();
+            }
+
+            if (query.MinDate.HasValue)
+            {
+                orders = orders.Where(x => x.OrderDate.HasValue && x.OrderDate > query.MinDate.Value).ToList();
+            }
+
+            if (query.MaxDate.HasValue)
+            {
+                orders = orders.Where(x => x.OrderDate.HasValue && x.OrderDate < query.MaxDate.Value).ToList();
+            }
+
+
             return new OrdersQueryResult(Mapper.Map<IEnumerable<Domain.Entities.Order>, IEnumerable<OrderQueryResult>>(orders));
         }
     }

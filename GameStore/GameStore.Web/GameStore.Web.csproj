@@ -242,6 +242,7 @@
     <Compile Include="ModelBinders\CurrentOrderModelBinder.cs" />
     <Compile Include="ModelBinders\SessionIdValueProvider.cs" />
     <Compile Include="ModelBinders\SessionIdValueProviderFactory.cs" />
+    <Compile Include="Models\Account\CreateUserModel.cs" />
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Account\RegisterAccountViewModel.cs" />
     <Compile Include="Models\Comment\CommentViewModel.cs" />
@@ -255,6 +256,7 @@
     <Compile Include="Models\Order\IboxPaymentViewModel.cs" />
     <Compile Include="Models\Order\OrderCheckoutViewModel.cs" />
     <Compile Include="Models\Order\OrderDetailsViewModel.cs" />
+    <Compile Include="Models\Order\OrdersViewModel.cs" />
     <Compile Include="Models\Order\OrderViewModel.cs" />
     <Compile Include="Models\Order\VisaPaymentViewModel.cs" />
     <Compile Include="Models\PagingInfo.cs" />
@@ -378,6 +380,12 @@
     <Content Include="Scripts\modal.min.js">
       <DependentUpon>modal.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\orders.js">
+      <DependentUpon>orders.coffee</DependentUpon>
+    </Content>
+    <Content Include="Scripts\orders.min.js">
+      <DependentUpon>orders.js</DependentUpon>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -390,7 +398,7 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Order\Order.cshtml" />
     <Content Include="Views\Shared\BankPayment.cshtml" />
     <Content Include="Scripts\modal.coffee" />
     <Content Include="Scripts\modal.js.map">
@@ -413,6 +421,13 @@
     <Content Include="Scripts\games.min.js.map">
       <DependentUpon>games.min.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\orders.coffee" />
+    <Content Include="Scripts\orders.js.map">
+      <DependentUpon>orders.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\orders.min.js.map">
+      <DependentUpon>orders.min.js</DependentUpon>
+    </Content>
     <None Include="Views\Account\Ban.cshtml" />
     <Content Include="Views\Game\Index.cshtml" />
     <Content Include="Views\Shared\_gameInfo.cshtml" />
@@ -423,6 +438,8 @@
     <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Account\Create.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

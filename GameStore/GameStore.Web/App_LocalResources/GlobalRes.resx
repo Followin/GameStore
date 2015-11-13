@@ -162,6 +162,12 @@
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
+  <data name="DescriptionEn" xml:space="preserve">
+    <value>English description</value>
+  </data>
+  <data name="DescriptionRu" xml:space="preserve">
+    <value>Russian description</value>
+  </data>
   <data name="Details" xml:space="preserve">
     <value>Details</value>
   </data>
@@ -179,6 +185,12 @@
   </data>
   <data name="FieldIsRequired" xml:space="preserve">
     <value>{0} field is required</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
   </data>
   <data name="Game" xml:space="preserve">
     <value>Game</value>
@@ -240,6 +252,9 @@
   <data name="MakeOrder" xml:space="preserve">
     <value>Make order</value>
   </data>
+  <data name="MarkAsShipped" xml:space="preserve">
+    <value>Mark as shipped</value>
+  </data>
   <data name="MaxPrice" xml:space="preserve">
     <value>Maximum price</value>
   </data>
@@ -255,11 +270,17 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="NicknameAlreadyExists" xml:space="preserve">
+    <value>Sorry this nickname is already in use</value>
+  </data>
   <data name="NoGenres" xml:space="preserve">
     <value>Other</value>
   </data>
-  <data name="NotPayed" xml:space="preserve">
-    <value>Not payed</value>
+  <data name="NotPaid" xml:space="preserve">
+    <value>Not paid</value>
+  </data>
+  <data name="NotSelected" xml:space="preserve">
+    <value>Not selected</value>
   </data>
   <data name="Number" xml:space="preserve">
     <value>Number</value>
@@ -267,11 +288,17 @@
   <data name="OrderBy" xml:space="preserve">
     <value>Order by</value>
   </data>
+  <data name="OrderDate" xml:space="preserve">
+    <value>Order date</value>
+  </data>
   <data name="OrderDetails" xml:space="preserve">
     <value>Order details</value>
   </data>
   <data name="Page" xml:space="preserve">
     <value>Page</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Paid</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
@@ -284,9 +311,6 @@
   </data>
   <data name="Pay" xml:space="preserve">
     <value>Pay</value>
-  </data>
-  <data name="Payed" xml:space="preserve">
-    <value>Payed</value>
   </data>
   <data name="PaymentOrder" xml:space="preserve">
     <value>Payment order</value>
@@ -324,8 +348,20 @@
   <data name="RememberMe" xml:space="preserve">
     <value>Remember me</value>
   </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="Shipped" xml:space="preserve">
+    <value>Shipped</value>
+  </data>
+  <data name="ShippedDate" xml:space="preserve">
+    <value>Shipped date</value>
+  </data>
   <data name="Shippers" xml:space="preserve">
     <value>Shippers</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
@@ -333,11 +369,17 @@
   <data name="Time" xml:space="preserve">
     <value>Time</value>
   </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
   <data name="Total" xml:space="preserve">
     <value>Total</value>
   </data>
   <data name="UnitsInStock" xml:space="preserve">
     <value>Units in stock</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unknown</value>
   </data>
   <data name="User" xml:space="preserve">
     <value>User</value>

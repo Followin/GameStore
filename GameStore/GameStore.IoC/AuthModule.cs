@@ -14,6 +14,7 @@ namespace GameStore.IoC
         public override void Load()
         {
             Bind<IAuthenticationService>().To<AuthenticationService>();
+            Bind<IUserService>().To<UserService>();
         }
     }
 }

@@ -340,10 +340,6 @@
     });
 
 
-    $jQval.addMethod("date", function(value, element) {
-        //return this.optional(element)
-        return true;
-    });
 
     adapters.addSingleVal("accept", "exts").addSingleVal("regex", "pattern");
     adapters.addBool("creditcard").addBool("date").addBool("digits").addBool("email").addBool("number").addBool("url");

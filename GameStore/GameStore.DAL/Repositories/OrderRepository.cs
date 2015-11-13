@@ -74,7 +74,7 @@ namespace GameStore.DAL.Repositories
 
         public Order GetCurrentOrder(int userId)
         {
-            var existingOrder = _db.Orders.FirstOrDefault(x => x.UserId == userId && !x.Payed);
+            var existingOrder = _db.Orders.FirstOrDefault(x => x.UserId == userId && !x.OrderDate.HasValue);
             if (existingOrder == null)
             {
                 Int32 nextId = KeyEncoder.Coefficient + (Int32)DatabaseTypes.GameStore;
@@ -82,7 +82,7 @@ namespace GameStore.DAL.Repositories
                 {
                     nextId = _db.Orders.Max(x => x.Id) + KeyEncoder.Coefficient;
                 }
-                existingOrder = new Order { Id = nextId, Payed = false, UserId = userId, OrderDetails = new List<OrderDetails>() };
+                existingOrder = new Order { Id = nextId, UserId = userId, OrderDetails = new List<OrderDetails>() };
                 _db.Orders.Add(existingOrder);
 
                 _db.SaveChanges();
@@ -109,9 +109,19 @@ namespace GameStore.DAL.Repositories
         public void Checkout(int id)
         {
             var order = _db.Orders.Find(id);
-            order.Payed = true;
-            order.Time = DateTime.UtcNow;
+            order.OrderDate = DateTime.UtcNow;
             _db.Entry(order).State = EntityState.Modified;
+        }
+
+        public DateTime Ship(int id)
+        {
+            var now = DateTime.UtcNow;
+            var order = _db.Orders.Find(id);
+
+            order.ShippedDate = DateTime.UtcNow;
+            _db.Entry(order).State = EntityState.Modified;
+
+            return now;
         }
     }
 }

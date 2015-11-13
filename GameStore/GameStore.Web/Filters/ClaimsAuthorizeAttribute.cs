@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
+using GameStore.Static;
 
 namespace GameStore.Web.Filters
 {
@@ -10,20 +11,20 @@ namespace GameStore.Web.Filters
         private string claimValue;
         public ClaimsAuthorizeAttribute(string type, string value)
         {
-            this.claimType = type;
-            this.claimValue = value;
+            claimType = type;
+            claimValue = value;
+
         }
+
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
             var user = HttpContext.Current.User as ClaimsPrincipal;
-            if (user.HasClaim(claimType, claimValue))
+            if (user != null && (user.HasClaim(claimType, claimValue) || user.HasClaim(claimType, Permissions.Full)))
             {
-                base.OnAuthorization(filterContext);
+                return;
             }
-            else
-            {
-                base.HandleUnauthorizedRequest(filterContext);
-            }
+            HandleUnauthorizedRequest(filterContext);
         }
+
     }
 }

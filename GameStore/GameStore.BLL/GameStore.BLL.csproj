@@ -72,11 +72,13 @@
   <ItemGroup>
     <Compile Include="CommandHandlers\Comment\CreateCommentHandler.cs" />
     <Compile Include="CommandHandlers\Comment\DeleteCommentCommandHandler.cs" />
-    <Compile Include="CommandHandlers\Game\AddGameCommandHandler.cs" />
     <Compile Include="CommandHandlers\Game\AddVisitCommandHandler.cs" />
+    <Compile Include="CommandHandlers\Game\CreateGameCommandHandler.cs" />
     <Compile Include="CommandHandlers\Game\DeleteGameCommandHandler.cs" />
     <Compile Include="CommandHandlers\Game\EditGameCommandHandler.cs" />
+    <Compile Include="CommandHandlers\Order\CheckoutOrderCommandHandler.cs" />
     <Compile Include="CommandHandlers\Order\CreateOrderDetailsCommandHandler.cs" />
+    <Compile Include="CommandHandlers\Order\ShipOrderCommandHandler.cs" />
     <Compile Include="CommandHandlers\Publisher\CreatePublisherCommandHandler.cs" />
     <Compile Include="Commands\Comment\CreateCommentCommand.cs" />
     <Compile Include="Commands\Comment\DeleteCommentCommand.cs" />
@@ -84,7 +86,9 @@
     <Compile Include="Commands\Game\CreateGameCommand.cs" />
     <Compile Include="Commands\Game\DeleteGameCommand.cs" />
     <Compile Include="Commands\Game\EditGameCommand.cs" />
+    <Compile Include="Commands\Order\CheckoutOrderCommand.cs" />
     <Compile Include="Commands\Order\CreateOrderDetailsCommand.cs" />
+    <Compile Include="Commands\Order\ShipOrderCommand.cs" />
     <Compile Include="Commands\Publisher\CreatePublisherCommand.cs" />
     <Compile Include="CQRS\CommandDispatcher.cs" />
     <Compile Include="CQRS\CommandResult.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Claims;
 using System.Web.Mvc;
 using AutoMapper;
 using GameStore.BLL.CQRS;
@@ -16,10 +17,14 @@ namespace GameStore.Web.Controllers
         {
         }
 
+        [Authorize]
         public ActionResult Index()
         {
             var currentOrder = Mapper.Map<OrderViewModel>(QueryDispatcher.Dispatch<GetCurrentOrder, OrderQueryResult>(
-                new GetCurrentOrder {UserId = 1}));
+                new GetCurrentOrder
+                {
+                    UserId = Int32.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
+                }));
             return View(currentOrder);
         }
 

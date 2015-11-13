@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading;
 using System.Web;
 using AutoMapper;
@@ -59,7 +60,16 @@ namespace GameStore.Web.Utils
 
             Mapper.CreateMap<RegisterAccountViewModel, RegisterUserModel>()
                   .ForMember(x => x.Password, _ => _.MapFrom(x => x.Password))
-                  .ForMember(x => x.Roles, _ => _.UseValue(Roles.User));
+                  .ForMember(x => x.Claims, _ => _.UseValue(new[] { new Claim(ClaimTypes.Role, Roles.User) }));
+
+            Mapper.CreateMap<CreateUserViewModel, RegisterUserModel>()
+                  .ForMember(x => x.Password, _ => _.MapFrom(x => x.Password))
+                  .ForMember(x => x.Claims, _ => _.MapFrom(x =>
+                      new[]
+                      {
+                          new Claim(ClaimTypes.Role, x.Role), 
+                          new Claim(ClaimTypesExtensions.Publisher, x.PublisherId.ToString()),
+                      }));
 
         }
 

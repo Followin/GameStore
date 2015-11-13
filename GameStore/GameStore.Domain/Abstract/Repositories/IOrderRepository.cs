@@ -53,9 +53,15 @@ namespace GameStore.Domain.Abstract.Repositories
         IEnumerable<Shipper> GetShippers(); 
 
         /// <summary>
-        /// Set order state to payment
+        /// Set order state to paid
         /// </summary>
         /// <param name="id">Order id</param>
         void Checkout(Int32 id);
+
+        /// <summary>
+        /// Set order state to shipped
+        /// </summary>
+        /// <param name="id">Order id</param>
+        DateTime Ship(Int32 id);
     }
 }

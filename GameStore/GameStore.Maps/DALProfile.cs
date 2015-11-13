@@ -56,8 +56,8 @@ namespace GameStore.Maps
             Mapper.CreateMap<NorthOrder, MainOrder>()
                   .ForMember(x => x.Id, _ => _.MapFrom(x => KeyEncoder.Encode(x.OrderID, DatabaseTypes.Northwind)))
                   .ForMember(x => x.OrderDetails, _ => _.MapFrom(x => x.Order_Details))
-                  .ForMember(x => x.Payed, _ => _.UseValue(true))
-                  .ForMember(x => x.Time, _ => _.MapFrom(x => x.OrderDate))
+                  .ForMember(x => x.OrderDate, _ => _.MapFrom(x => x.OrderDate))
+                  .ForMember(x => x.ShippedDate, _ => _.MapFrom(x => x.ShippedDate))
                   .ForMember(x => x.UserId, _ => _.UseValue(0));
 
             Mapper.CreateMap<NorthShipper, MainShipper>()

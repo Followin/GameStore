@@ -11,9 +11,9 @@ namespace GameStore.Domain.Entities
 
         //public User User { get; set; }
 
-        public DateTime? Time { get; set; }
+        public DateTime? OrderDate { get; set; }
 
-        public Boolean Payed { get;set; }
+        public DateTime? ShippedDate { get; set; }
 
         public virtual ICollection<OrderDetails> OrderDetails { get; set; } 
     }

@@ -19,7 +19,7 @@ namespace GameStore.IoC
 
         public override void Load()
         {
-            Bind<EFContext>().To<EFContext>().InThreadScope().WithConstructorArgument("connectionString", _connectionString);
+            Bind<EFContext>().To<EFContext>().WithConstructorArgument("connectionString", _connectionString);
             Bind<IGameStoreUnitOfWork>().To<GameStoreUnitOfWork>();
             Bind<INorthwindUnitOfWork>().To<NorthwindUnitOfWork>();
 

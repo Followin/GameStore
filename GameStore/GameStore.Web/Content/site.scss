@@ -227,7 +227,6 @@ header {
             width: 135px;
             border-radius: 5px;
             padding: 7px;
-            padding-right: 0; 
         }
 
         .basket-text {
@@ -588,4 +587,13 @@ input[type="submit"] {
             @include box-shadow(inset 0 0 3px 2px rgba(0,0,0,.3))
         }
     }
+}
+
+
+.td-button {
+    font-size: 0.8em;
+    display:inline-block;
+    margin-left: 10%;
+    background: hsl(100, 70%, 40%);
+    padding: 3px 7px;
 }

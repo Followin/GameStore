@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using GameStore.Auth.Abstract;
 using GameStore.Auth.Models;
 using GameStore.BLL.CQRS;
+using GameStore.BLL.Queries.Publisher;
+using GameStore.BLL.QueryResults.Publisher;
+using GameStore.Static;
 using GameStore.Web.App_LocalResources;
+using GameStore.Web.Filters;
 using GameStore.Web.Models.Account;
 using NLog;
 
@@ -14,23 +19,31 @@ namespace GameStore.Web.Controllers
     public class AccountController : BaseController
     {
         private IAuthenticationService _auth;
+        private IUserService _userService;
 
         public AccountController(IAuthenticationService auth, ICommandDispatcher commandDispatcher,
-            IQueryDispatcher queryDispatcher, ILogger logger)
+            IQueryDispatcher queryDispatcher, IUserService userService, ILogger logger)
             : base(commandDispatcher, queryDispatcher, logger)
         {
             _auth = auth;
+            _userService = userService;
         }
 
 
-        
+        public JsonResult IsUsernameFree(String name)
+        {
+            return Json(_userService.IsUsernameFree(name), JsonRequestBehavior.AllowGet);
+        }
 
+
+        [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Register(RegisterAccountViewModel model)
         {
             if (ModelState.IsValid)
@@ -39,9 +52,37 @@ namespace GameStore.Web.Controllers
                 return RedirectToAction("Index", "Game");
             }
             return View(model);
-
         }
 
+        [ClaimsAuthorize(ClaimTypesExtensions.UserPermission, Permissions.Add)]
+        public ActionResult Create()
+        {
+            var publishers = QueryDispatcher.Dispatch<GetAllPublishersQuery, PublishersQueryResult>(
+                new GetAllPublishersQuery());
+
+            ViewBag.Roles = new[] {Roles.User, Roles.Manager, Roles.Moderator};
+            ViewBag.Publishers = new[] {new SelectListItem() {Text = GlobalRes.NotSelected, Value = ""}}
+                .Concat(publishers.Select(x => new SelectListItem
+                {
+                    Text = x.CompanyName,
+                    Value = x.Id.ToString()
+                }));
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(CreateUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                _auth.Register(Mapper.Map<CreateUserViewModel, RegisterUserModel>(model));
+                return RedirectToAction("Index", "Game");
+            }
+            return View(model);
+        }
+
+        [AllowAnonymous]
         public ActionResult Login(String returnUrl)
         {
             var model = new LoginViewModel
@@ -51,6 +92,7 @@ namespace GameStore.Web.Controllers
             return View(model);
         }
 
+        [Authorize]
         public ActionResult Logout()
         {
             _auth.Logout();
@@ -58,24 +100,26 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Login(LoginViewModel model)
         {
             var result = _auth.Login(model.Login, model.Password, model.RememberMe);
 
-            if(result.Status == LoginResultStatus.Success)
+            if (result.Status == LoginResultStatus.Success)
             {
                 return Redirect(model.ReturnUrl);
             }
-            
-            if(result.Status == LoginResultStatus.WrongCredentials)
+
+            if (result.Status == LoginResultStatus.WrongCredentials)
             {
                 ModelState.AddModelError("", GlobalRes.WrongLoginOrPassword);
                 return View(model);
             }
-            
+
             return RedirectToAction("Index", "Game");
         }
 
+        [ClaimsAuthorize(ClaimTypesExtensions.UserPermission, Permissions.Ban)]
         public ActionResult Ban()
         {
             return View();

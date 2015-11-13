@@ -69,9 +69,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IAuthentication.cs" />
+    <Compile Include="Abstract\IUserService.cs" />
     <Compile Include="ClaimBasedAuthenticationModule.cs" />
     <Compile Include="Concrete\AuthenticationService.cs" />
     <Compile Include="Concrete\MyClaimsPrincipal.cs" />
+    <Compile Include="Concrete\UserService.cs" />
     <Compile Include="Models\LoginResult.cs" />
     <Compile Include="Models\RegisterUserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

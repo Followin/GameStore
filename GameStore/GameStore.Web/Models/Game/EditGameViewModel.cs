@@ -27,7 +27,7 @@ namespace GameStore.Web.Models.Game
         [Required(ErrorMessageResourceType = typeof(GlobalRes),
             ErrorMessageResourceName = "FieldIsRequired")]
         [Display(ResourceType = typeof(GlobalRes),
-            Name = "Description")]
+            Name = "DescriptionEn")]
         [StringLength(200, MinimumLength = 10,
             ErrorMessageResourceType = typeof(GlobalRes),
             ErrorMessageResourceName = "Length_5_30")]
@@ -36,7 +36,7 @@ namespace GameStore.Web.Models.Game
         [Required(ErrorMessageResourceType = typeof(GlobalRes),
             ErrorMessageResourceName = "FieldIsRequired")]
         [Display(ResourceType = typeof(GlobalRes),
-            Name = "Description")]
+            Name = "DescriptionRu")]
         [StringLength(200, MinimumLength = 10,
             ErrorMessageResourceType = typeof(GlobalRes),
             ErrorMessageResourceName = "Length_5_30")]
@@ -56,11 +56,9 @@ namespace GameStore.Web.Models.Game
 
         public Boolean Discontinued { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(GlobalRes),
-            ErrorMessageResourceName = "FieldIsRequired")]
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Publisher")]
-        public Int32 PublisherId { get; set; }
+        public Int32? PublisherId { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(GlobalRes),
             ErrorMessageResourceName = "FieldIsRequired")]
@@ -68,8 +66,6 @@ namespace GameStore.Web.Models.Game
             Name = "PublicationDate")]
         public DateTime PublicationDate { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(GlobalRes),
-            ErrorMessageResourceName = "FieldIsRequired")]
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Genres")]
         public Int32[] GenreIds { get; set; }

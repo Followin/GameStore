@@ -1,4 +1,6 @@
-﻿@using GameStore.Web.App_LocalResources
+﻿@using System.Security.Claims
+@using GameStore.Static
+@using GameStore.Web.App_LocalResources
 @using GameStore.Web.HtmlHelpers
 @model GameStore.Web.Models.Comment.CommentViewModel
 @{
@@ -10,28 +12,31 @@
     <div class="comments-list hideable">
         @Html.CreateTree(Model.Comments)
     </div>
-    @if (!Model.IsDeleted)
+    @Html.HiddenFor(x => x.GameId)
+    @if (!Model.IsDeleted &&
+         (User as ClaimsPrincipal).HasClaim(ClaimTypesExtensions.CommentPermission, Permissions.Add) ||
+         (User as ClaimsPrincipal).HasClaim(ClaimTypesExtensions.CommentPermission, Permissions.Full))
     {
-         using (Html.BeginForm())
-         {
-             @Html.HiddenFor(x => x.GameId)
-             @Html.HiddenFor(x => x.CreateModel.ParentCommentId)
+        using (Html.BeginForm())
+        {
+            @Html.HiddenFor(x => x.GameId)
+            @Html.HiddenFor(x => x.CreateModel.ParentCommentId)
 
-             <div class="form-group">
-                 @Html.LabelFor(x => x.CreateModel.Name)
-                 @Html.EditorFor(x => x.CreateModel.Name)
-                 @Html.ValidationMessageFor(x => x.CreateModel.Name)
-             </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.CreateModel.Name)
+                @Html.EditorFor(x => x.CreateModel.Name)
+                @Html.ValidationMessageFor(x => x.CreateModel.Name)
+            </div>
 
-             <div class="quotes"></div>
+            <div class="quotes"></div>
 
-             <div class="form-group">
-                 @Html.LabelFor(x => x.CreateModel.Body)
-                 @Html.EditorFor(x => x.CreateModel.Body)
-                 @Html.ValidationMessageFor(x => x.CreateModel.Body)
-             </div>
-             <input type="submit" value="@GlobalRes.Submit"/>
-         }
+            <div class="form-group">
+                @Html.LabelFor(x => x.CreateModel.Body)
+                @Html.EditorFor(x => x.CreateModel.Body)
+                @Html.ValidationMessageFor(x => x.CreateModel.Body)
+            </div>
+            <input type="submit" value="@GlobalRes.Submit" />
+        }
     }
 </div>
 

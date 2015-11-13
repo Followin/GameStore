@@ -1,31 +1,54 @@
 ﻿@using GameStore.Web.App_LocalResources
-@model IEnumerable<GameStore.Web.Models.Order.OrderViewModel>
+@model GameStore.Web.Models.Order.OrdersViewModel
 @{
     ViewBag.Title = GlobalRes.History;
 }
+
+<div class="paper-block">
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            @Html.LabelFor(x => x.MinDate)
+            @Html.EditorFor(x => x.MinDate)
+            @Html.ValidationMessageFor(x => x.MinDate)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.MaxDate)
+            @Html.EditorFor(x => x.MaxDate)
+            @Html.ValidationMessageFor(x => x.MaxDate)
+        </div>
+        <input type="submit" value="@GlobalRes.Filter"/>
+    }
+</div>
 
 <div class="paper-block">
     <table class="custom-table headed-table">
         <thead>
         <tr>
             <td>@GlobalRes.Price</td>
-            <td>@GlobalRes.Time</td>
-            <td>@GlobalRes.Payed</td>
             <td>@GlobalRes.User</td>
             <td>@GlobalRes.Quantity</td>
+            <td>@GlobalRes.Status</td>
+            <td>@GlobalRes.OrderDate</td>
+            <td>@GlobalRes.ShippedDate</td>
         </tr>
         </thead>
         <tbody>
-        @foreach (var order in Model)
+        @foreach (var order in Model.Orders)
         {
             <tr class="clickable-row" data-href="@Url.Action("Details", "Order", new {id = order.Id})">
                 <td>@Math.Round(order.Price, 2)$</td>
-                <td>@(order.Time.HasValue ? @order.Time.Value.ToShortDateString() : GlobalRes.NotPayed)</td>
-                <td>@order.Payed</td>
                 <td>@order.UserId</td>
                 <td>@order.OrderDetails.Count</td>
+                <td>@order.Status</td>
+                <td>@(order.OrderDate.HasValue ? order.OrderDate.Value.ToShortDateString() : "")</td>
+                <td>@(order.ShippedDate.HasValue ? order.ShippedDate.Value.ToShortDateString() : "")</td>
             </tr>
         }
         </tbody>
     </table>
 </div>
+
+@section scripts {
+    @Scripts.Render("~/Scripts/forms")
+}

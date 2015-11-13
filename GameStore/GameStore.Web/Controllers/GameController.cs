@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.Mvc;
@@ -10,6 +11,7 @@ using GameStore.BLL.Commands.Comment;
 using GameStore.BLL.Commands.Game;
 using GameStore.BLL.Commands.Order;
 using GameStore.BLL.CQRS;
+using GameStore.BLL.DTO;
 using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Comment;
 using GameStore.BLL.Queries.Game;
@@ -24,8 +26,10 @@ using GameStore.BLL.QueryResults.Genre;
 using GameStore.BLL.QueryResults.Order;
 using GameStore.BLL.QueryResults.PlatformType;
 using GameStore.BLL.QueryResults.Publisher;
+using GameStore.Static;
 using GameStore.Web.Abstract;
 using GameStore.Web.App_LocalResources;
+using GameStore.Web.Filters;
 using GameStore.Web.Models;
 using GameStore.Web.Models.Comment;
 using GameStore.Web.Models.Game;
@@ -73,6 +77,7 @@ namespace GameStore.Web.Controllers
             return new FileContentResult(new byte[0], "application/pdf");
         }
 
+        [Authorize]
         public ActionResult Buy(String gamekey)
         {
             var game = QueryDispatcher.Dispatch<GetGameByKeyQuery, GameQueryResult>(
@@ -82,7 +87,15 @@ namespace GameStore.Web.Controllers
                 return HttpNotFound();
             }
 
-            var currentOrder = QueryDispatcher.Dispatch<GetCurrentOrder, OrderQueryResult>(new GetCurrentOrder {UserId = 1});
+            if (game.EntryState != EntryState.Active)
+            {
+                return HttpNotFound();
+            }
+
+            var currentOrder = QueryDispatcher.Dispatch<GetCurrentOrder, OrderQueryResult>(new GetCurrentOrder
+            {
+                UserId = Int32.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
+            });
 
             var newOrderDetails = new CreateOrderDetailsCommand
             {
@@ -142,10 +155,10 @@ namespace GameStore.Web.Controllers
         }
 
 
-        
+
         [HttpGet]
         [ActionName("New")]
-        [Authorize(Roles="Manager")]
+        [ClaimsAuthorize(ClaimTypesExtensions.GamePermission, Permissions.Add)]
         public ActionResult Create()
         {
             var model = new CreateGameViewModel();
@@ -155,7 +168,7 @@ namespace GameStore.Web.Controllers
 
         [HttpPost]
         [ActionName("New")]
-        [Authorize(Roles = "Manager")]
+        [ClaimsAuthorize(ClaimTypesExtensions.GamePermission, Permissions.Add)]
         public ActionResult Create(CreateGameViewModel model)
         {
             if (ModelState.IsValid)
@@ -170,9 +183,17 @@ namespace GameStore.Web.Controllers
 
         [HttpPost]
         [ActionName("Update")]
-        [Authorize(Roles = "Manager")]
+        [ClaimsAuthorize(ClaimTypesExtensions.GamePermission, Permissions.Edit)]
         public ActionResult Edit(EditGameViewModel model)
         {
+            var game = QueryDispatcher.Dispatch<GetGameByKeyQuery, GameQueryResult>(
+                new GetGameByKeyQuery { Key = model.Key });
+
+            if (game.EntryState != EntryState.Active)
+            {
+                return HttpNotFound();
+            }
+
             if (ModelState.IsValid)
             {
                 CommandDispatcher.Dispatch(Mapper.Map<EditGameCommand>(model));
@@ -182,7 +203,7 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Manager")]
+        [ClaimsAuthorize(ClaimTypesExtensions.GamePermission, Permissions.Delete)]
         public ActionResult Remove(String key)
         {
             CommandDispatcher.Dispatch(new DeleteGameCommand { Key = key });
@@ -208,7 +229,15 @@ namespace GameStore.Web.Controllers
             var publishers =
                 QueryDispatcher.Dispatch<GetAllPublishersQuery, PublishersQueryResult>(
                     new GetAllPublishersQuery());
-            var publishersSelectList = new SelectList(publishers, "Id", "CompanyName");
+            var publishersSelectList =
+                new[] {new SelectListItem {Selected = true, Text = GlobalRes.Unknown, Value = ""}}
+                    .Concat(publishers.ToList().Select(x =>
+                        new SelectListItem
+                        {
+                            Value = x.Id.ToString(),
+                            Text = x.CompanyName
+                        }));
+                   
 
             model.Genres = genres;
             model.PlatformTypes = platformTypes;

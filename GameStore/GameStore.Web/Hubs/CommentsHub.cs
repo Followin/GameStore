@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
-using GameStore.BLL.CommandHandlers.Comment;
+using System.Web;
 using GameStore.BLL.Commands.Comment;
 using GameStore.BLL.CQRS;
-using GameStore.Web.Models.Comment;
+using GameStore.Static;
+using GameStore.Web.Filters;
 using Microsoft.AspNet.SignalR;
-using Ninject;
 
 namespace GameStore.Web.Hubs
 {
@@ -28,9 +29,16 @@ namespace GameStore.Web.Hubs
             return Groups.Remove(Context.ConnectionId, groupName);
         }
 
-        [Authorize]
         public void CreateComment(String gameId, String parentId, String name, String quotes, String body)
         {
+            var user = HttpContext.Current.User as ClaimsPrincipal;
+            if (user == null ||
+                (!user.HasClaim(ClaimTypesExtensions.CommentPermission, Permissions.Add) &&
+                 !user.HasClaim(ClaimTypesExtensions.CommentPermission, Permissions.Full)))
+            {
+                return;
+            }
+
             var createCommentCommand = new CreateCommentCommand
             {
                 GameId = Int32.Parse(gameId),
@@ -50,9 +58,16 @@ namespace GameStore.Web.Hubs
             Clients.Group(gameId).addComment(id, parentId, name, quotes, body);
         }
 
-        [Authorize(Roles="Moderator")]
         public void DeleteComment(String gameId, String commentId)
         {
+            var user = HttpContext.Current.User as ClaimsPrincipal;
+            if (user == null ||
+                (!user.HasClaim(ClaimTypesExtensions.CommentPermission, Permissions.Add) &&
+                 !user.HasClaim(ClaimTypesExtensions.CommentPermission, Permissions.Full)))
+            {
+                return;
+            }
+
             var deleteCommentCommand = new DeleteCommentCommand { Id = Int32.Parse(commentId) };
 
             var commandResult = _commandDispatcher.Dispatch(deleteCommentCommand);

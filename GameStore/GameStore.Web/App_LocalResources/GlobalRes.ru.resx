@@ -120,6 +120,9 @@
   <data name="All" xml:space="preserve">
     <value>Все</value>
   </data>
+  <data name="Ban" xml:space="preserve">
+    <value>Забанить</value>
+  </data>
   <data name="Basket" xml:space="preserve">
     <value>Корзина</value>
   </data>
@@ -227,6 +230,9 @@
   </data>
   <data name="IncomeDate" xml:space="preserve">
     <value>Дата поступление</value>
+  </data>
+  <data name="Issuer" xml:space="preserve">
+    <value>Эмитент</value>
   </data>
   <data name="ItemsPerPage" xml:space="preserve">
     <value>Товаров на странице</value>
@@ -375,6 +381,9 @@
   <data name="Total" xml:space="preserve">
     <value>Всего</value>
   </data>
+  <data name="Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
   <data name="UnitsInStock" xml:space="preserve">
     <value>Кол-во на складе</value>
   </data>
@@ -386,6 +395,9 @@
   </data>
   <data name="UserName" xml:space="preserve">
     <value>Имя пользователя</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Значение</value>
   </data>
   <data name="WrongLoginOrPassword" xml:space="preserve">
     <value>Пароль или Логин неверны</value>

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<System.Security.Claims.Claim>
+@using System.Security.Claims
+@using GameStore.Web.App_LocalResources
+@{
+    ViewBag.Title = GlobalRes.User;
+}
+
+<div class="paper-block">
+    <h2>@GlobalRes.User</h2>
+    <table class="custom-table headed-table">
+        <thead>
+        <tr>
+            <td>@GlobalRes.Type</td>
+            <td>@GlobalRes.Value</td>
+            <td>@GlobalRes.Issuer</td>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var claim in Model)
+        {
+            <tr>
+                <td>@claim.Type</td>
+                <td>@claim.Value</td>
+                <td>@claim.Issuer</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <a href="@Url.Action("Ban", new {userId=Model.FirstOrDefault(x => x.Type == ClaimTypes.SerialNumber).Value})" class="button">@GlobalRes.Ban</a>
+</div>

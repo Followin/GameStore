@@ -37,6 +37,7 @@ namespace GameStore.Static
                         new Claim(ClaimTypesExtensions.UserPermission, Permissions.Ban),
                         new Claim(ClaimTypesExtensions.CommentPermission, Permissions.Delete), 
                         new Claim(ClaimTypesExtensions.CommentPermission, Permissions.Add),  
+                        new Claim(ClaimTypesExtensions.UserPermission, Permissions.Read), 
                     }
                 },
                 {

@@ -30,6 +30,13 @@ namespace GameStore.Web.Controllers
             _userService = userService;
         }
 
+        [ClaimsAuthorize(ClaimTypesExtensions.UserPermission, Permissions.Read)]
+        public ActionResult Index(Int32 id)
+        {
+            var userClaims = _userService.GetUserClaims(id);
+
+            return View(userClaims);
+        }
 
         public JsonResult IsUsernameFree(String name)
         {
@@ -119,6 +126,7 @@ namespace GameStore.Web.Controllers
 
             return RedirectToAction("Index", "Game");
         }
+
 
         [ClaimsAuthorize(ClaimTypesExtensions.UserPermission, Permissions.Ban)]
         public ActionResult Ban(Int32 userId)

@@ -440,6 +440,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Account\Create.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

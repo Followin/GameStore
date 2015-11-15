@@ -1,38 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Claims;
 using GameStore.Auth.Abstract;
-using GameStore.Domain.Abstract;
+using GameStore.DAL.EF;
+using GameStore.Static;
 
 namespace GameStore.Auth.Concrete
 {
     public class UserService : IUserService
     {
-        private IGameStoreUnitOfWork _db;
-
-        public UserService(IGameStoreUnitOfWork db)
-        {
-            _db = db;
-        }
+        private EFContext _db = new EFContext("DefaultConnection");
 
         public Boolean IsUsernameFree(string name)
         {
-            return _db.Users.GetSingle(x => x.Name == name) == null;
+            return _db.Users.FirstOrDefault(x => x.Name == name) == null;
         }
 
         public void BanUser(int userId, DateTime expirationTime)
         {
-            var user = _db.Users.Get(userId);
+            var user = _db.Users.Find(userId);
             if (user == null)
             {
                 throw new ArgumentOutOfRangeException("userId", "user not found");
             }
 
             user.BanExpirationTime = expirationTime;
-            _db.Users.Update(user);
-            _db.Save();
+            _db.Entry(user).State = EntityState.Modified;
+            _db.SaveChanges();
+        }
+
+        public IEnumerable<Claim> GetUserClaims(Int32 id)
+        {
+            var user = _db.Users.Find(id);
+
+            if (user == null)
+            {
+                throw new ArgumentOutOfRangeException("id", "User not found");
+            }
+
+            var claims = user.Claims.Select(x => new Claim(x.Type, x.Value, null, x.Issuer)).ToList();
+            claims.AddRange(claims.Where(x => x.Type == ClaimTypes.Role).ToList().SelectMany(x => RoleClaims.GetClaimsForRole(x.Value)));
+            claims.Add(new Claim(ClaimTypes.Name, user.Name));
+            claims.Add(new Claim(ClaimTypes.SerialNumber, user.Id.ToString()));
+
+            if (user.BanExpirationTime.HasValue && user.BanExpirationTime > DateTime.UtcNow)
+            {
+                var claim =
+                    claims.FirstOrDefault(
+                        x => x.Type == ClaimTypesExtensions.CommentPermission && x.Value == Permissions.Add);
+                if (claim != null)
+                {
+                    claims.Remove(claim);
+                }
+            }
+
+            return claims;
         }
     }
 }

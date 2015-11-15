@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
@@ -51,28 +52,15 @@ namespace GameStore.Auth.Concrete
                 return new LoginResult { Status = LoginResultStatus.WrongCredentials };
             }
 
-            var claims = user.Claims.Select(x => new Claim(x.Type, x.Value, null, x.Issuer)).ToList();
-            claims.AddRange(claims.Where(x => x.Type == ClaimTypes.Role).ToList().SelectMany(x => RoleClaims.GetClaimsForRole(x.Value)));
-            claims.Add(new Claim(ClaimTypes.SerialNumber, user.Id.ToString()));
 
-            if (user.BanExpirationTime.HasValue && user.BanExpirationTime > DateTime.UtcNow)
-            {
-                var claim =
-                    claims.FirstOrDefault(
-                        x => x.Type == ClaimTypesExtensions.CommentPermission && x.Value == Permissions.Add);
-                if (claim != null)
-                {
-                    claims.Remove(claim);
-                }
-            }
-
-            ClaimsPrincipal principal = new MyClaimsPrincipal(user.Name, claims);
+            var claims = new[] {new Claim(ClaimTypes.SerialNumber, user.Id.ToString())};
+            ClaimsPrincipal principal = new MyClaimsPrincipal(claims);
 
             var authenticationProperties = new AuthenticationProperties
             {
                 IsPersistent = isPersistent,
                 IssuedUtc = DateTime.UtcNow,
-                ExpiresUtc = DateTime.UtcNow.AddHours(24),
+                ExpiresUtc = DateTime.UtcNow.AddHours(24)
             };
             var ticket = new AuthenticationTicket(principal.Identity as ClaimsIdentity, authenticationProperties);
 

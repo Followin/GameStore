@@ -71,7 +71,6 @@ namespace GameStore.BLL.CommandHandlers.Game
             command.Name.Argument(NameGetter.GetName(() => command.Name))
                         .NotNull()
                         .NotWhiteSpace();
-
             command.Key.Argument(NameGetter.GetName(() => command.Key))
                        .NotNull()
                        .NotWhiteSpace();
@@ -82,6 +81,12 @@ namespace GameStore.BLL.CommandHandlers.Game
                          .GreaterThan(0);
             command.UnitsInStock.Argument(NameGetter.GetName(() => command.UnitsInStock))
                                 .GreaterThan(-1);
+
+            if (command.PublisherId.HasValue && command.PublisherId < 1)
+            {
+                throw new ArgumentOutOfRangeException(NameGetter.GetName(() => command.PublisherId));
+            }
+
             if (command.GenreIds != null && !command.GenreIds.All(x => x > 0))
             {
                 throw new ArgumentOutOfRangeException(NameGetter.GetName(() => command.GenreIds), "GenreIds must have only greater than zero numbers");

@@ -13,6 +13,7 @@ using GameStore.BLL.Utils;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Abstract.Repositories;
 using GameStore.Domain.Entities;
+using GameStore.Static;
 using GameStore.Tests.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -121,6 +122,7 @@ namespace GameStore.Tests.BLLTests
                 GenreIds = new[] { 1 },
                 PlatformTypeIds = new[] { 1 },
                 Price = 150,
+                PublicationDate = new DateTime(2015, 01,01),
                 UnitsInStock = 20,
                 Discontinued = true,
                 PublisherId = 1
@@ -149,8 +151,10 @@ namespace GameStore.Tests.BLLTests
                 Genres = new[] { rts },
                 PlatformTypes = new[] { desktop, web },
                 Publisher = valve,
+                PublisherId = 1,
                 Discontinued = false,
                 UnitsInStock = 50,
+                PublicationDate = new DateTime(2015, 01, 01),
                 Price = 200
             };
 
@@ -177,6 +181,13 @@ namespace GameStore.Tests.BLLTests
                     (Expression<Func<Game, Boolean>> predicate) => _games.Where(predicate.Compile()));
             _gameRepositoryMock.Setup(x => x.GetSingle(It.IsAny<Expression<Func<Game, Boolean>>>())).Returns(
                 (Expression<Func<Game, Boolean>> predicate) => _games.FirstOrDefault(predicate.Compile()));
+            _gameRepositoryMock.Setup(x => x.Get(
+                It.IsAny<Expression<Func<Game, Boolean>>>(),
+                It.IsAny<GamesOrderType>(),
+                It.IsAny<Int32?>(),
+                It.IsAny<Int32?>())).Returns(
+                    (Expression<Func<Game, Boolean>> predicate, GamesOrderType order, Int32? skip, Int32? take) =>
+                    _games.Where(predicate.Compile()));
 
             _unitOfWorkMock = new Mock<IGameStoreUnitOfWork>();
             _unitOfWorkMock.Setup(x => x.Games).Returns(_gameRepositoryMock.Object);
@@ -275,33 +286,7 @@ namespace GameStore.Tests.BLLTests
             Assert.AreEqual("DescriptionEn", result.ParamName);
         }
 
-        [TestMethod]
-        public void Create_Game_GenresIds_Argument_Is_Null()
-        {
-            // Arrange
-            _newGameRightCommand.GenreIds = null;
 
-            // Act
-            var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                _addGameCommandHandler.Execute(_newGameRightCommand));
-
-            // Assert
-            Assert.AreEqual("GenreIds", result.ParamName);
-        }
-
-        [TestMethod]
-        public void Create_Game_GenreIds_Argument_Is_Empty()
-        {
-            // Arrange
-            _newGameRightCommand.GenreIds = Enumerable.Empty<Int32>().ToArray();
-
-            // Act
-            var result = ExceptionAssert.Throws<ArgumentException>(() =>
-                _addGameCommandHandler.Execute(_newGameRightCommand));
-
-            // Assert
-            Assert.AreEqual("GenreIds", result.ParamName);
-        }
 
         [TestMethod]
         public void Create_Game_PlatformTypeIds_Argument_Is_Null()
@@ -1195,7 +1180,7 @@ namespace GameStore.Tests.BLLTests
         }
 
         [TestMethod]
-        public void GetGamesQuery_Right_Data()
+        public void GetAllGamesQuery_Right_Data()
         {
             // Arrange
             var getGamesQuery = new GetAllGamesQuery();
@@ -1206,6 +1191,32 @@ namespace GameStore.Tests.BLLTests
 
             // Assert
             Assert.AreEqual(2, result.Count());
+        }
+
+        [TestMethod]
+        public void GetGamesQuery_Right_Data()
+        {
+            //Arrange
+            var getGamesQuery = new GetGamesQuery
+            {
+                Name = "Dota 2",
+                GenreIds = new[] {1},
+                MaxPrice = 300,
+                MinDate = new DateTime(2014, 01, 01),
+                OrderBy = GamesOrderType.PriceAsc,
+                MinPrice = 50,
+                Number = 5,
+                PlatformTypeIds = new[] {1},
+                PublisherIds = new[] {1},
+                Skip = 0
+            };
+            var getGamesQueryHandler = new GetGamesQueryHandler(_unitOfWorkMock.Object, _logger.Object);
+
+            //Act
+            var result = getGamesQueryHandler.Retrieve(getGamesQuery);
+
+            //Assert
+            Assert.AreEqual(0, result.Count);
         }
         #endregion
     }

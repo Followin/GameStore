@@ -80,6 +80,7 @@
     <Compile Include="BLLTests\PublisherTests.cs" />
     <Compile Include="DALTests\RepositoryTests.cs" />
     <Compile Include="PLTests\GameControllerTests.cs" />
+    <Compile Include="PLTests\RouteTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\AutoMapperConfiguration.cs" />
     <Compile Include="Utils\ExceptionAssert.cs" />
@@ -96,6 +97,10 @@
     <ProjectReference Include="..\GameStore.Maps\GameStore.Maps.csproj">
       <Project>{4374019d-f8be-4991-bf62-38750025d7a5}</Project>
       <Name>GameStore.Maps</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameStore.Static\GameStore.Static.csproj">
+      <Project>{1dabb4a6-4b69-42aa-bc9c-4c679493bc5a}</Project>
+      <Name>GameStore.Static</Name>
     </ProjectReference>
     <ProjectReference Include="..\GameStore.Web\GameStore.Web.csproj">
       <Project>{90A5182D-051A-486E-AE55-724F9BC24818}</Project>

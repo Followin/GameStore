@@ -30,6 +30,7 @@ namespace GameStore.Tests.BLLTests
         private Comment[] _comments;
         private CreateCommentCommand _createCommentCommand;
         private CreateCommentHandler _commandHandler;
+        private DeleteCommentCommandHandler _deleteHandler;
         private GetCommentsByGameKeyQueryHandler _queryHandler;
 
         [ClassInitialize]
@@ -96,8 +97,13 @@ namespace GameStore.Tests.BLLTests
 
             _queryHandler = new GetCommentsByGameKeyQueryHandler(_unitOfWorkMock.Object, logger);
             _commandHandler = new CreateCommentHandler(_unitOfWorkMock.Object, logger);
+            _deleteHandler = new DeleteCommentCommandHandler(_unitOfWorkMock.Object, logger);
         }
 
+
+        #region commands
+
+        #region Create
         [TestMethod]
         public void Create_Comment_Name_Argument_Is_Null()
         {
@@ -297,6 +303,88 @@ namespace GameStore.Tests.BLLTests
             _commentRepositoryMock.Verify(x => x.Add(It.IsAny<Comment>()), Times.Once);
             _unitOfWorkMock.Verify(x => x.Save(), Times.Once);
         }
+        #endregion
+
+        #region Delete
+
+        [TestMethod]
+        public void Delete_Comment_Id_Argument_Is_Zero()
+        {
+            // Arrange
+            var deleteCommand = new DeleteCommentCommand {Id = 0};
+
+            // Act
+            var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+                _deleteHandler.Execute(deleteCommand));
+
+            // Assert
+            Assert.AreEqual("Id", result.ParamName);
+            _unitOfWorkMock.Verify(x => x.Save(), Times.Never);
+        }
+
+        [TestMethod]
+        public void Delete_Comment_Id_Argument_Is_Negative()
+        {
+            // Arrange
+            var deleteCommand = new DeleteCommentCommand {Id = -1};
+
+            // Act
+            var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+                _deleteHandler.Execute(deleteCommand));
+
+            // Assert
+            Assert.AreEqual("Id", result.ParamName);
+            _unitOfWorkMock.Verify(x => x.Save(), Times.Never);
+        }
+
+        [TestMethod]
+        public void Delete_Comment_Id_Argument_Doesnt_Match_Existing_Comment()
+        {
+            // Arrange
+            var deleteCommand = new DeleteCommentCommand { Id = 100 };
+
+            // Act
+            var result = ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+                _deleteHandler.Execute(deleteCommand));
+
+            // Assert
+            Assert.AreEqual("Id", result.ParamName);
+            _unitOfWorkMock.Verify(x => x.Save(), Times.Never);
+        }
+
+        [TestMethod]
+        public void Delete_Comment_With_No_Children()
+        {
+            // Arrange
+            var deleteCommand = new DeleteCommentCommand {Id = 2};
+
+            // Act
+            _deleteHandler.Execute(deleteCommand);
+
+            // Assert
+            Assert.AreEqual(EntryState.Deleted, _comments.FirstOrDefault(x => x.Id == 2).EntryState);
+            _unitOfWorkMock.Verify(x => x.Save(), Times.Once);
+
+        }
+
+        [TestMethod]
+        public void Delete_Comment_With_Children()
+        {
+            // Arrange
+            var deleteCommand = new DeleteCommentCommand { Id = 1 };
+
+            // Act
+            _deleteHandler.Execute(deleteCommand);
+
+            // Assert
+            _unitOfWorkMock.Verify(x => x.Save(), Times.Once);
+            Assert.AreEqual(EntryState.Active, _comments.FirstOrDefault(x => x.Id == 1).EntryState);
+        }
+        #endregion
+
+        #endregion
+
+        #region queries
 
         [TestMethod]
         public void GetCommentsByGameKey_Key_Argument_Is_Null()
@@ -357,5 +445,7 @@ namespace GameStore.Tests.BLLTests
             // Assert
             Assert.AreEqual(1, result.Count());
         }
+
+        #endregion
     }
 }

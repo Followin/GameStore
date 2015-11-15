@@ -69,22 +69,6 @@ namespace GameStore.Tests.PLTests
             Assert.AreEqual("Index", result.RouteValues["action"]);
         }
 
-        [TestMethod]
-        public void EditGame_Redirect_After()
-        {
-            var result = (RedirectToRouteResult)_gameController.Edit(new EditGameViewModel
-            {
-                Id = 1,
-                DescriptionEn = "New game description",
-                GenreIds = new[] { 1, 2 },
-                Key = "new-game",
-                Name = "New game",
-                PlatformTypeIds = new[] { 1, 3 }
-            });
-
-            // Assert
-            Assert.AreEqual("Index", result.RouteValues["action"]);
-        }
 
         [TestMethod]
         public void Delete_Redirect_After()

@@ -88,7 +88,7 @@ namespace GameStore.BLL.CommandHandlers.Game
             command.GenreIds.Argument(NameGetter.GetName(() => command.GenreIds))
                             .NotNull()
                             .NotEmpty();
-            if (!command.GenreIds.All(x => x > 0))
+            if (command.GenreIds != null && !command.GenreIds.All(x => x > 0))
             {
                 throw new ArgumentOutOfRangeException(NameGetter.GetName(() => command.GenreIds), "GenreIds must have only greater than zero numbers");
             }

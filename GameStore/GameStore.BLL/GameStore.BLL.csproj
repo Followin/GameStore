@@ -72,7 +72,6 @@
   <ItemGroup>
     <Compile Include="CommandHandlers\Comment\CreateCommentHandler.cs" />
     <Compile Include="CommandHandlers\Comment\DeleteCommentCommandHandler.cs" />
-    <Compile Include="CommandHandlers\Game\AddVisitCommandHandler.cs" />
     <Compile Include="CommandHandlers\Game\CreateGameCommandHandler.cs" />
     <Compile Include="CommandHandlers\Game\DeleteGameCommandHandler.cs" />
     <Compile Include="CommandHandlers\Game\EditGameCommandHandler.cs" />

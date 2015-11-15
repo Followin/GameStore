@@ -31,7 +31,7 @@ namespace GameStore.Web.Controllers
         }
 
         [ClaimsAuthorize(ClaimTypesExtensions.UserPermission, Permissions.Read)]
-        public ActionResult Index(Int32 id)
+        public ActionResult Manage(Int32 id)
         {
             var userClaims = _userService.GetUserClaims(id);
 

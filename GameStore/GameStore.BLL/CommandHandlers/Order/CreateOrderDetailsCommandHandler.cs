@@ -29,8 +29,8 @@ namespace GameStore.BLL.CommandHandlers.Order
 
         public CommandResult Execute(CreateOrderDetailsCommand command)
         {
-            Validate(command);
-            var order = _db.Orders.Get(command.OrderId);
+            var order = Validate(command);
+
             var existingOrderDetails = order.OrderDetails.FirstOrDefault(x => x.GameId == command.GameId);
             if (existingOrderDetails != null)
             {
@@ -50,7 +50,7 @@ namespace GameStore.BLL.CommandHandlers.Order
 
         #region validation
 
-        private void Validate(CreateOrderDetailsCommand command)
+        private Domain.Entities.Order Validate(CreateOrderDetailsCommand command)
         {
             command.Discount.Argument(NameGetter.GetName(() => command.Discount))
                             .GreaterThan(-1);
@@ -69,6 +69,15 @@ namespace GameStore.BLL.CommandHandlers.Order
                     "Game not found");
             }
 
+            var order = _db.Orders.Get(command.OrderId);
+            if (order == null)
+            {
+                throw new ArgumentOutOfRangeException(
+                    NameGetter.GetName(() => command.OrderId),
+                    "Order not found");
+            }
+
+            return order;
         }
         #endregion
     }

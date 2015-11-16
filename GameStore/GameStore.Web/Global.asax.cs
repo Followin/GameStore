@@ -9,7 +9,9 @@ using System.Web.Routing;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 using AutoMapper;
+using GameStore.Auth;
 using GameStore.BLL.Utils;
+using GameStore.Domain.Abstract;
 using GameStore.Maps;
 using GameStore.Web.Concrete;
 using GameStore.Web.ModelBinders;
@@ -51,6 +53,14 @@ namespace GameStore.Web
 
             
             //Mapper.AssertConfigurationIsValid();
+        }
+
+        public override void Init()
+        {
+            base.Init();
+            var authModule = new ClaimBasedAuthenticationModule(
+                (IGameStoreUnitOfWork)DependencyResolver.Current.GetService(typeof(IGameStoreUnitOfWork)));
+            authModule.Init(this);
         }
 
 

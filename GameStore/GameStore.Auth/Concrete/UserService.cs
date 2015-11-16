@@ -1,39 +1,46 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Security.Claims;
 using GameStore.Auth.Abstract;
 using GameStore.DAL.EF;
+using GameStore.Domain.Abstract;
 using GameStore.Static;
 
 namespace GameStore.Auth.Concrete
 {
     public class UserService : IUserService
     {
-        private EFContext _db = new EFContext("DefaultConnection");
+        private IGameStoreUnitOfWork _db;
+
+        public UserService(IGameStoreUnitOfWork db)
+        {
+            _db = db;
+        }
 
         public Boolean IsUsernameFree(string name)
         {
-            return _db.Users.FirstOrDefault(x => x.Name == name) == null;
+            return _db.Users.Get(x => x.Name == name) == null;
         }
 
         public void BanUser(int userId, DateTime expirationTime)
         {
-            var user = _db.Users.Find(userId);
+            var user = _db.Users.Get(userId);
             if (user == null)
             {
                 throw new ArgumentOutOfRangeException("userId", "user not found");
             }
 
             user.BanExpirationTime = expirationTime;
-            _db.Entry(user).State = EntityState.Modified;
-            _db.SaveChanges();
+            _db.Users.Update(user);
+            _db.Save();
         }
 
         public IEnumerable<Claim> GetUserClaims(Int32 id)
         {
-            var user = _db.Users.Find(id);
+            var user = _db.Users.Get(id);
 
             if (user == null)
             {

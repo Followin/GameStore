@@ -5,6 +5,7 @@ using System.Web;
 using GameStore.Auth.Abstract;
 using GameStore.Auth.Concrete;
 using GameStore.Auth.Utils;
+using GameStore.Domain.Abstract;
 using GameStore.Static;
 using Microsoft.Owin.Security.DataHandler;
 
@@ -12,7 +13,14 @@ namespace GameStore.Auth
 {
     public class ClaimBasedAuthenticationModule : IHttpModule
     {
+        private IGameStoreUnitOfWork _db;
+        private IUserService _userService;
 
+        public ClaimBasedAuthenticationModule(IGameStoreUnitOfWork db)
+        {
+            _db = db;
+            _userService = new UserService(_db);
+        }
 
         public void Init(HttpApplication context)
         {
@@ -35,9 +43,8 @@ namespace GameStore.Auth
                 {
                     var idClaim = ticket.Identity.FindFirst(ClaimTypes.SerialNumber);
                     var id = Int32.Parse(idClaim.Value);
-                    var userService = new UserService();
 
-                    ticket.Identity.AddClaims(userService.GetUserClaims(id));
+                    ticket.Identity.AddClaims(_userService.GetUserClaims(id));
                     var principal = new ClaimsPrincipal(ticket.Identity);
 
                     HttpContext.Current.User = principal;

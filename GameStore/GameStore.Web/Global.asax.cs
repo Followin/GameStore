@@ -47,8 +47,7 @@ namespace GameStore.Web
         public override void Init()
         {
             base.Init();
-            var authModule = new ClaimBasedAuthenticationModule();
-            authModule.Injector += type => DependencyResolver.Current.GetService(type);
+            var authModule = new ClaimBasedAuthenticationModule(type => DependencyResolver.Current.GetService(type));
             authModule.Init(this);
         }
 

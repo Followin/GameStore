@@ -17,14 +17,15 @@ namespace GameStore.Auth
 
         public delegate object DependencyInjector(Type type);
 
-
-        public event DependencyInjector Injector;
+        public ClaimBasedAuthenticationModule(DependencyInjector injector)
+        {
+            var unitofwork = (IGameStoreUnitOfWork)injector.Invoke(typeof(IGameStoreUnitOfWork));
+            _userService = new UserService(unitofwork);
+        }
 
         public void Init(HttpApplication context)
         {
             context.PostAuthenticateRequest += ReplacePrincipal;
-            var unitofwork = (IGameStoreUnitOfWork)Injector.Invoke(typeof (IGameStoreUnitOfWork));
-            _userService = new UserService(unitofwork);
         }
 
         public void Dispose()

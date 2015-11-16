@@ -33,7 +33,8 @@ namespace GameStore.Auth.Concrete
                 new User
                 {
                     Name = userModel.Name,
-                    PasswordHash = Crypto.HashPassword(userModel.Password)
+                    PasswordHash = Crypto.HashPassword(userModel.Password),
+                    SecurityStamp = Guid.NewGuid().ToString()
                 },
                 userModel.Claims
                          .Select(claim => new UserClaim() {Type = claim.Type, Value = claim.Value, Issuer = "GameStore"})
@@ -62,6 +63,7 @@ namespace GameStore.Auth.Concrete
                 IssuedUtc = DateTime.UtcNow,
                 ExpiresUtc = DateTime.UtcNow.AddHours(24)
             };
+            authenticationProperties.Dictionary.Add("Stamp", user.SecurityStamp);
             var ticket = new AuthenticationTicket(principal.Identity as ClaimsIdentity, authenticationProperties);
 
             var ticketDataFormat = new TicketDataFormat(new MachineKeyProtector(AuthPurpose));
@@ -75,9 +77,24 @@ namespace GameStore.Auth.Concrete
 
         public void Logout()
         {
-            var cookie = HttpContext.Current.Response.Cookies[CookieName];
+            var cookie = HttpContext.Current.Request.Cookies[CookieName];
             if (cookie != null)
             {
+                var ticketDataFormat = new TicketDataFormat(new MachineKeyProtector(AuthPurpose));
+                var ticket = ticketDataFormat.Unprotect(cookie.Value);
+                if (ticket != null)
+                {
+                    var idClaim = ticket.Identity.FindFirst(ClaimTypes.SerialNumber);
+                    var id = Int32.Parse(idClaim.Value);
+                    var user = _db.Users.Get(id);
+                    if (user != null)
+                    {
+                        user.SecurityStamp = Guid.NewGuid().ToString();
+                        _db.Users.Update(user);
+                        _db.Save();
+                    }
+                }
+                cookie = HttpContext.Current.Response.Cookies[CookieName];
                 cookie.Value = String.Empty;
             }
         }

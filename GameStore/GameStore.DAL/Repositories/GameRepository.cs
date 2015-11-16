@@ -17,10 +17,10 @@ namespace GameStore.DAL.Repositories
 {
     public class GameRepository : IGameRepository
     {
-        private EFContext _db;
+        private IEFContext _db;
         private INorthwindUnitOfWork _northwind;
 
-        public GameRepository(EFContext context, INorthwindUnitOfWork northwind)
+        public GameRepository(IEFContext context, INorthwindUnitOfWork northwind)
         {
             _northwind = northwind;
             _db = context;
@@ -177,7 +177,7 @@ namespace GameStore.DAL.Repositories
                 case DatabaseTypes.GameStore:
                     var game = _db.Games.Find(id);
                     game.EntryState = EntryState.Deleted;
-                    _db.Entry(game).State = EntityState.Modified;
+                    _db.SetModified(game);
                     break;
                 case DatabaseTypes.Northwind:
                     var nGame = _northwind.Games.Get(KeyEncoder.GetId(id));
@@ -195,7 +195,7 @@ namespace GameStore.DAL.Repositories
             switch (database)
             {
                 case DatabaseTypes.GameStore:
-                    _db.Entry(item).State = EntityState.Modified;
+                    _db.SetModified(item);
                     UpdateGameGenres(item);
                     break;
                 case DatabaseTypes.Northwind:

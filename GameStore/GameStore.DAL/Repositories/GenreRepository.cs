@@ -14,10 +14,10 @@ namespace GameStore.DAL.Repositories
 {
     public class GenreRepository : IGenreRepository
     {
-        private EFContext _db;
+        private IEFContext _db;
         private INorthwindUnitOfWork _northwind;
 
-        public GenreRepository(EFContext db, INorthwindUnitOfWork northwind)
+        public GenreRepository(IEFContext db, INorthwindUnitOfWork northwind)
         {
             _db = db;
             _northwind = northwind;
@@ -79,7 +79,7 @@ namespace GameStore.DAL.Repositories
                 case DatabaseTypes.GameStore:
                     var genre = _db.Genres.Find(id);
                     genre.EntryState = EntryState.Deleted;
-                    _db.Entry(genre).State = EntityState.Modified;
+                    _db.SetModified(genre);
                     break;
                 case DatabaseTypes.Northwind:
                     var nGenre = _northwind.Genres.Get(KeyEncoder.GetId(id));
@@ -97,7 +97,7 @@ namespace GameStore.DAL.Repositories
             switch (database)
             {
                 case DatabaseTypes.GameStore:
-                    _db.Entry(item).State = EntityState.Modified;
+                    _db.SetModified(item);
                     break;
                 case DatabaseTypes.Northwind:
                     _db.Genres.Add(item);

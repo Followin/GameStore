@@ -30,12 +30,12 @@
         @if (User.Identity.IsAuthenticated)
         {
             <span>@User.Identity.Name (@UserUtils.GetRoles())</span>
-            <a href="@Url.Action("Logout", "Account")" class="user-control">Log out</a>
+            <a href="@Url.Action("Logout", "Account")" class="user-control">@GlobalRes.LogoutAct</a>
         }
         else
         {
-            <a href="@Url.Action("Login", "Account")" class="user-control">Log in</a>
-            <a href="@Url.Action("Register", "Account")" class="user-control">Register</a>
+            <a href="@Url.Action("Login", "Account")" class="user-control">@GlobalRes.LoginAct</a>
+            <a href="@Url.Action("Register", "Account")" class="user-control">@GlobalRes.Register</a>
         }
     </div>
 </header>

@@ -2,16 +2,17 @@
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using GameStore.DAL.Abstract;
 using GameStore.Domain.Entities;
 
 namespace GameStore.DAL.EF
 {
-    public class EFContext : DbContext
+    public class EFContext : DbContext, IEFContext
     {
         public EFContext(String connectionString)
             : base(connectionString)
         {
-           //Database.SetInitializer(new EFContextInitializer());
+           Database.SetInitializer(new EFContextInitializer());
         }
 
         public IDbSet<Comment> Comments { get; set; }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using GameStore.DAL.Abstract;
 using GameStore.DAL.EF;
 using GameStore.Domain.Abstract;
 
@@ -12,9 +13,9 @@ namespace GameStore.DAL.Repositories
         where T : Entity<TKey>
     {
         private IDbSet<T> _set;
-        protected EFContext Db;
+        protected IEFContext Db;
 
-        public GenericRepository(EFContext context)
+        public GenericRepository(IEFContext context)
         {
             Db = context;
             _set = Db.Set<T>();

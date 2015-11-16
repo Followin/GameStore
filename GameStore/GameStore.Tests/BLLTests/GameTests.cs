@@ -1201,7 +1201,7 @@ namespace GameStore.Tests.BLLTests
             //Arrange
             var getGamesQuery = new GetGamesQuery
             {
-                Name = "Dota 2",
+                Name = "ota 2",
                 GenreIds = new[] {1},
                 MaxPrice = 300,
                 MinDate = new DateTime(2014, 01, 01),
@@ -1228,7 +1228,7 @@ namespace GameStore.Tests.BLLTests
             //Arrange
             var getGamesQuery = new GetGamesQuery
             {
-                Name = "Dota 2"
+                Name = "ota 2"
             };
             var getGamesQueryHandler = new GetGamesQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 

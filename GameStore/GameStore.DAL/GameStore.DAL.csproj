@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IEFContext.cs" />
     <Compile Include="Abstract\INorthwindUnitOfWork.cs" />
     <Compile Include="Abstract\IOutRepository.cs" />
     <Compile Include="EF\EFContext.cs" />

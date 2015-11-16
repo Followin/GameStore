@@ -42,6 +42,10 @@
       <HintPath>..\packages\AutoMapper.4.0.4\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Moq, Version=4.2.1507.118, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.2.1507.0118\lib\net40\Moq.dll</HintPath>
       <Private>True</Private>
@@ -81,6 +85,7 @@
     <Compile Include="BLLTests\PublisherTests.cs" />
     <Compile Include="DALTests\RepositoryTests.cs" />
     <Compile Include="PLTests\GameControllerTests.cs" />
+    <Compile Include="PLTests\ResourcesTest.cs" />
     <Compile Include="PLTests\RouteTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\AutoMapperConfiguration.cs" />
@@ -90,6 +95,10 @@
     <ProjectReference Include="..\GameStore.BLL\GameStore.BLL.csproj">
       <Project>{ee745e23-6d52-4f41-b66a-b3d96ae4733f}</Project>
       <Name>GameStore.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameStore.DAL\GameStore.DAL.csproj">
+      <Project>{7582AB39-8DFE-4B67-820C-7975A612A447}</Project>
+      <Name>GameStore.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\GameStore.Domain\GameStore.Domain.csproj">
       <Project>{ff51b1fd-d69f-41c5-9d49-e2253062a85d}</Project>

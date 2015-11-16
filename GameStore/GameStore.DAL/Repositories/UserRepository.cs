@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameStore.DAL.Abstract;
 using GameStore.DAL.EF;
 using GameStore.Domain.Abstract.Repositories;
 using GameStore.Domain.Entities;
@@ -9,7 +10,7 @@ namespace GameStore.DAL.Repositories
 {
     public class UserRepository : GenericRepository<User, Int32>, IUserRepository
     {
-        public UserRepository(EFContext context) : base(context)
+        public UserRepository(IEFContext context) : base(context)
         {
         }
 

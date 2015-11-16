@@ -13,14 +13,13 @@ namespace GameStore.Auth
 {
     public class ClaimBasedAuthenticationModule : IHttpModule
     {
-        private IUserService _userService;
+        private DependencyInjector _injector;
 
         public delegate object DependencyInjector(Type type);
 
         public ClaimBasedAuthenticationModule(DependencyInjector injector)
         {
-            var unitofwork = (IGameStoreUnitOfWork)injector.Invoke(typeof(IGameStoreUnitOfWork));
-            _userService = new UserService(unitofwork);
+            _injector = injector;
         }
 
         public void Init(HttpApplication context)
@@ -44,22 +43,39 @@ namespace GameStore.Auth
                 {
                     var idClaim = ticket.Identity.FindFirst(ClaimTypes.SerialNumber);
                     var id = Int32.Parse(idClaim.Value);
+                    var stamp = ticket.Properties.Dictionary["Stamp"];
 
-                    ticket.Identity.AddClaims(_userService.GetUserClaims(id));
+                    var unitOfWork = (IGameStoreUnitOfWork) _injector.Invoke(typeof (IGameStoreUnitOfWork));
+                    var user =
+                        unitOfWork.Users.Get(id);
+
+                    if (user.SecurityStamp != stamp)
+                    {
+                        LoginAsGuest();
+                        return;
+                    }
+
+                    var userService = new UserService(unitOfWork);
+                    ticket.Identity.AddClaims(userService.GetUserClaims(id));
                     var principal = new ClaimsPrincipal(ticket.Identity);
 
                     HttpContext.Current.User = principal;
                 }
                 else
                 {
-                    var claimsPrincipal = new ClaimsPrincipal(
-                        new ClaimsIdentity(
-                            RoleClaims.GetClaimsForRole(Roles.Guest)
-                                      .Concat(new[] {new Claim(ClaimTypes.Role, Roles.Guest)})));
-
-                    HttpContext.Current.User = claimsPrincipal;
+                    LoginAsGuest();
                 }
             }
+        }
+
+        private void LoginAsGuest()
+        {
+            var claimsPrincipal = new ClaimsPrincipal(
+                        new ClaimsIdentity(
+                            RoleClaims.GetClaimsForRole(Roles.Guest)
+                                      .Concat(new[] { new Claim(ClaimTypes.Role, Roles.Guest) })));
+
+            HttpContext.Current.User = claimsPrincipal;
         }
     }
 }

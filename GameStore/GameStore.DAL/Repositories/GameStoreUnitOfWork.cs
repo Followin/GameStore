@@ -7,7 +7,7 @@ namespace GameStore.DAL.Repositories
 {
     public class GameStoreUnitOfWork : IGameStoreUnitOfWork
     {
-        private EFContext _db;
+        private IEFContext _db;
         private INorthwindUnitOfWork _northwind;
         private ICommentRepository _comments;
         private IGameRepository _games;
@@ -18,7 +18,7 @@ namespace GameStore.DAL.Repositories
         private IUserRepository _users;
 
 
-        public GameStoreUnitOfWork(EFContext db, INorthwindUnitOfWork northwind)
+        public GameStoreUnitOfWork(IEFContext db, INorthwindUnitOfWork northwind)
         {
             _db = db;
             _northwind = northwind;

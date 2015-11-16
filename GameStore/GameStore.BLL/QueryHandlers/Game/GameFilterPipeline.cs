@@ -160,7 +160,7 @@ namespace GameStore.BLL.QueryHandlers.Game
             if (!String.IsNullOrWhiteSpace(query.Name))
             {
                 yield return new TransformPipelineBlock<Expression<Func<Domain.Entities.Game, bool>>, Expression<Func<Domain.Entities.Game, bool>>>(
-                    expr => expr.AndAlso(game => game.Name == query.Name));
+                    expr => expr.AndAlso(game => game.Name.ToLower().Contains(query.Name)));
             }
 
 

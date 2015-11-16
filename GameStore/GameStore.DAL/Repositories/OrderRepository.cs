@@ -13,10 +13,10 @@ namespace GameStore.DAL.Repositories
 {
     public class OrderRepository : IOrderRepository
     {
-        private EFContext _db;
+        private IEFContext _db;
         private INorthwindUnitOfWork _northwind;
 
-        public OrderRepository(EFContext db, INorthwindUnitOfWork northwind)
+        public OrderRepository(IEFContext db, INorthwindUnitOfWork northwind)
         {
             _db = db;
             _northwind = northwind;
@@ -98,7 +98,7 @@ namespace GameStore.DAL.Repositories
 
         public void EditOrderDetails(OrderDetails orderDetails)
         {
-            _db.Entry(orderDetails).State = EntityState.Modified;
+            _db.SetModified(orderDetails);
         }
 
         public IEnumerable<Shipper> GetShippers()
@@ -110,7 +110,7 @@ namespace GameStore.DAL.Repositories
         {
             var order = _db.Orders.Find(id);
             order.OrderDate = DateTime.UtcNow;
-            _db.Entry(order).State = EntityState.Modified;
+            _db.SetModified(order);
         }
 
         public DateTime Ship(int id)
@@ -119,7 +119,7 @@ namespace GameStore.DAL.Repositories
             var order = _db.Orders.Find(id);
 
             order.ShippedDate = DateTime.UtcNow;
-            _db.Entry(order).State = EntityState.Modified;
+            _db.SetModified(order);
 
             return now;
         }

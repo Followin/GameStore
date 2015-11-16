@@ -475,6 +475,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log out.
+        /// </summary>
+        public static string LogoutAct {
+            get {
+                return ResourceManager.GetString("LogoutAct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Make order.
         /// </summary>
         public static string MakeOrder {

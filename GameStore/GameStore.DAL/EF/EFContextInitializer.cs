@@ -182,6 +182,7 @@ namespace GameStore.DAL.EF
             {
                 Name = "Admin",
                 PasswordHash = "ABOB+2NtMPelLA77KE4KTt/EztyZqH1aZ9+eMIwYkBhWUcViMyhYj2Zf9arebVTTcQ==",
+                SecurityStamp = Guid.NewGuid().ToString(),
                 Claims = new[]
                 {
                     new UserClaim
@@ -197,6 +198,7 @@ namespace GameStore.DAL.EF
             {
                 Name = "Moderator",
                 PasswordHash = "ABOB+2NtMPelLA77KE4KTt/EztyZqH1aZ9+eMIwYkBhWUcViMyhYj2Zf9arebVTTcQ==",
+                SecurityStamp = Guid.NewGuid().ToString(),
                 Claims = new[]
                 {
                     new UserClaim
@@ -212,6 +214,7 @@ namespace GameStore.DAL.EF
             {
                 Name = "Manager",
                 PasswordHash = "ABOB+2NtMPelLA77KE4KTt/EztyZqH1aZ9+eMIwYkBhWUcViMyhYj2Zf9arebVTTcQ==",
+                SecurityStamp = Guid.NewGuid().ToString(),
                 Claims = new[]
                 {
                     new UserClaim

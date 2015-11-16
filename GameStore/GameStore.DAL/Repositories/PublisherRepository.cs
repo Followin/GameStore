@@ -14,10 +14,10 @@ namespace GameStore.DAL.Repositories
 {
     public class PublisherRepository : IPublisherRepository
     {
-        private EFContext _db;
+        private IEFContext _db;
         private INorthwindUnitOfWork _northwind;
 
-        public PublisherRepository(EFContext db, INorthwindUnitOfWork north)
+        public PublisherRepository(IEFContext db, INorthwindUnitOfWork north)
         {
             _db = db;
             _northwind = north;
@@ -78,7 +78,7 @@ namespace GameStore.DAL.Repositories
                 case DatabaseTypes.GameStore:
                     var publisher = _db.Publishers.Find(id);
                     publisher.EntryState = EntryState.Deleted;
-                    _db.Entry(publisher).State = EntityState.Modified;
+                    _db.SetModified(publisher);
                     break;
                 case DatabaseTypes.Northwind:
                     var nPublisher = _northwind.Publishers.Get(KeyEncoder.GetId(id));
@@ -96,7 +96,7 @@ namespace GameStore.DAL.Repositories
             switch (database)
             {
                 case DatabaseTypes.GameStore:
-                    _db.Entry(item).State = EntityState.Modified;
+                    _db.SetModified(item);
                     break;
                 case DatabaseTypes.Northwind:
                     _db.Publishers.Add(item);

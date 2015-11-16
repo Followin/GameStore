@@ -153,10 +153,11 @@ $trueColor: #26a69a;
     select {
         position: relative;
         width: 100%;
+        height: 46px;
         padding: 15px 15px;
         font-size: 0.7em;
         outline: none;
-        border-color: rgba(0,0,0,.2);
+        border: 1px solid rgba(0,0,0,.2);
         -webkit-appearance:none;
         -moz-appearance:none;
         appearance:none;

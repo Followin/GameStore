@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using GameStore.Static;
 using GameStore.Web.Models;
 using GameStore.Web.Models.Comment;
 using GameStore.Web.Models.Genres;
@@ -86,7 +88,7 @@ namespace GameStore.Web.HtmlHelpers
                 deleteButton.Attributes["data-id"] = comment.Id.ToString();
                 deleteButton.SetInnerText("x");
 
-                if (HttpContext.Current.User.IsInRole("Manager"))
+                if ((HttpContext.Current.User as ClaimsPrincipal).HasClaim(ClaimTypesExtensions.CommentPermission, Permissions.Delete))
                 {
                     commentDiv.InnerHtml += deleteButton;
                 }

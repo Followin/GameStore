@@ -84,7 +84,7 @@
     <Compile Include="BLLTests\OrderTests.cs" />
     <Compile Include="BLLTests\PublisherTests.cs" />
     <Compile Include="DALTests\RepositoryTests.cs" />
-    <Compile Include="PLTests\GameControllerTests.cs" />
+    <Compile Include="PLTests\ControllerTests.cs" />
     <Compile Include="PLTests\ResourcesTest.cs" />
     <Compile Include="PLTests\RouteTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

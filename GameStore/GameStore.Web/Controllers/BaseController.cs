@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using GameStore.BLL.CQRS;
@@ -23,5 +25,6 @@ namespace GameStore.Web.Controllers
         protected IQueryDispatcher QueryDispatcher { get; private set; }
 
         protected ILogger Logger { get; private set; }
+
     }
 }

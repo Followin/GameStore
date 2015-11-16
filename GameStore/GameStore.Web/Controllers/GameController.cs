@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Security.Cryptography.X509Certificates;
-using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
-using GameStore.BLL.Commands;
-using GameStore.BLL.Commands.Comment;
 using GameStore.BLL.Commands.Game;
 using GameStore.BLL.Commands.Order;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.DTO;
-using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Comment;
 using GameStore.BLL.Queries.Game;
 using GameStore.BLL.Queries.Genre;
@@ -27,14 +22,12 @@ using GameStore.BLL.QueryResults.Order;
 using GameStore.BLL.QueryResults.PlatformType;
 using GameStore.BLL.QueryResults.Publisher;
 using GameStore.Static;
-using GameStore.Web.Abstract;
 using GameStore.Web.App_LocalResources;
 using GameStore.Web.Filters;
 using GameStore.Web.Models;
 using GameStore.Web.Models.Comment;
 using GameStore.Web.Models.Game;
 using GameStore.Web.Models.Genres;
-using GameStore.Web.Models.Order;
 using GameStore.Web.Models.Publisher;
 using GameStore.Web.Static;
 using NLog;
@@ -123,12 +116,10 @@ namespace GameStore.Web.Controllers
                 model = new GameFiltersModel();
             }
 
-
             if (model.Page == 0)
             {
                 model.Page = 1;
             }
-
 
             Mapper.Map(model, query);
 

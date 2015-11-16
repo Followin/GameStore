@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Rules>
+  <StyleCopEnabled enabled="false">
+    <Exception>
+      <Project>ProjectToExcludeFromCheck.csproj</Project>
+    </Exception>
+  </StyleCopEnabled>
+  <TreatStyleCopWarningsAsErrors enabled="false">
+    <Exception>
+      <Project>ProjectToExcludeFromCheck.csproj</Project>
+    </Exception>
+  </TreatStyleCopWarningsAsErrors>
+  <SameNameForAssemblyAndRootNamespace enabled="false">
+    <Exception>
+      <Project>ProjectToExcludeFromCheck.csproj</Project>
+    </Exception>
+  </SameNameForAssemblyAndRootNamespace>
+  <NuGetAutomaticPackagesRestore enabled="true">
+    <Exception>
+      <Project>ProjectToExcludeFromCheck.csproj</Project>
+    </Exception>
+  </NuGetAutomaticPackagesRestore>
+  <SameNuGetPackageVersions enabled="true">
+    <Exception>
+      <Project>ProjectIsAllowedNotToReferenceSpecificPackage.csproj</Project>
+      <Package>package-id</Package>
+    </Exception>
+    <Exception>
+      <Package>second-package-id</Package>
+    </Exception>
+    <Exception>
+      <Package>third-package-id</Package>
+    </Exception>
+  </SameNuGetPackageVersions>
+  <NuGetPackagesUsage enabled="true">
+    <Exception>
+      <Project>ProjectIsAllowedNotToReferenceSpecificPackage.csproj</Project>
+      <Package>package-id</Package>
+    </Exception>
+    <Exception>
+      <Package>second-package-id</Package>
+    </Exception>
+    <Exception>
+      <Package>third-package-id</Package>
+    </Exception>
+  </NuGetPackagesUsage>
+  <NuGetPackageVersions enabled="true">
+    <Package id="first-package-id" version="1.0.0" prerelease="false" />
+    <Package id="second-package-id" version="[2.0.3]" />
+    <Package id="third-package-id" version="[1.5.0, 2.0.0)" />
+    <Package id="fourth-package-id" version="[1.5.0]|[1.6.0]" />
+  </NuGetPackageVersions>
+  <ReferenceNuGetPackagesOnly enabled="false">
+    <Exception>
+      <Project>ProjectToExcludeFromCheck.csproj</Project>
+      <Assembly>my.dll</Assembly>
+    </Exception>
+  </ReferenceNuGetPackagesOnly>
+  <FilesIncludedIntoProject enabled="true">
+    <FileName>*.cs</FileName>
+    <FileName>*.xaml</FileName>
+    <Exception>
+      <Project>ProjectToExcludeFromCheck.csproj</Project>
+    </Exception>
+    <Exception>
+      <Project>ProjectWithSpecificException.csproj</Project>
+      <FileName>ProjectSpecificException*.cs</FileName>
+    </Exception>
+    <Exception>
+      <FileName>*.global.exception.pattern.cs</FileName>
+    </Exception>
+  </FilesIncludedIntoProject>
+  <TargetFrameworkProfile enabled="false">
+    <Profile>Client</Profile>
+    <Exception>
+      <Project>ProjectToExcludeFromCheck.csproj</Project>
+    </Exception>
+    <Exception>
+      <Project>ProjectCanHaveTargetVersion3_5.csproj</Project>
+      <Profile></Profile>
+    </Exception>
+  </TargetFrameworkProfile>
+  <SuppressWarnings enabled="false">
+    <Warning>0123</Warning>
+    <Warning>0124</Warning>
+    <Exception>
+      <Project>ProjectToExcludeFromCheck.csproj</Project>
+    </Exception>
+    <Exception>
+      <Project>ProjectIsAllowedToSuppressAnExtraWarning.csproj</Project>
+      <Warning>0125</Warning>
+    </Exception>
+  </SuppressWarnings>
+  <TargetFrameworkVersion enabled="true">
+    <FrameworkVersion>4.0</FrameworkVersion>
+    <FrameworkVersion>4.5</FrameworkVersion>
+    <Exception>
+      <Project>ProjectToExcludeFromCheck.csproj</Project>
+    </Exception>
+    <Exception>
+      <Project>ProjectCanHaveTargetVersion3_5.csproj</Project>
+      <FrameworkVersion>3.5</FrameworkVersion>
+    </Exception>
+  </TargetFrameworkVersion>
+  <TreatWarningsAsErrors enabled="false">
+    <AllWarnings />
+    <!--You may also define specific warnings-->
+    <!--<Warning>0123</Warning>-->
+    <!--<Warning>0124</Warning>-->
+    <Exception>
+      <Project>ProjectToExcludeFromCheck.csproj</Project>
+    </Exception>
+    <Exception>
+      <Project>ProjectIsAllowedNotToTreatSomeWarningsAsErrors.csproj</Project>
+      <Warning>0125</Warning>
+    </Exception>
+  </TreatWarningsAsErrors>
+  <WarningLevel enabled="false">
+    <MinimalValue>4</MinimalValue>
+    <Exception>
+      <Project>ProjectThatIsAllowedToHaveWarningLevel_2.csproj</Project>
+      <MinimalValue>2</MinimalValue>
+    </Exception>
+    <Exception>
+      <Project>AnotherProjectToFullyExcludeFromChecks.csproj</Project>
+    </Exception>
+  </WarningLevel>
+</Rules>

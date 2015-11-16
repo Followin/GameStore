@@ -1,25 +1,14 @@
-﻿using System;
-using System.Net.Mime;
-using System.Security.Claims;
-using System.Web;
+﻿using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using System.Web.Script.Serialization;
-using System.Web.Security;
 using AutoMapper;
 using GameStore.Auth;
-using GameStore.BLL.Utils;
-using GameStore.Domain.Abstract;
 using GameStore.Maps;
 using GameStore.Web.Concrete;
 using GameStore.Web.ModelBinders;
-using GameStore.Web.Models.Order;
 using GameStore.Web.Utils;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.DataHandler;
-using Microsoft.Owin.Security.DataHandler.Serializer;
 using MotorDepot.WEB.Utils;
 
 namespace GameStore.Web
@@ -58,8 +47,8 @@ namespace GameStore.Web
         public override void Init()
         {
             base.Init();
-            var authModule = new ClaimBasedAuthenticationModule(
-                (IGameStoreUnitOfWork)DependencyResolver.Current.GetService(typeof(IGameStoreUnitOfWork)));
+            var authModule = new ClaimBasedAuthenticationModule();
+            authModule.Injector += type => DependencyResolver.Current.GetService(type);
             authModule.Init(this);
         }
 

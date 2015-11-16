@@ -455,10 +455,6 @@
       <Project>{ee745e23-6d52-4f41-b66a-b3d96ae4733f}</Project>
       <Name>GameStore.BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GameStore.Domain\GameStore.Domain.csproj">
-      <Project>{FF51B1FD-D69F-41C5-9D49-E2253062A85D}</Project>
-      <Name>GameStore.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GameStore.IoC\GameStore.IoC.csproj">
       <Project>{397fd2d0-6f18-49aa-8ea4-c9239813b2ea}</Project>
       <Name>GameStore.IoC</Name>

@@ -13,18 +13,18 @@ namespace GameStore.Auth
 {
     public class ClaimBasedAuthenticationModule : IHttpModule
     {
-        private IGameStoreUnitOfWork _db;
         private IUserService _userService;
 
-        public ClaimBasedAuthenticationModule(IGameStoreUnitOfWork db)
-        {
-            _db = db;
-            _userService = new UserService(_db);
-        }
+        public delegate object DependencyInjector(Type type);
+
+
+        public event DependencyInjector Injector;
 
         public void Init(HttpApplication context)
         {
             context.PostAuthenticateRequest += ReplacePrincipal;
+            var unitofwork = (IGameStoreUnitOfWork)Injector.Invoke(typeof (IGameStoreUnitOfWork));
+            _userService = new UserService(unitofwork);
         }
 
         public void Dispose()

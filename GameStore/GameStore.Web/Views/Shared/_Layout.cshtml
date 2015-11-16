@@ -34,7 +34,7 @@
         }
         else
         {
-            <a href="@Url.Action("Login", "Account")" class="user-control">@GlobalRes.LoginAct</a>
+            <a href="@Url.Action("Login", "Account", new { returnUrl = Request.Url.PathAndQuery})" class="user-control">@GlobalRes.LoginAct</a>
             <a href="@Url.Action("Register", "Account")" class="user-control">@GlobalRes.Register</a>
         }
     </div>

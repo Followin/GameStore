@@ -17,6 +17,7 @@ namespace GameStore.Web.HtmlHelpers
         public static MvcHtmlString CreateTree(this HtmlHelper helper, IEnumerable<GenreViewModel> genres, String propertyName)
         {
             var ulTag = new TagBuilder("ul");
+            ulTag.AddCssClass("hideable");
             foreach (var genre in genres)
             {
                 var liTag = new TagBuilder("li");

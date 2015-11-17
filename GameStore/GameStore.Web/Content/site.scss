@@ -597,3 +597,12 @@ input[type="submit"] {
     background: hsl(100, 70%, 40%);
     padding: 3px 7px;
 }
+
+td:last-child{
+
+    .td-button {
+        float:right;
+        margin: 0;
+        background-color: $header;
+    }
+}

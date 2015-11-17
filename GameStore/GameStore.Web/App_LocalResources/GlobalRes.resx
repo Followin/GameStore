@@ -192,6 +192,9 @@
   <data name="Filter" xml:space="preserve">
     <value>Filter</value>
   </data>
+  <data name="Forget" xml:space="preserve">
+    <value>Forget</value>
+  </data>
   <data name="From" xml:space="preserve">
     <value>From</value>
   </data>

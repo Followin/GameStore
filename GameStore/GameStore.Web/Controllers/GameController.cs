@@ -79,7 +79,7 @@ namespace GameStore.Web.Controllers
             {
                 return HttpNotFound();
             }
-
+            
             if (game.EntryState != EntryState.Active)
             {
                 return HttpNotFound();

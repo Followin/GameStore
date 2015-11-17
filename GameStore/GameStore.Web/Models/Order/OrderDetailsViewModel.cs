@@ -22,6 +22,8 @@ namespace GameStore.Web.Models.Order
             Name = "Quantity")]
         public Int16 Quantity { get; set; }
 
+        public Int32 OrderId { get; set; }
+
         public Int32 GameId { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),

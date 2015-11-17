@@ -101,6 +101,15 @@ namespace GameStore.DAL.Repositories
             _db.SetModified(orderDetails);
         }
 
+        public void DeleteOrderDetails(Int32 gameId, Int32 orderId)
+        {
+            var orderDetails = _db.OrderDetails.Find(gameId, orderId);
+            if (orderDetails != null)
+            {
+                _db.OrderDetails.Remove(orderDetails);
+            }
+        }
+
         public IEnumerable<Shipper> GetShippers()
         {
             return _northwind.GetShippers.ToList();

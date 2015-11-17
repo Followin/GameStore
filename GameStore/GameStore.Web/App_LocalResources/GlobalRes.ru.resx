@@ -192,6 +192,9 @@
   <data name="Filter" xml:space="preserve">
     <value>Фильтровать</value>
   </data>
+  <data name="Forget" xml:space="preserve">
+    <value>Забыть</value>
+  </data>
   <data name="From" xml:space="preserve">
     <value>От</value>
   </data>

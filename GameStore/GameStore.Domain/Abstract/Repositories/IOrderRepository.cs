@@ -47,6 +47,13 @@ namespace GameStore.Domain.Abstract.Repositories
         void EditOrderDetails(OrderDetails orderDetails);
 
         /// <summary>
+        /// Delete order details from order
+        /// </summary>
+        /// <param name="gameId"></param>
+        /// <param name="orderId"></param>
+        void DeleteOrderDetails(Int32 gameId, Int32 orderId);
+
+        /// <summary>
         /// Get all shippers
         /// </summary>
         /// <returns>Shippers list</returns>

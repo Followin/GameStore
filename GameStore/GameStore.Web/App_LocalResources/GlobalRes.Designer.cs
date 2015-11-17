@@ -286,6 +286,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Forget.
+        /// </summary>
+        public static string Forget {
+            get {
+                return ResourceManager.GetString("Forget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to From.
         /// </summary>
         public static string From {

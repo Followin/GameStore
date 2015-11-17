@@ -716,4 +716,10 @@ h2 {
   padding: 3px 7px;
 }
 
+td:last-child .td-button {
+  float: right;
+  margin: 0;
+  background-color: #481FBA;
+}
+
 /*# sourceMappingURL=site.css.map */

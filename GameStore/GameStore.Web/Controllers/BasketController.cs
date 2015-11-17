@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Web.Mvc;
 using AutoMapper;
+using GameStore.BLL.Commands.Order;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Queries.Order;
 using GameStore.BLL.QueryResults.Order;
@@ -26,6 +27,13 @@ namespace GameStore.Web.Controllers
                     UserId = Int32.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
                 }));
             return View(currentOrder);
+        }
+
+        [Authorize]
+        public ActionResult DeleteDetails(Int32 gameId, Int32 orderId)
+        {
+            CommandDispatcher.Dispatch(new DeleteOrderDetailsCommand { OrderId = orderId, GameId = gameId });
+            return RedirectToAction("Index");
         }
 
         

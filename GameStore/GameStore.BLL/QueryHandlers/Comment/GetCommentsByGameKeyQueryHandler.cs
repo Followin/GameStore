@@ -17,23 +17,27 @@ using EntryState = GameStore.Domain.Abstract.EntryState;
 
 namespace GameStore.BLL.QueryHandlers.Comment
 {
-    public class GetCommentsByGameKeyQueryHandler : IQueryHandler<GetCommentsByGameKeyQuery, CommentsQueryResult>
+    public class GetCommentsForGameQueryHandler : 
+        IQueryHandler<GetCommentsForGameQuery, CommentsQueryResult>
     {
         private IGameStoreUnitOfWork _db;
         private ILogger _logger;
 
-        public GetCommentsByGameKeyQueryHandler(IGameStoreUnitOfWork db, ILogger logger)
+        public GetCommentsForGameQueryHandler(IGameStoreUnitOfWork db, ILogger logger)
         {
             _db = db;
             _logger = logger;
         }
 
-        public CommentsQueryResult Retrieve(GetCommentsByGameKeyQuery query)
+        public CommentsQueryResult Retrieve(GetCommentsForGameQuery query)
         {
             query.Key.Argument(NameGetter.GetName(() => query.Key))
-                 .NotNull()
                  .NotWhiteSpace();
-            var game = _db.Games.GetSingle(g => g.Key == query.Key);
+
+            var game = query.Key != null 
+                ? _db.Games.GetSingle(g => g.Key == query.Key) 
+                : _db.Games.Get(query.Id);
+
             if (game == null)
             {
                 throw new EntityNotFoundException(

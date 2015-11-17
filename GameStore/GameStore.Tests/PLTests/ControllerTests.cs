@@ -111,7 +111,7 @@ namespace GameStore.Tests.PLTests
         {
             // Arrange
             _queryDispatcherMock.Setup(
-                x => x.Dispatch<GetCommentsByGameKeyQuery, CommentsQueryResult>(It.IsAny<GetCommentsByGameKeyQuery>()))
+                x => x.Dispatch<GetCommentsForGameQuery, CommentsQueryResult>(It.IsAny<GetCommentsForGameQuery>()))
                                 .Returns(new CommentsQueryResult(new[] { new CommentDTO { Name = "First" } }));
 
             // Act

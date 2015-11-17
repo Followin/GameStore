@@ -49,14 +49,15 @@ namespace GameStore.Web.Controllers
                     Key = gamekey
                 });
 
+
             var game = Mapper.Map<DisplayGameModel>(query);
             return View(game);
         }
 
         public ActionResult Comments(String gamekey)
         {
-            var query = QueryDispatcher.Dispatch<GetCommentsByGameKeyQuery, CommentsQueryResult>(
-                new GetCommentsByGameKeyQuery
+            var query = QueryDispatcher.Dispatch<GetCommentsForGameQuery, CommentsQueryResult>(
+                new GetCommentsForGameQuery
                 {
                     Key = gamekey
                 });

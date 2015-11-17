@@ -47,8 +47,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.1.2\lib\net45\NLog.dll</HintPath>
@@ -110,6 +110,7 @@
     <Compile Include="DTO\PublisherDTO.cs" />
     <Compile Include="DTO\ShipperDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\Comment\GetCommentByIdQuery.cs" />
     <Compile Include="Queries\Comment\GetCommentsByGameKeyQuery.cs" />
     <Compile Include="Queries\Game\GetGamesQuery.cs" />
     <Compile Include="Queries\Game\GetAllGamesQuery.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Queries\Game\GetGamesByPlatformTypesQuery.cs" />
     <Compile Include="Queries\Game\GetGamesCountQuery.cs" />
     <Compile Include="Queries\Genre\GetAllGenresQuery.cs" />
+    <Compile Include="Queries\Genre\GetGenreByIdQuery.cs" />
     <Compile Include="Queries\Order\GetCurrentOrder.cs" />
     <Compile Include="Queries\Order\GetOrderByIdQuery.cs" />
     <Compile Include="Queries\Order\GetOrdersHistoryQuery.cs" />
@@ -126,6 +128,8 @@
     <Compile Include="Queries\PlatformType\GetAllPlatformTypesQuery.cs" />
     <Compile Include="Queries\Publisher\GetAllPublishersQuery.cs" />
     <Compile Include="Queries\Publisher\GetPublisherByCompanyNameQuery.cs" />
+    <Compile Include="Queries\Publisher\GetPublisherByIdQuery.cs" />
+    <Compile Include="QueryHandlers\Comment\GetCommentByidQueryHandler.cs" />
     <Compile Include="QueryHandlers\Comment\GetCommentsByGameKeyQueryHandler.cs" />
     <Compile Include="QueryHandlers\Game\GameFilterPipeline.cs" />
     <Compile Include="QueryHandlers\Game\GetAllGamesQueryHandler.cs" />
@@ -136,6 +140,7 @@
     <Compile Include="QueryHandlers\Game\GetGamesCountQueryHandler.cs" />
     <Compile Include="QueryHandlers\Game\GetGamesQueryHandler.cs" />
     <Compile Include="QueryHandlers\Genre\GetAllGenresQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Genre\GetGenreByIdQueryHandler.cs" />
     <Compile Include="QueryHandlers\Order\GetCurrentOrderQueryHandler.cs" />
     <Compile Include="QueryHandlers\Order\GetOrderByIdQueryHandler.cs" />
     <Compile Include="QueryHandlers\Order\GetOrdersHistoryQueryHandler.cs" />
@@ -143,12 +148,15 @@
     <Compile Include="QueryHandlers\Platform\GetAllPlatformTypesQueryHandler.cs" />
     <Compile Include="QueryHandlers\Publisher\GetAllPublishersQueryhandler.cs" />
     <Compile Include="QueryHandlers\Publisher\GetPublisherByCompanyNameQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Publisher\GetPublisherByIdQueryHandler.cs" />
     <Compile Include="QueryResults\BooleanQueryResult.cs" />
+    <Compile Include="QueryResults\Comment\CommentQueryResult.cs" />
     <Compile Include="QueryResults\Comment\CommentsQueryResult.cs" />
     <Compile Include="QueryResults\CountQueryResult.cs" />
     <Compile Include="QueryResults\Game\GameQueryResult.cs" />
     <Compile Include="QueryResults\Game\GamesPartQueryResult.cs" />
     <Compile Include="QueryResults\Game\GamesQueryResult.cs" />
+    <Compile Include="QueryResults\Genre\GenreQueryResult.cs" />
     <Compile Include="QueryResults\Genre\GenresQueryResult.cs" />
     <Compile Include="QueryResults\Order\OrderQueryResult.cs" />
     <Compile Include="QueryResults\Order\OrdersQueryResult.cs" />

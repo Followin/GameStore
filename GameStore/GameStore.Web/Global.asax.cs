@@ -40,7 +40,7 @@ namespace GameStore.Web
             });
             InitializePayments();
 
-            
+
             //Mapper.AssertConfigurationIsValid();
         }
 
@@ -49,6 +49,7 @@ namespace GameStore.Web
             base.Init();
             var authModule = new ClaimBasedAuthenticationModule(type => DependencyResolver.Current.GetService(type));
             authModule.Init(this);
+
         }
 
 

@@ -1,5 +1,10 @@
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
+using System.Web.Http;
+using System.Web.Http.Dependencies;
 using GameStore.IoC;
+using Ninject.Syntax;
 using NLog;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(GameStore.Web.App_Start.NinjectWebCommon), "Start")]
@@ -29,6 +34,8 @@ namespace GameStore.Web.App_Start
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             Bootstrapper.Initialize(CreateKernel);
+
+
         }
         
         /// <summary>
@@ -54,6 +61,8 @@ namespace GameStore.Web.App_Start
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 RegisterServices(kernel);
+
+                GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
                 return kernel;
             }
             catch
@@ -75,5 +84,54 @@ namespace GameStore.Web.App_Start
                 return LogManager.GetLogger(context.Request.ParentContext.Request.Service.FullName);
             });
         }        
+    }
+
+    public class NinjectDependencyScope : IDependencyScope
+    {
+        private IResolutionRoot resolver;
+
+        internal NinjectDependencyScope(IResolutionRoot resolver)
+        {
+            Contract.Assert(resolver != null);
+
+            this.resolver = resolver;
+        }
+
+        public void Dispose()
+        {
+            
+        }
+
+        public object GetService(Type serviceType)
+        {
+            if (resolver == null)
+                throw new ObjectDisposedException("this", "This scope has already been disposed");
+
+            return resolver.TryGet(serviceType);
+        }
+
+        public IEnumerable<object> GetServices(Type serviceType)
+        {
+            if (resolver == null)
+                throw new ObjectDisposedException("this", "This scope has already been disposed");
+
+            return resolver.GetAll(serviceType);
+        }
+    }
+
+    public class NinjectDependencyResolver : NinjectDependencyScope, IDependencyResolver
+    {
+        private IKernel kernel;
+
+        public NinjectDependencyResolver(IKernel kernel)
+            : base(kernel)
+        {
+            this.kernel = kernel;
+        }
+
+        public IDependencyScope BeginScope()
+        {
+            return new NinjectDependencyScope(kernel.BeginBlock());
+        }
     }
 }

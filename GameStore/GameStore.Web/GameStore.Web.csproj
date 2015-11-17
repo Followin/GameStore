@@ -195,6 +195,12 @@
   <ItemGroup>
     <Compile Include="Abstract\ICustomPrincipal.cs" />
     <Compile Include="Abstract\IPayment.cs" />
+    <Compile Include="ApiControllers\AccountController.cs" />
+    <Compile Include="ApiControllers\BaseController.cs" />
+    <Compile Include="ApiControllers\CommentsController.cs" />
+    <Compile Include="ApiControllers\GamesController.cs" />
+    <Compile Include="ApiControllers\GenresController.cs" />
+    <Compile Include="ApiControllers\PublisherController.cs" />
     <Compile Include="App_GlobalResources\Validation.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -228,6 +234,7 @@
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PublisherController.cs" />
+    <Compile Include="Filters\ClaimsAuthorizeApiAttribute.cs" />
     <Compile Include="Filters\ClaimsAuthorizeAttribute.cs" />
     <Compile Include="Filters\ExceptionLogger.cs" />
     <Compile Include="Filters\LocalizeAttribute.cs" />

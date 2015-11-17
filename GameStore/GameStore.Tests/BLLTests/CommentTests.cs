@@ -31,7 +31,7 @@ namespace GameStore.Tests.BLLTests
         private CreateCommentCommand _createCommentCommand;
         private CreateCommentHandler _commandHandler;
         private DeleteCommentCommandHandler _deleteHandler;
-        private GetCommentsByGameKeyQueryHandler _queryHandler;
+        private GetCommentsForGameQueryHandler _queryHandler;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
@@ -95,7 +95,7 @@ namespace GameStore.Tests.BLLTests
 
             ILogger logger = new Mock<ILogger>().Object;
 
-            _queryHandler = new GetCommentsByGameKeyQueryHandler(_unitOfWorkMock.Object, logger);
+            _queryHandler = new GetCommentsForGameQueryHandler(_unitOfWorkMock.Object, logger);
             _commandHandler = new CreateCommentHandler(_unitOfWorkMock.Object, logger);
             _deleteHandler = new DeleteCommentCommandHandler(_unitOfWorkMock.Object, logger);
         }
@@ -390,7 +390,7 @@ namespace GameStore.Tests.BLLTests
         public void GetCommentsByGameKey_Key_Argument_Is_Null()
         {
             // Arrange
-            var getCommentsByGameKey = new GetCommentsByGameKeyQuery { Key = null };
+            var getCommentsByGameKey = new GetCommentsForGameQuery { Key = null };
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
@@ -406,7 +406,7 @@ namespace GameStore.Tests.BLLTests
         public void GetCommentsByGameKey_Key_Argument_Is_Empty()
         {
             // Arrange
-            var getCommentsByGameKey = new GetCommentsByGameKeyQuery { Key = String.Empty };
+            var getCommentsByGameKey = new GetCommentsForGameQuery { Key = String.Empty };
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
@@ -422,7 +422,7 @@ namespace GameStore.Tests.BLLTests
         public void GetCommentsByGameKey_Key_Argument_Doesnt_Match_Existing_Game()
         {
             // Arrange
-            var getCommentsByGameKey = new GetCommentsByGameKeyQuery { Key = "notExisingGame" };
+            var getCommentsByGameKey = new GetCommentsForGameQuery { Key = "notExisingGame" };
 
             // Act
             var result = ExceptionAssert.Throws<EntityNotFoundException>(() =>
@@ -437,7 +437,7 @@ namespace GameStore.Tests.BLLTests
         public void GetCommentsByGameKey_Right_Data()
         {
             // Arrange
-            var getCommentsByGameKey = new GetCommentsByGameKeyQuery { Key = "dota-2" };
+            var getCommentsByGameKey = new GetCommentsForGameQuery { Key = "dota-2" };
 
             // Act
             var result = _queryHandler.Retrieve(getCommentsByGameKey);

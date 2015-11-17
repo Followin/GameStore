@@ -62,8 +62,7 @@ namespace GameStore.Web.Hubs
         {
             var user = HttpContext.Current.User as ClaimsPrincipal;
             if (user == null ||
-                (!user.HasClaim(ClaimTypesExtensions.CommentPermission, Permissions.Add) &&
-                 !user.HasClaim(ClaimTypesExtensions.CommentPermission, Permissions.Full)))
+                 !user.HasClaim(ClaimTypesExtensions.CommentPermission, Permissions.Full))
             {
                 return;
             }

@@ -13,7 +13,9 @@ using GameStore.BLL.Commands.Publisher;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryResults;
+using GameStore.BLL.QueryResults.Comment;
 using GameStore.BLL.QueryResults.Game;
+using GameStore.BLL.QueryResults.Genre;
 using GameStore.BLL.QueryResults.Order;
 using GameStore.BLL.QueryResults.Publisher;
 using GameStore.Static;
@@ -40,6 +42,8 @@ namespace GameStore.Web.Utils
             Mapper.CreateMap<PlatformTypeDTO, PlatformTypeViewModel>();
             Mapper.CreateMap<GenreDTO, GenreViewModel>()
                 .ForMember(x => x.Name, _ => _.ResolveUsing(GetGenreName));
+            Mapper.CreateMap<GenreQueryResult, GenreViewModel>()
+                  .ForMember(x => x.Name, _ => _.ResolveUsing(GetGenreName));
             Mapper.CreateMap<PublisherDTO, DisplayPublisherViewModel>();
             Mapper.CreateMap<GameDTO, DisplayGameModel>()
                 .ForMember(x => x.Description, _ => _.ResolveUsing(GetGameDescription))
@@ -51,6 +55,7 @@ namespace GameStore.Web.Utils
 
 
             Mapper.CreateMap<PublisherQueryResult, DisplayPublisherViewModel>();
+            Mapper.CreateMap<CommentQueryResult, DisplayCommentViewModel>();
             Mapper.CreateMap<GameQueryResult, DisplayGameModel>()
                   .ForMember(x => x.IsDeleted, _ => _.MapFrom(x => x.EntryState == EntryState.Deleted));
             Mapper.CreateMap<GameFiltersModel, GetGamesQuery>()
@@ -87,6 +92,19 @@ namespace GameStore.Web.Utils
         }
 
         public String GetGenreName(GenreDTO genreDto)
+        {
+            switch (Thread.CurrentThread.CurrentCulture.Name.Substring(0, 2))
+            {
+                case "ru":
+                    return genreDto.NameRu;
+                case "en":
+                    return genreDto.NameEn;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public String GetGenreName(GenreQueryResult genreDto)
         {
             switch (Thread.CurrentThread.CurrentCulture.Name.Substring(0, 2))
             {

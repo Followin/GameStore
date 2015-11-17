@@ -48,7 +48,7 @@ namespace GameStore.BLL.CommandHandlers.Comment
                 comment.Quotes = null;
                 comment.Body = "<Deleted>";
 
-                commandResult.Success = false;
+                commandResult.Success = true;
                 commandResult.Data = "<Deleted>";
             }
             else

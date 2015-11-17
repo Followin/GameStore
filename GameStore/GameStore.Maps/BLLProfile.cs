@@ -5,7 +5,9 @@ using GameStore.BLL.Commands.Game;
 using GameStore.BLL.Commands.Order;
 using GameStore.BLL.Commands.Publisher;
 using GameStore.BLL.DTO;
+using GameStore.BLL.QueryResults.Comment;
 using GameStore.BLL.QueryResults.Game;
+using GameStore.BLL.QueryResults.Genre;
 using GameStore.BLL.QueryResults.Order;
 using GameStore.BLL.QueryResults.Publisher;
 using GameStore.Domain.Entities;
@@ -20,9 +22,12 @@ namespace GameStore.Maps
             Mapper.CreateMap<GameDTO, GameQueryResult>();
             Mapper.CreateMap<Game, GameDTO>();
             Mapper.CreateMap<OrderDetails, OrderDetailsDTO>();
+            Mapper.CreateMap<Genre, GenreQueryResult>();
+            Mapper.CreateMap<Publisher, PublisherQueryResult>();
 
             Mapper.CreateMap<Publisher, PublisherQueryResult>();
             Mapper.CreateMap<Order, OrderQueryResult>();
+            Mapper.CreateMap<Comment, CommentQueryResult>();
 
             // Commands -> Entities
             Mapper.CreateMap<CreateGameCommand, Game>()

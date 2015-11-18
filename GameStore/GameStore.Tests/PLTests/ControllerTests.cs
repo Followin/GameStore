@@ -137,7 +137,7 @@ namespace GameStore.Tests.PLTests
             controllerContext.Setup(t => t.HttpContext).Returns(fakeHttpContext.Object);
             _gameController.ControllerContext = controllerContext.Object;
 
-            _queryDispatcherMock.Setup(x => x.Dispatch<GetCurrentOrder, OrderQueryResult>(It.IsAny<GetCurrentOrder>()))
+            _queryDispatcherMock.Setup(x => x.Dispatch<GetCurrentOrderQuery, OrderQueryResult>(It.IsAny<GetCurrentOrderQuery>()))
                                 .Returns(new OrderQueryResult {Id = 1, UserId = 1});
 
             // Act

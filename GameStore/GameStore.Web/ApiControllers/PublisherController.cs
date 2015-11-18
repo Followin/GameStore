@@ -10,6 +10,8 @@ using GameStore.BLL.Queries.Genre;
 using GameStore.BLL.Queries.Publisher;
 using GameStore.BLL.QueryResults.Genre;
 using GameStore.BLL.QueryResults.Publisher;
+using GameStore.Static;
+using GameStore.Web.Filters;
 using GameStore.Web.Models.Publisher;
 using NLog;
 
@@ -40,6 +42,7 @@ namespace GameStore.Web.ApiControllers
             return Request.CreateResponse(HttpStatusCode.OK, model);
         }
 
+        [ClaimsAuthorizeApi(ClaimTypesExtensions.PublisherPermission, Permissions.Add)]
         public HttpResponseMessage Post([FromBody] CreatePublisherViewModel model)
         {
             if (ModelState.IsValid)

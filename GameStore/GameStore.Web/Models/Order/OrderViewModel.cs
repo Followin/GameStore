@@ -20,10 +20,6 @@ namespace GameStore.Web.Models.Order
         public Int32 UserId { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
-            Name = "Time")]
-        public DateTime? Time { get; set; }
-
-        [Display(ResourceType = typeof(GlobalRes),
             Name = "OrderDate")]
         public DateTime? OrderDate { get; set; }
 

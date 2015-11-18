@@ -10,6 +10,7 @@ using GameStore.BLL.Commands.Game;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryResults.Game;
+using GameStore.Static;
 using GameStore.Web.Filters;
 using GameStore.Web.Models;
 using GameStore.Web.Models.Game;
@@ -19,7 +20,6 @@ namespace GameStore.Web.ApiControllers
 {
     public class GamesController : BaseApiController
     {
-        // GET api/<controller>
         public HttpResponseMessage Get([FromUri]GameFiltersModel model)
         {
             var query = new GetGamesQuery();
@@ -44,7 +44,6 @@ namespace GameStore.Web.ApiControllers
         }
 
 
-        // GET api/<controller>/5
         public HttpResponseMessage Get(int id)
         {
             var query = new GetGameByIdQuery {Id = id};
@@ -61,7 +60,7 @@ namespace GameStore.Web.ApiControllers
             return Request.CreateResponse(HttpStatusCode.OK, displayModel);
         }
 
-        // POST api/<controller>
+        [ClaimsAuthorizeApi(ClaimTypesExtensions.GamePermission, Permissions.Add)]
         public HttpResponseMessage Post([FromBody]CreateGameModel value)
         {
             if (ModelState.IsValid)
@@ -72,17 +71,6 @@ namespace GameStore.Web.ApiControllers
                 return new HttpResponseMessage(HttpStatusCode.Created);
             }
             return Request.CreateErrorResponse(HttpStatusCode.Forbidden, ModelState);
-        }
-
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
         }
 
         public GamesController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, ILogger logger) : base(commandDispatcher, queryDispatcher, logger)

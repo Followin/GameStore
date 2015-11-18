@@ -11,7 +11,7 @@ using GameStore.Domain.Abstract;
 
 namespace GameStore.BLL.QueryHandlers.Order
 {
-    public class GetCurrentOrderQueryHandler : IQueryHandler<GetCurrentOrder, OrderQueryResult>
+    public class GetCurrentOrderQueryHandler : IQueryHandler<GetCurrentOrderQuery, OrderQueryResult>
     {
         private IGameStoreUnitOfWork _db;
 
@@ -20,7 +20,7 @@ namespace GameStore.BLL.QueryHandlers.Order
             _db = db;
         }
 
-        public OrderQueryResult Retrieve(GetCurrentOrder query)
+        public OrderQueryResult Retrieve(GetCurrentOrderQuery query)
         {
             var mappedOrder = Mapper.Map<Domain.Entities.Order, OrderQueryResult>(_db.Orders.GetCurrentOrder(query.UserId));
             return mappedOrder;

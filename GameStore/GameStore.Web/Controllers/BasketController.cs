@@ -21,8 +21,8 @@ namespace GameStore.Web.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            var currentOrder = Mapper.Map<OrderViewModel>(QueryDispatcher.Dispatch<GetCurrentOrder, OrderQueryResult>(
-                new GetCurrentOrder
+            var currentOrder = Mapper.Map<OrderViewModel>(QueryDispatcher.Dispatch<GetCurrentOrderQuery, OrderQueryResult>(
+                new GetCurrentOrderQuery
                 {
                     UserId = Int32.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
                 }));

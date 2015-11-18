@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Web.Http;
 using AutoMapper;
 using GameStore.BLL.Commands.Comment;
 using GameStore.BLL.CQRS;
@@ -50,6 +51,21 @@ namespace GameStore.Web.ApiControllers
             return !commandResult.Success 
                 ? new HttpResponseMessage(HttpStatusCode.Forbidden) 
                 : new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        [ClaimsAuthorizeApi(ClaimTypesExtensions.CommentPermission, Permissions.Add)]
+        public HttpResponseMessage Post(Int32 gameId, [FromBody] CreateCommentViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.GameId = gameId;
+
+                var command = Mapper.Map<CreateCommentViewModel, CreateCommentCommand>(model);
+                CommandDispatcher.Dispatch(command);
+
+                return new HttpResponseMessage(HttpStatusCode.Created);
+            }
+            return Request.CreateErrorResponse(HttpStatusCode.Forbidden, ModelState);
         }
 
         public CommentsController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, ILogger logger) : base(commandDispatcher, queryDispatcher, logger)

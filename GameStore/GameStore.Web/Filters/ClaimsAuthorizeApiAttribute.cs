@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
@@ -10,24 +11,32 @@ namespace GameStore.Web.Filters
     {
         private string claimType;
         private string claimValue;
+        private Boolean _checkClaims = false;
+
         public ClaimsAuthorizeApiAttribute(string type, string value)
         {
             claimType = type;
             claimValue = value;
+            _checkClaims = true;
+        }
 
+        public ClaimsAuthorizeApiAttribute()
+        {
+            
         }
 
         public override void OnAuthorization(HttpActionContext actionContext)
         {
             var user = HttpContext.Current.User as ClaimsPrincipal;
-            if (user != null && (user.HasClaim(claimType, claimValue) || user.HasClaim(claimType, Permissions.Full)))
+            if (user == null)
             {
-                return;
+                HandleUnauthorizedRequest(actionContext);
             }
-            HandleUnauthorizedRequest(actionContext);
+
+            if (_checkClaims && (!user.HasClaim(claimType, claimValue) && !user.HasClaim(claimType, Permissions.Full)))
+            {
+                HandleUnauthorizedRequest(actionContext);
+            }
         }
-
-
-
     }
 }

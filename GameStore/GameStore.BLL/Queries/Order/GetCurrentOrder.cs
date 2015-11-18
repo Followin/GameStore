@@ -3,7 +3,7 @@ using GameStore.BLL.CQRS;
 
 namespace GameStore.BLL.Queries.Order
 {
-    public class GetCurrentOrder : IQuery
+    public class GetCurrentOrderQuery : IQuery
     {
         public Int32 UserId { get; set; }
     }

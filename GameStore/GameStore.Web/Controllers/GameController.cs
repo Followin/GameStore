@@ -76,17 +76,13 @@ namespace GameStore.Web.Controllers
         {
             var game = QueryDispatcher.Dispatch<GetGameByKeyQuery, GameQueryResult>(
                 new GetGameByKeyQuery { Key = gamekey });
-            if (game == null)
-            {
-                return HttpNotFound();
-            }
-            
-            if (game.EntryState != EntryState.Active)
+
+            if (game == null || game.EntryState != EntryState.Active)
             {
                 return HttpNotFound();
             }
 
-            var currentOrder = QueryDispatcher.Dispatch<GetCurrentOrder, OrderQueryResult>(new GetCurrentOrder
+            var currentOrder = QueryDispatcher.Dispatch<GetCurrentOrderQuery, OrderQueryResult>(new GetCurrentOrderQuery
             {
                 UserId = Int32.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
             });

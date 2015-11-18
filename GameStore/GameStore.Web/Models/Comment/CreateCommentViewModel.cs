@@ -11,8 +11,6 @@ namespace GameStore.Web.Models.Comment
         [Display(ResourceType = typeof(GlobalRes), Name="PersonName")]
         public String Name { get; set; }
 
-        public String Quotes { get; set; }
-
         [Required]
         [StringLength(300,MinimumLength = 10)]
         [DataType(DataType.MultilineText)]

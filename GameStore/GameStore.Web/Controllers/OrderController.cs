@@ -36,8 +36,8 @@ namespace GameStore.Web.Controllers
         public ActionResult Order()
         {
 
-            var currentOrder = Mapper.Map<OrderViewModel>(QueryDispatcher.Dispatch<GetCurrentOrder, OrderQueryResult>(
-                new GetCurrentOrder
+            var currentOrder = Mapper.Map<OrderViewModel>(QueryDispatcher.Dispatch<GetCurrentOrderQuery, OrderQueryResult>(
+                new GetCurrentOrderQuery
                 {
                     UserId = Int32.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
                 }));
@@ -93,8 +93,8 @@ namespace GameStore.Web.Controllers
         [Authorize]
         public ActionResult Checkout(String paymentMethodKey)
         {
-            var currentOrder = QueryDispatcher.Dispatch<GetCurrentOrder, OrderQueryResult>(
-                new GetCurrentOrder
+            var currentOrder = QueryDispatcher.Dispatch<GetCurrentOrderQuery, OrderQueryResult>(
+                new GetCurrentOrderQuery
                 {
                     UserId = Int32.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
                 });

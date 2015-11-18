@@ -112,6 +112,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\Comment\GetCommentByIdQuery.cs" />
     <Compile Include="Queries\Comment\GetCommentsByGameKeyQuery.cs" />
+    <Compile Include="Queries\Game\GetGamesByPublisherQuery.cs" />
     <Compile Include="Queries\Game\GetGamesQuery.cs" />
     <Compile Include="Queries\Game\GetAllGamesQuery.cs" />
     <Compile Include="Queries\Game\GetGameByIdQuery.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="QueryHandlers\Game\GetGameByKeyQueryHandler.cs" />
     <Compile Include="QueryHandlers\Game\GetGamesByGenreQueryHandler.cs" />
     <Compile Include="QueryHandlers\Game\GetGamesByPlatformTypesQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Game\GetGamesByPublisherQueryHandler.cs" />
     <Compile Include="QueryHandlers\Game\GetGamesCountQueryHandler.cs" />
     <Compile Include="QueryHandlers\Game\GetGamesQueryHandler.cs" />
     <Compile Include="QueryHandlers\Genre\GetAllGenresQueryHandler.cs" />

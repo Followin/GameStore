@@ -22,7 +22,7 @@ namespace GameStore.Auth.Concrete
 
         public Boolean IsUsernameFree(string name)
         {
-            return _db.Users.Get(x => x.Name == name) == null;
+            return _db.Users.GetSingle(x => x.Name == name) == null;
         }
 
         public void BanUser(int userId, DateTime expirationTime)

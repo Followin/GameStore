@@ -387,22 +387,6 @@ namespace GameStore.Tests.BLLTests
         #region queries
 
         [TestMethod]
-        public void GetCommentsByGameKey_Key_Argument_Is_Null()
-        {
-            // Arrange
-            var getCommentsByGameKey = new GetCommentsForGameQuery { Key = null };
-
-            // Act
-            var result = ExceptionAssert.Throws<ArgumentNullException>(() =>
-                _queryHandler.Retrieve(getCommentsByGameKey));
-
-            // Assert
-            _unitOfWorkMock.Verify(x => x.Comments, Times.Never);
-            _unitOfWorkMock.Verify(x => x.Games, Times.Never);
-            Assert.AreEqual("Key", result.ParamName);
-        }
-
-        [TestMethod]
         public void GetCommentsByGameKey_Key_Argument_Is_Empty()
         {
             // Arrange

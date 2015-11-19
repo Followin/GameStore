@@ -8,7 +8,7 @@ using GameStore.BLL.Commands.Game;
 using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryHandlers;
-using GameStore.BLL.QueryHandlers.Game;
+using GameStore.BLL.QueryHandlers.Games;
 using GameStore.BLL.Utils;
 using GameStore.DAL.Abstract;
 using GameStore.DAL.Abstract.Repositories;

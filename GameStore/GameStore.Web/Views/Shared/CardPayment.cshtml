@@ -1,21 +1,13 @@
-﻿@model GameStore.Web.Models.Order.CardPaymentViewModel
+﻿@using GameStore.Web.App_LocalResources
+@model GameStore.Web.Models.Order.CardPaymentViewModel
 @{
-    Layout = null;
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>VisaPayment</title>
-    <link href="~/Content/forms.css" rel="stylesheet" />
-</head>
-<body>
-    @using (Html.BeginForm())
+<div class="paper-block">
+    @using (Html.BeginForm("Payment", "Bank"))
     {
         @Html.HiddenFor(x => x.Method)
-        
+
         <div class="form-group">
             @Html.LabelFor(x => x.Name)
             @Html.EditorFor(x => x.Name)
@@ -36,11 +28,11 @@
             @Html.EditorFor(x => x.Cvv2)
             @Html.ValidationMessageFor(x => x.Cvv2)
         </div>
+        
+        <input type="submit" value="@GlobalRes.Submit"/>
     }
-    <script src="~/Scripts/jquery-1.8.2.js"></script>
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-    <script src="~/Scripts/jquery.autogrow-textarea.js"></script>
-    <script src="~/Scripts/forms.js"></script>
-</body>
-</html>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/Scripts/forms")
+}

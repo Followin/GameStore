@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using GameStore.Static;
 using GameStore.Web.Abstract;
+using GameStore.Web.Models.Order;
 
 namespace GameStore.Web.Concrete
 {
@@ -25,7 +27,15 @@ namespace GameStore.Web.Concrete
 
         public ActionResult Checkout()
         {
-            return new ViewResult() {ViewName = "CardPayment"};
+            switch (Method)
+            {
+                case PaymentMethod.Visa:
+                    return new RedirectResult(new UrlHelper(HttpContext.Current.Request.RequestContext).Action("VisaPayment", "Bank"));
+                case PaymentMethod.Mastercard:
+                    return new RedirectResult(new UrlHelper(HttpContext.Current.Request.RequestContext).Action("MastercardPayment", "Bank"));
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

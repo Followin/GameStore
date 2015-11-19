@@ -95,18 +95,16 @@ namespace GameStore.Web.Controllers
         [Authorize]
         public ActionResult Checkout(String paymentMethodKey)
         {
-            var currentOrder = QueryDispatcher.Dispatch<GetCurrentOrderQuery, OrderQueryResult>(
-                new GetCurrentOrderQuery
-                {
-                    UserId = Int32.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
-                });
-            CommandDispatcher.Dispatch(new CheckoutOrderCommand { Id = currentOrder.Id });
+            //var currentOrder = QueryDispatcher.Dispatch<GetCurrentOrderQuery, OrderQueryResult>(
+            //    new GetCurrentOrderQuery
+            //    {
+            //        UserId = Int32.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
+            //    });
+            //CommandDispatcher.Dispatch(new CheckoutOrderCommand { Id = currentOrder.Id });
 
             var paymentMethodQuery = new GetPaymentMethodByKeyQuery {Key = paymentMethodKey};
             var queryResult =
                 QueryDispatcher.Dispatch<GetPaymentMethodByKeyQuery, PaymentMethodQueryResult>(paymentMethodQuery);
-
-
 
             return PaymentList.GetPayment(queryResult.Method).Checkout();
         }

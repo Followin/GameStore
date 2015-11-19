@@ -112,7 +112,7 @@ namespace GameStore.BLL.QueryHandlers.Games
             if (query.GenreIds != null && query.GenreIds.Any())
             {
                 yield return new TransformPipelineBlock<Expression<Func<Game, bool>>, Expression<Func<Game, bool>>>(
-                    expr => expr.AndAlso(game => query.GenreIds.Intersect(Enumerable.Select<Domain.Entities.Genre, int>(game.Genres, x => x.Id)).Any()));
+                    expr => expr.AndAlso(game => query.GenreIds.Intersect(game.Genres.Select(x => x.Id)).Any()));
             }
 
             if (query.PlatformTypeIds != null && query.PlatformTypeIds.Any())

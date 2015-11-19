@@ -1,0 +1,19 @@
+﻿@using GameStore.Web.App_LocalResources
+@model GameStore.Web.Models.ConfirmPaymentViewModel
+@{
+    ViewBag.Title = "ConfirmPayment";
+}
+
+<div class="paper-block">
+    @using (Html.BeginForm("ConfirmPayment", "Bank"))
+    {
+        @Html.ValidationSummary(false)
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Code)
+            @Html.EditorFor(x => x.Code)
+            @Html.ValidationMessageFor(x => x.Code)
+        </div>
+        <input type="submit" value="@GlobalRes.Submit"/>
+    }
+</div>

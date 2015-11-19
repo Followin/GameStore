@@ -30,7 +30,7 @@ namespace GameStore.DAL.Repositories
             }
 
             var gameIds = order.OrderDetails
-                               .Select(x => x.Game.Id)
+                               .Select(x => x.GameId)
                                .GroupBy(KeyEncoder.GetBase)
                                .ToList();
             var mainGameIds = gameIds.FirstOrDefault(x => x.Key == DatabaseTypes.GameStore);

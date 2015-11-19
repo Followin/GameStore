@@ -231,6 +231,7 @@
     <Compile Include="Concrete\IboxPayment.cs" />
     <Compile Include="Concrete\CardPayment.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BankController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BasketController.cs" />
     <Compile Include="Controllers\GameController.cs" />
@@ -257,6 +258,7 @@
     <Compile Include="Models\Comment\CommentViewModel.cs" />
     <Compile Include="Models\Comment\CreateCommentViewModel.cs" />
     <Compile Include="Models\Comment\DisplayCommentViewModel.cs" />
+    <Compile Include="Models\ConfirmPaymentViewModel.cs" />
     <Compile Include="Models\Game\CreateGameViewModel.cs" />
     <Compile Include="Models\Game\DisplayGameViewModel.cs" />
     <Compile Include="Models\Game\EditGameViewModel.cs" />
@@ -451,6 +453,8 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Account\Create.cshtml" />
     <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Bank\ConfirmPayment.cshtml" />
+    <Content Include="Views\Bank\SuccessfulPayment.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -9,6 +9,7 @@ using GameStore.Auth.Models;
 using GameStore.BLL.Commands;
 using GameStore.BLL.Commands.Comment;
 using GameStore.BLL.Commands.Game;
+using GameStore.BLL.Commands.Order;
 using GameStore.BLL.Commands.Publisher;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Queries.Game;
@@ -75,6 +76,8 @@ namespace GameStore.Web.Utils
                           new Claim(ClaimTypes.Role, x.Role), 
                           new Claim(ClaimTypesExtensions.Publisher, x.PublisherId.ToString()),
                       }));
+
+            Mapper.CreateMap<CardPaymentViewModel, PerformPaymentCommand>();
 
         }
 

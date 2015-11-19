@@ -62,6 +62,8 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -76,8 +78,10 @@
     <Compile Include="CommandHandlers\Game\DeleteGameCommandHandler.cs" />
     <Compile Include="CommandHandlers\Game\EditGameCommandHandler.cs" />
     <Compile Include="CommandHandlers\Order\CheckoutOrderCommandHandler.cs" />
+    <Compile Include="CommandHandlers\Order\ConfirmPaymentCommandHandler.cs" />
     <Compile Include="CommandHandlers\Order\CreateOrderDetailsCommandHandler.cs" />
     <Compile Include="CommandHandlers\Order\DeleteOrderDetailsCommandHandler.cs" />
+    <Compile Include="CommandHandlers\Order\PerformPaymentCommandHandler.cs" />
     <Compile Include="CommandHandlers\Order\ShipOrderCommandHandler.cs" />
     <Compile Include="CommandHandlers\Publisher\CreatePublisherCommandHandler.cs" />
     <Compile Include="Commands\Comment\CreateCommentCommand.cs" />
@@ -87,7 +91,9 @@
     <Compile Include="Commands\Game\DeleteGameCommand.cs" />
     <Compile Include="Commands\Game\EditGameCommand.cs" />
     <Compile Include="Commands\Order\CheckoutOrderCommand.cs" />
+    <Compile Include="Commands\Order\ConfirmPaymentCommand.cs" />
     <Compile Include="Commands\Order\CreateOrderDetailsCommand.cs" />
+    <Compile Include="Commands\Order\PerformPaymentCommand.cs" />
     <Compile Include="Commands\Order\DeleteOrderDetailsCommand.cs" />
     <Compile Include="Commands\Order\ShipOrderCommand.cs" />
     <Compile Include="Commands\Publisher\CreatePublisherCommand.cs" />
@@ -170,6 +176,11 @@
     <Compile Include="QueryResults\PlatformType\PlatformTypesQueryResult.cs" />
     <Compile Include="QueryResults\Publisher\PublisherQueryResult.cs" />
     <Compile Include="QueryResults\Publisher\PublishersQueryResult.cs" />
+    <Compile Include="Service References\BankService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Services\PdfService.cs" />
     <Compile Include="Utils\EntityNotFoundException.cs" />
     <Compile Include="Utils\ExpressionExtensions.cs" />
@@ -185,8 +196,23 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\BankService\BankService.wsdl" />
+    <None Include="Service References\BankService\BankService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\BankService\BankService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\BankService\BankService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\BankService\GameStore.BLL.BankService.PaymentResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameStore.DAL\GameStore.DAL.csproj">
       <Project>{7582ab39-8dfe-4b67-820c-7975a612a447}</Project>
@@ -204,6 +230,24 @@
       <Project>{b6d496b9-71c1-4a20-a724-b479e01c1a05}</Project>
       <Name>Pipeline</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\BankService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BankService\BankService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BankService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BankService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BankService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Select.Pdf.15.2.0.0\build\Select.Pdf.targets" Condition="Exists('..\packages\Select.Pdf.15.2.0.0\build\Select.Pdf.targets')" />

@@ -3,7 +3,6 @@ using GameStore.DAL.Abstract;
 using GameStore.DAL.EF;
 using GameStore.DAL.Northwind.Repositories;
 using GameStore.DAL.Repositories;
-using GameStore.Domain.Abstract;
 using Ninject.Modules;
 
 namespace GameStore.IoC

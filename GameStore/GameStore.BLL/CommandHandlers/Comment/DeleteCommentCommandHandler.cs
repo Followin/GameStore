@@ -8,7 +8,8 @@ using ArgumentValidation.Extensions;
 using GameStore.BLL.Commands.Comment;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Utils;
-using GameStore.Domain.Abstract;
+using GameStore.DAL.Abstract;
+using GameStore.Domain.Entities;
 using NLog;
 
 namespace GameStore.BLL.CommandHandlers.Comment
@@ -46,10 +47,10 @@ namespace GameStore.BLL.CommandHandlers.Comment
             if (comment.ChildComments != null && comment.ChildComments.Any())
             {
                 comment.Quotes = null;
-                comment.Body = "<Deleted>";
+                comment.Body = String.Empty;
 
-                commandResult.Success = true;
-                commandResult.Data = "<Deleted>";
+                commandResult.Success = false;
+                commandResult.Data = String.Empty;
             }
             else
             {

@@ -4,7 +4,7 @@ using ArgumentValidation.Extensions;
 using GameStore.BLL.Commands.Order;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Utils;
-using GameStore.Domain.Abstract;
+using GameStore.DAL.Abstract;
 using NLog;
 
 namespace GameStore.BLL.CommandHandlers.Order

@@ -1,7 +1,7 @@
 ﻿using System;
 using GameStore.BLL.Commands.Order;
 using GameStore.BLL.CQRS;
-using GameStore.Domain.Abstract;
+using GameStore.DAL.Abstract;
 using NLog;
 
 namespace GameStore.BLL.CommandHandlers.Order
@@ -24,8 +24,9 @@ namespace GameStore.BLL.CommandHandlers.Order
                 _db.Orders.DeleteOrderDetails(command.GameId, command.OrderId);
                 _db.Save();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.Log(LogLevel.Error, ex);
                 return new CommandResult {Success = false};
             }
             return new CommandResult();

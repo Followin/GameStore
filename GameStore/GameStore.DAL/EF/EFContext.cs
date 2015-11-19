@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using GameStore.DAL.Abstract;
+using GameStore.DAL.EF.Configurations;
 using GameStore.Domain.Entities;
 
 namespace GameStore.DAL.EF

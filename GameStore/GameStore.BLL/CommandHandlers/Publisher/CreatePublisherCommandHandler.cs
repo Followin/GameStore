@@ -9,7 +9,7 @@ using AutoMapper;
 using GameStore.BLL.Commands.Publisher;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Utils;
-using GameStore.Domain.Abstract;
+using GameStore.DAL.Abstract;
 using NLog;
 
 namespace GameStore.BLL.CommandHandlers.Publisher
@@ -50,7 +50,7 @@ namespace GameStore.BLL.CommandHandlers.Publisher
             command.HomePage.Argument(NameGetter.GetName(() => command.HomePage))
                             .NotNull()
                             .NotWhiteSpace();
-            if (_db.Publishers.GetSingle(p => p.CompanyName == command.CompanyName) != null)
+            if (_db.Publishers.GetFirst(p => p.CompanyName == command.CompanyName) != null)
             {
                 throw new ArgumentException(
                     "Publisher with such CompanyName already exist",

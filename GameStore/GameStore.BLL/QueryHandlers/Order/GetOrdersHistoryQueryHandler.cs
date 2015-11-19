@@ -5,7 +5,7 @@ using AutoMapper;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Queries.Order;
 using GameStore.BLL.QueryResults.Order;
-using GameStore.Domain.Abstract;
+using GameStore.DAL.Abstract;
 
 namespace GameStore.BLL.QueryHandlers.Order
 {
@@ -20,21 +20,21 @@ namespace GameStore.BLL.QueryHandlers.Order
 
         public OrdersQueryResult Retrieve(GetOrdersHistoryQuery query)
         {
-            var orders = _db.Orders.Get().ToList();
+            var orders = _db.Orders.Get();
 
             if (query.OnlyPaid)
             {
-                orders = orders.Where(x => x.OrderDate.HasValue).ToList();
+                orders = orders.Where(x => x.OrderDate.HasValue);
             }
 
             if (query.MinDate.HasValue)
             {
-                orders = orders.Where(x => x.OrderDate.HasValue && x.OrderDate > query.MinDate.Value).ToList();
+                orders = orders.Where(x => x.OrderDate.HasValue && x.OrderDate > query.MinDate.Value);
             }
 
             if (query.MaxDate.HasValue)
             {
-                orders = orders.Where(x => x.OrderDate.HasValue && x.OrderDate < query.MaxDate.Value).ToList();
+                orders = orders.Where(x => x.OrderDate.HasValue && x.OrderDate < query.MaxDate.Value);
             }
 
 

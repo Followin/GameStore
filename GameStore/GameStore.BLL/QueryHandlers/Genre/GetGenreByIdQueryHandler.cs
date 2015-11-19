@@ -7,7 +7,7 @@ using AutoMapper;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Queries.Genre;
 using GameStore.BLL.QueryResults.Genre;
-using GameStore.Domain.Abstract;
+using GameStore.DAL.Abstract;
 using NLog;
 
 namespace GameStore.BLL.QueryHandlers.Genre

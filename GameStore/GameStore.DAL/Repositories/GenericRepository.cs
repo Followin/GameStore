@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using GameStore.DAL.Abstract;
 using GameStore.DAL.EF;
-using GameStore.Domain.Abstract;
+using GameStore.Domain.Entities;
 
 namespace GameStore.DAL.Repositories
 {
@@ -21,9 +21,9 @@ namespace GameStore.DAL.Repositories
             _set = Db.Set<T>();
         }
 
-        public T GetSingle(Expression<Func<T, bool>> predicate)
+        public T GetFirst(Expression<Func<T, bool>> predicate)
         {
-            return _set.ToList().FirstOrDefault(predicate.Compile());
+            return _set.FirstOrDefault(predicate.Compile());
         }
 
         public int GetCount(Expression<Func<T, bool>> predicate = null)

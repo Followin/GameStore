@@ -9,8 +9,8 @@ using GameStore.BLL.Queries;
 using GameStore.BLL.Queries.Publisher;
 using GameStore.BLL.QueryHandlers;
 using GameStore.BLL.QueryHandlers.Publisher;
-using GameStore.Domain.Abstract;
-using GameStore.Domain.Abstract.Repositories;
+using GameStore.DAL.Abstract;
+using GameStore.DAL.Abstract.Repositories;
 using GameStore.Domain.Entities;
 using GameStore.Tests.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -55,7 +55,7 @@ namespace GameStore.Tests.BLLTests
             };
             var publishers = new[] { valve, cdProject };
             _publisherRepositoryMock = new Mock<IPublisherRepository>();
-            _publisherRepositoryMock.Setup(x => x.GetSingle(It.IsAny<Expression<Func<Publisher, Boolean>>>())).Returns(
+            _publisherRepositoryMock.Setup(x => x.GetFirst(It.IsAny<Expression<Func<Publisher, Boolean>>>())).Returns(
                 (Expression<Func<Publisher, Boolean>> predicate) => publishers.FirstOrDefault(predicate.Compile()));
 
             _unitOfWorkMock = new Mock<IGameStoreUnitOfWork>();

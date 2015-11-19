@@ -124,6 +124,7 @@
     <Compile Include="Queries\Genre\GetGenreByIdQuery.cs" />
     <Compile Include="Queries\Order\GetCurrentOrder.cs" />
     <Compile Include="Queries\Order\GetOrderByIdQuery.cs" />
+    <Compile Include="Queries\Order\GetPaymentMethodByKeyQuery.cs" />
     <Compile Include="Queries\Order\GetOrdersHistoryQuery.cs" />
     <Compile Include="Queries\Order\GetShippersQuery.cs" />
     <Compile Include="Queries\PlatformType\GetAllPlatformTypesQuery.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="QueryHandlers\Order\GetCurrentOrderQueryHandler.cs" />
     <Compile Include="QueryHandlers\Order\GetOrderByIdQueryHandler.cs" />
     <Compile Include="QueryHandlers\Order\GetOrdersHistoryQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Order\GetPaymentMethodByKeyQueryHandler.cs" />
     <Compile Include="QueryHandlers\Order\GetShippersQueryHandler.cs" />
     <Compile Include="QueryHandlers\Platform\GetAllPlatformTypesQueryHandler.cs" />
     <Compile Include="QueryHandlers\Publisher\GetAllPublishersQueryhandler.cs" />
@@ -162,6 +164,7 @@
     <Compile Include="QueryResults\Genre\GenresQueryResult.cs" />
     <Compile Include="QueryResults\Order\OrderQueryResult.cs" />
     <Compile Include="QueryResults\Order\OrdersQueryResult.cs" />
+    <Compile Include="QueryResults\Order\PaymentMethodQueryResult.cs" />
     <Compile Include="QueryResults\Order\ShippersQueryResult.cs" />
     <Compile Include="QueryResults\PlatformType\PlatformTypesQueryResult.cs" />
     <Compile Include="QueryResults\Publisher\PublisherQueryResult.cs" />
@@ -182,9 +185,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\GameStore.DAL\GameStore.DAL.csproj">
       <Project>{7582ab39-8dfe-4b67-820c-7975a612a447}</Project>

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using GameStore.DAL.Abstract;
+using GameStore.DAL.Abstract.Repositories;
 using GameStore.DAL.EF;
-using GameStore.Domain.Abstract.Repositories;
 using GameStore.Domain.Entities;
 
 namespace GameStore.DAL.Repositories

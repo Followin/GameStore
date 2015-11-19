@@ -8,9 +8,9 @@ using GameStore.BLL.CQRS;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Queries.Genre;
 using GameStore.BLL.QueryResults.Genre;
-using GameStore.Domain.Abstract;
+using GameStore.DAL.Abstract;
 using NLog;
-using EntryState = GameStore.Domain.Abstract.EntryState;
+using EntryState = GameStore.Domain.Entities.EntryState;
 
 namespace GameStore.BLL.QueryHandlers.Genre
 {

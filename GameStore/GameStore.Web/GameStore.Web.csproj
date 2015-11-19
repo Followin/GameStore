@@ -228,10 +228,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Concrete\BankPayment.cs" />
-    <Compile Include="Concrete\CustomPrincipal.cs" />
-    <Compile Include="Concrete\CustomPrincipalSerializeModel.cs" />
     <Compile Include="Concrete\IboxPayment.cs" />
-    <Compile Include="Concrete\VisaPayment.cs" />
+    <Compile Include="Concrete\CardPayment.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BasketController.cs" />
@@ -269,7 +267,7 @@
     <Compile Include="Models\Order\OrderDetailsViewModel.cs" />
     <Compile Include="Models\Order\OrdersViewModel.cs" />
     <Compile Include="Models\Order\OrderViewModel.cs" />
-    <Compile Include="Models\Order\VisaPaymentViewModel.cs" />
+    <Compile Include="Models\Order\CardPaymentViewModel.cs" />
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Models\PlatformTypeViewModel.cs" />
     <Compile Include="Models\Publisher\CreatePublisherViewModel.cs" />
@@ -284,6 +282,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Static\ItemsPerPageVariants.cs" />
     <Compile Include="Static\DatesShortcutsList.cs" />
+    <Compile Include="Utils\EnumerableExtensions.cs" />
     <Compile Include="Utils\MyMetadataProvider.cs" />
     <Compile Include="Utils\PaymentList.cs" />
     <Compile Include="Utils\UrlRewriter.cs" />
@@ -564,7 +563,7 @@
       <DependentUpon>layout.min.js</DependentUpon>
     </Content>
     <Content Include="Views\Shared\IboxPayment.cshtml" />
-    <Content Include="Views\Shared\VisaPayment.cshtml" />
+    <Content Include="Views\Shared\CardPayment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\Validation.resx">

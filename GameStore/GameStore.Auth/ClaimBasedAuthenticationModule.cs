@@ -5,7 +5,7 @@ using System.Web;
 using GameStore.Auth.Abstract;
 using GameStore.Auth.Concrete;
 using GameStore.Auth.Utils;
-using GameStore.Domain.Abstract;
+using GameStore.DAL.Abstract;
 using GameStore.Static;
 using Microsoft.Owin.Security.DataHandler;
 
@@ -49,7 +49,7 @@ namespace GameStore.Auth
                     var user =
                         unitOfWork.Users.Get(id);
 
-                    if (user.SecurityStamp != stamp)
+                    if (user == null ||user.SecurityStamp != stamp)
                     {
                         LoginAsGuest();
                         return;

@@ -30,7 +30,8 @@ $(->
         parentLi.remove()
         if parentUl.is(":empty")
             parentUl.prev('.hideable-toggle').remove()
-            parentUl.remove()
+            if not parentUl.parent().is('.comments-list')
+                parentUl.remove()
         
     commentsHub.client.changeCommentBody = (id, text) ->
         commentDiv = $(".game-comment[data-id=#{id}]")

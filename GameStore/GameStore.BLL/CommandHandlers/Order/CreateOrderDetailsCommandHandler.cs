@@ -10,7 +10,7 @@ using GameStore.BLL.Commands.Order;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Utils;
 using GameStore.BLL.Utils.ValidationExtensions;
-using GameStore.Domain.Abstract;
+using GameStore.DAL.Abstract;
 using GameStore.Domain.Entities;
 using NLog;
 

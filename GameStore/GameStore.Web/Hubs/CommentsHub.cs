@@ -5,6 +5,7 @@ using System.Web;
 using GameStore.BLL.Commands.Comment;
 using GameStore.BLL.CQRS;
 using GameStore.Static;
+using GameStore.Web.App_LocalResources;
 using GameStore.Web.Filters;
 using Microsoft.AspNet.SignalR;
 
@@ -71,13 +72,14 @@ namespace GameStore.Web.Hubs
             var deleteCommentCommand = new DeleteCommentCommand { Id = Int32.Parse(commentId) };
 
             var commandResult = _commandDispatcher.Dispatch(deleteCommentCommand);
+
             if (commandResult.Success)
             {
                 Clients.Group(gameId).deleteComment(commentId);
             }
             else
             {
-                Clients.Group(gameId).changeCommentBody(commentId, commandResult.Data as String);
+                Clients.Group(gameId).changeCommentBody(commentId, GlobalRes.Deleted);
             }
         }
 

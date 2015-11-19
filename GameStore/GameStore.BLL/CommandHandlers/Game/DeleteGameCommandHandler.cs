@@ -8,7 +8,8 @@ using ArgumentValidation.Extensions;
 using GameStore.BLL.Commands.Game;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Utils;
-using GameStore.Domain.Abstract;
+using GameStore.DAL.Abstract;
+using GameStore.Domain.Entities;
 using NLog;
 
 namespace GameStore.BLL.CommandHandlers.Game
@@ -33,7 +34,7 @@ namespace GameStore.BLL.CommandHandlers.Game
                    .NotNull()
                    .NotWhiteSpace();
 
-            var game = _db.Games.GetSingle(g => g.Key == command.Key);
+            var game = _db.Games.GetFirst(g => g.Key == command.Key);
 
             if (game == null)
             {

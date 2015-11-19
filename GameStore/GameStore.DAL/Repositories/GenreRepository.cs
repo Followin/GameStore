@@ -4,10 +4,9 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using GameStore.DAL.Abstract;
+using GameStore.DAL.Abstract.Repositories;
 using GameStore.DAL.EF;
 using GameStore.DAL.Static;
-using GameStore.Domain.Abstract;
-using GameStore.Domain.Abstract.Repositories;
 using GameStore.Domain.Entities;
 
 namespace GameStore.DAL.Repositories
@@ -51,7 +50,7 @@ namespace GameStore.DAL.Repositories
             return Get().Where(predicate.Compile());
         }
 
-        public Genre GetSingle(Expression<Func<Genre, bool>> predicate)
+        public Genre GetFirst(Expression<Func<Genre, bool>> predicate)
         {
             return Get().FirstOrDefault(predicate.Compile());
         }
@@ -65,8 +64,8 @@ namespace GameStore.DAL.Repositories
 
         public void Add(Genre item)
         {
-            var lastId = _db.Genres.Select(x => x.Id).ToList().Where(x => KeyEncoder.GetBase(x) == DatabaseTypes.GameStore).Max(x => x) + KeyEncoder.Coefficient;
-            lastId += KeyEncoder.Coefficient;
+            var lastId = _db.Genres.Select(x => x.Id).Where(x => KeyEncoder.GetBase(x) == DatabaseTypes.GameStore).Max(x => x);
+            lastId += KeyEncoder.GetNext(lastId);
             item.Id = lastId;
             _db.Genres.Add(item);
         }
@@ -86,8 +85,6 @@ namespace GameStore.DAL.Repositories
                     nGenre.EntryState = EntryState.Deleted;
                     _db.Genres.Add(nGenre);
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -102,8 +99,6 @@ namespace GameStore.DAL.Repositories
                 case DatabaseTypes.Northwind:
                     _db.Genres.Add(item);
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
         }
     }

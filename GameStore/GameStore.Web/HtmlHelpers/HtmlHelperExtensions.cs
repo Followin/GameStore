@@ -6,6 +6,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using GameStore.Static;
+using GameStore.Web.App_LocalResources;
 using GameStore.Web.Models;
 using GameStore.Web.Models.Comment;
 using GameStore.Web.Models.Genres;
@@ -65,7 +66,7 @@ namespace GameStore.Web.HtmlHelpers
 
                 var body = new TagBuilder("div");
                 body.AddCssClass("comment-body");
-                body.SetInnerText(comment.Body);
+                body.SetInnerText(comment.Body == String.Empty ? GlobalRes.Deleted : comment.Body);
                 body.InnerHtml = comment.Quotes + body.InnerHtml;
 
                 var commentButtonsDiv = new TagBuilder("div");

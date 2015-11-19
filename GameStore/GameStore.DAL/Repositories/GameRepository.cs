@@ -6,10 +6,9 @@ using System.Data.Metadata.Edm;
 using System.Linq;
 using System.Linq.Expressions;
 using GameStore.DAL.Abstract;
+using GameStore.DAL.Abstract.Repositories;
 using GameStore.DAL.EF;
 using GameStore.DAL.Static;
-using GameStore.Domain.Abstract;
-using GameStore.Domain.Abstract.Repositories;
 using GameStore.Domain.Entities;
 using GameStore.Static;
 
@@ -76,9 +75,11 @@ namespace GameStore.DAL.Repositories
         private void FillGame(Game game)
         {
             var genresIds =
-                _db.GamesGenres.ToList().Where(x => x.GameId == game.Id)
+                _db.GamesGenres.Where(x => x.GameId == game.Id)
                    .Select(x => x.GenreId)
-                   .GroupBy(x => KeyEncoder.GetBase(x));
+                   .ToList()
+                   .GroupBy(KeyEncoder.GetBase)
+                   .ToList();
             var mainGenres = genresIds.FirstOrDefault(x => x.Key == DatabaseTypes.GameStore);
             var outGenres = genresIds.FirstOrDefault(x => x.Key == DatabaseTypes.Northwind);
 
@@ -104,8 +105,6 @@ namespace GameStore.DAL.Repositories
                     case DatabaseTypes.Northwind:
                         game.Publisher = _northwind.Publishers.Get(KeyEncoder.GetId(game.PublisherId.Value));
                         break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
                 }
             }
         }
@@ -118,17 +117,20 @@ namespace GameStore.DAL.Repositories
         public Game Get(int id)
         {
             var database = KeyEncoder.GetBase(id);
+            Game game = null;
+
             switch (database)
             {
                 case DatabaseTypes.GameStore:
-                    var game = _db.Games.Find(id);
+                    game = _db.Games.Find(id);
                     FillGame(game);
-                    return game;
+                    break;
                 case DatabaseTypes.Northwind:
-                    return _northwind.Games.Get(KeyEncoder.GetId(id));
-                default:
-                    throw new ArgumentOutOfRangeException();
+                    game = _northwind.Games.Get(KeyEncoder.GetId(id));
+                    break;
             }
+
+            return game;
         }
 
         public IEnumerable<Game> Get()
@@ -145,7 +147,7 @@ namespace GameStore.DAL.Repositories
             return Get().Where(predicate.Compile());
         }
 
-        public Game GetSingle(Expression<Func<Game, bool>> predicate)
+        public Game GetFirst(Expression<Func<Game, bool>> predicate)
         {
             return Get().FirstOrDefault(predicate.Compile());
         }
@@ -159,7 +161,7 @@ namespace GameStore.DAL.Repositories
 
         public void Add(Game item)
         {
-            var nextId = _db.Games.Select(x => x.Id).ToList().Where(x => KeyEncoder.GetBase(x) == DatabaseTypes.GameStore).Max(x => x) + KeyEncoder.Coefficient;
+            var nextId = KeyEncoder.GetNext(_db.Games.Select(x => x.Id).Where(x => KeyEncoder.GetBase(x) == DatabaseTypes.GameStore).Max(x => x));
             item.Id = nextId;
             
             foreach (var genre in item.Genres)
@@ -184,8 +186,6 @@ namespace GameStore.DAL.Repositories
                     nGame.EntryState = EntryState.Deleted;
                     _db.Games.Add(nGame);
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -202,14 +202,12 @@ namespace GameStore.DAL.Repositories
                     _db.Games.Add(item);
                     UpdateGameGenres(item);
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
         }
 
         private void UpdateGameGenres(Game item)
         {
-            var existingGenres = _db.GamesGenres.Where(x => x.GameId == item.Id).ToList();
+            var existingGenres = _db.GamesGenres.Where(x => x.GameId == item.Id);
             foreach (var genre in existingGenres.Select(x => x.GenreId).Except(item.Genres.Select(x => x.Id)))
             {
                 _db.GamesGenres.Remove(_db.GamesGenres.Find(item.Id, genre));

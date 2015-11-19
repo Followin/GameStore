@@ -162,6 +162,9 @@
   <data name="DaysShortcut_Years3" xml:space="preserve">
     <value>3 years</value>
   </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>/Deleted/</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>

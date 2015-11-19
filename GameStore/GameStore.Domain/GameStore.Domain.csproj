@@ -42,18 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\Entity.cs" />
-    <Compile Include="Abstract\IGameStoreUnitOfWork.cs" />
-    <Compile Include="Abstract\IRepository.cs" />
-    <Compile Include="Abstract\IUnitOfWork.cs" />
-    <Compile Include="Abstract\Repositories\ICommentRepository.cs" />
-    <Compile Include="Abstract\Repositories\IGameRepository.cs" />
-    <Compile Include="Abstract\Repositories\IGenreRepository.cs" />
-    <Compile Include="Abstract\Repositories\IOrderRepository.cs" />
-    <Compile Include="Abstract\Repositories\IPlatformTypeRepository.cs" />
-    <Compile Include="Abstract\Repositories\IPublisherRepository.cs" />
-    <Compile Include="Abstract\Repositories\IUserRepository.cs" />
     <Compile Include="Entities\Comment.cs" />
+    <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\EntryState.cs" />
     <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\GamesGenres.cs" />
     <Compile Include="Entities\Genre.cs" />

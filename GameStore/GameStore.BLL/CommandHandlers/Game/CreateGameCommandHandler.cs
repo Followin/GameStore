@@ -10,7 +10,7 @@ using GameStore.BLL.Commands.Game;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Utils;
 using GameStore.BLL.Utils.ValidationExtensions;
-using GameStore.Domain.Abstract;
+using GameStore.DAL.Abstract;
 using NLog;
 
 namespace GameStore.BLL.CommandHandlers.Game
@@ -99,7 +99,7 @@ namespace GameStore.BLL.CommandHandlers.Game
                                         x => x > 0,
                                        "PlatformTypeIds must have only greater than zero numbers");
 
-            if (_db.Games.GetSingle(g => g.Key == command.Key) != null)
+            if (_db.Games.GetFirst(g => g.Key == command.Key) != null)
             {
                 throw new ArgumentException(
                     "There is game with such key in db. Key must be unique.",

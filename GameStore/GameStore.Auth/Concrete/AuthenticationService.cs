@@ -7,7 +7,7 @@ using System.Web.Helpers;
 using GameStore.Auth.Abstract;
 using GameStore.Auth.Models;
 using GameStore.Auth.Utils;
-using GameStore.Domain.Abstract;
+using GameStore.DAL.Abstract;
 using GameStore.Domain.Entities;
 using GameStore.Static;
 using Microsoft.Owin.Security;
@@ -44,7 +44,7 @@ namespace GameStore.Auth.Concrete
 
         public LoginResult Login(string name, string password, Boolean isPersistent)
         {
-            var user = _db.Users.GetSingle(
+            var user = _db.Users.GetFirst(
                 x => x.Name == name && 
                      Crypto.VerifyHashedPassword(x.PasswordHash, password));
             

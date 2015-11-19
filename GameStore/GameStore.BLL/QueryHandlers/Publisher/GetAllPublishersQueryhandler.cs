@@ -8,9 +8,9 @@ using GameStore.BLL.CQRS;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Queries.Publisher;
 using GameStore.BLL.QueryResults.Publisher;
-using GameStore.Domain.Abstract;
+using GameStore.DAL.Abstract;
 using NLog;
-using EntryState = GameStore.Domain.Abstract.EntryState;
+using EntryState = GameStore.Domain.Entities.EntryState;
 
 namespace GameStore.BLL.QueryHandlers.Publisher
 {

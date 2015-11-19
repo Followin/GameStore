@@ -5,8 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Security.Claims;
 using GameStore.Auth.Abstract;
+using GameStore.DAL.Abstract;
 using GameStore.DAL.EF;
-using GameStore.Domain.Abstract;
 using GameStore.Static;
 
 namespace GameStore.Auth.Concrete
@@ -22,7 +22,7 @@ namespace GameStore.Auth.Concrete
 
         public Boolean IsUsernameFree(string name)
         {
-            return _db.Users.GetSingle(x => x.Name == name) == null;
+            return _db.Users.GetFirst(x => x.Name == name) == null;
         }
 
         public void BanUser(int userId, DateTime expirationTime)

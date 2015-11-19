@@ -8,7 +8,7 @@ using GameStore.BLL.CQRS;
 using GameStore.BLL.Queries.Publisher;
 using GameStore.BLL.QueryResults.Genre;
 using GameStore.BLL.QueryResults.Publisher;
-using GameStore.Domain.Abstract;
+using GameStore.DAL.Abstract;
 using NLog;
 
 namespace GameStore.BLL.QueryHandlers.Publisher

@@ -9,6 +9,6 @@ namespace GameStore.Web.Models.Order
     public class OrderCheckoutViewModel
     {
         public OrderViewModel Order { get;set; }
-        public Dictionary<String, IPayment> PaymentMethods { get;set; }
+        public IEnumerable<KeyValuePair<string, IPayment>> PaymentMethods { get;set; }
     }
 }

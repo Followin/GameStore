@@ -1,7 +1,6 @@
 ﻿using GameStore.DAL.Abstract;
+using GameStore.DAL.Abstract.Repositories;
 using GameStore.DAL.EF;
-using GameStore.Domain.Abstract;
-using GameStore.Domain.Abstract.Repositories;
 
 namespace GameStore.DAL.Repositories
 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using GameStore.Static;
 using GameStore.Web.Abstract;
 using GameStore.Web.Models.Order;
 
@@ -11,6 +12,8 @@ namespace GameStore.Web.Concrete
     public class IboxPayment : IPayment
     {
         public string ImageLink { get; private set; }
+
+        public PaymentMethod Method { get; private set; }
 
         public string Name { get; private set; }
 
@@ -21,6 +24,7 @@ namespace GameStore.Web.Concrete
             ImageLink = imageLink;
             Name = name;
             Description = description;
+            Method = PaymentMethod.Ibox;
         }
 
         public ActionResult Checkout()

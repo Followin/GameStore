@@ -7,7 +7,8 @@ using AutoMapper;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Queries.Comment;
 using GameStore.BLL.QueryResults.Comment;
-using GameStore.Domain.Abstract;
+using GameStore.DAL.Abstract;
+using GameStore.Domain.Entities;
 using NLog;
 
 namespace GameStore.BLL.QueryHandlers.Comment

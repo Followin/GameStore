@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GameStore.DAL.Abstract.Repositories;
 using GameStore.Domain.Entities;
 
 namespace GameStore.DAL.Abstract
@@ -26,8 +27,8 @@ namespace GameStore.DAL.Abstract
         IOutRepository<Genre> Genres { get; }
 
         /// <summary>
-        /// Shippers list
+        /// Shippers repository
         /// </summary>
-        IEnumerable<Shipper> GetShippers { get; } 
+        IOutRepository<Shipper> Shippers { get; } 
     }
 }

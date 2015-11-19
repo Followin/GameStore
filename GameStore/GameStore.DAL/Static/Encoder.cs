@@ -9,6 +9,16 @@ namespace GameStore.DAL.Static
         /// </summary>
         public const Int32 Coefficient = 7;
 
+        public static Int32 GetNext(Int32 maxId)
+        {
+            return maxId + Coefficient;
+        }
+
+        public static Int32 GetNext(DatabaseTypes type)
+        {
+            return Coefficient + (Int32)type;
+        }
+
         /// <summary>
         /// Gets encoded id
         /// </summary>

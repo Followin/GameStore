@@ -10,7 +10,7 @@ using GameStore.BLL.CQRS;
 using GameStore.BLL.Queries.Publisher;
 using GameStore.BLL.QueryResults.Publisher;
 using GameStore.BLL.Utils;
-using GameStore.Domain.Abstract;
+using GameStore.DAL.Abstract;
 using NLog;
 
 namespace GameStore.BLL.QueryHandlers.Publisher
@@ -31,7 +31,7 @@ namespace GameStore.BLL.QueryHandlers.Publisher
             Validate(query);
             return
                 Mapper.Map<Domain.Entities.Publisher, PublisherQueryResult>(
-                    _db.Publishers.GetSingle(x => x.CompanyName == query.CompanyName));
+                    _db.Publishers.GetFirst(x => x.CompanyName == query.CompanyName));
         }
 
         private void Validate(GetPublisherByCompanyNameQuery query)

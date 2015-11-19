@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using GameStore.Domain.Abstract;
 
 namespace GameStore.Domain.Entities
 {

@@ -6,7 +6,7 @@ using AutoMapper;
 using GameStore.BLL.Commands.Comment;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Utils;
-using GameStore.Domain.Abstract;
+using GameStore.DAL.Abstract;
 using NLog;
 
 namespace GameStore.BLL.CommandHandlers.Comment

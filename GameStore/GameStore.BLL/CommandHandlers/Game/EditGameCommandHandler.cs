@@ -10,7 +10,7 @@ using GameStore.BLL.Commands.Game;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Utils;
 using GameStore.BLL.Utils.ValidationExtensions;
-using GameStore.Domain.Abstract;
+using GameStore.DAL.Abstract;
 using NLog;
 
 namespace GameStore.BLL.CommandHandlers.Game
@@ -106,7 +106,7 @@ namespace GameStore.BLL.CommandHandlers.Game
                 throw new ArgumentOutOfRangeException(NameGetter.GetName(() => command.Id), "Game not found");
             }
 
-            if (command.Key != game.Key && _db.Games.GetSingle(g => g.Key == command.Key) != null)
+            if (command.Key != game.Key && _db.Games.GetFirst(g => g.Key == command.Key) != null)
             {
                 throw new ArgumentException(
                     "Game with such key already exists",

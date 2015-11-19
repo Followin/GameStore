@@ -11,9 +11,9 @@ using GameStore.BLL.DTO;
 using GameStore.BLL.Queries.Comment;
 using GameStore.BLL.QueryResults.Comment;
 using GameStore.BLL.Utils;
-using GameStore.Domain.Abstract;
+using GameStore.DAL.Abstract;
 using NLog;
-using EntryState = GameStore.Domain.Abstract.EntryState;
+using EntryState = GameStore.Domain.Entities.EntryState;
 
 namespace GameStore.BLL.QueryHandlers.Comment
 {
@@ -35,7 +35,7 @@ namespace GameStore.BLL.QueryHandlers.Comment
                  .NotWhiteSpace();
 
             var game = query.Key != null 
-                ? _db.Games.GetSingle(g => g.Key == query.Key) 
+                ? _db.Games.GetFirst(g => g.Key == query.Key) 
                 : _db.Games.Get(query.Id);
 
             if (game == null)

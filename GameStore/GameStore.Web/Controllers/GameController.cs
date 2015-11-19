@@ -79,7 +79,7 @@ namespace GameStore.Web.Controllers
 
             if (game == null || game.EntryState != EntryState.Active)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Game");
             }
 
             var currentOrder = QueryDispatcher.Dispatch<GetCurrentOrderQuery, OrderQueryResult>(new GetCurrentOrderQuery

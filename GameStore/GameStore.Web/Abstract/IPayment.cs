@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using GameStore.Static;
 
 namespace GameStore.Web.Abstract
 {
@@ -9,6 +10,8 @@ namespace GameStore.Web.Abstract
         /// Link to image of payment
         /// </summary>
         String ImageLink { get; }
+
+        PaymentMethod Method { get; }
 
         String Name { get; }
 

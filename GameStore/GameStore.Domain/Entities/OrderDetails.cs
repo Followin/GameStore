@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using GameStore.Domain.Abstract;
 
 namespace GameStore.Domain.Entities
 {

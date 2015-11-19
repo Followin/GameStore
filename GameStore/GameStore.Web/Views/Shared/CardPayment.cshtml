@@ -1,0 +1,46 @@
+﻿@model GameStore.Web.Models.Order.CardPaymentViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>VisaPayment</title>
+    <link href="~/Content/forms.css" rel="stylesheet" />
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(x => x.Method)
+        
+        <div class="form-group">
+            @Html.LabelFor(x => x.Name)
+            @Html.EditorFor(x => x.Name)
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Number)
+            @Html.EditorFor(x => x.Number)
+            @Html.ValidationMessageFor(x => x.Number)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.ExpirationDate)
+            @Html.EditorFor(x => x.ExpirationDate)
+            @Html.ValidationMessageFor(x => x.ExpirationDate)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Cvv2)
+            @Html.EditorFor(x => x.Cvv2)
+            @Html.ValidationMessageFor(x => x.Cvv2)
+        </div>
+    }
+    <script src="~/Scripts/jquery-1.8.2.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.autogrow-textarea.js"></script>
+    <script src="~/Scripts/forms.js"></script>
+</body>
+</html>

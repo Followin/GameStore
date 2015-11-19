@@ -4,9 +4,9 @@ using System.Data;
 using System.Data.Entity.Validation;
 using System.Linq;
 using GameStore.DAL.Abstract;
+using GameStore.DAL.Abstract.Repositories;
 using GameStore.DAL.EF;
 using GameStore.DAL.Static;
-using GameStore.Domain.Abstract.Repositories;
 using GameStore.Domain.Entities;
 
 namespace GameStore.DAL.Repositories
@@ -24,21 +24,32 @@ namespace GameStore.DAL.Repositories
 
         private void FillOrder(Order order)
         {
-            if (order.OrderDetails == null || !order.OrderDetails.Any()) return;
+            if (order.OrderDetails == null || !order.OrderDetails.Any())
+            {
+                return;
+            }
+
+            var gameIds = order.OrderDetails
+                               .Select(x => x.Game.Id)
+                               .GroupBy(KeyEncoder.GetBase)
+                               .ToList();
+            var mainGameIds = gameIds.FirstOrDefault(x => x.Key == DatabaseTypes.GameStore);
+            var northwindGameIds = gameIds.FirstOrDefault(x => x.Key == DatabaseTypes.Northwind);
+
+            List<Game> games = new List<Game>();
+
+            if (mainGameIds != null)
+            {
+                games.AddRange(_db.Games.Where(x => mainGameIds.Contains(x.Id)));
+            }
+            if (northwindGameIds != null)
+            {
+                games.AddRange(_northwind.Games.GetIncluding(northwindGameIds));
+            }
+
             foreach (var detail in order.OrderDetails)
             {
-                var database = KeyEncoder.GetBase(detail.GameId);
-                switch (database)
-                {
-                    case DatabaseTypes.GameStore:
-                        detail.Game = _db.Games.Find(detail.GameId);
-                        break;
-                    case DatabaseTypes.Northwind:
-                        detail.Game = _northwind.Games.Get(KeyEncoder.GetId(detail.GameId));
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                detail.Game = games.Find(x => x.Id == detail.GameId);
             }
         }
 
@@ -52,18 +63,19 @@ namespace GameStore.DAL.Repositories
         public Order Get(int id)
         {
             var databaseType = KeyEncoder.GetBase(id);
+            Order order = null;
             switch (databaseType)
             {
                 case DatabaseTypes.GameStore:
-                    var order = _db.Orders.Find(id);
+                    order = _db.Orders.Find(id);
                     FillOrder(order);
-                    return order;
+                    break;
                 case DatabaseTypes.Northwind:
                     order = _northwind.Orders.Get(KeyEncoder.GetId(id));
-                    return order;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                    break;
             }
+
+            return order;
 
         }
 
@@ -77,10 +89,10 @@ namespace GameStore.DAL.Repositories
             var existingOrder = _db.Orders.FirstOrDefault(x => x.UserId == userId && !x.OrderDate.HasValue);
             if (existingOrder == null)
             {
-                Int32 nextId = KeyEncoder.Coefficient + (Int32)DatabaseTypes.GameStore;
+                Int32 nextId = KeyEncoder.GetNext(DatabaseTypes.GameStore);
                 if (_db.Orders.Any())
                 {
-                    nextId = _db.Orders.Max(x => x.Id) + KeyEncoder.Coefficient;
+                    nextId = KeyEncoder.GetNext(_db.Orders.Max(x => x.Id));
                 }
                 existingOrder = new Order { Id = nextId, UserId = userId, OrderDetails = new List<OrderDetails>() };
                 _db.Orders.Add(existingOrder);
@@ -112,7 +124,7 @@ namespace GameStore.DAL.Repositories
 
         public IEnumerable<Shipper> GetShippers()
         {
-            return _northwind.GetShippers.ToList();
+            return _northwind.Shippers.Get();
         }
 
         public void Checkout(int id)

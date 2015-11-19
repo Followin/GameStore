@@ -11,8 +11,8 @@ using GameStore.BLL.Queries.Comment;
 using GameStore.BLL.QueryHandlers;
 using GameStore.BLL.QueryHandlers.Comment;
 using GameStore.BLL.Utils;
-using GameStore.Domain.Abstract;
-using GameStore.Domain.Abstract.Repositories;
+using GameStore.DAL.Abstract;
+using GameStore.DAL.Abstract.Repositories;
 using GameStore.Domain.Entities;
 using GameStore.Tests.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -78,7 +78,7 @@ namespace GameStore.Tests.BLLTests
             _comments = new[] { comment, innerComment };
 
             _gameRepositoryMock = new Mock<IGameRepository>();
-            _gameRepositoryMock.Setup(x => x.GetSingle(It.IsAny<Expression<Func<Game, Boolean>>>())).Returns(
+            _gameRepositoryMock.Setup(x => x.GetFirst(It.IsAny<Expression<Func<Game, Boolean>>>())).Returns(
                 (Expression<Func<Game, Boolean>> predicate) => games.FirstOrDefault(predicate.Compile()));
             _gameRepositoryMock.Setup(x => x.Get(It.Is<Int32>(i => i == 1))).Returns(dota);
 
@@ -413,7 +413,7 @@ namespace GameStore.Tests.BLLTests
                 _queryHandler.Retrieve(getCommentsByGameKey));
 
             // Assert
-            _gameRepositoryMock.Verify(x => x.GetSingle(It.IsAny<Expression<Func<Game, bool>>>()), Times.Once);
+            _gameRepositoryMock.Verify(x => x.GetFirst(It.IsAny<Expression<Func<Game, bool>>>()), Times.Once);
             Assert.AreEqual("Key", result.ParamName);
         }
 

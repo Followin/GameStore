@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using GameStore.BLL.Queries.Genre;
 using GameStore.BLL.QueryHandlers.Genre;
-using GameStore.Domain.Abstract;
-using GameStore.Domain.Abstract.Repositories;
+using GameStore.DAL.Abstract;
+using GameStore.DAL.Abstract.Repositories;
 using GameStore.Domain.Entities;
 using GameStore.Tests.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -54,7 +54,7 @@ namespace GameStore.Tests.BLLTests
             _genreRepositoryMock.Setup(x => x.Get()).Returns(genres);
             _genreRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
                 (Int32 i) => genres.FirstOrDefault(g => g.Id == i));
-            _genreRepositoryMock.Setup(x => x.GetSingle(It.IsAny<Expression<Func<Genre, Boolean>>>())).Returns(
+            _genreRepositoryMock.Setup(x => x.GetFirst(It.IsAny<Expression<Func<Genre, Boolean>>>())).Returns(
                 (Expression<Func<Genre, Boolean>> predicate) => genres.FirstOrDefault(predicate.Compile()));
             _genreRepositoryMock.Setup(x => x.Get(It.IsAny<Expression<Func<Genre, Boolean>>>())).Returns(
                 (Expression<Func<Genre, Boolean>> predicate) => genres.Where(predicate.Compile()));

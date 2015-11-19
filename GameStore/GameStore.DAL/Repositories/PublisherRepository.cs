@@ -4,10 +4,9 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using GameStore.DAL.Abstract;
+using GameStore.DAL.Abstract.Repositories;
 using GameStore.DAL.EF;
 using GameStore.DAL.Static;
-using GameStore.Domain.Abstract;
-using GameStore.Domain.Abstract.Repositories;
 using GameStore.Domain.Entities;
 
 namespace GameStore.DAL.Repositories
@@ -26,15 +25,19 @@ namespace GameStore.DAL.Repositories
         public Publisher Get(int id)
         {
             var database = KeyEncoder.GetBase(id);
+            Publisher publisher = null;
+
             switch (database)
             {
                 case DatabaseTypes.GameStore:
-                    return _db.Publishers.Find(id);
+                    publisher =  _db.Publishers.Find(id);
+                    break;
                 case DatabaseTypes.Northwind:
-                    return _northwind.Publishers.Get(KeyEncoder.GetId(id));
-                default:
-                    throw new ArgumentOutOfRangeException();
+                    publisher =  _northwind.Publishers.Get(KeyEncoder.GetId(id));
+                    break;
             }
+
+            return publisher;
         }
 
         public IEnumerable<Publisher> Get()
@@ -50,7 +53,7 @@ namespace GameStore.DAL.Repositories
             return Get().Where(predicate.Compile());
         }
 
-        public Publisher GetSingle(Expression<Func<Publisher, bool>> predicate)
+        public Publisher GetFirst(Expression<Func<Publisher, bool>> predicate)
         {
             return Get().FirstOrDefault(predicate.Compile());
         }
@@ -64,8 +67,8 @@ namespace GameStore.DAL.Repositories
 
         public void Add(Publisher item)
         {
-            var lastId = _db.Publishers.Select(x => x.Id).ToList().Where(x => KeyEncoder.GetBase(x) == DatabaseTypes.GameStore).Max(x => x) + KeyEncoder.Coefficient;
-            lastId += KeyEncoder.Coefficient;
+            var lastId = _db.Publishers.Select(x => x.Id).ToList().Where(x => KeyEncoder.GetBase(x) == DatabaseTypes.GameStore).Max(x => x);
+            lastId = KeyEncoder.GetNext(lastId);
             item.Id = lastId;
             _db.Publishers.Add(item);
         }
@@ -85,8 +88,6 @@ namespace GameStore.DAL.Repositories
                     nPublisher.EntryState = EntryState.Deleted;
                     _db.Publishers.Add(nPublisher);
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -101,8 +102,6 @@ namespace GameStore.DAL.Repositories
                 case DatabaseTypes.Northwind:
                     _db.Publishers.Add(item);
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
         }
     }

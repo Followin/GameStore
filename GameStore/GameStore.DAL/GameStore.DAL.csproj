@@ -55,10 +55,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IEFContext.cs" />
+    <Compile Include="Abstract\IGameStoreUnitOfWork.cs" />
     <Compile Include="Abstract\INorthwindUnitOfWork.cs" />
-    <Compile Include="Abstract\IOutRepository.cs" />
+    <Compile Include="Abstract\IRepository.cs" />
+    <Compile Include="Abstract\IUnitOfWork.cs" />
+    <Compile Include="Abstract\Repositories\ICommentRepository.cs" />
+    <Compile Include="Abstract\Repositories\IGameRepository.cs" />
+    <Compile Include="Abstract\Repositories\IGenreRepository.cs" />
+    <Compile Include="Abstract\Repositories\IOrderRepository.cs" />
+    <Compile Include="Abstract\Repositories\IOutRepository.cs" />
+    <Compile Include="Abstract\Repositories\IPlatformTypeRepository.cs" />
+    <Compile Include="Abstract\Repositories\IPublisherRepository.cs" />
+    <Compile Include="Abstract\Repositories\IUserRepository.cs" />
+    <Compile Include="EF\Configurations\CommentConfiguration.cs" />
+    <Compile Include="EF\Configurations\GameConfiguration.cs" />
+    <Compile Include="EF\Configurations\GameGenreConfiguration.cs" />
+    <Compile Include="EF\Configurations\GenreConfiguration.cs" />
+    <Compile Include="EF\Configurations\OrderConfiguration.cs" />
+    <Compile Include="EF\Configurations\OrderDetailsConfiguration.cs" />
+    <Compile Include="EF\Configurations\PlatformTypeConfiguration.cs" />
+    <Compile Include="EF\Configurations\PublisherConfiguration.cs" />
+    <Compile Include="EF\Configurations\UserConfiguration.cs" />
     <Compile Include="EF\EFContext.cs" />
-    <Compile Include="EF\EFContextConfigurations.cs" />
     <Compile Include="EF\EFContextInitializer.cs" />
     <Compile Include="Migrations\201510270923242_Game dates.cs" />
     <Compile Include="Migrations\201510270923242_Game dates.Designer.cs">
@@ -96,6 +114,7 @@
     <Compile Include="Northwind\Repositories\NorthwindGenreRepository.cs" />
     <Compile Include="Northwind\Repositories\NorthwindOrderRepository.cs" />
     <Compile Include="Northwind\Repositories\NorthwindPublisherRepository.cs" />
+    <Compile Include="Northwind\Repositories\NorthwindShipperRepository.cs" />
     <Compile Include="Northwind\Repositories\NorthwindUnitOfWork.cs" />
     <Compile Include="Northwind\Shipper.cs">
       <DependentUpon>NorthwindModel.tt</DependentUpon>

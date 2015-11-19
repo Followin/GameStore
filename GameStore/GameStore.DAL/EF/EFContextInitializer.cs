@@ -2,7 +2,6 @@
 using System.Data.Entity;
 using System.Security.Claims;
 using GameStore.DAL.Static;
-using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
 using GameStore.Static;
 
@@ -14,7 +13,8 @@ namespace GameStore.DAL.EF
 
         private Int32 GetNextId(ref Int32 id)
         {
-            return (id += KeyEncoder.Coefficient);
+            id = KeyEncoder.GetNext(id);
+            return id;
         }
 
         protected override void Seed(EFContext context)

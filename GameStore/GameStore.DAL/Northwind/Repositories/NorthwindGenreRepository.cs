@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using GameStore.DAL.Abstract;
+using GameStore.DAL.Abstract.Repositories;
 using GameStore.Domain.Entities;
 
 namespace GameStore.DAL.Northwind.Repositories
@@ -33,6 +34,11 @@ namespace GameStore.DAL.Northwind.Repositories
         public IEnumerable<Genre> GetExluding(IEnumerable<int> exludingIds)
         {
             return Mapper.Map<IEnumerable<Category>, IEnumerable<Genre>>(Categories.Where(x => !exludingIds.Contains(x.CategoryID)).ToList());
+        }
+
+        public IEnumerable<Genre> GetIncluding(IEnumerable<int> includingIds)
+        {
+            return Mapper.Map<IEnumerable<Category>, IEnumerable<Genre>>(Categories.Where(x => includingIds.Contains(x.CategoryID)).ToList());
         }
     }
 }

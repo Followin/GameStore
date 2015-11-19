@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using GameStore.DAL.Abstract;
 using GameStore.DAL.Repositories;
-using GameStore.Domain.Abstract;
+using GameStore.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -96,7 +96,7 @@ namespace GameStore.Tests.DALTests
             _testClassSetMock.Setup(x => x.GetEnumerator()).Returns(items.GetEnumerator);
 
             // Act
-            var result = _testGenericRepository.GetSingle(t => t.Id == 2);
+            var result = _testGenericRepository.GetFirst(t => t.Id == 2);
 
             // Assert
             Assert.AreEqual(2, result.Id);

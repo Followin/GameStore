@@ -13,6 +13,7 @@ using GameStore.BLL.DTO;
 using GameStore.BLL.Queries.Order;
 using GameStore.BLL.QueryResults.Order;
 using GameStore.Static;
+using GameStore.Web.Abstract;
 using GameStore.Web.App_LocalResources;
 using GameStore.Web.Concrete;
 using GameStore.Web.Filters;
@@ -44,7 +45,8 @@ namespace GameStore.Web.Controllers
             var orderCheckout = new OrderCheckoutViewModel
             {
                 Order = currentOrder,
-                PaymentMethods = PaymentList.PaymentMethods
+                PaymentMethods = PaymentMethodsDictionary.GetMethods().Select(x => 
+                    new KeyValuePair<String, IPayment>(x.Key, PaymentList.GetPayment(x.Value)))
             };
             return View(orderCheckout);
         }
@@ -100,9 +102,13 @@ namespace GameStore.Web.Controllers
                 });
             CommandDispatcher.Dispatch(new CheckoutOrderCommand { Id = currentOrder.Id });
 
-            return PaymentList.PaymentMethods.ContainsKey(paymentMethodKey)
-                ? PaymentList.PaymentMethods[paymentMethodKey].Checkout()
-                : HttpNotFound();
+            var paymentMethodQuery = new GetPaymentMethodByKeyQuery {Key = paymentMethodKey};
+            var queryResult =
+                QueryDispatcher.Dispatch<GetPaymentMethodByKeyQuery, PaymentMethodQueryResult>(paymentMethodQuery);
+
+
+
+            return PaymentList.GetPayment(queryResult.Method).Checkout();
         }
 
         [HttpPost]

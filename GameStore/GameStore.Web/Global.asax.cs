@@ -38,7 +38,6 @@ namespace GameStore.Web
                 cfg.AddProfile(new WebMapperProfile());
                 cfg.AddProfile(new DALProfile());
             });
-            InitializePayments();
 
 
             //Mapper.AssertConfigurationIsValid();
@@ -52,28 +51,6 @@ namespace GameStore.Web
 
         }
 
-
-        private void InitializePayments()
-        {
-            PaymentList.PaymentMethods.Add(
-                "visa",
-                new VisaPayment(
-                    @"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png",
-                    "VISA",
-                    "Payment by VISA card"));
-            PaymentList.PaymentMethods.Add(
-                "ibox",
-                new IboxPayment(
-                    @"http://www.uic.in.ua/wp-content/uploads/2014/06/ibox.png",
-                    "IBOX",
-                    "Payment by IBOX terminal"));
-            PaymentList.PaymentMethods.Add(
-                "bank",
-                new BankPayment(
-                    @"http://goodlogo.com/images/logos/state_bank_of_india_logo_3898.png",
-                    "Bank",
-                    "Invoice payment using bank"));
-        }
 
     }
 }

@@ -24,7 +24,9 @@
       parentLi.remove();
       if (parentUl.is(":empty")) {
         parentUl.prev('.hideable-toggle').remove();
-        return parentUl.remove();
+        if (!parentUl.parent().is('.comments-list')) {
+          return parentUl.remove();
+        }
       }
     };
     commentsHub.client.changeCommentBody = function(id, text) {

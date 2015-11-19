@@ -2,7 +2,7 @@
 using GameStore.BLL.CQRS;
 using GameStore.BLL.Queries.Order;
 using GameStore.BLL.QueryResults.Order;
-using GameStore.Domain.Abstract;
+using GameStore.DAL.Abstract;
 using NLog;
 
 namespace GameStore.BLL.QueryHandlers.Order

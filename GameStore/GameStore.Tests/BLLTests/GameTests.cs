@@ -10,8 +10,8 @@ using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryHandlers;
 using GameStore.BLL.QueryHandlers.Game;
 using GameStore.BLL.Utils;
-using GameStore.Domain.Abstract;
-using GameStore.Domain.Abstract.Repositories;
+using GameStore.DAL.Abstract;
+using GameStore.DAL.Abstract.Repositories;
 using GameStore.Domain.Entities;
 using GameStore.Static;
 using GameStore.Tests.Utils;
@@ -69,7 +69,7 @@ namespace GameStore.Tests.BLLTests
             _genreRepositoryMock.Setup(x => x.Get()).Returns(genres);
             _genreRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
                 (Int32 i) => genres.FirstOrDefault(g => g.Id == i));
-            _genreRepositoryMock.Setup(x => x.GetSingle(It.IsAny<Expression<Func<Genre, Boolean>>>())).Returns(
+            _genreRepositoryMock.Setup(x => x.GetFirst(It.IsAny<Expression<Func<Genre, Boolean>>>())).Returns(
                 (Expression<Func<Genre, Boolean>> predicate) => genres.FirstOrDefault(predicate.Compile()));
             
             var desktop = new PlatformType
@@ -87,7 +87,7 @@ namespace GameStore.Tests.BLLTests
             _platformTypeRepositoryMock.Setup(x => x.Get()).Returns(platformTypes);
             _platformTypeRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
                 (Int32 i) => platformTypes.FirstOrDefault(g => g.Id == i));
-            _platformTypeRepositoryMock.Setup(x => x.GetSingle(It.IsAny<Expression<Func<PlatformType, Boolean>>>())).Returns(
+            _platformTypeRepositoryMock.Setup(x => x.GetFirst(It.IsAny<Expression<Func<PlatformType, Boolean>>>())).Returns(
                 (Expression<Func<PlatformType, Boolean>> predicate) => platformTypes.FirstOrDefault(predicate.Compile()));
             _platformTypeRepositoryMock.Setup(x => x.Get(
                 It.IsAny<Expression<Func<PlatformType, Boolean>>>())).Returns(
@@ -179,7 +179,7 @@ namespace GameStore.Tests.BLLTests
             _gameRepositoryMock.Setup(x => x.Get(
                 It.IsAny<Expression<Func<Game, Boolean>>>())).Returns(
                     (Expression<Func<Game, Boolean>> predicate) => _games.Where(predicate.Compile()));
-            _gameRepositoryMock.Setup(x => x.GetSingle(It.IsAny<Expression<Func<Game, Boolean>>>())).Returns(
+            _gameRepositoryMock.Setup(x => x.GetFirst(It.IsAny<Expression<Func<Game, Boolean>>>())).Returns(
                 (Expression<Func<Game, Boolean>> predicate) => _games.FirstOrDefault(predicate.Compile()));
             _gameRepositoryMock.Setup(x => x.Get(
                 It.IsAny<Expression<Func<Game, Boolean>>>(),
@@ -323,7 +323,7 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             _newGameRightCommand.Key = "dota-2";
-            _gameRepositoryMock.Setup(x => x.GetSingle(It.IsAny<Expression<Func<Game, Boolean>>>()))
+            _gameRepositoryMock.Setup(x => x.GetFirst(It.IsAny<Expression<Func<Game, Boolean>>>()))
                 .Returns((Expression<Func<Game, Boolean>> predicate) => predicate.Compile()(_dota) ? _dota : null);
 
             // Act
@@ -1005,7 +1005,7 @@ namespace GameStore.Tests.BLLTests
                 getGamesByGenreHandler.Retrieve(getGamesByGenre));
 
             // Assert
-            _genreRepositoryMock.Verify(x => x.GetSingle(It.IsAny<Expression<Func<Genre, Boolean>>>()), Times.Once);
+            _genreRepositoryMock.Verify(x => x.GetFirst(It.IsAny<Expression<Func<Genre, Boolean>>>()), Times.Once);
             _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Name", result.ParamName);
         }
@@ -1177,7 +1177,7 @@ namespace GameStore.Tests.BLLTests
             var result = getGameByKeyQueryHandler.Retrieve(getGameByKey);
 
             // Assert
-            _gameRepositoryMock.Verify(x => x.GetSingle(It.IsAny<Expression<Func<Game, Boolean>>>()), Times.Once);
+            _gameRepositoryMock.Verify(x => x.GetFirst(It.IsAny<Expression<Func<Game, Boolean>>>()), Times.Once);
             Assert.AreEqual("Dota 2", result.Name);
         }
 

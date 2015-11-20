@@ -722,4 +722,60 @@ td:last-child .td-button {
   background-color: #481FBA;
 }
 
+.temp-messages {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.temp-messages .temp-message {
+  position: relative;
+  width: 100%;
+  color: #f1f1f1;
+  font-style: italic;
+  padding: 20px 30px 20px 10px;
+  border-radius: 3px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.7);
+  display: none;
+  z-index: 100;
+}
+
+.temp-messages .temp-message a {
+  color: #fff;
+  float: right;
+  margin-right: 200px;
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 2px solid #fff;
+  font-style: normal;
+}
+
+.temp-messages #close-messages-button {
+  z-index: 120;
+  position: absolute;
+  top: 0;
+  right: 4%;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.temp-messages #close-messages-button:focus {
+  outline: none;
+}
+
+.temp-messages .temp-message-info {
+  background: rgba(51, 204, 255, 0.85);
+  color: #fff;
+}
+
+.temp-messages .temp-message-error {
+  background: rgba(255, 0, 0, 0.85);
+}
+
+.temp-messages .temp-message-success {
+  background: rgba(76, 230, 0, 0.85);
+}
+
 /*# sourceMappingURL=site.css.map */

@@ -14,6 +14,7 @@ namespace BankService
         private IUserRepository _userRepository = new UserRepository();
         private ITransferRepository _transferRepository = new TransferRepository();
         private IAccountRepository _accountRepository = new AccountRepository();
+        private IMessageService _messageService = new MessageService();
 
         public async Task<PaymentResult> PayByVisaAsync(PaymentInfo info)
         {
@@ -43,7 +44,7 @@ namespace BankService
 
         private async Task<PaymentResult> Pay(PaymentInfo info, CardType type)
         {
-            var user = await _userRepository.Get(info.Name, info.AccountNumber, type, info.ExpirationDate, info.Cvv2);
+            var user = await _userRepository.Get(info.Name, info.AccountNumber, type, info.Cvv2, info.ExpirationMonth, info.ExpirationYear);
             if (user == null)
             {
                 return PaymentResult.CardDoesntExist;
@@ -70,13 +71,21 @@ namespace BankService
                 transfer.PayTime = DateTime.UtcNow;
                 user.Balance -= info.Sum;
                 account.Balance += info.Sum;
+
+                _messageService.SendEmail(user.Email, "Transfer sum: " + transfer.Sum);
+
                 await _transferRepository.AddTransfer(transfer);
+
                 return PaymentResult.Success;
             }
 
             
             transfer.VerificationCode = "123";
+            _messageService.SendSms(user.PhoneNumber, transfer.VerificationCode);
+            _messageService.SendEmail(user.Email, "Transfer sum: " + transfer.Sum);
+
             await _transferRepository.AddTransfer(transfer);
+
             return PaymentResult.CodeConfirmRequired;
         }
     }

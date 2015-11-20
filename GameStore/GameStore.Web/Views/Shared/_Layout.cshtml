@@ -2,6 +2,7 @@
 @using GameStore.BLL.BankService
 @using GameStore.BLL.Services
 @using GameStore.Web.App_LocalResources
+@using GameStore.Web.Models
 @using GameStore.Web.Utils
 @{
     Layout = null;
@@ -56,6 +57,24 @@
 <div id="body-wrapper">
     @RenderBody()
 </div>
+    <div class="temp-messages">
+        <button type="button" id="close-messages-button"><i class="fa fa-times fa-2x"></i></button>
+        @if (TempData.ContainsKey("TempMessages"))
+        {
+            foreach (var message in (IEnumerable<TempMessage>)TempData["TempMessages"])
+            {
+                <div class="temp-message temp-message-@message.Type.ToString().ToLower()">
+                    @message.Message
+                    @if (message is LinkTempMessage)
+                    {
+                        var linkMessage = message as LinkTempMessage;
+                        <a href="@linkMessage.LinkHref">@linkMessage.LinkText</a>
+                    }
+                </div>
+            }
+        }
+    </div>
+
     @Scripts.Render("~/Scripts/jquery")
     @Scripts.Render("~/Scripts/layout")
     @RenderSection("scripts", false)

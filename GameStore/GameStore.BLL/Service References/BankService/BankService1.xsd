@@ -4,7 +4,8 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="AccountNumber" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Cvv2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ExpirationDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ExpirationMonth" type="xs:int" />
+      <xs:element minOccurs="0" name="ExpirationYear" type="xs:int" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Owner" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Sum" type="xs:decimal" />

@@ -47,25 +47,28 @@ namespace GameStore.Web.Controllers
                 });
 
             var command = Mapper.Map<CardPaymentViewModel, PerformPaymentCommand>(model);
-            command.Sum = currentOrder.OrderDetails.Sum(x => x.Price*x.Price);
+            command.Sum = currentOrder.OrderDetails.Sum(x => x.Price*x.Quantity);
 
             var result = CommandDispatcher.Dispatch(command);
 
             switch ((PaymentResult) result.Data)
             {
                 case PaymentResult.Success:
+                    var checkoutCommand = new CheckoutOrderCommand() {Id = currentOrder.Id};
+                    CommandDispatcher.Dispatch(checkoutCommand);
+                    SuccessMessage("Payment succeded");
                     return RedirectToAction("Index", "Game");
                 case PaymentResult.Fail:
-                    throw new NotImplementedException();
-                    break;
+                    ErrorMessage("Payment failed for some reason");
+                    return RedirectToAction("Index", "Game");
                 case PaymentResult.NotEnoughMoney:
-                    throw new NotImplementedException();
-                    break;
+                    ErrorMessage("Not enough money.");
+                    return RedirectToAction("Index", "Game");
                 case PaymentResult.CodeConfirmRequired:
-                    return ConfirmPayment();
+                    return RedirectToAction("ConfirmPayment");
                 case PaymentResult.CardDoesntExist:
-                    throw new NotImplementedException();
-                    break;
+                    ErrorMessage("Card doesn't exist");
+                    return RedirectToAction("Index", "Game");
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -84,10 +87,19 @@ namespace GameStore.Web.Controllers
 
             if (result.Success)
             {
-                return View("SuccessfulPayment");
+                var currentOrder = QueryDispatcher.Dispatch<GetCurrentOrderQuery, OrderQueryResult>(
+                new GetCurrentOrderQuery
+                {
+                    UserId = Int32.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
+                });
+                var checkoutCommand = new CheckoutOrderCommand() { Id = currentOrder.Id };
+
+                CommandDispatcher.Dispatch(checkoutCommand);
+                SuccessMessage("Payment succeded");
+                return RedirectToAction("Index", "Game");
             }
 
-            ModelState.AddModelError("", "WRONG!!");
+            ModelState.AddModelError("", "Wrong code");
             return View("ConfirmPayment", model);
         }
 

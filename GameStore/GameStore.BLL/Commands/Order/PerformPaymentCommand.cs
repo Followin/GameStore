@@ -16,7 +16,9 @@ namespace GameStore.BLL.Commands.Order
 
         public String Number { get; set; }
 
-        public DateTime ExpirationDate { get; set; }
+        public Int32 ExpirationMonth { get; set; }
+
+        public Int32 ExpirationYear { get; set; }
 
         public String Cvv2 { get; set; }
 

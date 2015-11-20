@@ -23,6 +23,9 @@ namespace BankService.Models
         public String Owner { get; set; }
 
         [DataMember]
-        public DateTime ExpirationDate { get; set; }
+        public Int32 ExpirationMonth { get; set; }
+
+        [DataMember]
+        public Int32 ExpirationYear { get; set; }
     }
 }

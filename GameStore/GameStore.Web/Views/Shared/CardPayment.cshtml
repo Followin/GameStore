@@ -19,17 +19,22 @@
             @Html.ValidationMessageFor(x => x.Number)
         </div>
         <div class="form-group">
-            @Html.LabelFor(x => x.ExpirationDate)
-            @Html.EditorFor(x => x.ExpirationDate)
-            @Html.ValidationMessageFor(x => x.ExpirationDate)
+            @Html.LabelFor(x => x.ExpirationMonth)
+            @Html.EditorFor(x => x.ExpirationMonth)
+            @Html.ValidationMessageFor(x => x.ExpirationMonth)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.ExpirationYear)
+            @Html.EditorFor(x => x.ExpirationYear)
+            @Html.ValidationMessageFor(x => x.ExpirationYear)
         </div>
         <div class="form-group">
             @Html.LabelFor(x => x.Cvv2)
             @Html.EditorFor(x => x.Cvv2)
             @Html.ValidationMessageFor(x => x.Cvv2)
         </div>
-        
-        <input type="submit" value="@GlobalRes.Submit"/>
+
+        <input type="submit" value="@GlobalRes.Submit" />
     }
 </div>
 

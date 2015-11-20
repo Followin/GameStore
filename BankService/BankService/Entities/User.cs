@@ -17,7 +17,9 @@ namespace BankService.Entities
 
         public String Cvv2 { get; set; }
 
-        public DateTime ExpirationDate { get; set; }
+        public Int32 ExpirationMonth { get; set; }
+
+        public Int32 ExpirationYear { get; set; }
 
         public String Email { get; set; }
 

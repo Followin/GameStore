@@ -63,6 +63,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IMessageService.cs" />
     <Compile Include="Abstract\ITransferRepository.cs" />
     <Compile Include="Abstract\IAccountRepository.cs" />
     <Compile Include="Abstract\IUserRepository.cs" />
@@ -71,6 +72,7 @@
     </Compile>
     <Compile Include="Concrete\AccountRepository.cs" />
     <Compile Include="Concrete\Database.cs" />
+    <Compile Include="Concrete\MessageService.cs" />
     <Compile Include="Concrete\TransferRepository.cs" />
     <Compile Include="Concrete\UserRepository.cs" />
     <Compile Include="Entities\Account.cs" />

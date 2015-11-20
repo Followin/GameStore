@@ -10,26 +10,17 @@ namespace GameStore.BLL.CommandHandlers.Order
 {
     public class PerformPaymentCommandHandler : ICommandHandler<PerformPaymentCommand>
     {
-        private IGameStoreUnitOfWork _db;
-        private ILogger _logger;
-
-        public PerformPaymentCommandHandler(IGameStoreUnitOfWork db, ILogger logger)
-        {
-            _db = db;
-            _logger = logger;
-        }
-
         public CommandResult Execute(PerformPaymentCommand command)
         {
             var bankService = new BankServiceClient();
-            command.ExpirationDate = new DateTime(command.ExpirationDate.Year, command.ExpirationDate.Month, command.ExpirationDate.Day);
             var paymentInfo = new PaymentInfo
             {
                 AccountNumber = command.Number,
                 Name = command.Name,
                 Sum = command.Sum,
                 Cvv2 = command.Cvv2,
-                ExpirationDate = command.ExpirationDate,
+                ExpirationMonth = command.ExpirationMonth,
+                ExpirationYear = command.ExpirationYear,
                 Owner = "GameStore"
             };
 

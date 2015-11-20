@@ -29,7 +29,10 @@ namespace GameStore.BLL.BankService {
         private string Cvv2Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime ExpirationDateField;
+        private int ExpirationMonthField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ExpirationYearField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NameField;
@@ -77,14 +80,27 @@ namespace GameStore.BLL.BankService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime ExpirationDate {
+        public int ExpirationMonth {
             get {
-                return this.ExpirationDateField;
+                return this.ExpirationMonthField;
             }
             set {
-                if ((this.ExpirationDateField.Equals(value) != true)) {
-                    this.ExpirationDateField = value;
-                    this.RaisePropertyChanged("ExpirationDate");
+                if ((this.ExpirationMonthField.Equals(value) != true)) {
+                    this.ExpirationMonthField = value;
+                    this.RaisePropertyChanged("ExpirationMonth");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ExpirationYear {
+            get {
+                return this.ExpirationYearField;
+            }
+            set {
+                if ((this.ExpirationYearField.Equals(value) != true)) {
+                    this.ExpirationYearField = value;
+                    this.RaisePropertyChanged("ExpirationYear");
                 }
             }
         }

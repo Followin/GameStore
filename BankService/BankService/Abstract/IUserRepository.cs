@@ -6,7 +6,7 @@ namespace BankService.Abstract
 {
     public interface IUserRepository
     {
-        Task<User> Get(String name, String accountNumber, CardType cardType, DateTime expirationDate, String cvv);
+        Task<User> Get(String name, String accountNumber, CardType cardType, String cvv, Int32 expirationMonth, Int32 expirationYear);
 
         void Add(Int32 id);
 

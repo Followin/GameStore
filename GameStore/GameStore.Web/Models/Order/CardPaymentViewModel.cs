@@ -20,10 +20,9 @@ namespace GameStore.Web.Models.Order
             Name = "Number")]
         public String Number { get; set; }
 
-        [Display(ResourceType = typeof(GlobalRes),
-            Name = "ExpireDate")]
-        [DataType(DataType.Date)]
-        public DateTime ExpirationDate { get; set; }
+        public Int32 ExpirationMonth { get; set; }
+
+        public Int32 ExpirationYear { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Cvv2")]

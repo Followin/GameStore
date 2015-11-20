@@ -44,7 +44,7 @@ namespace GameStore.DAL.Repositories
             }
             if (northwindGameIds != null)
             {
-                games.AddRange(_northwind.Games.GetIncluding(northwindGameIds));
+                games.AddRange(_northwind.Games.GetIncluding(northwindGameIds.Select(KeyEncoder.GetId)));
             }
 
             foreach (var detail in order.OrderDetails)

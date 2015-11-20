@@ -79,8 +79,9 @@ namespace BankService
                 return PaymentResult.Success;
             }
 
-            
-            transfer.VerificationCode = "123";
+            var random = new Random(DateTime.UtcNow.Millisecond);
+
+            transfer.VerificationCode = random.Next(100, 1000000).ToString();
             await _messageService.SendSms(user.PhoneNumber, transfer.VerificationCode);
             await _messageService.SendEmail(user.Email, "Transfer sum: " + transfer.Sum);
 

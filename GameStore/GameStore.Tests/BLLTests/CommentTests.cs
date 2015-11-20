@@ -14,6 +14,7 @@ using GameStore.BLL.Utils;
 using GameStore.DAL.Abstract;
 using GameStore.DAL.Abstract.Repositories;
 using GameStore.Domain.Entities;
+using GameStore.Static;
 using GameStore.Tests.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;

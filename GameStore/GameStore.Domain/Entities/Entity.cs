@@ -1,3 +1,5 @@
+using GameStore.Static;
+
 namespace GameStore.Domain.Entities
 {
     public abstract class Entity<T>

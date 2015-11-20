@@ -10,6 +10,7 @@ using GameStore.BLL.CQRS;
 using GameStore.BLL.Utils;
 using GameStore.DAL.Abstract;
 using GameStore.Domain.Entities;
+using GameStore.Static;
 using NLog;
 
 namespace GameStore.BLL.CommandHandlers.Comment

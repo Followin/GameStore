@@ -14,6 +14,7 @@ using GameStore.BLL.Queries.Game;
 using GameStore.BLL.Queries.Order;
 using GameStore.BLL.QueryResults.Game;
 using GameStore.BLL.QueryResults.Order;
+using GameStore.Static;
 using GameStore.Web.Filters;
 using GameStore.Web.Models.Order;
 using NLog;

@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Security.Claims;
+using System.Web.Helpers;
 using GameStore.Auth.Abstract;
+using GameStore.Auth.Models;
 using GameStore.DAL.Abstract;
 using GameStore.DAL.EF;
+using GameStore.Domain.Entities;
 using GameStore.Static;
 
 namespace GameStore.Auth.Concrete
@@ -18,6 +21,22 @@ namespace GameStore.Auth.Concrete
         public UserService(IGameStoreUnitOfWork db)
         {
             _db = db;
+        }
+
+        public void Register(RegisterUserModel userModel)
+        {
+
+            _db.Users.AddUserWithClaims(
+                new User
+                {
+                    Name = userModel.Name,
+                    PasswordHash = Crypto.HashPassword(userModel.Password),
+                    SecurityStamp = Guid.NewGuid().ToString()
+                },
+                userModel.Claims
+                         .Select(claim => new UserClaim() { Type = claim.Type, Value = claim.Value, Issuer = "GameStore" })
+                );
+            _db.Save();
         }
 
         public bool IsUsernameFree(string name)

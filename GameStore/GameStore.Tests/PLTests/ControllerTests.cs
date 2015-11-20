@@ -20,6 +20,7 @@ using GameStore.BLL.QueryResults;
 using GameStore.BLL.QueryResults.Comment;
 using GameStore.BLL.QueryResults.Game;
 using GameStore.BLL.QueryResults.Order;
+using GameStore.Static;
 using GameStore.Tests.Utils;
 using GameStore.Web.Controllers;
 using GameStore.Web.Models;

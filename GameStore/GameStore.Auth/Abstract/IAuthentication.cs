@@ -9,7 +9,6 @@ namespace GameStore.Auth.Abstract
 {
     public interface IAuthenticationService
     {
-        void Register(RegisterUserModel userModel);
 
         LoginResult Login(string name, string password, bool isPersistent);
 

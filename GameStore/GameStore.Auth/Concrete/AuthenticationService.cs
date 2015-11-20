@@ -26,21 +26,7 @@ namespace GameStore.Auth.Concrete
             _db = db;
         }
 
-        public void Register(RegisterUserModel userModel)
-        {
-            
-            _db.Users.AddUserWithClaims(
-                new User
-                {
-                    Name = userModel.Name,
-                    PasswordHash = Crypto.HashPassword(userModel.Password),
-                    SecurityStamp = Guid.NewGuid().ToString()
-                },
-                userModel.Claims
-                         .Select(claim => new UserClaim() {Type = claim.Type, Value = claim.Value, Issuer = "GameStore"})
-                );
-            _db.Save();
-        }
+        
 
         public LoginResult Login(string name, string password, bool isPersistent)
         {

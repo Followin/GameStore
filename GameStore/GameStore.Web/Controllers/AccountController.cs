@@ -56,7 +56,7 @@ namespace GameStore.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _auth.Register(Mapper.Map<RegisterAccountViewModel, RegisterUserModel>(model));
+                _userService.Register(Mapper.Map<RegisterAccountViewModel, RegisterUserModel>(model));
                 return RedirectToAction("Index", "Game");
             }
             return View(model);
@@ -84,7 +84,7 @@ namespace GameStore.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _auth.Register(Mapper.Map<CreateUserViewModel, RegisterUserModel>(model));
+                _userService.Register(Mapper.Map<CreateUserViewModel, RegisterUserModel>(model));
                 return RedirectToAction("Index", "Game");
             }
             return View(model);

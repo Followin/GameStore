@@ -4,6 +4,7 @@ using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryResults;
 using GameStore.DAL.Abstract;
 using GameStore.Domain.Entities;
+using GameStore.Static;
 using NLog;
 
 namespace GameStore.BLL.QueryHandlers.Games

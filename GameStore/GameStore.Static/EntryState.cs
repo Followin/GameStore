@@ -1,4 +1,4 @@
-namespace GameStore.Domain.Entities
+namespace GameStore.Static
 {
     public enum EntryState
     {

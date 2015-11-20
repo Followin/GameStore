@@ -9,6 +9,7 @@ using GameStore.BLL.Queries.Comment;
 using GameStore.BLL.QueryResults.Comment;
 using GameStore.DAL.Abstract;
 using GameStore.Domain.Entities;
+using GameStore.Static;
 using NLog;
 
 namespace GameStore.BLL.QueryHandlers.Comment

@@ -44,7 +44,6 @@
   <ItemGroup>
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\EntryState.cs" />
     <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\GamesGenres.cs" />
     <Compile Include="Entities\Genre.cs" />

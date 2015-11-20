@@ -10,7 +10,7 @@ using GameStore.BLL.Queries.Genre;
 using GameStore.BLL.QueryResults.Genre;
 using GameStore.DAL.Abstract;
 using NLog;
-using EntryState = GameStore.Domain.Entities.EntryState;
+using EntryState = GameStore.Static.EntryState;
 
 namespace GameStore.BLL.QueryHandlers.Genre
 {

@@ -11,7 +11,7 @@ using GameStore.BLL.QueryResults.Game;
 using GameStore.BLL.Utils;
 using GameStore.DAL.Abstract;
 using NLog;
-using EntryState = GameStore.Domain.Entities.EntryState;
+using EntryState = GameStore.Static.EntryState;
 
 namespace GameStore.BLL.QueryHandlers.Games
 {

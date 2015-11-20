@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using GameStore.BLL.CQRS;
 using GameStore.BLL.DTO;
+using GameStore.Static;
 
 namespace GameStore.BLL.QueryResults.Game
 {

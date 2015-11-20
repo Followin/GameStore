@@ -8,6 +8,7 @@ using GameStore.DAL.Abstract.Repositories;
 using GameStore.DAL.EF;
 using GameStore.DAL.Static;
 using GameStore.Domain.Entities;
+using GameStore.Static;
 
 namespace GameStore.DAL.Repositories
 {

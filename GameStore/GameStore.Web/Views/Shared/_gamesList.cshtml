@@ -10,11 +10,17 @@
     </div>
 }
 
-@foreach (var game in Model.DisplayModel)
-{
-    <div class="game">
-        @Html.Partial("_gameInfo", game)
-    </div>
+<div class="element-list">
 
-}
+    @foreach (var game in Model.DisplayModel)
+    {
+        <div data-img="@Math.Round(game.Price, 2) $" class="element">
+            <span class="content">
+                <a href="@Url.Action("Details", "Game", new { gamekey = game.Key })">@game.Name</a>
+            </span>
+        </div>
+
+    }
+
+</div>
 

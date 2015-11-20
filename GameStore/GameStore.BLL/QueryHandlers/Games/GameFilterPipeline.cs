@@ -10,7 +10,7 @@ using GameStore.BLL.Utils;
 using GameStore.DAL.Abstract;
 using GameStore.Domain.Entities;
 using Pipeline;
-using EntryState = GameStore.Domain.Entities.EntryState;
+using EntryState = GameStore.Static.EntryState;
 
 namespace GameStore.BLL.QueryHandlers.Games
 {

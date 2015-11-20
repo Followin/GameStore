@@ -7,6 +7,7 @@ using GameStore.BLL.CQRS;
 using GameStore.BLL.DTO;
 using GameStore.BLL.Queries.Game;
 using GameStore.BLL.QueryResults.Game;
+using GameStore.Static;
 using GameStore.Web.Models.Genres;
 using NLog;
 

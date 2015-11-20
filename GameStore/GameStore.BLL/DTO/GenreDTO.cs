@@ -7,11 +7,11 @@ using GameStore.Domain.Entities;
 
 namespace GameStore.BLL.DTO
 {
-    public class GenreDTO : EntityDTO<Int32>
+    public class GenreDTO : EntityDTO<int>
     {
-        public String NameRu { get; set; }
+        public string NameRu { get; set; }
 
-        public String NameEn { get; set; }
+        public string NameEn { get; set; }
 
         public ICollection<GenreDTO> ChildGenres { get; set; } 
     }

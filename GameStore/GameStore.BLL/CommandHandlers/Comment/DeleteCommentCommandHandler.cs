@@ -47,10 +47,10 @@ namespace GameStore.BLL.CommandHandlers.Comment
             if (comment.ChildComments != null && comment.ChildComments.Any())
             {
                 comment.Quotes = null;
-                comment.Body = String.Empty;
+                comment.Body = string.Empty;
 
                 commandResult.Success = false;
-                commandResult.Data = String.Empty;
+                commandResult.Data = string.Empty;
             }
             else
             {

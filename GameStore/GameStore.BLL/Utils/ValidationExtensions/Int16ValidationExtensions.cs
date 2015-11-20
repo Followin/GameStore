@@ -9,13 +9,13 @@ namespace GameStore.BLL.Utils.ValidationExtensions
 {
     public static class Int16ValidationExtensions
     {
-        public static IValidation<Int16> GreaterThan(this IValidation<Int16> item, Double limit)
+        public static IValidation<short> GreaterThan(this IValidation<short> item, double limit)
         {
             if (item.Value <= limit)
             {
                 throw new ArgumentOutOfRangeException(
                     item.ArgName,
-                    String.Format("Argument {0} must be greater than {1}", item.ArgName, limit));
+                    string.Format("Argument {0} must be greater than {1}", item.ArgName, limit));
             }
 
             return item;

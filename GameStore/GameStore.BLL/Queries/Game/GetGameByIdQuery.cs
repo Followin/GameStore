@@ -5,6 +5,6 @@ namespace GameStore.BLL.Queries.Game
 {
     public class GetGameByIdQuery : IQuery
     {
-        public Int32 Id { get; set; }
+        public int Id { get; set; }
     }
 }

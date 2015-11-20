@@ -9,15 +9,15 @@ namespace GameStore.Web.Models.Order
 {
     public class ShipperViewModel
     {
-        public Int32 Id { get; set; }
+        public int Id { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Name")]
-        public String CompanyName { get; set; }
+        public string CompanyName { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Phone")]
-        public String Phone { get; set; }
+        public string Phone { get; set; }
     }
 
     public class DisplayShippersViewModel

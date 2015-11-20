@@ -5,6 +5,6 @@ namespace GameStore.BLL.Queries.Order
 {
     public class GetPaymentMethodByKeyQuery : IQuery
     {
-        public String Key { get; set; }
+        public string Key { get; set; }
     }
 }

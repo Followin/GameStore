@@ -14,19 +14,19 @@ namespace GameStore.Web.Models.Order
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Name")]
-        public String Name { get; set; }
+        public string Name { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Number")]
-        public String Number { get; set; }
+        public string Number { get; set; }
 
-        public Int32 ExpirationMonth { get; set; }
+        public int ExpirationMonth { get; set; }
 
-        public Int32 ExpirationYear { get; set; }
+        public int ExpirationYear { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Cvv2")]
-        public String Cvv2 { get; set; }
+        public string Cvv2 { get; set; }
 
         
     }

@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GameStore.Domain.Entities
 {
-    public class Genre : Entity<Int32>
+    public class Genre : Entity<int>
     {
-        public String NameRu { get; set; }
+        public string NameRu { get; set; }
 
-        public String NameEn { get; set; }
+        public string NameEn { get; set; }
 
-        public Int32? ParentGenreId { get; set; }
+        public int? ParentGenreId { get; set; }
 
         public virtual Genre ParentGenre { get; set; }
 

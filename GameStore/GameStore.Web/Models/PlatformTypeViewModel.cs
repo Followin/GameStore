@@ -10,10 +10,10 @@ namespace GameStore.Web.Models
 {
     public class PlatformTypeViewModel
     {
-        public Int32 Id { get; set; }
+        public int Id { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Name")]
-        public String Name { get; set; }
+        public string Name { get; set; }
     }
 }

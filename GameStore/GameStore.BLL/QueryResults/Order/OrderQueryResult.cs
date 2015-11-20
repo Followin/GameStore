@@ -7,9 +7,9 @@ namespace GameStore.BLL.QueryResults.Order
 {
     public class OrderQueryResult : IQueryResult
     {
-        public Int32 Id { get; set; }
+        public int Id { get; set; }
 
-        public Int32 UserId { get; set; }
+        public int UserId { get; set; }
 
         public DateTime? OrderDate { get; set; }
 

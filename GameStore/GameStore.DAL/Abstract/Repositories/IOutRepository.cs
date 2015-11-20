@@ -11,7 +11,7 @@ namespace GameStore.DAL.Abstract.Repositories
         /// </summary>
         /// <param name="id">Item id</param>
         /// <returns></returns>
-        T Get(Int32 id);
+        T Get(int id);
 
         /// <summary>
         /// Get all items and map them
@@ -24,13 +24,13 @@ namespace GameStore.DAL.Abstract.Repositories
         /// </summary>
         /// <param name="exludingIds">Ids to exclude</param>
         /// <returns></returns>
-        IEnumerable<T> GetExluding(IEnumerable<Int32> exludingIds);
+        IEnumerable<T> GetExluding(IEnumerable<int> exludingIds);
 
         /// <summary>
         /// Get only items with 'including' ids
         /// </summary>
         /// <param name="includingIds">Ids to include</param>
         /// <returns></returns>
-        IEnumerable<T> GetIncluding(IEnumerable<Int32> includingIds);
+        IEnumerable<T> GetIncluding(IEnumerable<int> includingIds);
     }
 }

@@ -28,7 +28,7 @@ namespace GameStore.Web.ApiControllers
             return Request.CreateResponse(HttpStatusCode.OK, model);
         }
 
-        public HttpResponseMessage Get(Int32 id)
+        public HttpResponseMessage Get(int id)
         {
             var query = new GetPublisherByIdQuery {Id = id};
             var queryResult = QueryDispatcher.Dispatch<GetPublisherByIdQuery, PublisherQueryResult>(query);

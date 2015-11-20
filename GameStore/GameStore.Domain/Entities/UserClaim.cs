@@ -8,16 +8,16 @@ namespace GameStore.Domain.Entities
 {
     public class UserClaim
     {
-        public Int32 Id { get; set; }
+        public int Id { get; set; }
 
-        public Int32 UserId { get; set; }
+        public int UserId { get; set; }
 
         public virtual User User { get; set; }
 
-        public String Type { get; set; }
+        public string Type { get; set; }
 
-        public String Value { get; set; }
+        public string Value { get; set; }
 
-        public String Issuer { get; set; }
+        public string Issuer { get; set; }
     }
 }

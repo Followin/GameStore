@@ -4,19 +4,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GameStore.Domain.Entities
 {
-    public class Comment : Entity<Int32>
+    public class Comment : Entity<int>
     {
-        public String Name { get; set; }
+        public string Name { get; set; }
 
-        public String Quotes { get; set; }
+        public string Quotes { get; set; }
 
-        public String Body { get; set; }
+        public string Body { get; set; }
 
-        public Int32? ParentCommentId { get; set; }
+        public int? ParentCommentId { get; set; }
 
         public virtual Comment ParentComment { get; set; }
 
-        public Int32 GameId { get; set; }
+        public int GameId { get; set; }
 
         [NotMapped]
         public virtual Game Game { get; set; }

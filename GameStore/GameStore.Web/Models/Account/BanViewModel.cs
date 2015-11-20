@@ -7,14 +7,14 @@ namespace GameStore.Web.Models.User
 {
     public class BanViewModel
     {
-        public Int32 UserId { get; set; }
+        public int UserId { get; set; }
 
-        public Boolean Permanent { get; set; }
+        public bool Permanent { get; set; }
 
-        public Int32? Hours { get; set; }
+        public int? Hours { get; set; }
 
-        public Int32? Days { get; set; }
+        public int? Days { get; set; }
 
-        public Int32? Months { get; set; }
+        public int? Months { get; set; }
     }
 }

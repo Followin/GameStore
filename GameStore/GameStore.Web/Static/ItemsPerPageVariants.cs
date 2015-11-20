@@ -7,7 +7,7 @@ namespace GameStore.Web.Static
 {
     public static class ItemsPerPageVariants
     {
-        public static IEnumerable<Int32> Variants;
+        public static IEnumerable<int> Variants;
 
         static ItemsPerPageVariants()
         {

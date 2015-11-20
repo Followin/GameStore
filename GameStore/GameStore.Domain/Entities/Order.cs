@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GameStore.Domain.Entities
 {
-    public class Order : Entity<Int32>
+    public class Order : Entity<int>
     {
-        public Int32 UserId { get; set; }
+        public int UserId { get; set; }
 
         //public User User { get; set; }
 

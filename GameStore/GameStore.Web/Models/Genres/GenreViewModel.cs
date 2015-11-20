@@ -7,11 +7,11 @@ namespace GameStore.Web.Models.Genres
 {
     public class GenreViewModel
     {
-        public Int32 Id { get; set; }
+        public int Id { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Name")]
-        public String Name { get; set; }
+        public string Name { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Genres")]

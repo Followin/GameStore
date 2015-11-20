@@ -5,8 +5,8 @@ namespace GameStore.BLL.Commands.Game
 {
     public class AddGameVisitCommand : ICommand
     {
-        public Int32 GameId { get; set; }
+        public int GameId { get; set; }
 
-        public Int32 UserId { get; set; }
+        public int UserId { get; set; }
     }
 }

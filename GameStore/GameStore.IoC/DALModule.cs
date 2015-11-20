@@ -9,9 +9,9 @@ namespace GameStore.IoC
 {
     public class DALModule : NinjectModule
     {
-        private String _connectionString;
+        private string _connectionString;
 
-        public DALModule(String connectionString)
+        public DALModule(string connectionString)
         {
             _connectionString = connectionString;
         }

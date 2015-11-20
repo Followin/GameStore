@@ -5,6 +5,6 @@ namespace GameStore.BLL.Queries.Order
 {
     public class GetCurrentOrderQuery : IQuery
     {
-        public Int32 UserId { get; set; }
+        public int UserId { get; set; }
     }
 }

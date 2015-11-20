@@ -15,7 +15,7 @@ namespace GameStore.Web.HtmlHelpers
 {
     public static class HtmlHelperExtensions
     {
-        public static MvcHtmlString CreateTree(this HtmlHelper helper, IEnumerable<GenreViewModel> genres, String propertyName)
+        public static MvcHtmlString CreateTree(this HtmlHelper helper, IEnumerable<GenreViewModel> genres, string propertyName)
         {
             var ulTag = new TagBuilder("ul");
             ulTag.AddCssClass("hideable");
@@ -66,7 +66,7 @@ namespace GameStore.Web.HtmlHelpers
 
                 var body = new TagBuilder("div");
                 body.AddCssClass("comment-body");
-                body.SetInnerText(comment.Body == String.Empty ? GlobalRes.Deleted : comment.Body);
+                body.SetInnerText(comment.Body == string.Empty ? GlobalRes.Deleted : comment.Body);
                 body.InnerHtml = comment.Quotes + body.InnerHtml;
 
                 var commentButtonsDiv = new TagBuilder("div");

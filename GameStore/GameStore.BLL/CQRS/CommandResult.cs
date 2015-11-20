@@ -13,7 +13,7 @@ namespace GameStore.BLL.CQRS
             Success = true;
         }
 
-        public Boolean Success { get; set; }
+        public bool Success { get; set; }
 
         public object Data { get; set; }
     }

@@ -11,7 +11,7 @@ namespace GameStore.Auth.Concrete
     public sealed class MyClaimsPrincipal : ClaimsPrincipal
     {
         private List<Claim> _claims; 
-        public MyClaimsPrincipal(String userName, IEnumerable<Claim> claims)
+        public MyClaimsPrincipal(string userName, IEnumerable<Claim> claims)
         {
             _claims = new List<Claim> {new Claim(ClaimTypes.Name, userName)};
             _claims.AddRange(claims);

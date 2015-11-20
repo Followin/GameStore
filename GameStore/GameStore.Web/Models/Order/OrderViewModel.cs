@@ -13,11 +13,11 @@ namespace GameStore.Web.Models.Order
             OrderDetails = new List<OrderDetailsViewModel>();
         }
 
-        public Int32 Id { get; set; }
+        public int Id { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "User")]
-        public Int32 UserId { get; set; }
+        public int UserId { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "OrderDate")]
@@ -31,12 +31,12 @@ namespace GameStore.Web.Models.Order
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Price")]
-        public Decimal Price
+        public decimal Price
         {
             get { return OrderDetails.Sum(x => (x.Price - (x.Price * (decimal) x.Discount)) * x.Quantity); }
         }
 
-        public String Status
+        public string Status
         {
             get
             {

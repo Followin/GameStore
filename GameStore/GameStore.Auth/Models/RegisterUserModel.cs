@@ -6,9 +6,9 @@ namespace GameStore.Auth.Models
 {
     public class RegisterUserModel
     {
-        public String Name { get; set; }
+        public string Name { get; set; }
 
-        public String Password { get; set; }
+        public string Password { get; set; }
 
         public IEnumerable<Claim> Claims { get; set; }
     }

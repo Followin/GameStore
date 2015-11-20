@@ -8,7 +8,7 @@ using GameStore.Domain.Entities;
 
 namespace GameStore.DAL.Repositories
 {
-    public class UserRepository : GenericRepository<User, Int32>, IUserRepository
+    public class UserRepository : GenericRepository<User, int>, IUserRepository
     {
         public UserRepository(IEFContext context) : base(context)
         {

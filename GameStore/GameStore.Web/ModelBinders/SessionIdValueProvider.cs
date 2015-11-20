@@ -10,13 +10,13 @@ namespace GameStore.Web.ModelBinders
 
         public bool ContainsPrefix(string prefix)
         {
-            return String.Compare(prefix, "sessionId", StringComparison.InvariantCultureIgnoreCase) == 0;
+            return string.Compare(prefix, "sessionId", StringComparison.InvariantCultureIgnoreCase) == 0;
         }
 
         public ValueProviderResult GetValue(string key)
         {
             return ContainsPrefix(key)
-                ? new ValueProviderResult((String) HttpContext.Current.Session.SessionID, null,
+                ? new ValueProviderResult((string) HttpContext.Current.Session.SessionID, null,
                     CultureInfo.InvariantCulture)
                 : null;
         }

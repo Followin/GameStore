@@ -12,18 +12,18 @@ namespace GameStore.Web.Models.Account
         [Required]
         [Display(ResourceType = typeof(GlobalRes),
             Name="UserName")]
-        public String Login { get; set; }
+        public string Login { get; set; }
 
         [Required]
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Password")]
         [DataType(DataType.Password)]
-        public String Password { get; set; }
+        public string Password { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "RememberMe")]
-        public Boolean RememberMe { get; set; }
+        public bool RememberMe { get; set; }
 
-        public String ReturnUrl { get; set; }
+        public string ReturnUrl { get; set; }
     }
 }

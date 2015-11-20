@@ -10,7 +10,7 @@ namespace GameStore.DAL.EF
 {
     public class EFContext : DbContext, IEFContext
     {
-        public EFContext(String connectionString)
+        public EFContext(string connectionString)
             : base(connectionString)
         {
            Database.SetInitializer(new EFContextInitializer());

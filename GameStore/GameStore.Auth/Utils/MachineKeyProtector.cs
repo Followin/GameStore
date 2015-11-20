@@ -6,7 +6,7 @@ namespace GameStore.Auth.Utils
 {
     public class MachineKeyProtector : IDataProtector
     {
-        private readonly String _purpose;
+        private readonly string _purpose;
 
         public MachineKeyProtector(string purpose)
         {

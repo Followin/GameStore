@@ -8,7 +8,7 @@ namespace GameStore.Web.Utils
 {
     public static class UserUtils
     {
-        public static String GetRoles()
+        public static string GetRoles()
         {
             if (HttpContext.Current.User != null && (HttpContext.Current.User as ClaimsPrincipal) != null)
             {

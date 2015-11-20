@@ -12,16 +12,16 @@ namespace GameStore.BLL.Commands.Order
     {
         public PaymentMethod Method { get; set; }
 
-        public String Name { get; set; }
+        public string Name { get; set; }
 
-        public String Number { get; set; }
+        public string Number { get; set; }
 
-        public Int32 ExpirationMonth { get; set; }
+        public int ExpirationMonth { get; set; }
 
-        public Int32 ExpirationYear { get; set; }
+        public int ExpirationYear { get; set; }
 
-        public String Cvv2 { get; set; }
+        public string Cvv2 { get; set; }
 
-        public Decimal Sum { get; set; }
+        public decimal Sum { get; set; }
     }
 }

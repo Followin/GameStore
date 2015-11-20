@@ -6,7 +6,7 @@ using GameStore.Domain.Entities;
 
 namespace GameStore.DAL.Repositories
 {
-    public class PlatformTypeRepository : GenericRepository<PlatformType, Int32>, IPlatformTypeRepository
+    public class PlatformTypeRepository : GenericRepository<PlatformType, int>, IPlatformTypeRepository
     {
         public PlatformTypeRepository(IEFContext context) : base(context)
         {

@@ -22,7 +22,7 @@ namespace GameStore.Web.ApiControllers
             return Request.CreateResponse(HttpStatusCode.OK, model);
         }
 
-        public HttpResponseMessage Get(Int32 id)
+        public HttpResponseMessage Get(int id)
         {
             var query = new GetGenreByIdQuery { Id = id };
             var queryResult = QueryDispatcher.Dispatch<GetGenreByIdQuery, GenreQueryResult>(query);

@@ -5,6 +5,6 @@ namespace GameStore.BLL.Queries.Game
 {
     public class GetGameByKeyQuery : IQuery
     {
-        public String Key { get; set; }
+        public string Key { get; set; }
     }
 }

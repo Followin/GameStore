@@ -9,7 +9,7 @@ namespace GameStore.BLL.Utils.ValidationExtensions
         {
             if (item.Value <= limit)
             {
-                throw new ArgumentOutOfRangeException(item.ArgName, String.Format("{0} must be greater than {1}", item.ArgName, limit));
+                throw new ArgumentOutOfRangeException(item.ArgName, string.Format("{0} must be greater than {1}", item.ArgName, limit));
             }
 
             return item;

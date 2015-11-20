@@ -7,7 +7,7 @@ namespace GameStore.Web.Models.Order
 {
     public class IboxPaymentViewModel
     {
-        public String UserId { get; set; }
-        public Int32 OrderId { get; set; }
+        public string UserId { get; set; }
+        public int OrderId { get; set; }
     }
 }

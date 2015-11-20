@@ -5,6 +5,6 @@ namespace GameStore.BLL.Commands.Order
 {
     public class ShipOrderCommand : ICommand
     {
-        public Int32 Id { get; set; }
+        public int Id { get; set; }
     }
 }

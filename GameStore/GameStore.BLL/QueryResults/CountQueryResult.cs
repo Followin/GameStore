@@ -10,6 +10,6 @@ namespace GameStore.BLL.QueryResults
             Count = count;
         }
 
-        public Int32 Count { get; set; }
+        public int Count { get; set; }
     }
 }

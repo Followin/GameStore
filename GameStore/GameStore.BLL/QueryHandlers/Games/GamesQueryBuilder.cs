@@ -11,8 +11,8 @@ namespace GameStore.BLL.QueryHandlers.Games
 
         public GamesOrderType OrderBy { get; set; }
 
-        public Int32? Number { get; set; }
+        public int? Number { get; set; }
 
-        public Int32? Skip { get; set; }
+        public int? Skip { get; set; }
     }
 }

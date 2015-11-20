@@ -37,6 +37,7 @@ namespace BankService
             transfer.Initiator.Balance += transfer.Sum;
             transfer.User.Balance -= transfer.Sum;
             transfer.PayTime = DateTime.UtcNow;
+            transfer.VerificationCode = "";
             await _messageService.SendEmail(transfer.User.Email, "Transfer sum: " + transfer.Sum);
 
             return true;

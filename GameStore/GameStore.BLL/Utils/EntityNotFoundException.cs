@@ -8,7 +8,7 @@ namespace GameStore.BLL.Utils
 {
     public class EntityNotFoundException : ArgumentException
     {
-        public EntityNotFoundException(String parameter, String message) : base(parameter, message)
+        public EntityNotFoundException(string parameter, string message) : base(parameter, message)
         {
         }
     }

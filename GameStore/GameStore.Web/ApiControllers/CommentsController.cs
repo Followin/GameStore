@@ -17,7 +17,7 @@ namespace GameStore.Web.ApiControllers
 {
     public class CommentsController : BaseApiController
     {
-        public HttpResponseMessage Get(Int32 gameId)
+        public HttpResponseMessage Get(int gameId)
         {
             var query = new GetCommentsForGameQuery {Id = gameId};
             var queryResult = QueryDispatcher.Dispatch<GetCommentsForGameQuery, CommentsQueryResult>(query);
@@ -26,7 +26,7 @@ namespace GameStore.Web.ApiControllers
             return Request.CreateResponse(HttpStatusCode.OK, model);
         }
 
-        public HttpResponseMessage Get(Int32 gameId, Int32 id)
+        public HttpResponseMessage Get(int gameId, int id)
         {
             var query = new GetCommentByIdQuery {Id = id};
             var queryResult = QueryDispatcher.Dispatch<GetCommentByIdQuery, CommentQueryResult>(query);
@@ -42,7 +42,7 @@ namespace GameStore.Web.ApiControllers
         }
 
         [ClaimsAuthorizeApi(ClaimTypesExtensions.CommentPermission, Permissions.Delete)]
-        public HttpResponseMessage Delete(Int32 gameId, Int32 id)
+        public HttpResponseMessage Delete(int gameId, int id)
         {
             var deleteCommentCommand = new DeleteCommentCommand { Id = id };
 
@@ -54,7 +54,7 @@ namespace GameStore.Web.ApiControllers
         }
 
         [ClaimsAuthorizeApi(ClaimTypesExtensions.CommentPermission, Permissions.Add)]
-        public HttpResponseMessage Post(Int32 gameId, [FromBody] CreateCommentViewModel model)
+        public HttpResponseMessage Post(int gameId, [FromBody] CreateCommentViewModel model)
         {
             if (ModelState.IsValid)
             {

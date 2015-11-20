@@ -18,8 +18,8 @@ namespace GameStore.Auth.Concrete
     public class AuthenticationService : IAuthenticationService
     {
         private IGameStoreUnitOfWork _db;
-        internal const String CookieName = "AUTHENTICATION";
-        internal const String AuthPurpose = "Auth";
+        internal const string CookieName = "AUTHENTICATION";
+        internal const string AuthPurpose = "Auth";
 
         public AuthenticationService(IGameStoreUnitOfWork db)
         {
@@ -42,7 +42,7 @@ namespace GameStore.Auth.Concrete
             _db.Save();
         }
 
-        public LoginResult Login(string name, string password, Boolean isPersistent)
+        public LoginResult Login(string name, string password, bool isPersistent)
         {
             var user = _db.Users.GetFirst(
                 x => x.Name == name && 
@@ -85,7 +85,7 @@ namespace GameStore.Auth.Concrete
                 if (ticket != null)
                 {
                     var idClaim = ticket.Identity.FindFirst(ClaimTypes.SerialNumber);
-                    var id = Int32.Parse(idClaim.Value);
+                    var id = int.Parse(idClaim.Value);
                     var user = _db.Users.Get(id);
                     if (user != null)
                     {
@@ -95,7 +95,7 @@ namespace GameStore.Auth.Concrete
                     }
                 }
                 cookie = HttpContext.Current.Response.Cookies[CookieName];
-                cookie.Value = String.Empty;
+                cookie.Value = string.Empty;
             }
         }
     }

@@ -9,13 +9,13 @@ namespace GameStore.BLL.Utils.ValidationExtensions
 {
     public static class DecimalValidationExtensions
     {
-        public static IValidation<Decimal> GreaterThan(this IValidation<Decimal> item, Decimal limit)
+        public static IValidation<decimal> GreaterThan(this IValidation<decimal> item, decimal limit)
         {
             if (item.Value <= limit)
             {    
                 throw new ArgumentOutOfRangeException(
                     item.ArgName,
-                    String.Format("Argument {0} must be greater than {1}", item.ArgName, limit));
+                    string.Format("Argument {0} must be greater than {1}", item.ArgName, limit));
             }
 
             return item;

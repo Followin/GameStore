@@ -9,16 +9,16 @@ namespace GameStore.Web.Models.Comment
         [Required]
         [StringLength(20, MinimumLength = 3)]
         [Display(ResourceType = typeof(GlobalRes), Name="PersonName")]
-        public String Name { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [StringLength(300,MinimumLength = 10)]
         [DataType(DataType.MultilineText)]
         [Display(ResourceType = typeof(GlobalRes), Name="Message")]
-        public String Body { get; set; }
+        public string Body { get; set; }
 
-        public Int32 GameId { get; set; }
+        public int GameId { get; set; }
 
-        public Int32? ParentCommentId { get; set; }
+        public int? ParentCommentId { get; set; }
     }
 }

@@ -3,21 +3,21 @@ using System.Collections.Generic;
 
 namespace GameStore.BLL.DTO
 {
-    public class GameDTO : EntityDTO<Int32>
+    public class GameDTO : EntityDTO<int>
     {
-        public String Key { get; set; }
+        public string Key { get; set; }
 
-        public String Name { get; set; }
+        public string Name { get; set; }
 
-        public String DescriptionRu { get; set; }
+        public string DescriptionRu { get; set; }
 
-        public String DescriptionEn { get; set; }
+        public string DescriptionEn { get; set; }
 
-        public Decimal Price { get; set; }
+        public decimal Price { get; set; }
 
-        public Int16 UnitsInStock { get; set; }
+        public short UnitsInStock { get; set; }
 
-        public Boolean Discontinued { get; set; }
+        public bool Discontinued { get; set; }
 
         public PublisherDTO Publisher { get; set; }
 

@@ -9,13 +9,13 @@ namespace GameStore.Web.Abstract
         /// <summary>
         /// Link to image of payment
         /// </summary>
-        String ImageLink { get; }
+        string ImageLink { get; }
 
         PaymentMethod Method { get; }
 
-        String Name { get; }
+        string Name { get; }
 
-        String Description { get; }
+        string Description { get; }
 
         ActionResult Checkout();
     }

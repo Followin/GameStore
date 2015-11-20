@@ -14,7 +14,7 @@ namespace GameStore.Web.ApiControllers
 {
     public class GameGenresController : BaseApiController
     {
-        public HttpResponseMessage Get(Int32 gameid)
+        public HttpResponseMessage Get(int gameid)
         {
             var game = QueryDispatcher.Dispatch<GetGameByIdQuery, GameQueryResult>(
                 new GetGameByIdQuery { Id = gameid });

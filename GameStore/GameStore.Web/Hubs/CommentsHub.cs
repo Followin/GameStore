@@ -20,17 +20,17 @@ namespace GameStore.Web.Hubs
             _commandDispatcher = commandDispatcher;
         }
 
-        public Task JoinGroup(String groupName)
+        public Task JoinGroup(string groupName)
         {
             return Groups.Add(Context.ConnectionId, groupName);
         }
 
-        public Task LeaveGroup(String groupName)
+        public Task LeaveGroup(string groupName)
         {
             return Groups.Remove(Context.ConnectionId, groupName);
         }
 
-        public void CreateComment(String gameId, String parentId, String name, String quotes, String body)
+        public void CreateComment(string gameId, string parentId, string name, string quotes, string body)
         {
             var user = HttpContext.Current.User as ClaimsPrincipal;
             if (user == null ||
@@ -42,24 +42,24 @@ namespace GameStore.Web.Hubs
 
             var createCommentCommand = new CreateCommentCommand
             {
-                GameId = Int32.Parse(gameId),
+                GameId = int.Parse(gameId),
                 Body = body,
                 Name = name,
                 Quotes = quotes,
             };
 
-            if (!String.IsNullOrWhiteSpace(parentId))
+            if (!string.IsNullOrWhiteSpace(parentId))
             {
-                createCommentCommand.ParentCommentId = Int32.Parse(parentId);
+                createCommentCommand.ParentCommentId = int.Parse(parentId);
             }
 
             var commandResult = _commandDispatcher.Dispatch(createCommentCommand);
-            var id = (Int32)commandResult.Data;
+            var id = (int)commandResult.Data;
 
             Clients.Group(gameId).addComment(id, parentId, name, quotes, body);
         }
 
-        public void DeleteComment(String gameId, String commentId)
+        public void DeleteComment(string gameId, string commentId)
         {
             var user = HttpContext.Current.User as ClaimsPrincipal;
             if (user == null ||
@@ -69,7 +69,7 @@ namespace GameStore.Web.Hubs
                 return;
             }
 
-            var deleteCommentCommand = new DeleteCommentCommand { Id = Int32.Parse(commentId) };
+            var deleteCommentCommand = new DeleteCommentCommand { Id = int.Parse(commentId) };
 
             var commandResult = _commandDispatcher.Dispatch(deleteCommentCommand);
 

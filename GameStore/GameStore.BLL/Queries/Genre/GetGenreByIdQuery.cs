@@ -5,6 +5,6 @@ namespace GameStore.BLL.Queries.Genre
 {
     public class GetGenreByIdQuery : IQuery
     {
-        public Int32 Id { get; set; }
+        public int Id { get; set; }
     }
 }

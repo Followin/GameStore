@@ -5,18 +5,18 @@ namespace GameStore.Domain.Entities
 {
     public class OrderDetails
     {
-        public Decimal Price { get; set; }
+        public decimal Price { get; set; }
 
         public float Discount { get; set; }
  
-        public Int16 Quantity { get; set; }
+        public short Quantity { get; set; }
 
-        public Int32 GameId { get; set; }
+        public int GameId { get; set; }
 
         [NotMapped]
         public virtual Game Game { get; set; }
 
-        public Int32 OrderId { get; set; }
+        public int OrderId { get; set; }
 
         public Order Order { get; set; }
     }

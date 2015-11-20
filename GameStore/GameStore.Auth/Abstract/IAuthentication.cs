@@ -11,7 +11,7 @@ namespace GameStore.Auth.Abstract
     {
         void Register(RegisterUserModel userModel);
 
-        LoginResult Login(String name, String password, Boolean isPersistent);
+        LoginResult Login(string name, string password, bool isPersistent);
 
         void Logout();
     }

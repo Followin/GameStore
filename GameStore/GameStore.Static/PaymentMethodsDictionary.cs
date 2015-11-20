@@ -8,7 +8,7 @@ namespace GameStore.Static
 {
     public static class PaymentMethodsDictionary
     {
-        private static Dictionary<String, PaymentMethod> _methods;
+        private static Dictionary<string, PaymentMethod> _methods;
 
         static PaymentMethodsDictionary()
         {
@@ -21,12 +21,12 @@ namespace GameStore.Static
             };
         }
 
-        public static PaymentMethod GetMethod(String key)
+        public static PaymentMethod GetMethod(string key)
         {
             return _methods[key];
         }
 
-        public static Dictionary<String, PaymentMethod> GetMethods()
+        public static Dictionary<string, PaymentMethod> GetMethods()
         {
             return _methods;
         } 

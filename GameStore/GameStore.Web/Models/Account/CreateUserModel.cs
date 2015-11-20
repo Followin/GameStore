@@ -19,13 +19,13 @@ namespace GameStore.Web.Models.Account
         [Remote("IsUsernameFree", "Account",
             ErrorMessageResourceType = typeof(GlobalRes),
             ErrorMessageResourceName = "NicknameAlreadyExists")]
-        public String Name { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Password")]
         [DataType(DataType.Password)]
-        public String Password { get; set; }
+        public string Password { get; set; }
 
         [Required]
         [Display(ResourceType = typeof(GlobalRes),
@@ -33,15 +33,15 @@ namespace GameStore.Web.Models.Account
         [DataType(DataType.Password)]
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessageResourceType = typeof(GlobalRes),
             ErrorMessageResourceName = "PasswordsMustMatch")]
-        public String PasswordConfirm { get; set; }
+        public string PasswordConfirm { get; set; }
 
         [Required]
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Role")]
-        public String Role { get; set; }
+        public string Role { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Publisher")]
-        public Int32? PublisherId { get; set; }
+        public int? PublisherId { get; set; }
     }
 }

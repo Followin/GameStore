@@ -41,7 +41,7 @@ namespace GameStore.Web.Controllers
         {
         }
 
-        public ActionResult Details(String gamekey)
+        public ActionResult Details(string gamekey)
         {
             var query = QueryDispatcher.Dispatch<GetGameByKeyQuery, GameQueryResult>(
                 new GetGameByKeyQuery
@@ -54,7 +54,7 @@ namespace GameStore.Web.Controllers
             return View(game);
         }
 
-        public ActionResult Comments(String gamekey)
+        public ActionResult Comments(string gamekey)
         {
             var query = QueryDispatcher.Dispatch<GetCommentsForGameQuery, CommentsQueryResult>(
                 new GetCommentsForGameQuery
@@ -66,13 +66,13 @@ namespace GameStore.Web.Controllers
             return View(model);
         }
 
-        public ActionResult Download(String gamekey)
+        public ActionResult Download(string gamekey)
         {
             return new FileContentResult(new byte[0], "application/pdf");
         }
 
         [Authorize]
-        public ActionResult Buy(String gamekey)
+        public ActionResult Buy(string gamekey)
         {
             var game = QueryDispatcher.Dispatch<GetGameByKeyQuery, GameQueryResult>(
                 new GetGameByKeyQuery { Key = gamekey });
@@ -84,7 +84,7 @@ namespace GameStore.Web.Controllers
 
             var currentOrder = QueryDispatcher.Dispatch<GetCurrentOrderQuery, OrderQueryResult>(new GetCurrentOrderQuery
             {
-                UserId = Int32.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
+                UserId = int.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
             });
 
             var newOrderDetails = new CreateOrderDetailsCommand
@@ -126,7 +126,7 @@ namespace GameStore.Web.Controllers
                 DisplayModel = Mapper.Map<GamesPartQueryResult, IEnumerable<DisplayGameModel>>(queryResult),
                 PagingInfo = new PagingInfo
                 {
-                    ItemsPerPage = model.ItemsPerPage ?? Int32.MaxValue,
+                    ItemsPerPage = model.ItemsPerPage ?? int.MaxValue,
                     CurrentPage = model.Page,
                     TotalItems = queryResult.Count
                 }
@@ -192,7 +192,7 @@ namespace GameStore.Web.Controllers
 
         [HttpPost]
         [ClaimsAuthorize(ClaimTypesExtensions.GamePermission, Permissions.Delete)]
-        public ActionResult Remove(String key)
+        public ActionResult Remove(string key)
         {
             CommandDispatcher.Dispatch(new DeleteGameCommand { Key = key });
             return RedirectToAction("Index");

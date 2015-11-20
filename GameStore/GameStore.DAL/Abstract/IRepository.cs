@@ -33,14 +33,14 @@ namespace GameStore.DAL.Abstract
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        TEntity GetFirst(Expression<Func<TEntity, Boolean>> predicate);
+        TEntity GetFirst(Expression<Func<TEntity, bool>> predicate);
 
         /// <summary>
         /// Get items count
         /// </summary>
         /// <param name="predicate">predicate for items to match</param>
         /// <returns>Items count</returns>
-        Int32 GetCount(Expression<Func<TEntity, Boolean>> predicate = null);
+        int GetCount(Expression<Func<TEntity, bool>> predicate = null);
 
         void Add(TEntity item);
 

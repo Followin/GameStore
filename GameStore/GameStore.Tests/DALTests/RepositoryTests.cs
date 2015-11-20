@@ -10,7 +10,7 @@ using Moq;
 
 namespace GameStore.Tests.DALTests
 {
-    public class TestClass : Entity<Int32>
+    public class TestClass : Entity<int>
     {
     }
 
@@ -18,7 +18,7 @@ namespace GameStore.Tests.DALTests
     public class RepositoryTests
     {
         private Mock<IDbSet<TestClass>> _testClassSetMock;
-        private GenericRepository<TestClass, Int32> _testGenericRepository;
+        private GenericRepository<TestClass, int> _testGenericRepository;
         private GameStoreUnitOfWork _unitOfWork;
         private Mock<IEFContext> _efContext;
 
@@ -32,10 +32,10 @@ namespace GameStore.Tests.DALTests
         {
             _efContext = new Mock<IEFContext>();
             _testClassSetMock = new Mock<IDbSet<TestClass>>();
-            _testClassSetMock.Setup(x => x.Find(It.IsAny<Int32>())).Returns(
-                (Object[] i) => new TestClass { Id = (Int32)i[0] });
+            _testClassSetMock.Setup(x => x.Find(It.IsAny<int>())).Returns(
+                (object[] i) => new TestClass { Id = (int)i[0] });
             _efContext.Setup(x => x.Set<TestClass>()).Returns(_testClassSetMock.Object);
-            _testGenericRepository = new GenericRepository<TestClass, Int32>(_efContext.Object);
+            _testGenericRepository = new GenericRepository<TestClass, int>(_efContext.Object);
             _unitOfWork = new GameStoreUnitOfWork(_efContext.Object, null);
         }
 
@@ -82,7 +82,7 @@ namespace GameStore.Tests.DALTests
             _testGenericRepository.Get(1);
 
             // Assert
-            _testClassSetMock.Verify(x => x.Find(It.Is<Int32>(i => i == 1)), Times.Once);
+            _testClassSetMock.Verify(x => x.Find(It.Is<int>(i => i == 1)), Times.Once);
         }
 
         [TestMethod]

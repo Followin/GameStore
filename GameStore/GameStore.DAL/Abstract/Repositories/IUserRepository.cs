@@ -16,6 +16,6 @@ namespace GameStore.DAL.Abstract.Repositories
 
         void DeleteClaims(IEnumerable<UserClaim> claims);
 
-        IEnumerable<UserClaim> GetClaims(Int32 userId);
+        IEnumerable<UserClaim> GetClaims(int userId);
     }
 }

@@ -5,6 +5,6 @@ namespace GameStore.BLL.Commands.Game
 {
     public class DeleteGameCommand : ICommand
     {
-        public String Key { get; set; }
+        public string Key { get; set; }
     }
 }

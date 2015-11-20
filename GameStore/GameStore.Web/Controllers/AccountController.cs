@@ -31,14 +31,14 @@ namespace GameStore.Web.Controllers
         }
 
         [ClaimsAuthorize(ClaimTypesExtensions.UserPermission, Permissions.Read)]
-        public ActionResult Manage(Int32 id)
+        public ActionResult Manage(int id)
         {
             var userClaims = _userService.GetUserClaims(id);
 
             return View(userClaims);
         }
 
-        public JsonResult IsUsernameFree(String name)
+        public JsonResult IsUsernameFree(string name)
         {
             return Json(_userService.IsUsernameFree(name), JsonRequestBehavior.AllowGet);
         }
@@ -91,7 +91,7 @@ namespace GameStore.Web.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Login(String returnUrl)
+        public ActionResult Login(string returnUrl)
         {
             var model = new LoginViewModel
             {
@@ -129,7 +129,7 @@ namespace GameStore.Web.Controllers
 
 
         [ClaimsAuthorize(ClaimTypesExtensions.UserPermission, Permissions.Ban)]
-        public ActionResult Ban(Int32 userId)
+        public ActionResult Ban(int userId)
         {
             return View();
         }

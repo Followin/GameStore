@@ -5,9 +5,9 @@ namespace GameStore.Web.Models.Comment
 {
     public class CommentViewModel
     {
-        public Int32 GameId { get; set; }
+        public int GameId { get; set; }
 
-        public Boolean IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
 
         public IEnumerable<DisplayCommentViewModel> Comments { get; set; }
 

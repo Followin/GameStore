@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace GameStore.Domain.Entities
 {
-    public class Publisher : Entity<Int32>
+    public class Publisher : Entity<int>
     {
-        public String CompanyName { get; set; }
+        public string CompanyName { get; set; }
 
-        public String Description { get; set; }
+        public string Description { get; set; }
 
-        public String HomePage { get; set; }
+        public string HomePage { get; set; }
 
         [NotMapped]
         public ICollection<Game> Games { get; set; } 

@@ -12,7 +12,7 @@ namespace GameStore.Web.Models.Order
     {
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Price")]
-        public Decimal Price { get; set; }
+        public decimal Price { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Discount")]
@@ -20,11 +20,11 @@ namespace GameStore.Web.Models.Order
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Quantity")]
-        public Int16 Quantity { get; set; }
+        public short Quantity { get; set; }
 
-        public Int32 OrderId { get; set; }
+        public int OrderId { get; set; }
 
-        public Int32 GameId { get; set; }
+        public int GameId { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Game")]

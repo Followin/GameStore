@@ -8,10 +8,10 @@ namespace GameStore.BLL.DTO
 {
     public class ShipperDTO
     {
-        public Int32 Id { get; set; }
+        public int Id { get; set; }
 
-        public String CompanyName { get; set; }
+        public string CompanyName { get; set; }
 
-        public String Phone { get; set; }
+        public string Phone { get; set; }
     }
 }

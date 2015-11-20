@@ -78,16 +78,16 @@ namespace GameStore.Tests.BLLTests
             _comments = new[] { comment, innerComment };
 
             _gameRepositoryMock = new Mock<IGameRepository>();
-            _gameRepositoryMock.Setup(x => x.GetFirst(It.IsAny<Expression<Func<Game, Boolean>>>())).Returns(
-                (Expression<Func<Game, Boolean>> predicate) => games.FirstOrDefault(predicate.Compile()));
-            _gameRepositoryMock.Setup(x => x.Get(It.Is<Int32>(i => i == 1))).Returns(dota);
+            _gameRepositoryMock.Setup(x => x.GetFirst(It.IsAny<Expression<Func<Game, bool>>>())).Returns(
+                (Expression<Func<Game, bool>> predicate) => games.FirstOrDefault(predicate.Compile()));
+            _gameRepositoryMock.Setup(x => x.Get(It.Is<int>(i => i == 1))).Returns(dota);
 
             _commentRepositoryMock = new Mock<ICommentRepository>();
             _commentRepositoryMock.Setup(x => x.Get(
-                It.IsAny<Expression<Func<Comment, Boolean>>>())).Returns(
-                (Expression<Func<Comment, Boolean>> predicate) => _comments.Where(predicate.Compile()));
-            _commentRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
-                (Int32 i) => _comments.FirstOrDefault(c => c.Id == i));
+                It.IsAny<Expression<Func<Comment, bool>>>())).Returns(
+                (Expression<Func<Comment, bool>> predicate) => _comments.Where(predicate.Compile()));
+            _commentRepositoryMock.Setup(x => x.Get(It.IsAny<int>())).Returns(
+                (int i) => _comments.FirstOrDefault(c => c.Id == i));
 
             _unitOfWorkMock = new Mock<IGameStoreUnitOfWork>();
             _unitOfWorkMock.Setup(x => x.Games).Returns(_gameRepositoryMock.Object);
@@ -123,7 +123,7 @@ namespace GameStore.Tests.BLLTests
         public void Create_Comment_Name_Argument_Is_Empty()
         {
             // Arrange
-            _createCommentCommand.Name = String.Empty;
+            _createCommentCommand.Name = string.Empty;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
@@ -153,7 +153,7 @@ namespace GameStore.Tests.BLLTests
         public void Create_Comment_Body_Argument_Is_Empty()
         {
             // Arrange
-            _createCommentCommand.Body = String.Empty;
+            _createCommentCommand.Body = string.Empty;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
@@ -257,7 +257,7 @@ namespace GameStore.Tests.BLLTests
                 _commandHandler.Execute(_createCommentCommand));
 
             // Assert
-            _gameRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Once);
+            _gameRepositoryMock.Verify(x => x.Get(It.IsAny<int>()), Times.Once);
             Assert.AreEqual("GameId", result.ParamName);
         }
 
@@ -273,7 +273,7 @@ namespace GameStore.Tests.BLLTests
                 _commandHandler.Execute(_createCommentCommand));
 
             // Assert
-            _commentRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Once);
+            _commentRepositoryMock.Verify(x => x.Get(It.IsAny<int>()), Times.Once);
             Assert.AreEqual("ParentCommentId", result.ParamName);
         }
 
@@ -390,7 +390,7 @@ namespace GameStore.Tests.BLLTests
         public void GetCommentsByGameKey_Key_Argument_Is_Empty()
         {
             // Arrange
-            var getCommentsByGameKey = new GetCommentsForGameQuery { Key = String.Empty };
+            var getCommentsByGameKey = new GetCommentsForGameQuery { Key = string.Empty };
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>

@@ -52,12 +52,12 @@ namespace GameStore.Tests.BLLTests
             var genres = new[] {rts, strategy};
             _genreRepositoryMock = new Mock<IGenreRepository>();
             _genreRepositoryMock.Setup(x => x.Get()).Returns(genres);
-            _genreRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
-                (Int32 i) => genres.FirstOrDefault(g => g.Id == i));
-            _genreRepositoryMock.Setup(x => x.GetFirst(It.IsAny<Expression<Func<Genre, Boolean>>>())).Returns(
-                (Expression<Func<Genre, Boolean>> predicate) => genres.FirstOrDefault(predicate.Compile()));
-            _genreRepositoryMock.Setup(x => x.Get(It.IsAny<Expression<Func<Genre, Boolean>>>())).Returns(
-                (Expression<Func<Genre, Boolean>> predicate) => genres.Where(predicate.Compile()));
+            _genreRepositoryMock.Setup(x => x.Get(It.IsAny<int>())).Returns(
+                (int i) => genres.FirstOrDefault(g => g.Id == i));
+            _genreRepositoryMock.Setup(x => x.GetFirst(It.IsAny<Expression<Func<Genre, bool>>>())).Returns(
+                (Expression<Func<Genre, bool>> predicate) => genres.FirstOrDefault(predicate.Compile()));
+            _genreRepositoryMock.Setup(x => x.Get(It.IsAny<Expression<Func<Genre, bool>>>())).Returns(
+                (Expression<Func<Genre, bool>> predicate) => genres.Where(predicate.Compile()));
 
             _unitOfWorkMock = new Mock<IGameStoreUnitOfWork>();
             _unitOfWorkMock.Setup(x => x.Genres).Returns(_genreRepositoryMock.Object);

@@ -47,12 +47,12 @@ namespace GameStore.Tests.BLLTests
                 Price = 100
             };
             _gameRepositoryMock = new Mock<IGameRepository>();
-            _gameRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
-                (Int32 i) => i == 1 ? dota : null);
+            _gameRepositoryMock.Setup(x => x.Get(It.IsAny<int>())).Returns(
+                (int i) => i == 1 ? dota : null);
 
             _orderRepositoryMock = new Mock<IOrderRepository>();
-            _orderRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
-                (Int32 i) => i == 1 ? new Order {OrderDetails = new List<OrderDetails>()}: null);
+            _orderRepositoryMock.Setup(x => x.Get(It.IsAny<int>())).Returns(
+                (int i) => i == 1 ? new Order {OrderDetails = new List<OrderDetails>()}: null);
 
 
             _unitOfWorkMock = new Mock<IGameStoreUnitOfWork>();

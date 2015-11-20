@@ -5,7 +5,7 @@ namespace GameStore.Web.Models
     public class TempMessage
     {
         public TempMessageType Type { get; set; }
-        public String Message { get; set; }
+        public string Message { get; set; }
 
         public TempMessage(TempMessageType type, string message)
         {
@@ -16,8 +16,8 @@ namespace GameStore.Web.Models
 
     public class LinkTempMessage : TempMessage
     {
-        public String LinkText { get; set; }
-        public String LinkHref { get; set; }
+        public string LinkText { get; set; }
+        public string LinkHref { get; set; }
 
         public LinkTempMessage(TempMessageType type, string message, string linkText, string linkHref)
             : base(type, message)

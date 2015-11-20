@@ -145,7 +145,7 @@ namespace GameStore.BLL.QueryHandlers.Games
                     expr => expr.AndAlso(game => game.Price < query.MaxPrice));
             }
 
-            if (!String.IsNullOrWhiteSpace(query.Name))
+            if (!string.IsNullOrWhiteSpace(query.Name))
             {
                 yield return new TransformPipelineBlock<Expression<Func<Game, bool>>, Expression<Func<Game, bool>>>(
                     expr => expr.AndAlso(game => game.Name.ToLower().Contains(query.Name)));

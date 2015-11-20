@@ -44,7 +44,7 @@ namespace GameStore.Web.Controllers
             var currentOrder = QueryDispatcher.Dispatch<GetCurrentOrderQuery, OrderQueryResult>(
                 new GetCurrentOrderQuery
                 {
-                    UserId = Int32.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
+                    UserId = int.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
                 });
 
             var command = Mapper.Map<CardPaymentViewModel, PerformPaymentCommand>(model);
@@ -91,7 +91,7 @@ namespace GameStore.Web.Controllers
                 var currentOrder = QueryDispatcher.Dispatch<GetCurrentOrderQuery, OrderQueryResult>(
                 new GetCurrentOrderQuery
                 {
-                    UserId = Int32.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
+                    UserId = int.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
                 });
                 var checkoutCommand = new CheckoutOrderCommand() { Id = currentOrder.Id };
 

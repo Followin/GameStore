@@ -6,7 +6,7 @@ using GameStore.Domain.Entities;
 
 namespace GameStore.DAL.Repositories
 {
-    public class CommentRepository : GenericRepository<Comment, Int32>, ICommentRepository
+    public class CommentRepository : GenericRepository<Comment, int>, ICommentRepository
     {
         public CommentRepository(IEFContext context) : base(context)
         {

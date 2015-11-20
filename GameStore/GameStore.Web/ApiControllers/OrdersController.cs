@@ -37,7 +37,7 @@ namespace GameStore.Web.ApiControllers
         }
 
         [ClaimsAuthorizeApi]
-        public HttpResponseMessage Post(Int32 id)
+        public HttpResponseMessage Post(int id)
         {
             var game = QueryDispatcher.Dispatch<GetGameByIdQuery, GameQueryResult>(
                 new GetGameByIdQuery { Id = id });
@@ -49,7 +49,7 @@ namespace GameStore.Web.ApiControllers
 
             var currentOrder = QueryDispatcher.Dispatch<GetCurrentOrderQuery, OrderQueryResult>(new GetCurrentOrderQuery
             {
-                UserId = Int32.Parse((CurrentPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
+                UserId = int.Parse((CurrentPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
             });
             var newOrderDetails = new CreateOrderDetailsCommand
             {
@@ -66,7 +66,7 @@ namespace GameStore.Web.ApiControllers
         }
 
         [ClaimsAuthorizeApi]
-        public HttpResponseMessage Delete(Int32 id)
+        public HttpResponseMessage Delete(int id)
         {
             var game = QueryDispatcher.Dispatch<GetGameByIdQuery, GameQueryResult>(
                 new GetGameByIdQuery { Id = id });
@@ -78,7 +78,7 @@ namespace GameStore.Web.ApiControllers
 
             var currentOrder = QueryDispatcher.Dispatch<GetCurrentOrderQuery, OrderQueryResult>(new GetCurrentOrderQuery
             {
-                UserId = Int32.Parse((CurrentPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
+                UserId = int.Parse((CurrentPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
             });
 
             var deleteOrderDetailsCommand = new DeleteOrderDetailsCommand

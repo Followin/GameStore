@@ -9,7 +9,7 @@ namespace GameStore.BLL.QueryResults.Game
 {
     public class GamesPartQueryResult : GamesQueryResult
     {
-        public Int32 Count { get; private set; }
+        public int Count { get; private set; }
 
         public GamesPartQueryResult(IEnumerable<GameDTO> games, int count) : base(games)
         {

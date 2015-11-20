@@ -7,7 +7,7 @@ namespace GameStore.Static
 {
     public static class RoleClaims
     {
-        private static Dictionary<String, IEnumerable<Claim>> _roleClaims;
+        private static Dictionary<string, IEnumerable<Claim>> _roleClaims;
 
         static RoleClaims()
         {
@@ -57,7 +57,7 @@ namespace GameStore.Static
             };
         }
 
-        public static IEnumerable<Claim> GetClaimsForRole(String role)
+        public static IEnumerable<Claim> GetClaimsForRole(string role)
         {
             if (_roleClaims.ContainsKey(role))
             {

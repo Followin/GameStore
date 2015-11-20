@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace GameStore.BLL.DTO
 {
-    public class CommentDTO : EntityDTO<Int32>
+    public class CommentDTO : EntityDTO<int>
     {
-        public String Name { get; set; }
+        public string Name { get; set; }
 
-        public String Quotes { get; set; }
+        public string Quotes { get; set; }
 
-        public String Body { get; set; }
+        public string Body { get; set; }
 
         public IEnumerable<CommentDTO> ChildComments { get; set; } 
     }

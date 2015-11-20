@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace GameStore.BLL.DTO
 {
-    public class PlatformTypeDTO : EntityDTO<Int32>
+    public class PlatformTypeDTO : EntityDTO<int>
     {
-        public String Name { get; set; }
+        public string Name { get; set; }
     }
 }

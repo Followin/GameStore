@@ -28,7 +28,7 @@ namespace GameStore.Web.Controllers
 
         protected ILogger Logger { get; private set; }
 
-        protected void TempMessage(TempMessageType type, String message, String linkText = null, String linkHref = null)
+        protected void TempMessage(TempMessageType type, string message, string linkText = null, string linkHref = null)
         {
             TempMessage tempMessage;
             if (linkText != null && linkHref != null)
@@ -40,12 +40,12 @@ namespace GameStore.Web.Controllers
             else TempData.Add("TempMessages", new Collection<TempMessage> { tempMessage });
         }
 
-        protected void SuccessMessage(String message, String linkText = null, String linkHref = null)
+        protected void SuccessMessage(string message, string linkText = null, string linkHref = null)
         {
             TempMessage(TempMessageType.Success, message, linkText, linkHref);
         }
 
-        protected void ErrorMessage(String message, String linkText = null, String linkHref = null)
+        protected void ErrorMessage(string message, string linkText = null, string linkHref = null)
         {
             TempMessage(TempMessageType.Error, message, linkText, linkHref);
         }

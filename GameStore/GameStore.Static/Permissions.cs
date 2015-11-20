@@ -9,16 +9,16 @@ namespace GameStore.Static
 {
     public static class Permissions
     {
-        public const String Read = "Read";
+        public const string Read = "Read";
 
-        public const String Edit = "Edit";
+        public const string Edit = "Edit";
 
-        public const String Delete = "Delete";
+        public const string Delete = "Delete";
 
-        public const String Ban = "Ban";
+        public const string Ban = "Ban";
 
-        public const String Add = "Add";
+        public const string Add = "Add";
 
-        public const String Full = "Full";
+        public const string Full = "Full";
     }
 }

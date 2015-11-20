@@ -38,7 +38,7 @@ namespace GameStore.BLL.CommandHandlers.Game
                 if (genre == null)
                 {
                     throw new EntityNotFoundException(
-                        String.Format("Genre not found. Id: {0}", g),
+                        string.Format("Genre not found. Id: {0}", g),
                         NameGetter.GetName(() => command.GenreIds));
                 }
 
@@ -51,7 +51,7 @@ namespace GameStore.BLL.CommandHandlers.Game
                 if (platformType == null)
                 {
                     throw new EntityNotFoundException(
-                        String.Format("PlatformType not found. Id: {0}", p),
+                        string.Format("PlatformType not found. Id: {0}", p),
                         NameGetter.GetName(() => command.PlatformTypeIds));
                 }
 

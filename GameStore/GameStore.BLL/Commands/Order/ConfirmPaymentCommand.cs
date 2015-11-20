@@ -9,6 +9,6 @@ namespace GameStore.BLL.Commands.Order
 {
     public class ConfirmPaymentCommand : ICommand
     {
-        public String Code { get; set; }
+        public string Code { get; set; }
     }
 }

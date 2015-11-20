@@ -21,7 +21,7 @@ namespace GameStore.Web.Controllers
         {
         }
 
-        public ActionResult Details(String companyName)
+        public ActionResult Details(string companyName)
         {
             var query = QueryDispatcher.Dispatch<GetPublisherByCompanyNameQuery, PublisherQueryResult>(
                 new GetPublisherByCompanyNameQuery { CompanyName = companyName });

@@ -9,6 +9,6 @@ namespace GameStore.BLL.Queries.Publisher
 {
     public class GetPublisherByIdQuery : IQuery
     {
-        public Int32 Id { get; set; }
+        public int Id { get; set; }
     }
 }

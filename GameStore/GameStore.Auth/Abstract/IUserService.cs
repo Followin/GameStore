@@ -9,10 +9,10 @@ namespace GameStore.Auth.Abstract
 {
     public interface IUserService
     {
-        Boolean IsUsernameFree(String name);
+        bool IsUsernameFree(string name);
 
-        void BanUser(Int32 userId, DateTime expirationTime);
+        void BanUser(int userId, DateTime expirationTime);
 
-        IEnumerable<Claim> GetUserClaims(Int32 id);
+        IEnumerable<Claim> GetUserClaims(int id);
     }
 }

@@ -55,7 +55,7 @@ namespace GameStore.BLL.QueryHandlers.Games
                     {
                         throw new ArgumentOutOfRangeException(
                             NameGetter.GetName(() => query.Ids),
-                            String.Format("Genre not found. Id: {0}", id));
+                            string.Format("Genre not found. Id: {0}", id));
                     }
 
                     return type;
@@ -66,7 +66,7 @@ namespace GameStore.BLL.QueryHandlers.Games
                 query.Names.Argument(NameGetter.GetName(() => query.Names))
                          .NotEmpty()
                          .AllMatch(
-                              x => !String.IsNullOrWhiteSpace(x),
+                              x => !string.IsNullOrWhiteSpace(x),
                               "Argument Names can't contain strings of white spaces");
                 types = query.Names.Select(name =>
                 {
@@ -75,7 +75,7 @@ namespace GameStore.BLL.QueryHandlers.Games
                     {
                         throw new ArgumentOutOfRangeException(
                             NameGetter.GetName(() => query.Names),
-                            String.Format("Genre not found. Name: {0}", name));
+                            string.Format("Genre not found. Name: {0}", name));
                     }
 
                     return type;

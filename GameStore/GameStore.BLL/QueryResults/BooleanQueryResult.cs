@@ -5,14 +5,14 @@ namespace GameStore.BLL.QueryResults
 {
     public class BooleanQueryResult : IQueryResult
     {
-        public Boolean Result { get; set; }
+        public bool Result { get; set; }
 
-        public static implicit operator Boolean(BooleanQueryResult result)
+        public static implicit operator bool(BooleanQueryResult result)
         {
             return result.Result;
         }
 
-        public static implicit operator BooleanQueryResult(Boolean @value)
+        public static implicit operator BooleanQueryResult(bool @value)
         {
             return new BooleanQueryResult {Result = @value};
         }

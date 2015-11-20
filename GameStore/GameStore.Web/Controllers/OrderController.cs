@@ -40,18 +40,18 @@ namespace GameStore.Web.Controllers
             var currentOrder = Mapper.Map<OrderViewModel>(QueryDispatcher.Dispatch<GetCurrentOrderQuery, OrderQueryResult>(
                 new GetCurrentOrderQuery
                 {
-                    UserId = Int32.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
+                    UserId = int.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
                 }));
             var orderCheckout = new OrderCheckoutViewModel
             {
                 Order = currentOrder,
                 PaymentMethods = PaymentMethodsDictionary.GetMethods().Select(x => 
-                    new KeyValuePair<String, IPayment>(x.Key, PaymentList.GetPayment(x.Value)))
+                    new KeyValuePair<string, IPayment>(x.Key, PaymentList.GetPayment(x.Value)))
             };
             return View(orderCheckout);
         }
 
-        public ActionResult Details(Int32 id)
+        public ActionResult Details(int id)
         {
             var orderResult = Mapper.Map<OrderViewModel>(QueryDispatcher.Dispatch<GetOrderByIdQuery, OrderQueryResult>(
                 new GetOrderByIdQuery { Id = id }));
@@ -93,7 +93,7 @@ namespace GameStore.Web.Controllers
         }
 
         [Authorize]
-        public ActionResult Checkout(String paymentMethodKey)
+        public ActionResult Checkout(string paymentMethodKey)
         {
             //var currentOrder = QueryDispatcher.Dispatch<GetCurrentOrderQuery, OrderQueryResult>(
             //    new GetCurrentOrderQuery
@@ -111,7 +111,7 @@ namespace GameStore.Web.Controllers
 
         [HttpPost]
         [ClaimsAuthorize(ClaimTypesExtensions.OrderPermission, Permissions.Edit)]
-        public ActionResult Ship(Int32 id)
+        public ActionResult Ship(int id)
         {
             var command = new ShipOrderCommand { Id = id };
             var result = CommandDispatcher.Dispatch(command);

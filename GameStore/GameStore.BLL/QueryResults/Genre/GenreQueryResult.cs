@@ -10,11 +10,11 @@ namespace GameStore.BLL.QueryResults.Genre
 {
     public class GenreQueryResult : IQueryResult
     {
-        public Int32 Id { get; set; }
+        public int Id { get; set; }
 
-        public String NameRu { get; set; }
+        public string NameRu { get; set; }
 
-        public String NameEn { get; set; }
+        public string NameEn { get; set; }
 
         public ICollection<GenreDTO> ChildGenres { get; set; } 
     }

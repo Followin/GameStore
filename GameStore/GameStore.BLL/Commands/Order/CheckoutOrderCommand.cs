@@ -9,6 +9,6 @@ namespace GameStore.BLL.Commands.Order
 {
     public class CheckoutOrderCommand : ICommand
     {
-        public Int32 Id { get; set; }
+        public int Id { get; set; }
     }
 }

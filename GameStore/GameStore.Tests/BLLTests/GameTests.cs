@@ -67,10 +67,10 @@ namespace GameStore.Tests.BLLTests
             var genres = new[] { rts, strategy };
             _genreRepositoryMock = new Mock<IGenreRepository>();
             _genreRepositoryMock.Setup(x => x.Get()).Returns(genres);
-            _genreRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
-                (Int32 i) => genres.FirstOrDefault(g => g.Id == i));
-            _genreRepositoryMock.Setup(x => x.GetFirst(It.IsAny<Expression<Func<Genre, Boolean>>>())).Returns(
-                (Expression<Func<Genre, Boolean>> predicate) => genres.FirstOrDefault(predicate.Compile()));
+            _genreRepositoryMock.Setup(x => x.Get(It.IsAny<int>())).Returns(
+                (int i) => genres.FirstOrDefault(g => g.Id == i));
+            _genreRepositoryMock.Setup(x => x.GetFirst(It.IsAny<Expression<Func<Genre, bool>>>())).Returns(
+                (Expression<Func<Genre, bool>> predicate) => genres.FirstOrDefault(predicate.Compile()));
             
             var desktop = new PlatformType
             {
@@ -85,13 +85,13 @@ namespace GameStore.Tests.BLLTests
             var platformTypes = new[] { desktop, web };
             _platformTypeRepositoryMock = new Mock<IPlatformTypeRepository>();
             _platformTypeRepositoryMock.Setup(x => x.Get()).Returns(platformTypes);
-            _platformTypeRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
-                (Int32 i) => platformTypes.FirstOrDefault(g => g.Id == i));
-            _platformTypeRepositoryMock.Setup(x => x.GetFirst(It.IsAny<Expression<Func<PlatformType, Boolean>>>())).Returns(
-                (Expression<Func<PlatformType, Boolean>> predicate) => platformTypes.FirstOrDefault(predicate.Compile()));
+            _platformTypeRepositoryMock.Setup(x => x.Get(It.IsAny<int>())).Returns(
+                (int i) => platformTypes.FirstOrDefault(g => g.Id == i));
+            _platformTypeRepositoryMock.Setup(x => x.GetFirst(It.IsAny<Expression<Func<PlatformType, bool>>>())).Returns(
+                (Expression<Func<PlatformType, bool>> predicate) => platformTypes.FirstOrDefault(predicate.Compile()));
             _platformTypeRepositoryMock.Setup(x => x.Get(
-                It.IsAny<Expression<Func<PlatformType, Boolean>>>())).Returns(
-                    (Expression<Func<PlatformType, Boolean>> predicate,
+                It.IsAny<Expression<Func<PlatformType, bool>>>())).Returns(
+                    (Expression<Func<PlatformType, bool>> predicate,
                     Expression<Func<PlatformType, object>> orderBy) => platformTypes.Where(predicate.Compile()));
 
             var valve = new Publisher
@@ -111,8 +111,8 @@ namespace GameStore.Tests.BLLTests
             var publishers = new[] { valve, cdProject };
             _publisherRepositoryMock = new Mock<IPublisherRepository>();
             _publisherRepositoryMock.Setup(x => x.Get()).Returns(publishers);
-            _publisherRepositoryMock.Setup(x => x.Get(It.IsAny<Int32>())).Returns(
-                (Int32 i) => publishers.FirstOrDefault(p => p.Id == i));
+            _publisherRepositoryMock.Setup(x => x.Get(It.IsAny<int>())).Returns(
+                (int i) => publishers.FirstOrDefault(p => p.Id == i));
 
             _newGameRightCommand = new CreateGameCommand
             {
@@ -174,22 +174,22 @@ namespace GameStore.Tests.BLLTests
             _games = new[] { _dota, _witcher };
             _gameRepositoryMock = new Mock<IGameRepository>();
             _gameRepositoryMock.Setup(x => x.Get()).Returns(_games);
-            _gameRepositoryMock.Setup(x => x.Get(It.Is<Int32>(i => i == 1))).Returns(_dota);
-            _gameRepositoryMock.Setup(x => x.Get(It.Is<Int32>(i => i == 2))).Returns(_witcher);
+            _gameRepositoryMock.Setup(x => x.Get(It.Is<int>(i => i == 1))).Returns(_dota);
+            _gameRepositoryMock.Setup(x => x.Get(It.Is<int>(i => i == 2))).Returns(_witcher);
             _gameRepositoryMock.Setup(x => x.Get(
-                It.IsAny<Expression<Func<Game, Boolean>>>())).Returns(
-                    (Expression<Func<Game, Boolean>> predicate) => _games.Where(predicate.Compile()));
-            _gameRepositoryMock.Setup(x => x.GetFirst(It.IsAny<Expression<Func<Game, Boolean>>>())).Returns(
-                (Expression<Func<Game, Boolean>> predicate) => _games.FirstOrDefault(predicate.Compile()));
+                It.IsAny<Expression<Func<Game, bool>>>())).Returns(
+                    (Expression<Func<Game, bool>> predicate) => _games.Where(predicate.Compile()));
+            _gameRepositoryMock.Setup(x => x.GetFirst(It.IsAny<Expression<Func<Game, bool>>>())).Returns(
+                (Expression<Func<Game, bool>> predicate) => _games.FirstOrDefault(predicate.Compile()));
             _gameRepositoryMock.Setup(x => x.Get(
-                It.IsAny<Expression<Func<Game, Boolean>>>(),
+                It.IsAny<Expression<Func<Game, bool>>>(),
                 It.IsAny<GamesOrderType>(),
-                It.IsAny<Int32?>(),
-                It.IsAny<Int32?>())).Returns(
-                    (Expression<Func<Game, Boolean>> predicate, GamesOrderType order, Int32? skip, Int32? take) =>
+                It.IsAny<int?>(),
+                It.IsAny<int?>())).Returns(
+                    (Expression<Func<Game, bool>> predicate, GamesOrderType order, int? skip, int? take) =>
                     _games.Where(predicate.Compile()));
-            _gameRepositoryMock.Setup(x => x.GetCount(It.IsAny<Expression<Func<Game, Boolean>>>()))
-                               .Returns((Expression<Func<Game, Boolean>> predicate) => _games.Count(predicate.Compile()));
+            _gameRepositoryMock.Setup(x => x.GetCount(It.IsAny<Expression<Func<Game, bool>>>()))
+                               .Returns((Expression<Func<Game, bool>> predicate) => _games.Count(predicate.Compile()));
 
             _unitOfWorkMock = new Mock<IGameStoreUnitOfWork>();
             _unitOfWorkMock.Setup(x => x.Games).Returns(_gameRepositoryMock.Object);
@@ -222,7 +222,7 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_Name_Argument_Is_Empty()
         {
             // Arrange
-            _newGameRightCommand.Name = String.Empty;
+            _newGameRightCommand.Name = string.Empty;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
@@ -250,7 +250,7 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_Key_Argument_Is_Empty()
         {
             // Arrange
-            _newGameRightCommand.Key = String.Empty;
+            _newGameRightCommand.Key = string.Empty;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
@@ -278,7 +278,7 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_Description_Argument_Is_Empty()
         {
             // Arrange
-            _newGameRightCommand.DescriptionEn = String.Empty;
+            _newGameRightCommand.DescriptionEn = string.Empty;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
@@ -308,7 +308,7 @@ namespace GameStore.Tests.BLLTests
         public void Create_Game_PlatformTypeIds_Argument_Is_Empty()
         {
             // Arrange
-            _newGameRightCommand.PlatformTypeIds = Enumerable.Empty<Int32>().ToArray();
+            _newGameRightCommand.PlatformTypeIds = Enumerable.Empty<int>().ToArray();
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
@@ -323,8 +323,8 @@ namespace GameStore.Tests.BLLTests
         {
             // Arrange
             _newGameRightCommand.Key = "dota-2";
-            _gameRepositoryMock.Setup(x => x.GetFirst(It.IsAny<Expression<Func<Game, Boolean>>>()))
-                .Returns((Expression<Func<Game, Boolean>> predicate) => predicate.Compile()(_dota) ? _dota : null);
+            _gameRepositoryMock.Setup(x => x.GetFirst(It.IsAny<Expression<Func<Game, bool>>>()))
+                .Returns((Expression<Func<Game, bool>> predicate) => predicate.Compile()(_dota) ? _dota : null);
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
@@ -481,7 +481,7 @@ namespace GameStore.Tests.BLLTests
                 _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
-            _gameRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Never());
+            _gameRepositoryMock.Verify(x => x.Get(It.IsAny<int>()), Times.Never());
             Assert.AreEqual("Id", result.ParamName);
         }
 
@@ -496,7 +496,7 @@ namespace GameStore.Tests.BLLTests
                 _editGameCommandHandler.Execute(_editGameRightCommand));
 
             // Assert
-            _gameRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Never());
+            _gameRepositoryMock.Verify(x => x.Get(It.IsAny<int>()), Times.Never());
             Assert.AreEqual("Id", result.ParamName);
         }
 
@@ -532,7 +532,7 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_Name_Argument_Is_Empty()
         {
             // Arrange
-            _editGameRightCommand.Name = String.Empty;
+            _editGameRightCommand.Name = string.Empty;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
@@ -560,7 +560,7 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_Key_Argument_Is_Empty()
         {
             // Arrange
-            _editGameRightCommand.Key = String.Empty;
+            _editGameRightCommand.Key = string.Empty;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
@@ -588,7 +588,7 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_Description_Argument_Is_Empty()
         {
             // Arrange
-            _editGameRightCommand.DescriptionEn = String.Empty;
+            _editGameRightCommand.DescriptionEn = string.Empty;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
@@ -616,7 +616,7 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_GenreIds_Argument_Is_Empty()
         {
             // Arrange
-            _editGameRightCommand.GenreIds = Enumerable.Empty<Int32>().ToArray();
+            _editGameRightCommand.GenreIds = Enumerable.Empty<int>().ToArray();
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
@@ -644,7 +644,7 @@ namespace GameStore.Tests.BLLTests
         public void Edit_Game_PlatformTypeIds_Argument_Is_Empty()
         {
             // Arrange
-            _editGameRightCommand.PlatformTypeIds = Enumerable.Empty<Int32>().ToArray();
+            _editGameRightCommand.PlatformTypeIds = Enumerable.Empty<int>().ToArray();
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
@@ -823,7 +823,7 @@ namespace GameStore.Tests.BLLTests
         public void Delete_Game_Key_Argument_Is_Empty()
         {
             // Arrange
-            var deleteGameCommand = new DeleteGameCommand { Key = String.Empty };
+            var deleteGameCommand = new DeleteGameCommand { Key = string.Empty };
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
@@ -890,7 +890,7 @@ namespace GameStore.Tests.BLLTests
                 getGameByIdHandler.Retrieve(getGameById));
 
             // Assert
-            _gameRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Never);
+            _gameRepositoryMock.Verify(x => x.Get(It.IsAny<int>()), Times.Never);
             Assert.AreEqual("Id", result.ParamName);
         }
 
@@ -906,7 +906,7 @@ namespace GameStore.Tests.BLLTests
                 getGameByIdHandler.Retrieve(getGameById));
 
             // Assert
-            _gameRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Never);
+            _gameRepositoryMock.Verify(x => x.Get(It.IsAny<int>()), Times.Never);
             Assert.AreEqual("Id", result.ParamName);
         }
 
@@ -921,7 +921,7 @@ namespace GameStore.Tests.BLLTests
             var result = getGameByIdHandler.Retrieve(getGameById);
 
             // Assert
-            _gameRepositoryMock.Verify(x => x.Get(It.Is<Int32>(i => i == 1)), Times.Once());
+            _gameRepositoryMock.Verify(x => x.Get(It.Is<int>(i => i == 1)), Times.Once());
             Assert.AreEqual("Dota 2", result.Name);
         }
 
@@ -946,7 +946,7 @@ namespace GameStore.Tests.BLLTests
         public void GetGamesByGenre_Name_Argument_Is_Empty()
         {
             // Arrange
-            var getGamesByGenre = new GetGamesByGenreQuery { Name = String.Empty };
+            var getGamesByGenre = new GetGamesByGenreQuery { Name = string.Empty };
             var getGamesByGenreHandler = new GetGamesByGenreQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
@@ -988,7 +988,7 @@ namespace GameStore.Tests.BLLTests
                 getGamesByGenreHandler.Retrieve(getGamesByGenre));
 
             // Assert
-            _genreRepositoryMock.Verify(x => x.Get(It.IsAny<Int32>()), Times.Once);
+            _genreRepositoryMock.Verify(x => x.Get(It.IsAny<int>()), Times.Once);
             _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Id", result.ParamName);
         }
@@ -1005,7 +1005,7 @@ namespace GameStore.Tests.BLLTests
                 getGamesByGenreHandler.Retrieve(getGamesByGenre));
 
             // Assert
-            _genreRepositoryMock.Verify(x => x.GetFirst(It.IsAny<Expression<Func<Genre, Boolean>>>()), Times.Once);
+            _genreRepositoryMock.Verify(x => x.GetFirst(It.IsAny<Expression<Func<Genre, bool>>>()), Times.Once);
             _unitOfWorkMock.Verify(x => x.Games, Times.Never);
             Assert.AreEqual("Name", result.ParamName);
         }
@@ -1076,7 +1076,7 @@ namespace GameStore.Tests.BLLTests
         public void GetGamesByPlatformTypes_Names_Argument_Contains_Empty_Strings()
         {
             // Arrange
-            var getGamesByPlatformTypes = new GetGamesByPlatformTypesQuery { Names = new[] { String.Empty } };
+            var getGamesByPlatformTypes = new GetGamesByPlatformTypesQuery { Names = new[] { string.Empty } };
             var getGamesByPlatformTypesHandler = new GetGamesByPlatformTypesQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
@@ -1154,7 +1154,7 @@ namespace GameStore.Tests.BLLTests
         public void GetGameByKey_Key_Argument_Is_Empty()
         {
             // Arrange
-            var getGameByKey = new GetGameByKeyQuery { Key = String.Empty };
+            var getGameByKey = new GetGameByKeyQuery { Key = string.Empty };
             var getGameByKeyQueryHandler = new GetGameByKeyQueryHandler(_unitOfWorkMock.Object, _logger.Object);
 
             // Act
@@ -1177,7 +1177,7 @@ namespace GameStore.Tests.BLLTests
             var result = getGameByKeyQueryHandler.Retrieve(getGameByKey);
 
             // Assert
-            _gameRepositoryMock.Verify(x => x.GetFirst(It.IsAny<Expression<Func<Game, Boolean>>>()), Times.Once);
+            _gameRepositoryMock.Verify(x => x.GetFirst(It.IsAny<Expression<Func<Game, bool>>>()), Times.Once);
             Assert.AreEqual("Dota 2", result.Name);
         }
 

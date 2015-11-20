@@ -5,10 +5,10 @@ namespace GameStore.BLL.Commands.Publisher
 {
     public class CreatePublisherCommand : ICommand
     {
-        public String CompanyName { get; set; }
+        public string CompanyName { get; set; }
 
-        public String Description { get; set; }
+        public string Description { get; set; }
 
-        public String HomePage { get; set; }
+        public string HomePage { get; set; }
     }
 }

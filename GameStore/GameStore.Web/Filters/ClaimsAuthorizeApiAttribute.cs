@@ -11,7 +11,7 @@ namespace GameStore.Web.Filters
     {
         private string claimType;
         private string claimValue;
-        private Boolean _checkClaims = false;
+        private bool _checkClaims = false;
 
         public ClaimsAuthorizeApiAttribute(string type, string value)
         {

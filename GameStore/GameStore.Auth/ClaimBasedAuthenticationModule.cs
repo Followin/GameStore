@@ -42,7 +42,7 @@ namespace GameStore.Auth
                 if (ticket != null)
                 {
                     var idClaim = ticket.Identity.FindFirst(ClaimTypes.SerialNumber);
-                    var id = Int32.Parse(idClaim.Value);
+                    var id = int.Parse(idClaim.Value);
                     var stamp = ticket.Properties.Dictionary["Stamp"];
 
                     var unitOfWork = (IGameStoreUnitOfWork) _injector.Invoke(typeof (IGameStoreUnitOfWork));

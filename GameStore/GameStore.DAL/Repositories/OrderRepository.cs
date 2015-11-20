@@ -89,7 +89,7 @@ namespace GameStore.DAL.Repositories
             var existingOrder = _db.Orders.FirstOrDefault(x => x.UserId == userId && !x.OrderDate.HasValue);
             if (existingOrder == null)
             {
-                Int32 nextId = KeyEncoder.GetNext(DatabaseTypes.GameStore);
+                int nextId = KeyEncoder.GetNext(DatabaseTypes.GameStore);
                 if (_db.Orders.Any())
                 {
                     nextId = KeyEncoder.GetNext(_db.Orders.Max(x => x.Id));
@@ -113,7 +113,7 @@ namespace GameStore.DAL.Repositories
             _db.SetModified(orderDetails);
         }
 
-        public void DeleteOrderDetails(Int32 gameId, Int32 orderId)
+        public void DeleteOrderDetails(int gameId, int orderId)
         {
             var orderDetails = _db.OrderDetails.Find(gameId, orderId);
             if (orderDetails != null)

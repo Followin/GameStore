@@ -5,14 +5,14 @@ namespace GameStore.BLL.Commands.Comment
 {
     public class CreateCommentCommand : ICommand
     {
-        public String Name { get; set; }
+        public string Name { get; set; }
 
-        public String Quotes { get; set; }
+        public string Quotes { get; set; }
 
-        public String Body { get; set; }
+        public string Body { get; set; }
 
-        public Int32? GameId { get; set; }
+        public int? GameId { get; set; }
 
-        public Int32? ParentCommentId { get; set; }
+        public int? ParentCommentId { get; set; }
     }
 }

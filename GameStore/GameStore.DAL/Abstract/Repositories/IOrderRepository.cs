@@ -17,21 +17,21 @@ namespace GameStore.DAL.Abstract.Repositories
         /// </summary>
         /// <param name="id">Id to match</param>
         /// <returns>Order</returns>
-        Order Get(Int32 id);
+        Order Get(int id);
 
         /// <summary>
         /// Get orders matching predicate
         /// </summary>
         /// <param name="predicate">Predicate for order to match</param>
         /// <returns>Orders list</returns>
-        IEnumerable<Order> Get(Func<Order, Boolean> predicate);
+        IEnumerable<Order> Get(Func<Order, bool> predicate);
         
         /// <summary>
         /// Get's last unpayed order of the use. Creates one if doesn't exist
         /// </summary>
         /// <param name="userId">Current user</param>
         /// <returns>Order</returns>
-        Order GetCurrentOrder(Int32 userId);
+        Order GetCurrentOrder(int userId);
 
         /// <summary>
         /// Add order details
@@ -50,7 +50,7 @@ namespace GameStore.DAL.Abstract.Repositories
         /// </summary>
         /// <param name="gameId"></param>
         /// <param name="orderId"></param>
-        void DeleteOrderDetails(Int32 gameId, Int32 orderId);
+        void DeleteOrderDetails(int gameId, int orderId);
 
         /// <summary>
         /// Get all shippers
@@ -62,12 +62,12 @@ namespace GameStore.DAL.Abstract.Repositories
         /// Set order state to paid
         /// </summary>
         /// <param name="id">Order id</param>
-        void Checkout(Int32 id);
+        void Checkout(int id);
 
         /// <summary>
         /// Set order state to shipped
         /// </summary>
         /// <param name="id">Order id</param>
-        DateTime Ship(Int32 id);
+        DateTime Ship(int id);
     }
 }

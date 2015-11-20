@@ -11,7 +11,7 @@ namespace GameStore.DAL.EF
     {
         private EFContext _context;
 
-        private Int32 GetNextId(ref Int32 id)
+        private int GetNextId(ref int id)
         {
             id = KeyEncoder.GetNext(id);
             return id;
@@ -27,7 +27,7 @@ namespace GameStore.DAL.EF
             CreateIndex("NameRu", typeof(Genre));
             CreateIndex("Name", typeof(PlatformType));
 
-            var genreId = (Int32)DatabaseTypes.GameStore;
+            var genreId = (int)DatabaseTypes.GameStore;
 
             // Data
             context.Genres.Add(new Genre
@@ -66,7 +66,7 @@ namespace GameStore.DAL.EF
             var desktop = context.PlatformTypes.Add(new PlatformType { Name = "Desktop" });
             context.PlatformTypes.Add(new PlatformType { Name = "Console" });
 
-            var publisherId = (Int32) DatabaseTypes.GameStore;
+            var publisherId = (int) DatabaseTypes.GameStore;
 
             var valve = context.Publishers.Add(new Publisher
             {
@@ -92,7 +92,7 @@ namespace GameStore.DAL.EF
                 HomePage = "http://bethsoft.com/"
             });
 
-            var gameId = (Int32) DatabaseTypes.GameStore;
+            var gameId = (int) DatabaseTypes.GameStore;
 
             var dota = context.Games.Add(new Game
             {
@@ -231,7 +231,7 @@ namespace GameStore.DAL.EF
 
         private void CreateIndex(string field, Type table)
         {
-            var command = String.Format("CREATE UNIQUE INDEX IX_{0} ON [{1}s]([{0}])", field, table.Name);
+            var command = string.Format("CREATE UNIQUE INDEX IX_{0} ON [{1}s]([{0}])", field, table.Name);
             _context.Database.ExecuteSqlCommand(command);
         }
     }

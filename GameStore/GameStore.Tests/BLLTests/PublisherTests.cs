@@ -55,8 +55,8 @@ namespace GameStore.Tests.BLLTests
             };
             var publishers = new[] { valve, cdProject };
             _publisherRepositoryMock = new Mock<IPublisherRepository>();
-            _publisherRepositoryMock.Setup(x => x.GetFirst(It.IsAny<Expression<Func<Publisher, Boolean>>>())).Returns(
-                (Expression<Func<Publisher, Boolean>> predicate) => publishers.FirstOrDefault(predicate.Compile()));
+            _publisherRepositoryMock.Setup(x => x.GetFirst(It.IsAny<Expression<Func<Publisher, bool>>>())).Returns(
+                (Expression<Func<Publisher, bool>> predicate) => publishers.FirstOrDefault(predicate.Compile()));
 
             _unitOfWorkMock = new Mock<IGameStoreUnitOfWork>();
             _unitOfWorkMock.Setup(x => x.Publishers).Returns(_publisherRepositoryMock.Object);
@@ -101,7 +101,7 @@ namespace GameStore.Tests.BLLTests
         public void GetPublisherByCompanyName_CompanyName_Argument_Is_Empty()
         {
             // Arrange
-            _getPublisherByCompanyNameQuerySample.CompanyName = String.Empty;
+            _getPublisherByCompanyNameQuerySample.CompanyName = string.Empty;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(() =>
@@ -146,7 +146,7 @@ namespace GameStore.Tests.BLLTests
         public void Create_Publisher_CompanyName_Argument_Is_Empty()
         {
             // Arrange
-            _createPublisherCommandSample.CompanyName = String.Empty;
+            _createPublisherCommandSample.CompanyName = string.Empty;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(
@@ -191,7 +191,7 @@ namespace GameStore.Tests.BLLTests
         public void Create_Publisher_Description_Argument_Is_Empty()
         {
             // Arrange
-            _createPublisherCommandSample.Description = String.Empty;
+            _createPublisherCommandSample.Description = string.Empty;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(
@@ -221,7 +221,7 @@ namespace GameStore.Tests.BLLTests
         public void Create_Publisher_HomePage_Argument_Is_Empty()
         {
             // Arrange
-            _createPublisherCommandSample.HomePage = String.Empty;
+            _createPublisherCommandSample.HomePage = string.Empty;
 
             // Act
             var result = ExceptionAssert.Throws<ArgumentException>(

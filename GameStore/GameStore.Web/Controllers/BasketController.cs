@@ -24,13 +24,13 @@ namespace GameStore.Web.Controllers
             var currentOrder = Mapper.Map<OrderViewModel>(QueryDispatcher.Dispatch<GetCurrentOrderQuery, OrderQueryResult>(
                 new GetCurrentOrderQuery
                 {
-                    UserId = Int32.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
+                    UserId = int.Parse((User as ClaimsPrincipal).FindFirst(ClaimTypes.SerialNumber).Value)
                 }));
             return View(currentOrder);
         }
 
         [Authorize]
-        public ActionResult DeleteDetails(Int32 gameId, Int32 orderId)
+        public ActionResult DeleteDetails(int gameId, int orderId)
         {
             CommandDispatcher.Dispatch(new DeleteOrderDetailsCommand { OrderId = orderId, GameId = gameId });
             return RedirectToAction("Index");

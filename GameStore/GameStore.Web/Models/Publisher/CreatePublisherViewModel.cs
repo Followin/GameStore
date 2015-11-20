@@ -12,16 +12,16 @@ namespace GameStore.Web.Models.Publisher
         [Required]
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Name")]
-        public String CompanyName { get; set; }
+        public string CompanyName { get; set; }
 
         [Required]
         [Display(ResourceType = typeof(GlobalRes),
             Name = "HomePage")]
-        public String HomePage { get; set; }
+        public string HomePage { get; set; }
 
         [Required]
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Description")]
-        public String Description { get; set; }
+        public string Description { get; set; }
     }
 }

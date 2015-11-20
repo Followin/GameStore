@@ -6,7 +6,7 @@ namespace GameStore.Web.ModelBinders
 {
     public class CurrentOrderModelBinder : IModelBinder
     {
-        private const String key = "currentOrder";
+        private const string key = "currentOrder";
 
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {

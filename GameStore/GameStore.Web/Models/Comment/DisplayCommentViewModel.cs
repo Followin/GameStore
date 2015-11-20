@@ -5,13 +5,13 @@ namespace GameStore.Web.Models.Comment
 {
     public class DisplayCommentViewModel
     {
-        public Int32 Id { get; set; }
+        public int Id { get; set; }
 
-        public String Quotes { get; set; }
+        public string Quotes { get; set; }
 
-        public String Name { get; set; }
+        public string Name { get; set; }
 
-        public String Body { get; set; }
+        public string Body { get; set; }
 
         public IEnumerable<DisplayCommentViewModel> ChildComments { get; set; } 
     }

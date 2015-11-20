@@ -5,6 +5,6 @@ namespace GameStore.BLL.Queries.Publisher
 {
     public class GetPublisherByCompanyNameQuery : IQuery
     {
-        public String CompanyName { get; set; }
+        public string CompanyName { get; set; }
     }
 }

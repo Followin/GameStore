@@ -15,7 +15,7 @@ namespace GameStore.Web.ApiControllers
 {
     public class PublisherGamesController : BaseApiController
     {
-        public HttpResponseMessage Get(Int32 publisherId)
+        public HttpResponseMessage Get(int publisherId)
         {
             var query = new GetGamesByPublisherQuery {Id = publisherId};
             var queryResult = QueryDispatcher.Dispatch<GetGamesByPublisherQuery, GamesQueryResult>(query);

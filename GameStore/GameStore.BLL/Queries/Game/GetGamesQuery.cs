@@ -11,23 +11,23 @@ namespace GameStore.BLL.Queries.Game
 {
     public class GetGamesQuery : IQuery
     {
-        public Int32[] GenreIds { get; set; }
+        public int[] GenreIds { get; set; }
 
-        public Int32[] PlatformTypeIds { get; set; }
+        public int[] PlatformTypeIds { get; set; }
 
-        public Int32[] PublisherIds { get; set; }
+        public int[] PublisherIds { get; set; }
 
-        public Decimal MinPrice { get; set; }
+        public decimal MinPrice { get; set; }
 
-        public Decimal MaxPrice { get; set; }
+        public decimal MaxPrice { get; set; }
 
         public DateTime? MinDate { get; set; }
 
-        public String Name { get; set; }
+        public string Name { get; set; }
 
-        public Int32? Number { get; set; }
+        public int? Number { get; set; }
 
-        public Int32? Skip { get; set; }
+        public int? Skip { get; set; }
 
         public GamesOrderType OrderBy { get; set; } 
     }

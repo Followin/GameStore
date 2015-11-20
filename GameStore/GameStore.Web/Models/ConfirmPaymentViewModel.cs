@@ -11,6 +11,6 @@ namespace GameStore.Web.Models
     {
         [Required]
         [Display(ResourceType = typeof(GlobalRes), Name="ConfirmationCode")]
-        public String Code { get; set; }
+        public string Code { get; set; }
     }
 }

@@ -8,16 +8,16 @@ namespace GameStore.BLL.DTO
 {
     public class OrderDetailsDTO
     {
-        public Decimal Price { get; set; }
+        public decimal Price { get; set; }
 
         public float Discount { get; set; }
 
-        public Int16 Quantity { get; set; }
+        public short Quantity { get; set; }
 
-        public Int32 GameId { get; set; }
+        public int GameId { get; set; }
 
         public GameDTO Game { get; set; }
 
-        public Int32 OrderId { get; set; }
+        public int OrderId { get; set; }
     }
 }

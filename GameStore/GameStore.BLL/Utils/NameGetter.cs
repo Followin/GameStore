@@ -9,7 +9,7 @@ namespace GameStore.BLL.Utils
 {
     public static class NameGetter
     {
-        public static String GetName<T>(this Expression<Func<T>> property)
+        public static string GetName<T>(this Expression<Func<T>> property)
         {
             var expression = GetMemberInfo(property);
             string path = string.Concat(expression.Member.DeclaringType.FullName,

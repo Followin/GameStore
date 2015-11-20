@@ -5,7 +5,7 @@ namespace GameStore.BLL.Services
 {
     public class PdfService
     {
-        public static byte[] GenerateInvoiceFile(String userName)
+        public static byte[] GenerateInvoiceFile(string userName)
         {
             PdfDocument doc = new PdfDocument();
             var page = doc.AddPage();

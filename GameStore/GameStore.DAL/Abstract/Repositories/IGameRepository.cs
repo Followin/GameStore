@@ -19,14 +19,14 @@ namespace GameStore.DAL.Abstract.Repositories
         IEnumerable<Game> Get(
             Expression<Func<Game, bool>> predicate,
             GamesOrderType orderBy,
-            Int32? skip = null,
-            Int32? number = null);
+            int? skip = null,
+            int? number = null);
 
         /// <summary>
         /// Get game by key field
         /// </summary>
         /// <param name="key">Game key</param>
         /// <returns>Full game obj</returns>
-        Game GetByKey(String key);
+        Game GetByKey(string key);
     }
 }

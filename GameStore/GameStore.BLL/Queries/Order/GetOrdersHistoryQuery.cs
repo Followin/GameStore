@@ -9,7 +9,7 @@ namespace GameStore.BLL.Queries.Order
 {
     public class GetOrdersHistoryQuery : IQuery
     {
-        public Boolean OnlyPaid { get; set; }
+        public bool OnlyPaid { get; set; }
 
         public DateTime? MinDate { get; set; }
 

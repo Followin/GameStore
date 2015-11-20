@@ -8,18 +8,18 @@ namespace GameStore.Static
 {
     public static class ClaimTypesExtensions
     {
-        public const String GamePermission = "GamePermission";
+        public const string GamePermission = "GamePermission";
 
-        public const String CommentPermission = "CommentPermission";
+        public const string CommentPermission = "CommentPermission";
 
-        public const String UserPermission = "UserPermission";
+        public const string UserPermission = "UserPermission";
 
-        public const String PublisherPermission = "PublisherPermission";
+        public const string PublisherPermission = "PublisherPermission";
 
-        public const String Genre = "GenrePermission";
+        public const string Genre = "GenrePermission";
 
-        public const String Publisher = "Publisher";
+        public const string Publisher = "Publisher";
 
-        public const String OrderPermission = "OrderPermission";
+        public const string OrderPermission = "OrderPermission";
     }
 }

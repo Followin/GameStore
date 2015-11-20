@@ -5,8 +5,8 @@ namespace GameStore.Web.Abstract
 {
     public interface ICustomPrincipal : IPrincipal
     {
-        Int32 Id { get; set; }
+        int Id { get; set; }
 
-        String SessionId { get; set; }
+        string SessionId { get; set; }
     }
 }

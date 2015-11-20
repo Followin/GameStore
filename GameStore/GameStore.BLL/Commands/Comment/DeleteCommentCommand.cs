@@ -9,6 +9,6 @@ namespace GameStore.BLL.Commands.Comment
 {
     public class DeleteCommentCommand : ICommand
     {
-        public Int32 Id { get; set; }
+        public int Id { get; set; }
     }
 }

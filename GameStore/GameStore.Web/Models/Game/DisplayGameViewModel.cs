@@ -13,31 +13,31 @@ namespace GameStore.Web.Models.Game
     public class DisplayGameModel
     {
 
-        public Int32 Id { get; set; }
+        public int Id { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Name")]
-        public String Name { get; set; }
+        public string Name { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Key")]
-        public String Key { get; set; }
+        public string Key { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Description")]
-        public String Description { get; set; }
+        public string Description { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Price")]
-        public Decimal Price { get; set; }
+        public decimal Price { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "UnitsInStock")]
-        public Int16 UnitsInStock { get; set; }
+        public short UnitsInStock { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Discontinued")]
-        public Boolean Discontinued { get; set; }
+        public bool Discontinued { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Publisher")]
@@ -59,25 +59,25 @@ namespace GameStore.Web.Models.Game
             Name = "PlatformTypes")]
         public IEnumerable<PlatformTypeViewModel> PlatformTypes { get; set; }
 
-        public Boolean IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
     }
 
     public class GameFiltersModel
     {
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Genres")]
-        public Int32[] GenreIds { get; set; }
+        public int[] GenreIds { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "PlatformTypes")]
-        public Int32[] PlatformTypeIds { get; set; }
+        public int[] PlatformTypeIds { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Name")]
         [StringLength(100, MinimumLength = 3,
             ErrorMessageResourceType = typeof(GlobalRes),
             ErrorMessageResourceName = "Length_3_100")]
-        public String Name { get; set; }
+        public string Name { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "OrderBy")]
@@ -85,23 +85,23 @@ namespace GameStore.Web.Models.Game
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Publishers")]
-        public Int32[] PublisherIds { get; set; }
+        public int[] PublisherIds { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Page")]
-        public Int32 Page { get; set; }
+        public int Page { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "ItemsPerPage")]
-        public Int32? ItemsPerPage { get; set; }
+        public int? ItemsPerPage { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "MinPrice")]
-        public Int32 MinPrice { get; set; }
+        public int MinPrice { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "MaxPrice")]
-        public Int32 MaxPrice { get; set; }
+        public int MaxPrice { get; set; }
 
         [Display(ResourceType = typeof(GlobalRes),
             Name = "MinDate")]

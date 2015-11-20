@@ -10,9 +10,9 @@ namespace GameStore.BLL.QueryResults.Comment
     {
         private IEnumerable<CommentDTO> _comments;
 
-        public Int32 GameId { get; set; }
+        public int GameId { get; set; }
 
-        public Boolean GameIsDeleted { get; set; }
+        public bool GameIsDeleted { get; set; }
 
         public CommentsQueryResult(IEnumerable<CommentDTO> comments)
         {

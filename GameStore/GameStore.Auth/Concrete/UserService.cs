@@ -20,7 +20,7 @@ namespace GameStore.Auth.Concrete
             _db = db;
         }
 
-        public Boolean IsUsernameFree(string name)
+        public bool IsUsernameFree(string name)
         {
             return _db.Users.GetFirst(x => x.Name == name) == null;
         }
@@ -38,7 +38,7 @@ namespace GameStore.Auth.Concrete
             _db.Save();
         }
 
-        public IEnumerable<Claim> GetUserClaims(Int32 id)
+        public IEnumerable<Claim> GetUserClaims(int id)
         {
             var user = _db.Users.Get(id);
 

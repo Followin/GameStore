@@ -72,7 +72,7 @@ namespace BankService
                 user.Balance -= info.Sum;
                 account.Balance += info.Sum;
 
-                _messageService.SendEmail(user.Email, "Transfer sum: " + transfer.Sum);
+                await _messageService.SendEmail(user.Email, "Transfer sum: " + transfer.Sum);
 
                 await _transferRepository.AddTransfer(transfer);
 
@@ -81,8 +81,8 @@ namespace BankService
 
             
             transfer.VerificationCode = "123";
-            _messageService.SendSms(user.PhoneNumber, transfer.VerificationCode);
-            _messageService.SendEmail(user.Email, "Transfer sum: " + transfer.Sum);
+            await _messageService.SendSms(user.PhoneNumber, transfer.VerificationCode);
+            await _messageService.SendEmail(user.Email, "Transfer sum: " + transfer.Sum);
 
             await _transferRepository.AddTransfer(transfer);
 

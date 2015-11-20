@@ -8,8 +8,8 @@ namespace BankService.Abstract
 {
     public interface IMessageService
     {
-        void SendSms(String number, String message);
+        Task SendSms(String number, String message);
 
-        void SendEmail(String email, String message);
+        Task SendEmail(String email, String message);
     }
 }

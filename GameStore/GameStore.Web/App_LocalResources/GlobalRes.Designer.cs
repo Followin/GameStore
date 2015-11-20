@@ -97,6 +97,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account data is wrong.
+        /// </summary>
+        public static string CardDoesntExist {
+            get {
+                return ResourceManager.GetString("CardDoesntExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose span.
         /// </summary>
         public static string ChooseTimeSpan {
@@ -120,6 +129,15 @@ namespace GameStore.Web.App_LocalResources {
         public static string CompanyName {
             get {
                 return ResourceManager.GetString("CompanyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirmation code.
+        /// </summary>
+        public static string ConfirmationCode {
+            get {
+                return ResourceManager.GetString("ConfirmationCode", resourceCulture);
             }
         }
         
@@ -583,6 +601,15 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You dont have enough money.
+        /// </summary>
+        public static string NotEnoughMoney {
+            get {
+                return ResourceManager.GetString("NotEnoughMoney", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not paid.
         /// </summary>
         public static string NotPaid {
@@ -691,11 +718,29 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Payment failed for some reason.
+        /// </summary>
+        public static string PaymentFailed {
+            get {
+                return ResourceManager.GetString("PaymentFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Payment order.
         /// </summary>
         public static string PaymentOrder {
             get {
                 return ResourceManager.GetString("PaymentOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment succeded.
+        /// </summary>
+        public static string PaymentSucceded {
+            get {
+                return ResourceManager.GetString("PaymentSucceded", resourceCulture);
             }
         }
         
@@ -934,11 +979,29 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wrong code.
+        /// </summary>
+        public static string WrongCode {
+            get {
+                return ResourceManager.GetString("WrongCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login or password is wrong..
         /// </summary>
         public static string WrongLoginOrPassword {
             get {
                 return ResourceManager.GetString("WrongLoginOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We sent a confirmation code to your phone. Please input it in the form below..
+        /// </summary>
+        public static string YouReceivedCode {
+            get {
+                return ResourceManager.GetString("YouReceivedCode", resourceCulture);
             }
         }
     }

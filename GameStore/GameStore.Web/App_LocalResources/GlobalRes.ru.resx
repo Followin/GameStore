@@ -129,6 +129,9 @@
   <data name="Buy" xml:space="preserve">
     <value>Купить</value>
   </data>
+  <data name="CardDoesntExist" xml:space="preserve">
+    <value>Данные аккаунта неверны</value>
+  </data>
   <data name="ChooseTimeSpan" xml:space="preserve">
     <value>Выберите период</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="CompanyName" xml:space="preserve">
     <value>Название компании</value>
+  </data>
+  <data name="ConfirmationCode" xml:space="preserve">
+    <value>Код подтверждения</value>
   </data>
   <data name="Create" xml:space="preserve">
     <value>Создать</value>
@@ -291,6 +297,9 @@
   <data name="NoGenres" xml:space="preserve">
     <value>Другое</value>
   </data>
+  <data name="NotEnoughMoney" xml:space="preserve">
+    <value>Денег на счету недостаточно</value>
+  </data>
   <data name="NotPaid" xml:space="preserve">
     <value>Не оплачен</value>
   </data>
@@ -327,8 +336,14 @@
   <data name="Pay" xml:space="preserve">
     <value>Оплатить</value>
   </data>
+  <data name="PaymentFailed" xml:space="preserve">
+    <value>Ошибка оплаты</value>
+  </data>
   <data name="PaymentOrder" xml:space="preserve">
     <value>Оформление заказа</value>
+  </data>
+  <data name="PaymentSucceded" xml:space="preserve">
+    <value>Оплата успешно выполнена</value>
   </data>
   <data name="PersonName" xml:space="preserve">
     <value>Имя</value>
@@ -408,7 +423,13 @@
   <data name="Value" xml:space="preserve">
     <value>Значение</value>
   </data>
+  <data name="WrongCode" xml:space="preserve">
+    <value>Введенный код неправилен</value>
+  </data>
   <data name="WrongLoginOrPassword" xml:space="preserve">
     <value>Пароль или Логин неверны</value>
+  </data>
+  <data name="YouReceivedCode" xml:space="preserve">
+    <value>Мы выслали вам сообщение на телефон с кодом подтверждения. Пожалуйста, введите его в форму ниже.</value>
   </data>
 </root>

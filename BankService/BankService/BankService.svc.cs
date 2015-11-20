@@ -37,6 +37,7 @@ namespace BankService
             transfer.Initiator.Balance += transfer.Sum;
             transfer.User.Balance -= transfer.Sum;
             transfer.PayTime = DateTime.UtcNow;
+            await _messageService.SendEmail(transfer.User.Email, "Transfer sum: " + transfer.Sum);
 
             return true;
         }
@@ -83,8 +84,6 @@ namespace BankService
 
             transfer.VerificationCode = random.Next(100, 1000000).ToString();
             await _messageService.SendSms(user.PhoneNumber, transfer.VerificationCode);
-            await _messageService.SendEmail(user.Email, "Transfer sum: " + transfer.Sum);
-
             await _transferRepository.AddTransfer(transfer);
 
             return PaymentResult.CodeConfirmRequired;

@@ -11,6 +11,7 @@ using GameStore.BLL.CQRS;
 using GameStore.BLL.Queries.Order;
 using GameStore.BLL.QueryResults.Order;
 using GameStore.Static;
+using GameStore.Web.App_LocalResources;
 using GameStore.Web.Models;
 using GameStore.Web.Models.Order;
 using NLog;
@@ -56,18 +57,18 @@ namespace GameStore.Web.Controllers
                 case PaymentResult.Success:
                     var checkoutCommand = new CheckoutOrderCommand() {Id = currentOrder.Id};
                     CommandDispatcher.Dispatch(checkoutCommand);
-                    SuccessMessage("Payment succeded");
+                    SuccessMessage(GlobalRes.PaymentSucceded);
                     return RedirectToAction("Index", "Game");
                 case PaymentResult.Fail:
-                    ErrorMessage("Payment failed for some reason");
+                    ErrorMessage(GlobalRes.PaymentFailed);
                     return RedirectToAction("Index", "Game");
                 case PaymentResult.NotEnoughMoney:
-                    ErrorMessage("Not enough money.");
+                    ErrorMessage(GlobalRes.NotEnoughMoney);
                     return RedirectToAction("Index", "Game");
                 case PaymentResult.CodeConfirmRequired:
                     return RedirectToAction("ConfirmPayment");
                 case PaymentResult.CardDoesntExist:
-                    ErrorMessage("Card doesn't exist");
+                    ErrorMessage(GlobalRes.CardDoesntExist);
                     return RedirectToAction("Index", "Game");
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -95,11 +96,11 @@ namespace GameStore.Web.Controllers
                 var checkoutCommand = new CheckoutOrderCommand() { Id = currentOrder.Id };
 
                 CommandDispatcher.Dispatch(checkoutCommand);
-                SuccessMessage("Payment succeded");
+                SuccessMessage(GlobalRes.PaymentSucceded);
                 return RedirectToAction("Index", "Game");
             }
 
-            ModelState.AddModelError("", "Wrong code");
+            ModelState.AddModelError("Code", GlobalRes.WrongCode);
             return View("ConfirmPayment", model);
         }
 

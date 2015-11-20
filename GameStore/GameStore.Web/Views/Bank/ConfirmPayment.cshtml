@@ -7,8 +7,8 @@
 <div class="paper-block">
     @using (Html.BeginForm("ConfirmPayment", "Bank"))
     {
-        @Html.ValidationSummary(false)
-
+        <h2>@GlobalRes.YouReceivedCode</h2>
+        
         <div class="form-group">
             @Html.LabelFor(x => x.Code)
             @Html.EditorFor(x => x.Code)

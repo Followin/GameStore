@@ -5,11 +5,30 @@
     ViewBag.Title = GlobalRes.Games;
 }
 
-<div class="filterable-list-wrapper">
+
+<div class="items-block">
+    <div class="paper-block">
+        <form class="pagin-form">
+            <div class="form-group">
+                @Html.LabelFor(x => x.FilterModel.OrderBy)
+                @Html.EditorFor(x => x.FilterModel.OrderBy)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.FilterModel.ItemsPerPage)
+                @Html.DropDownListFor(x => x.FilterModel.ItemsPerPage, Model.ItemsPerPageVariants)
+            </div>
+        </form>
+    </div>
+    <div class="games-list">
+        @Html.Partial("_gamesList", @Model.Model)
+    </div>
+</div>
+
+@section adv {
     <div class="paper-block filterin-block">
-        <button class="filterin-block-switch arrow-wrapper">
+        @*<button class="filterin-block-switch arrow-wrapper">
             <div class=" arrow left"></div>
-        </button>
+        </button>*@
         <form action="@Url.Action("Index")" class="filters-form">
             <div class="form-group">
                 @Html.LabelFor(x => x.FilterModel.Name)
@@ -18,12 +37,12 @@
             </div>
             <div class="form-group">
                 @Html.LabelFor(x => x.FilterModel.MinPrice)
-                @Html.TextBoxFor(x => x.FilterModel.MinPrice, new {value = ""})
+                @Html.TextBoxFor(x => x.FilterModel.MinPrice, new { value = "" })
                 @Html.ValidationMessageFor(x => x.FilterModel.MinPrice)
             </div>
             <div class="form-group">
                 @Html.LabelFor(x => x.FilterModel.MaxPrice)
-                @Html.TextBoxFor(x => x.FilterModel.MaxPrice, new {value = ""})
+                @Html.TextBoxFor(x => x.FilterModel.MaxPrice, new { value = "" })
                 @Html.ValidationMessageFor(x => x.FilterModel.MaxPrice)
             </div>
             <div class="form-group">
@@ -39,7 +58,7 @@
                 @foreach (var pt in Model.PlatformTypes)
                 {
                     <div class="checkbox-wrapper">
-                        <input id="@String.Concat("platform-type-", pt.Id)" type="checkbox" name="@Html.NameFor(x => x.FilterModel.PlatformTypeIds)" value="@pt.Id"/>
+                        <input id="@String.Concat("platform-type-", pt.Id)" type="checkbox" name="@Html.NameFor(x => x.FilterModel.PlatformTypeIds)" value="@pt.Id" />
                         <label for="@String.Concat("platform-type-", pt.Id)">@pt.Name</label>
                     </div>
                 }
@@ -49,32 +68,16 @@
                 @foreach (var p in Model.Publishers)
                 {
                     <div class="checkbox-wrapper">
-                        <input id="@String.Concat("publisher-", p.Id)" type="checkbox" name="@Html.NameFor(x => x.FilterModel.PublisherIds)" value="@p.Id"/>
+                        <input id="@String.Concat("publisher-", p.Id)" type="checkbox" name="@Html.NameFor(x => x.FilterModel.PublisherIds)" value="@p.Id" />
                         <label for="@String.Concat("publisher-", p.Id)">@p.CompanyName</label>
                     </div>
                 }
             </div>
-            <input type="submit" value="@GlobalRes.Filter" class="filter-button" disabled="disabled"/>
+            <input type="submit" value="@GlobalRes.Filter" class="filter-button" disabled="disabled" />
         </form>
     </div>
-    <div class="items-block">
-        <div class="paper-block">
-            <form class="pagin-form">
-                <div class="form-group">
-                    @Html.LabelFor(x => x.FilterModel.OrderBy)
-                    @Html.EditorFor(x => x.FilterModel.OrderBy)
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(x => x.FilterModel.ItemsPerPage)
-                    @Html.DropDownListFor(x => x.FilterModel.ItemsPerPage, Model.ItemsPerPageVariants)
-                </div>
-            </form>
-        </div>
-        <div class="games-list">
-            @Html.Partial("_gamesList", @Model.Model)
-        </div>
-    </div>
-</div>
+
+}
 
 @section scripts {
     @Scripts.Render("~/Scripts/forms")

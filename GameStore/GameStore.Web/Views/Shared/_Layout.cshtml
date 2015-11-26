@@ -18,63 +18,98 @@
     @Styles.Render("~/Content/css")
 </head>
 <body>
+    <div id="layout">
+        <header>
+            <div class="top-line">
+                <ul class="additional-links">
+                    <li><a href="#">GameStore Home</a></li>
+                    <li><a href="#">About GameStore</a></li>
+                    <li><a href="#">GameStore News</a></li>
+                </ul>
+                <div id="games-count" data-href="@Url.Action("GetGamesCount", "Game")">
+                    @string.Concat(GlobalRes.CurrentGamesCount, ":") <span class="count"></span>
+                </div>
+            </div>
+            <div class="main-header">
+                <div class="main-header-top">
+                    <div class="auth">
+                        <a href="@Url.Action("Login", "Account")" class="auth-link link">@GlobalRes.Login</a>
+                        <a href="@Url.Action("Register", "Account")" class="auth-link link">@GlobalRes.Register</a>
+                    </div>
+                    <div class="logo">
+                        <a href="@Url.Action("Index", "Game")">
+                            <img src="@Url.Content("~/Resources/Drawing (6).png")" />
+                        </a>
+                    </div>
 
-<header>
-    <div class="logo">
-        <a href="@Url.RouteUrl(new {action = "Index", controller = "Game"})">
-            Game<span class="s-letter">S</span>tore
-        </a>
-    </div>
-    <div class="languages">
-        <a href="@Url.RouteUrl(UrlRewriter.ReplaceSection("lang", "ru"))">ru</a>
-        <a href="@Url.RouteUrl(UrlRewriter.ReplaceSection("lang", "en"))">en</a>
-    </div>
-    <div class="user">
-        @if (User.Identity.IsAuthenticated)
-        {
-            <span>@User.Identity.Name (@UserUtils.GetRoles())</span>
-            <a href="@Url.Action("Logout", "Account")" class="user-control">@GlobalRes.LogoutAct</a>
-        }
-        else
-        {
-            <a href="@Url.Action("Login", "Account", new { returnUrl = Request.Url.PathAndQuery})" class="user-control">@GlobalRes.LoginAct</a>
-            <a href="@Url.Action("Register", "Account")" class="user-control">@GlobalRes.Register</a>
-        }
-    </div>
-</header>
-    <div class="basket-link">
-        <a href="@Url.Action("Index", "Basket")"><i class="fa fa-shopping-cart"></i> <span class="basket-text">@GlobalRes.Basket</span></a>
-    </div>
-    <div id="games-count" data-href="@Url.Action("GetGamesCount", "Game")">
-        <div class="loader">
-            <div class="loader-dot"></div>
-            <div class="loader-dot"></div>
-            <div class="loader-dot"></div>
-            <div class="loader-dot"></div>
-            <div class="loader-dot"></div>
+                </div>
+                <div class="main-header-content">
+                    <nav>
+                        <ul>
+                            <li><a href="@Url.Action("Index", "Game")">games</a></li>
+                            <li><a href="#">genres</a></li>
+                            <li><a href="#">another</a></li>
+                        </ul>
+                    </nav>
+                    <article class="left">
+                        <p class="word">
+                            Just
+                        </p>
+                        <p class="word">
+                            Better
+                        </p>
+                        <img src="@Url.Content("~/Resources/leftpart.jpg")" />
+                    </article>
+                    <div class="right">
+                        <img class="hero" src="@Url.Content("~/Resources/reaper.png")" />
+                    </div>
+                </div>
+            </div>
+            <div class="languages">
+                <a href="@Url.RouteUrl(UrlRewriter.ReplaceSection("lang", "ru"))">ru</a>
+                <a href="@Url.RouteUrl(UrlRewriter.ReplaceSection("lang", "en"))">en</a>
+            </div>
+        </header>
+        <div class="basket-link">
+            <a href="@Url.Action("Index", "Basket")"><i class="fa fa-shopping-cart"></i> <span class="basket-text">@GlobalRes.Basket</span></a>
+        </div>
+        
+        <div id="body-wrapper" class="has-float">
+            <div class="adv">
+                @RenderSection("adv", false)
+            </div>
+            <div class="body-main-content">
+                @RenderBody()
+            </div>
+        </div>
+        <footer>
+            <div class="socials">
+                <div class=""></div>
+                <div class=""></div>
+                <div class=""></div>
+            </div>
+            <div class="footer-main-content">
+                Copyright by Following. 2015.
+            </div>
+        </footer>
+        <div class="temp-messages">
+            <button type="button" id="close-messages-button"><i class="fa fa-times fa-2x"></i></button>
+            @if (TempData.ContainsKey("TempMessages"))
+            {
+                foreach (var message in (IEnumerable<TempMessage>)TempData["TempMessages"])
+                {
+                    <div class="temp-message temp-message-@message.Type.ToString().ToLower()">
+                        @message.Message
+                        @if (message is LinkTempMessage)
+                        {
+                            var linkMessage = message as LinkTempMessage;
+                            <a href="@linkMessage.LinkHref">@linkMessage.LinkText</a>
+                        }
+                    </div>
+                }
+            }
         </div>
     </div>
-<div id="body-wrapper">
-    @RenderBody()
-</div>
-    <div class="temp-messages">
-        <button type="button" id="close-messages-button"><i class="fa fa-times fa-2x"></i></button>
-        @if (TempData.ContainsKey("TempMessages"))
-        {
-            foreach (var message in (IEnumerable<TempMessage>)TempData["TempMessages"])
-            {
-                <div class="temp-message temp-message-@message.Type.ToString().ToLower()">
-                    @message.Message
-                    @if (message is LinkTempMessage)
-                    {
-                        var linkMessage = message as LinkTempMessage;
-                        <a href="@linkMessage.LinkHref">@linkMessage.LinkText</a>
-                    }
-                </div>
-            }
-        }
-    </div>
-
     @Scripts.Render("~/Scripts/jquery")
     @Scripts.Render("~/Scripts/layout")
     @RenderSection("scripts", false)

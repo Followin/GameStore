@@ -63,7 +63,7 @@ $(document).ready(->
             url: $('#games-count').data('href')
             datatype: "json"
             success: (data, statusText) ->
-                $('#games-count').text(data)
+                $('#games-count .count').text(data)
                 $('#games-count .loader').css('display', 'none'))
         setTimeout((-> updateGamesCount()), 60000)
     

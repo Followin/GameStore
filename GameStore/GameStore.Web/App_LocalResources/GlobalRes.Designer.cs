@@ -70,6 +70,16 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap back {
+            get {
+                object obj = ResourceManager.GetObject("back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ban.
         /// </summary>
         public static string Ban {
@@ -147,6 +157,25 @@ namespace GameStore.Web.App_LocalResources {
         public static string Create {
             get {
                 return ResourceManager.GetString("Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current games count.
+        /// </summary>
+        public static string CurrentGamesCount {
+            get {
+                return ResourceManager.GetString("CurrentGamesCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap cursor {
+            get {
+                object obj = ResourceManager.GetObject("cursor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -282,6 +311,16 @@ namespace GameStore.Web.App_LocalResources {
         public static string Download {
             get {
                 return ResourceManager.GetString("Download", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Drawing_6 {
+            get {
+                object obj = ResourceManager.GetObject("Drawing_6", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -466,6 +505,16 @@ namespace GameStore.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap leftpart {
+            get {
+                object obj = ResourceManager.GetObject("leftpart", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The field {0} must be a string with minimum length of 10 and maximum length of 200.
         /// </summary>
         public static string Length_10_200 {
@@ -516,6 +565,16 @@ namespace GameStore.Web.App_LocalResources {
         public static string LogoutAct {
             get {
                 return ResourceManager.GetString("LogoutAct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap main {
+            get {
+                object obj = ResourceManager.GetObject("main", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -822,6 +881,16 @@ namespace GameStore.Web.App_LocalResources {
         public static string Quantity {
             get {
                 return ResourceManager.GetString("Quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap reaper {
+            get {
+                object obj = ResourceManager.GetObject("reaper", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

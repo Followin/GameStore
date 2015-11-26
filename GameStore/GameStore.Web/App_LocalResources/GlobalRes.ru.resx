@@ -147,6 +147,9 @@
   <data name="Create" xml:space="preserve">
     <value>Создать</value>
   </data>
+  <data name="CurrentGamesCount" xml:space="preserve">
+    <value>Кол-во игр</value>
+  </data>
   <data name="Cvv2" xml:space="preserve">
     <value>Cvv2</value>
   </data>

@@ -97,6 +97,7 @@ namespace GameStore.Web.Controllers
             {
                 ReturnUrl = returnUrl ?? (Request.UrlReferrer != null ? Request.UrlReferrer.AbsolutePath : Url.Action("Index", "Game"))
             };
+            
             return View(model);
         }
 

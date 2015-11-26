@@ -342,6 +342,12 @@
     <None Include="Resources\bank.png" />
     <None Include="Resources\ibox.png" />
     <None Include="Resources\visa.png" />
+    <None Include="Resources\back.jpg" />
+    <None Include="Resources\cursor.png" />
+    <None Include="Resources\main.png" />
+    <None Include="Resources\leftpart.jpg" />
+    <None Include="Resources\reaper.png" />
+    <None Include="Resources\Drawing %286%29.png" />
     <Content Include="Scripts\ban.js">
       <DependentUpon>ban.coffee</DependentUpon>
     </Content>

@@ -131,7 +131,7 @@ namespace GameStore.Web.App_Start
 
         public IDependencyScope BeginScope()
         {
-            return new NinjectDependencyScope(kernel.BeginBlock());
+            return new NinjectDependencyScope(kernel);
         }
     }
 }

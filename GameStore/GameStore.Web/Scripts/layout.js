@@ -61,7 +61,7 @@
         url: $('#games-count').data('href'),
         datatype: "json",
         success: function(data, statusText) {
-          $('#games-count').text(data);
+          $('#games-count .count').text(data);
           return $('#games-count .loader').css('display', 'none');
         }
       });

@@ -169,29 +169,28 @@ input, textarea {
 
 .custom-table {
   width: 100%;
+  border-collapse: separate;
 }
 
 .custom-table td {
   padding: 10px 20px;
 }
 
-.custom-table thead {
-  border-bottom: 2px groove #999999;
-}
-
 .custom-table thead td {
   font-weight: bold;
   text-align: left;
   padding-bottom: 15px;
+  border-bottom: 3px groove red;
 }
 
 .custom-table tbody td {
   vertical-align: middle;
   text-align: left;
+  border-bottom: 2px solid #0d0d0d;
 }
 
-.custom-table tbody tr {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+.custom-table tbody tr:not(:first-child) td {
+  border-top: 1px solid #666666;
 }
 
 .custom-table tbody tr:last-of-type {
@@ -445,6 +444,7 @@ nav ul a {
 
 .basket-link .basket-text {
   display: inline-block;
+  text-transform: none;
   overflow: hidden;
   opacity: 0;
   font-size: 23px;
@@ -474,7 +474,7 @@ nav ul a {
 
 .basket-link:hover a {
   text-align: left;
-  width: 130px;
+  width: 115px;
   border-radius: 5px;
   padding: 7px;
 }

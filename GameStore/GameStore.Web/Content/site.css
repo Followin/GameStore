@@ -490,20 +490,16 @@ header {
 
 .socials {
   margin: 0 auto;
+  width: 98%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .socials > * {
   min-width: 31%;
-  margin-right: 20px;
   min-height: 200px;
-  float: left;
+  display: inline-flex;
   background: linear-gradient(90deg, #1a1a1a, #0d0d0d);
-}
-
-.socials:after {
-  content: "";
-  display: block;
-  clear: both;
 }
 
 .footer-main-content {

@@ -502,6 +502,12 @@ header {
   background: linear-gradient(90deg, #1a1a1a, #0d0d0d);
 }
 
+.socials:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
 .footer-main-content {
   margin-top: 30px;
 }

@@ -116,7 +116,7 @@
         @if (!Model.IsDeleted && User.Identity.IsAuthenticated)
         {
             <div class="control-link buy-link-wrapper">
-                <a href="@Url.Action("Buy")">@GlobalRes.Buy</a>
+                <a href="@Url.Action("Buy")" class="buy-link" data-id="@Model.Id">@GlobalRes.Buy</a>
             </div>
         }
         <div class="control-link download-link-wrapper">

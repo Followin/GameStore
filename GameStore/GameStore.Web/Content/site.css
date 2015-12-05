@@ -357,9 +357,9 @@ header::after {
 
 .main-header-content .right .hero {
   position: absolute;
-  bottom: -40px;
-  right: 0;
-  height: 300px;
+  bottom: -76px;
+  right: -20px;
+  height: 350px;
 }
 
 .main-header-content article {
@@ -452,6 +452,14 @@ nav ul a {
   transition: all 0.1s ease;
 }
 
+.basket-link .basket-text span {
+  display: inline-block;
+}
+
+.basket-link .basket-text span.basket-sum {
+  white-space: pre;
+}
+
 .basket-link i {
   display: block;
   position: absolute;
@@ -459,7 +467,7 @@ nav ul a {
 
 .basket-link a {
   font-size: 25px;
-  line-height: 25px;
+  line-height: 27px;
   display: block;
   background: #f20d0d;
   margin: 0;
@@ -467,21 +475,20 @@ nav ul a {
   height: 30px;
   width: 30px;
   padding: 13px;
-  text-align: center;
   overflow: hidden;
   transition: all 0.3s ease;
 }
 
 .basket-link:hover a {
   text-align: left;
-  width: 115px;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 7px;
+  padding-right: 0;
 }
 
 .basket-link:hover .basket-text {
   opacity: 1;
-  transition: all 0.3s ease 0.3s;
+  transition: all 0.3s ease 0.7s;
 }
 
 header {

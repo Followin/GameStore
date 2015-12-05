@@ -79,9 +79,15 @@
             </div>
         </header>
         <div class="basket-link">
-            <a href="@Url.Action("Index", "Basket")"><i class="fa fa-shopping-cart"></i> <span class="basket-text">@GlobalRes.Basket</span></a>
+            <a href="@Url.Action("Index", "Basket")">
+                <i class="fa fa-shopping-cart"></i>
+                <span class="basket-text">
+                    <span class="items-count">0</span> <span>@GlobalRes.Items</span>
+                    <span class="basket-sum">(0 $)</span>
+                </span>
+            </a>
         </div>
-        
+
         <div id="body-wrapper" class="has-float">
             <div class="adv">
                 @RenderSection("adv", false)
@@ -100,25 +106,28 @@
                 Copyright by Following. 2015.
             </div>
         </footer>
-        <div class="temp-messages">
-            <button type="button" id="close-messages-button"><i class="fa fa-times fa-2x"></i></button>
-            @if (TempData.ContainsKey("TempMessages"))
-            {
-                foreach (var message in (IEnumerable<TempMessage>)TempData["TempMessages"])
-                {
-                    <div class="temp-message temp-message-@message.Type.ToString().ToLower()">
-                        @message.Message
-                        @if (message is LinkTempMessage)
-                        {
-                            var linkMessage = message as LinkTempMessage;
-                            <a href="@linkMessage.LinkHref">@linkMessage.LinkText</a>
-                        }
-                    </div>
-                }
-            }
-        </div>
+
     </div>
+    <div class="temp-messages">
+        <button type="button" id="close-messages-button"><i class="fa fa-times fa-2x"></i></button>
+        @if (TempData.ContainsKey("TempMessages"))
+        {
+            foreach (var message in (IEnumerable<TempMessage>)TempData["TempMessages"])
+            {
+                <div class="temp-message temp-message-@message.Type.ToString().ToLower()">
+                    @message.Message
+                    @if (message is LinkTempMessage)
+                    {
+                        var linkMessage = message as LinkTempMessage;
+                        <a href="@linkMessage.LinkHref">@linkMessage.LinkText</a>
+                    }
+                </div>
+            }
+        }
+    </div>
+
     @Scripts.Render("~/Scripts/jquery")
+    @Scripts.Render("~/Scripts/angular")
     @Scripts.Render("~/Scripts/layout")
     @RenderSection("scripts", false)
 </body>

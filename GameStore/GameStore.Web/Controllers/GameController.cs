@@ -126,7 +126,7 @@ namespace GameStore.Web.Controllers
                 DisplayModel = Mapper.Map<GamesPartQueryResult, IEnumerable<DisplayGameModel>>(queryResult),
                 PagingInfo = new PagingInfo
                 {
-                    ItemsPerPage = model.ItemsPerPage ?? int.MaxValue,
+                    ItemsPerPage = model.ItemsPerPage ?? queryResult.Count,
                     CurrentPage = model.Page,
                     TotalItems = queryResult.Count
                 }

@@ -20,7 +20,7 @@ namespace GameStore.Web.ApiControllers
 {
     public class GamesController : BaseApiController
     {
-        public HttpResponseMessage Get([FromUri]GameFiltersModel model)
+        public HttpResponseMessage Get([FromUri(Name = "filterModel", SuppressPrefixCheck = true)]GameFiltersModel model)
         {
             var query = new GetGamesQuery();
 
@@ -37,10 +37,18 @@ namespace GameStore.Web.ApiControllers
             Mapper.Map(model, query);
 
             var queryResult = QueryDispatcher.Dispatch<GetGamesQuery, GamesPartQueryResult>(query);
-            var displayModel = Mapper.Map<GamesPartQueryResult, IEnumerable<DisplayGameModel>>(queryResult);
+            var viewModel = new PagedDisplayGameModel
+            {
+                DisplayModel = Mapper.Map<GamesPartQueryResult, IEnumerable<DisplayGameModel>>(queryResult),
+                PagingInfo = new PagingInfo
+                {
+                    ItemsPerPage = model.ItemsPerPage ?? queryResult.Count,
+                    CurrentPage = model.Page,
+                    TotalItems = queryResult.Count
+                }
+            };
 
-
-            return Request.CreateResponse(HttpStatusCode.OK, displayModel);
+            return Request.CreateResponse(HttpStatusCode.OK, viewModel);
         }
 
 

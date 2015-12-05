@@ -43,6 +43,13 @@ namespace GameStore.Auth
                 {
                     var idClaim = ticket.Identity.FindFirst(ClaimTypes.SerialNumber);
                     var id = int.Parse(idClaim.Value);
+
+                    if (!ticket.Properties.Dictionary.ContainsKey("Stamp"))
+                    {
+                        LoginAsGuest();
+                        return;
+                    }
+
                     var stamp = ticket.Properties.Dictionary["Stamp"];
 
                     var unitOfWork = (IGameStoreUnitOfWork) _injector.Invoke(typeof (IGameStoreUnitOfWork));

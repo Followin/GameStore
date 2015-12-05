@@ -19,6 +19,22 @@
     bodyHeight = $('body').height();
     viewportHeight = document.documentElement.clientHeight || window.innerHeight || 0;
     $('body').height(Math.max(viewportHeight, objHeight, bodyHeight));
+    $('.basket-link').on('mouseenter', function() {
+      var width;
+      width = 50;
+      $.each($('.basket-link .basket-text *'), function() {
+        return width += $(this).get(0).scrollWidth;
+      });
+      console.log(width);
+      return $('.basket-link a').animate({
+        width: width
+      }, 200);
+    });
+    $('.basket-link').on('mouseleave', function() {
+      return $('.basket-link a').animate({
+        width: '30px'
+      }, 200);
+    });
     messageTimeout = function(message) {
       return setTimeout((function(_this) {
         return function() {
@@ -54,7 +70,7 @@
     $('body').on('click', '.clickable-row', function() {
       return window.document.location = $(this).data('href');
     });
-    updateGamesCount = function() {
+    (updateGamesCount = function() {
       $('#games-count .loader').css('display', '');
       $.ajax({
         type: "GET",
@@ -68,8 +84,23 @@
       return setTimeout((function() {
         return updateGamesCount();
       }), 60000);
+    })();
+    window.updateBasket = function() {
+      var p;
+      p = $.get('/api/orders');
+      p.success(function(data) {
+        $('.items-count').html("" + data.OrderDetails.length);
+        return $('.basket-sum').html("(" + data.Price + " $)");
+      });
+      return p;
     };
-    return updateGamesCount();
+    updateBasket();
+    return $('.buy-link').on('click', function(e) {
+      var id;
+      e.preventDefault();
+      id = $(this).data('id');
+      return $.post("/api/orders/" + id).success(updateBasket);
+    });
   });
 
 }).call(this);

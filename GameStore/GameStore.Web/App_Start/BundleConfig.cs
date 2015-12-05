@@ -8,7 +8,8 @@ namespace GameStore.Web
         {
             bundles.Add(new ScriptBundle("~/Scripts/jquery").Include(
                 "~/Scripts/jquery-{version}.js",
-                "~/Scripts/jquery.ripple-effect.js"));
+                "~/Scripts/jquery.ripple-effect.js",
+                "~/Scripts/jquery.transit.js"));
 
             bundles.Add(new ScriptBundle("~/Scripts/layout").Include(
                 "~/Scripts/modal.js",
@@ -29,10 +30,14 @@ namespace GameStore.Web
                 "~/Scripts/ban.js"));
 
             bundles.Add(new ScriptBundle("~/Scripts/games").Include(
-                "~/Scripts/games.js"));
+                "~/Scripts/games.js",
+                "~/Scripts/Clients/gameClient.js"));
 
             bundles.Add(new ScriptBundle("~/Scripts/orders").Include(
                 "~/Scripts/orders.js"));
+            
+            bundles.Add(new ScriptBundle("~/Scripts/angular").Include(
+                "~/Scripts/angular.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/reset.css",

@@ -28,7 +28,7 @@ namespace GameStore.Web.Filters
         public override void OnAuthorization(HttpActionContext actionContext)
         {
             var user = HttpContext.Current.User as ClaimsPrincipal;
-            if (user == null)
+            if (user == null || !user.Identity.IsAuthenticated)
             {
                 HandleUnauthorizedRequest(actionContext);
             }

@@ -454,4 +454,7 @@
   <data name="YouReceivedCode" xml:space="preserve">
     <value>We sent a confirmation code to your phone. Please input it in the form below.</value>
   </data>
+  <data name="Items" xml:space="preserve">
+    <value>Items</value>
+  </data>
 </root>

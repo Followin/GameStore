@@ -5,8 +5,9 @@
     ViewBag.Title = GlobalRes.Games;
 }
 
-
-<div class="items-block">
+<input id="detailsLinkTemplate" type="hidden" value="@Url.Action("Details", "Game", new {gamekey = "gamekey"})"/>
+<input id="gamesLink" type="hidden" value="@Url.HttpRouteUrl("LangApi", new { controller="games" })"/>
+<div class="items-block" ng-app="gamesApp" ng-controller="gameController">
     <div class="paper-block">
         <form class="pagin-form">
             <div class="form-group">
@@ -19,16 +20,41 @@
             </div>
         </form>
     </div>
+    <div class="pagin">
+        <a ng-repeat="page in pages" class="page-link {{page == current ? 'active':''}}" data-page={{page}}>{{page}}</a>
+    </div>
     <div class="games-list">
-        @Html.Partial("_gamesList", @Model.Model)
+        @*@Html.Partial("_gamesList", @Model.Model)*@
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <td>@GlobalRes.Game</td>
+                    <td>@GlobalRes.Publisher</td>
+                    <td>@GlobalRes.Price</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="clickable-row" ng-repeat="game in games" data-href="{{detailsLinkTemplate.replace('gamekey', game.Key)}}">
+                    <td>
+                        {{game.Name}}
+                    </td>
+                    <td>
+                        {{game.Publisher.CompanyName}}
+                    </td>
+                    <td class="one-line">
+                        {{game.Price.toFixed(2)}} $
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
 @section adv {
     <div class="paper-block filterin-block">
         @*<button class="filterin-block-switch arrow-wrapper">
-            <div class=" arrow left"></div>
-        </button>*@
+                <div class=" arrow left"></div>
+            </button>*@
         <form action="@Url.Action("Index")" class="filters-form">
             <div class="form-group">
                 @Html.LabelFor(x => x.FilterModel.Name)

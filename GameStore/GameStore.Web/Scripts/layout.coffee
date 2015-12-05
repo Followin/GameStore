@@ -18,7 +18,17 @@ $(document).ready(->
     $('body').height(Math.max(viewportHeight, objHeight, bodyHeight))
 
 
-
+    $('.basket-link').on('mouseenter', ->
+        width = 50
+        $.each($('.basket-link .basket-text *'), ->
+            width += $(this).get(0).scrollWidth
+        )
+        console.log width
+        $('.basket-link a').animate({width: width}, 200 );
+    )
+    $('.basket-link').on('mouseleave', ->
+        $('.basket-link a').animate({width: '30px'}, 200 );
+    )
 
     messageTimeout = (message) ->
         setTimeout( =>
@@ -56,7 +66,7 @@ $(document).ready(->
         window.document.location = $(this).data('href')
     )
 
-    updateGamesCount = ->
+    (updateGamesCount = ->
         $('#games-count .loader').css('display', '')
         $.ajax(
             type: "GET",
@@ -65,9 +75,24 @@ $(document).ready(->
             success: (data, statusText) ->
                 $('#games-count .count').text(data)
                 $('#games-count .loader').css('display', 'none'))
-        setTimeout((-> updateGamesCount()), 60000)
+        setTimeout((-> updateGamesCount()), 60000))()
+        
+    window.updateBasket = ->
+        p = $.get('/api/orders')
+        p.success( (data) ->
+            $('.items-count').html("#{data.OrderDetails.length}")
+            $('.basket-sum').html("(#{data.Price} $)")
+        )
+        return p
+    updateBasket()
     
-    updateGamesCount()   
+    $('.buy-link').on('click', (e) -> 
+        e.preventDefault()
+        id = $(this).data('id')
+        $.post("/api/orders/#{id}")
+            .success(updateBasket)
+     )
+        
 )        
 
 

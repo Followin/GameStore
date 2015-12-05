@@ -249,6 +249,9 @@
   <data name="Issuer" xml:space="preserve">
     <value>Эмитент</value>
   </data>
+  <data name="Items" xml:space="preserve">
+    <value>шт.</value>
+  </data>
   <data name="ItemsPerPage" xml:space="preserve">
     <value>Товаров на странице</value>
   </data>

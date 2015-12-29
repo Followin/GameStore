@@ -43,6 +43,12 @@ namespace GameStore.Web.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public ActionResult My(ManageViewModel model)
+        {
+            
+        }
+
         public ManageController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, ILogger logger) : base(commandDispatcher, queryDispatcher, logger)
         {
         }

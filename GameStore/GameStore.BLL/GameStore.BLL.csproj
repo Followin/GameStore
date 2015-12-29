@@ -91,6 +91,7 @@
     <Compile Include="CommandHandlers\Order\PerformPaymentCommandHandler.cs" />
     <Compile Include="CommandHandlers\Order\ShipOrderCommandHandler.cs" />
     <Compile Include="CommandHandlers\Publisher\CreatePublisherCommandHandler.cs" />
+    <Compile Include="CommandHandlers\User\ChangeNotificationTypeCommandHandler.cs" />
     <Compile Include="Commands\Comment\CreateCommentCommand.cs" />
     <Compile Include="Commands\Comment\DeleteCommentCommand.cs" />
     <Compile Include="Commands\Game\AddGameVisitCommand.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Commands\Order\DeleteOrderDetailsCommand.cs" />
     <Compile Include="Commands\Order\ShipOrderCommand.cs" />
     <Compile Include="Commands\Publisher\CreatePublisherCommand.cs" />
+    <Compile Include="Commands\User\ChangeNotificationTypeCommand.cs" />
     <Compile Include="Concrete\MessageSender.cs" />
     <Compile Include="CQRS\CommandDispatcher.cs" />
     <Compile Include="CQRS\CommandResult.cs" />

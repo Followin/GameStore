@@ -1,5 +1,4 @@
 ﻿using GameStore.BLL.CQRS;
-using GameStore.Static;
 
 namespace GameStore.BLL.Commands.User
 {

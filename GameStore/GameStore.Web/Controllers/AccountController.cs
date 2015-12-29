@@ -22,6 +22,8 @@ namespace GameStore.Web.Controllers
         private IAuthenticationService _auth;
         private IUserService _userService;
 
+
+
         public AccountController(IAuthenticationService auth, ICommandDispatcher commandDispatcher,
             IQueryDispatcher queryDispatcher, IUserService userService, ILogger logger)
             : base(commandDispatcher, queryDispatcher, logger)

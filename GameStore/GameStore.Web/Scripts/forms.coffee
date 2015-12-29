@@ -28,13 +28,13 @@ jQuery.fn.insertFormValidation = ->
     for group in inputValGroups
         input = $(group).find("input[type='text'], input[type='password'],
          input[type='email'], input[type='number'], input[type='date'],
-          input[type='time'],textarea")
+          input[type='time'], input[type='tel'], textarea")
         input.on('focus', -> changeFormClass(this))
         input.on('blur', -> changeFormClass(this))
         changeFormClass(input)
         
 
 
-$('form').insertFormValidation()
+$('body').insertFormValidation()
 
 $(".action-button").clickRippleEffect()

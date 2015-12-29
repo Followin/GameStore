@@ -1,4 +1,7 @@
-﻿using GameStore.BLL.CQRS;
+﻿using GameStore.BLL.Abstract;
+using GameStore.BLL.Concrete;
+using GameStore.BLL.CQRS;
+using GameStore.BLL.Observer;
 using Ninject;
 using Ninject.Modules;
 using Ninject.Extensions.Conventions;
@@ -19,7 +22,7 @@ namespace GameStore.IoC
             Kernel.Bind(_ => _.FromAssembliesMatching("GameStore.BLL.dll")
                               .SelectAllClasses()
                               .BindDefaultInterface());
-            
+            Kernel.Bind<OrderNotificationSiren>().To<OrderNotificationSiren>().InSingletonScope();
         }
     }
 }

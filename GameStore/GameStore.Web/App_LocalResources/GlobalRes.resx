@@ -457,4 +457,7 @@
   <data name="Items" xml:space="preserve">
     <value>Items</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
 </root>

@@ -34,5 +34,15 @@ namespace GameStore.Web.Models.Account
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessageResourceType = typeof(GlobalRes),
             ErrorMessageResourceName = "PasswordsMustMatch")]
         public string PasswordConfirm { get; set; }
+
+        [Display(ResourceType = typeof(GlobalRes),
+            Name="Email")]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
+        [Display(ResourceType = typeof(GlobalRes),
+            Name="Phone")]
+        [DataType(DataType.PhoneNumber)]
+        public string Phone { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,5 +22,7 @@ namespace GameStore.Static
         public const string Publisher = "Publisher";
 
         public const string OrderPermission = "OrderPermission";
+
+        public const string NotificationPreferenceType = "NotificationPreferenceType";
     }
 }

@@ -18,7 +18,7 @@ namespace GameStore.Auth.Concrete
     public class AuthenticationService : IAuthenticationService
     {
         private IGameStoreUnitOfWork _db;
-        internal const string CookieName = "AUTHENTICATION";
+        internal const string CookieName = "GameStoreAuth";
         internal const string AuthPurpose = "Auth";
 
         public AuthenticationService(IGameStoreUnitOfWork db)

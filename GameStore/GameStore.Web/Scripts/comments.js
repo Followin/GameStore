@@ -63,13 +63,13 @@
         }, {
           success: function() {
             commentsHub.server.deleteComment($("#GameId").val(), id);
-            return $('#body-wrapper').removeClass('blured');
+            return $('#layout').removeClass('blured');
           },
           cancel: function() {
-            return $('#body-wrapper').removeClass('blured');
+            return $('#layout').removeClass('blured');
           }
         });
-        $('#body-wrapper').addClass('blured');
+        $('#layout').addClass('blured');
         return modal.open();
       });
     });

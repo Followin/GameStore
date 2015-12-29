@@ -55,7 +55,7 @@
                     <nav>
                         <ul>
                             <li><a href="@Url.Action("Index", "Game")">games</a></li>
-                            <li><a href="#">genres</a></li>
+                            <li><a href="@Url.Action("New", "Game")">add game</a></li>
                             <li><a href="#">another</a></li>
                         </ul>
                     </nav>
@@ -90,7 +90,16 @@
 
         <div id="body-wrapper" class="has-float">
             <div class="adv">
-                @RenderSection("adv", false)
+                @if (IsSectionDefined("adv"))
+                {
+                    @RenderSection("adv")
+                }
+                else
+                {
+                    <div class="adv-static">
+                        Static content goes here
+                    </div>
+                }
             </div>
             <div class="body-main-content">
                 @RenderBody()

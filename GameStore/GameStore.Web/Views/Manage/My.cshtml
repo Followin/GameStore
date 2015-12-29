@@ -1,0 +1,24 @@
+﻿@model GameStore.Web.Models.Manage.ManageViewModel
+
+@{
+    ViewBag.Title = "title";
+}
+
+<h2>Profile</h2>
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label for="preferenceType">Preferable notification type</label>
+        <select id="preferenceType" name="...">
+            @foreach (var preferenceOption in Model.NotificationTypes)
+            {
+                <option value="@preferenceOption.Value" selected="@preferenceOption.Selected">@preferenceOption.Text</option>
+            }
+        </select>
+    </div>
+    <input type="submit" value="save"/>
+}
+
+@section scripts {
+    @Scripts.Render("~/Scripts/forms")
+}

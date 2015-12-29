@@ -43,5 +43,15 @@ namespace GameStore.Web.Models.Account
         [Display(ResourceType = typeof(GlobalRes),
             Name = "Publisher")]
         public int? PublisherId { get; set; }
+
+        [Display(ResourceType = typeof(GlobalRes),
+            Name = "Email")]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
+        [Display(ResourceType = typeof(GlobalRes),
+            Name = "Phone")]
+        [DataType(DataType.PhoneNumber)]
+        public string Phone { get; set; }
     }
 }

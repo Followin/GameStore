@@ -9,6 +9,7 @@
 .form-group input[type='email'], .form-group input[type='date'],
 .form-group input[type='number'], .form-group input[type='datetime'],
 .form-group input[type='time'], .form-group input[type='file'],
+.form-group input[type='tel'],
 .form-group textarea {
   display: block;
   position: relative;
@@ -21,7 +22,6 @@
   border: 1px solid #999999;
   border-width: 0 0 1px;
   box-shadow: none;
-  z-index: 1;
   color: #e6e6e6;
   outline: 0;
 }

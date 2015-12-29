@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using ArgumentValidation;
 using ArgumentValidation.Extensions;
 using GameStore.BLL.Commands.Order;
 using GameStore.BLL.CQRS;
+using GameStore.BLL.Observer;
 using GameStore.BLL.Utils;
 using GameStore.DAL.Abstract;
 using NLog;
@@ -13,11 +15,13 @@ namespace GameStore.BLL.CommandHandlers.Order
     {
         private IGameStoreUnitOfWork _db;
         private ILogger _logger;
+        private OrderNotificationSiren _notificationSiren;
 
-        public CheckoutOrderCommandHandler(IGameStoreUnitOfWork db, ILogger logger)
+        public CheckoutOrderCommandHandler(IGameStoreUnitOfWork db, ILogger logger, OrderNotificationSiren notificationSiren)
         {
             _db = db;
             _logger = logger;
+            _notificationSiren = notificationSiren;
         }
 
         public CommandResult Execute(CheckoutOrderCommand command)
@@ -36,6 +40,9 @@ namespace GameStore.BLL.CommandHandlers.Order
             {
                 _db.Orders.Checkout(command.Id);
                 _db.Save();
+                
+                _notificationSiren.Notify("someone just bought games for" + Math.Round(order.OrderDetails.Sum(x => x.Price * x.Quantity),2) + "$");
+
                 return new CommandResult();
             }
             catch

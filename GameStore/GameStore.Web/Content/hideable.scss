@@ -34,7 +34,7 @@
     &.hidden {
         &::before, &::after{
             transform: rotate(-360deg);
-            background: green;
+            background: #481FBA;
         }
 
         &::before{

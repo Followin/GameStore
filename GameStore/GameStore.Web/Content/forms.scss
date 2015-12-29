@@ -28,6 +28,7 @@ $textColor: hsl(0, 0%, 90%);
     input[type='email'], input[type='date'],
     input[type='number'], input[type='datetime'],
     input[type='time'], input[type='file'],
+    input[type='tel'],
     textarea {
         display: block;
         position: relative;
@@ -40,7 +41,6 @@ $textColor: hsl(0, 0%, 90%);
         border: 1px solid $fadedColor;
         border-width: 0 0 1px;
         box-shadow: none;
-        z-index: 1;
         color: $textColor;
         outline: 0;
     }

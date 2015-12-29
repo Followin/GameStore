@@ -62,7 +62,7 @@ namespace GameStore.Auth
                         return;
                     }
 
-                    var userService = new UserService(unitOfWork);
+                    var userService = (IUserService) _injector.Invoke(typeof (IUserService));
                     ticket.Identity.AddClaims(userService.GetUserClaims(id));
                     var principal = new ClaimsPrincipal(ticket.Identity);
 

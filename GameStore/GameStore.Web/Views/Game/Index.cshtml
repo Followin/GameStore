@@ -56,6 +56,7 @@
                 <div class=" arrow left"></div>
             </button>*@
         <form action="@Url.Action("Index")" class="filters-form">
+            <input type="submit" value="@GlobalRes.Filter" class="filter-button" disabled="disabled" />
             <div class="form-group">
                 @Html.LabelFor(x => x.FilterModel.Name)
                 @Html.EditorFor(x => x.FilterModel.Name)
@@ -63,12 +64,12 @@
             </div>
             <div class="form-group">
                 @Html.LabelFor(x => x.FilterModel.MinPrice)
-                @Html.TextBoxFor(x => x.FilterModel.MinPrice, new { value = "" })
+                @Html.TextBoxFor(x => x.FilterModel.MinPrice, new {value = ""})
                 @Html.ValidationMessageFor(x => x.FilterModel.MinPrice)
             </div>
             <div class="form-group">
                 @Html.LabelFor(x => x.FilterModel.MaxPrice)
-                @Html.TextBoxFor(x => x.FilterModel.MaxPrice, new { value = "" })
+                @Html.TextBoxFor(x => x.FilterModel.MaxPrice, new {value = ""})
                 @Html.ValidationMessageFor(x => x.FilterModel.MaxPrice)
             </div>
             <div class="form-group">
@@ -84,7 +85,7 @@
                 @foreach (var pt in Model.PlatformTypes)
                 {
                     <div class="checkbox-wrapper">
-                        <input id="@String.Concat("platform-type-", pt.Id)" type="checkbox" name="@Html.NameFor(x => x.FilterModel.PlatformTypeIds)" value="@pt.Id" />
+                        <input id="@String.Concat("platform-type-", pt.Id)" type="checkbox" name="@Html.NameFor(x => x.FilterModel.PlatformTypeIds)" value="@pt.Id"/>
                         <label for="@String.Concat("platform-type-", pt.Id)">@pt.Name</label>
                     </div>
                 }
@@ -94,12 +95,12 @@
                 @foreach (var p in Model.Publishers)
                 {
                     <div class="checkbox-wrapper">
-                        <input id="@String.Concat("publisher-", p.Id)" type="checkbox" name="@Html.NameFor(x => x.FilterModel.PublisherIds)" value="@p.Id" />
+                        <input id="@String.Concat("publisher-", p.Id)" type="checkbox" name="@Html.NameFor(x => x.FilterModel.PublisherIds)" value="@p.Id"/>
                         <label for="@String.Concat("publisher-", p.Id)">@p.CompanyName</label>
                     </div>
                 }
             </div>
-            <input type="submit" value="@GlobalRes.Filter" class="filter-button" disabled="disabled" />
+
         </form>
     </div>
 

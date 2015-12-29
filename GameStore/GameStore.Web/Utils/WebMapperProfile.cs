@@ -66,22 +66,17 @@ namespace GameStore.Web.Utils
 
             Mapper.CreateMap<RegisterAccountViewModel, RegisterUserModel>()
                   .ForMember(x => x.Password, _ => _.MapFrom(x => x.Password))
-                  .ForMember(x => x.Claims, _ => _.UseValue(new[] { new Claim(ClaimTypes.Role, Roles.User) }));
+                  .ForMember(x => x.Claims, _ => _.ResolveUsing(GetClaims));
 
             Mapper.CreateMap<CreateUserViewModel, RegisterUserModel>()
                   .ForMember(x => x.Password, _ => _.MapFrom(x => x.Password))
-                  .ForMember(x => x.Claims, _ => _.MapFrom(x =>
-                      new[]
-                      {
-                          new Claim(ClaimTypes.Role, x.Role), 
-                          new Claim(ClaimTypesExtensions.Publisher, x.PublisherId.ToString()),
-                      }));
+                  .ForMember(x => x.Claims, _ => _.ResolveUsing(GetClaims));
 
             Mapper.CreateMap<CardPaymentViewModel, PerformPaymentCommand>();
 
         }
 
-        public string GetGameDescription(GameDTO gameDto)
+        private string GetGameDescription(GameDTO gameDto)
         {
             switch (Thread.CurrentThread.CurrentCulture.Name.Substring(0, 2))
             {
@@ -94,7 +89,7 @@ namespace GameStore.Web.Utils
             }
         }
 
-        public string GetGenreName(GenreDTO genreDto)
+        private string GetGenreName(GenreDTO genreDto)
         {
             switch (Thread.CurrentThread.CurrentCulture.Name.Substring(0, 2))
             {
@@ -107,7 +102,7 @@ namespace GameStore.Web.Utils
             }
         }
 
-        public string GetGenreName(GenreQueryResult genreDto)
+        private string GetGenreName(GenreQueryResult genreDto)
         {
             switch (Thread.CurrentThread.CurrentCulture.Name.Substring(0, 2))
             {
@@ -118,6 +113,50 @@ namespace GameStore.Web.Utils
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private IEnumerable<Claim> GetClaims(RegisterAccountViewModel model)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, model.Name),
+                new Claim(ClaimTypes.Role, Roles.User)
+            };
+
+
+            if (model.Email != null)
+            {
+                claims.Add(new Claim(ClaimTypes.Email, model.Email));
+            }
+
+            if (model.Phone != null)
+            {
+                claims.Add(new Claim(ClaimTypes.MobilePhone, model.Phone));
+            }
+
+            return claims;
+        }
+
+        private IEnumerable<Claim> GetClaims(CreateUserViewModel model)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, model.Name),
+                new Claim(ClaimTypes.Role, model.Role)
+            };
+
+
+            if (model.Email != null)
+            {
+                claims.Add(new Claim(ClaimTypes.Email, model.Email));
+            }
+
+            if (model.Phone != null)
+            {
+                claims.Add(new Claim(ClaimTypes.MobilePhone, model.Phone));
+            }
+
+            return claims;
         }
     }
 }

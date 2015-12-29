@@ -26,8 +26,20 @@
             @Html.EditorFor(x => x.PasswordConfirm)
             @Html.ValidationMessageFor(x => x.PasswordConfirm)
         </div>
-        
-        <input type="submit" value="@GlobalRes.Submit"/>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Email)
+            @Html.EditorFor(x => x.Email)
+            @Html.ValidationMessageFor(x => x.Email)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Phone)
+            @Html.EditorFor(x => x.Phone)
+            @Html.ValidationMessageFor(x => x.Phone)
+        </div>
+
+        <input type="submit" value="@GlobalRes.Submit" />
     }
 </div>
 

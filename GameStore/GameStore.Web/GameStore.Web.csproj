@@ -235,6 +235,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BasketController.cs" />
     <Compile Include="Controllers\GameController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PublisherController.cs" />
     <Compile Include="Filters\ClaimsAuthorizeApiAttribute.cs" />
@@ -263,6 +264,7 @@
     <Compile Include="Models\Game\DisplayGameViewModel.cs" />
     <Compile Include="Models\Game\EditGameViewModel.cs" />
     <Compile Include="Models\Genres\GenreViewModel.cs" />
+    <Compile Include="Models\Manage\ManageViewModel.cs" />
     <Compile Include="Models\Order\DisplayShippersViewModel.cs" />
     <Compile Include="Models\Order\IboxPaymentViewModel.cs" />
     <Compile Include="Models\Order\OrderCheckoutViewModel.cs" />
@@ -480,6 +482,7 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Bank\ConfirmPayment.cshtml" />
     <Content Include="Views\Bank\SuccessfulPayment.cshtml" />
+    <None Include="Views\Manage\My.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

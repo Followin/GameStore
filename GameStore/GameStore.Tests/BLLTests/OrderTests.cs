@@ -6,6 +6,8 @@ using GameStore.BLL.CommandHandlers;
 using GameStore.BLL.CommandHandlers.Order;
 using GameStore.BLL.Commands;
 using GameStore.BLL.Commands.Order;
+using GameStore.BLL.Concrete;
+using GameStore.BLL.Observer;
 using GameStore.DAL.Abstract;
 using GameStore.DAL.Abstract.Repositories;
 using GameStore.Domain.Entities;
@@ -70,7 +72,7 @@ namespace GameStore.Tests.BLLTests
 
             var logger = new Mock<ILogger>();
             _createOrderDetailsCommandHandler = new CreateOrderDetailsCommandHandler(_unitOfWorkMock.Object, logger.Object);
-            _checkoutOrderCommandHandler = new CheckoutOrderCommandHandler(_unitOfWorkMock.Object, logger.Object);
+            _checkoutOrderCommandHandler = new CheckoutOrderCommandHandler(_unitOfWorkMock.Object, logger.Object, new OrderNotificationSiren(new MessageSender(), _unitOfWorkMock.Object));
             _shipOrderCommandHandler = new ShipOrderCommandHandler(_unitOfWorkMock.Object, logger.Object);
         }
 

@@ -75,12 +75,12 @@ $(->
                 {
                     success: ->
                         commentsHub.server.deleteComment($("#GameId").val(),id)
-                        $('#body-wrapper').removeClass('blured')
+                        $('#layout').removeClass('blured')
                     cancel: ->
-                        $('#body-wrapper').removeClass('blured')
+                        $('#layout').removeClass('blured')
                 }
             )
-            $('#body-wrapper').addClass('blured')
+            $('#layout').addClass('blured')
             modal.open()
             )
      )

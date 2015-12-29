@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Security.Claims;
-using System.Threading;
-using System.Web;
 using System.Web.Mvc;
 using GameStore.BLL.CQRS;
 using GameStore.Web.Models;
-using Ninject;
 using NLog;
 
 namespace GameStore.Web.Controllers
@@ -48,6 +42,11 @@ namespace GameStore.Web.Controllers
         protected void ErrorMessage(string message, string linkText = null, string linkHref = null)
         {
             TempMessage(TempMessageType.Error, message, linkText, linkHref);
+        }
+
+        protected ClaimsPrincipal CurrentPrincipal
+        {
+            get { return HttpContext.User as ClaimsPrincipal; }
         }
 
     }

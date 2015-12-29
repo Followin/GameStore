@@ -354,7 +354,7 @@ nav {
     display: block;
     position: fixed;
     border-radius: 100%;
-transition: all .3s ease;
+    transition: all .3s ease;
 
 
     .basket-text {
@@ -366,14 +366,13 @@ transition: all .3s ease;
         margin-left: 30px;
         transition: all .1s ease;
 
-         span {
-             display: inline-block;
+        span {
+            display: inline-block;
 
-             &.basket-sum {
-                 white-space: pre;
-             }
+            &.basket-sum {
+                white-space: pre;
+            }
         }
-
     }
 
     i {
@@ -421,7 +420,7 @@ header {
     width: 98%;
     display: flex;
     justify-content: space-between;
-    
+
 
     > * {
         min-width: 31%;
@@ -429,6 +428,7 @@ header {
         display: inline-flex;
         background: linear-gradient(90deg, hsl(0, 0%, 10%), hsl(0, 0%, 5%));
     }
+
     &:after {
         content: "";
         display: block;
@@ -469,7 +469,9 @@ header {
     @include user-select(none);
 }
 
-
+.blured {
+    @include filter(blur(4px));
+}
 
 #body-wrapper {
     width: 95%;
@@ -478,10 +480,6 @@ header {
     box-shadow: 3px 3px 4px 0 rgba(0,0,0,.5);
     border-radius: 5px;
     padding: 25px 20px;
-
-    &.blured {
-        @include filter(blur(4px));
-    }
 }
 
 .body-main-content {
@@ -511,9 +509,9 @@ ul ul {
 }
 
 h2 {
-    font-size: 2em;
+    font-size: 3em;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     color: hsl(0, 0%, 10%);
     text-shadow: 0 1px 0 rgba(255,255,255,.2), 0 -1px 0 rgba(0,0,0, .8);
 }
@@ -536,7 +534,7 @@ h2 {
     .control-link {
         float: left;
         border: 1px solid $border-color;
-        background: #fff;
+        background: $header;
         @include transition(all, .1s linear);
 
         &:first-of-type {
@@ -556,6 +554,7 @@ h2 {
             text-align: center;
             line-height: 40px;
             text-decoration: none;
+            color: #fff;
             display: block;
             width: 100px;
             height: 40px;
@@ -976,7 +975,6 @@ td:last-child {
 
 
 
-
 .element:nth-of-type(odd) {
     margin-left: 420px;
     padding-left: 120px;
@@ -1063,4 +1061,12 @@ td:last-child {
     &:after {
         color: rgb(0, 137, 255);
     }
+}
+
+
+.checkbox-wrapper {
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
 }

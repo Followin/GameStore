@@ -60,23 +60,29 @@
   } 
 }
 
-@mixin animation($value...){
+@mixin animation($value...) {
     -webkit-animation: $value;
     -moz-animation: $value;
     -o-animation: $value;
     animation: $value;
 }
 
-@mixin transform-style($value){
+@mixin transform-style($value) {
     -webkit-transform-style: $value;
     transform-style: $value;
 }
 
-@mixin user-select($value){
+@mixin user-select($value) {
     -webkit-touch-callout: $value;
     -webkit-user-select: $value;
     -khtml-user-select: $value;
     -moz-user-select: $value;
     -ms-user-select: $value;
     user-select: $value;
+}
+
+@mixin text-overflow($value) {
+    -ms-text-overflow: $value;
+    -o-text-overflow: $value;
+    text-overflow: $value;
 }

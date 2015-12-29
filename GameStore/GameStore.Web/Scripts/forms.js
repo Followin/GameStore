@@ -29,7 +29,7 @@
     results = [];
     for (i = 0, len = inputValGroups.length; i < len; i++) {
       group = inputValGroups[i];
-      input = $(group).find("input[type='text'], input[type='password'], input[type='email'], input[type='number'], input[type='date'], input[type='time'],textarea");
+      input = $(group).find("input[type='text'], input[type='password'], input[type='email'], input[type='number'], input[type='date'], input[type='time'], input[type='tel'], textarea");
       input.on('focus', function() {
         return changeFormClass(this);
       });
@@ -41,7 +41,7 @@
     return results;
   };
 
-  $('form').insertFormValidation();
+  $('body').insertFormValidation();
 
   $(".action-button").clickRippleEffect();
 

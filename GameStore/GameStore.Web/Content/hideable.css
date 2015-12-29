@@ -32,7 +32,7 @@
 
 .hideable-toggle.hidden::before, .hideable-toggle.hidden::after {
   transform: rotate(-360deg);
-  background: green;
+  background: #481FBA;
 }
 
 .hideable-toggle.hidden::before {

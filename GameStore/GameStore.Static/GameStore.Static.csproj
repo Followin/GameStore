@@ -42,6 +42,7 @@
     <Compile Include="ClaimsExtensions.cs" />
     <Compile Include="EntryState.cs" />
     <Compile Include="GamesOrderType.cs" />
+    <Compile Include="NotificationPreferenceTypes.cs" />
     <Compile Include="PaymentMethod.cs" />
     <Compile Include="PaymentMethodsDictionary.cs" />
     <Compile Include="Permissions.cs" />
